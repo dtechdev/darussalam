@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 15, 2013 at 06:28 AM
+-- Generation Time: Mar 18, 2013 at 01:05 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS `author` (
 CREATE TABLE IF NOT EXISTS `cart` (
   `cart_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
-  `product_price` decimal(2,0) NOT NULL,
   `added_date` varchar(255) NOT NULL,
   PRIMARY KEY (`cart_id`),
   KEY `cart_id` (`cart_id`),
@@ -58,15 +57,15 @@ CREATE TABLE IF NOT EXISTS `cart` (
 CREATE TABLE IF NOT EXISTS `catagories` (
   `catagory_id` int(11) NOT NULL AUTO_INCREMENT,
   `catagory_name` varchar(255) NOT NULL,
-  `frenchise_id` int(11) NOT NULL,
   `added_date` varchar(255) NOT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
+  `city_id` int(11) NOT NULL,
   PRIMARY KEY (`catagory_id`),
   KEY `catagory_id` (`catagory_id`),
   KEY `catagory_id_2` (`catagory_id`),
-  KEY `user_id` (`frenchise_id`),
   KEY `parent_id` (`parent_id`),
-  KEY `frenchise_id` (`frenchise_id`)
+  KEY `city_id` (`city_id`),
+  KEY `city_id_2` (`city_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -77,13 +76,16 @@ CREATE TABLE IF NOT EXISTS `catagories` (
 
 CREATE TABLE IF NOT EXISTS `city` (
   `city_id` int(11) NOT NULL AUTO_INCREMENT,
+  `country_id` int(11) NOT NULL,
   `city_name` varchar(255) NOT NULL,
   `short_name` varchar(255) NOT NULL,
-  `country_id` int(11) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `layout_id` int(11) NOT NULL,
   PRIMARY KEY (`city_id`),
   KEY `city_id` (`city_id`),
+  KEY `layout_id` (`layout_id`),
   KEY `country_id` (`country_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -99,33 +101,14 @@ CREATE TABLE IF NOT EXISTS `country` (
   PRIMARY KEY (`country_id`),
   KEY `country_id` (`country_id`),
   KEY `site_id` (`site_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Table structure for table `frenchise`
+-- Dumping data for table `country`
 --
 
-CREATE TABLE IF NOT EXISTS `frenchise` (
-  `frenchise_id` int(11) NOT NULL AUTO_INCREMENT,
-  `frenchise_name` varchar(255) NOT NULL,
-  `frenchise_address` varchar(255) NOT NULL,
-  `site_id` int(11) NOT NULL,
-  `country_id` int(11) NOT NULL,
-  `city_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`frenchise_id`),
-  KEY `frenchise_id` (`frenchise_id`),
-  KEY `site_id` (`site_id`),
-  KEY `country_id` (`country_id`),
-  KEY `country_id_2` (`country_id`),
-  KEY `frenchise_id_2` (`frenchise_id`),
-  KEY `site_id_2` (`site_id`),
-  KEY `country_id_3` (`country_id`),
-  KEY `layout_id` (`layout_id`),
-  KEY `city_id` (`city_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+INSERT INTO `country` (`country_id`, `country_name`, `short_name`, `site_id`) VALUES
+(1, 'Pakistan', 'pk', 1);
 
 -- --------------------------------------------------------
 
@@ -161,13 +144,32 @@ CREATE TABLE IF NOT EXISTS `layout` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `log`
+--
+
+CREATE TABLE IF NOT EXISTS `log` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `action` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `ip` varchar(20) NOT NULL,
+  `browser` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `added_date` varchar(255) NOT NULL,
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `order`
 --
 
 CREATE TABLE IF NOT EXISTS `order` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `total_price` decimal(2,0) NOT NULL,
+  `total_price` decimal(10,4) NOT NULL,
   `order_date` varchar(255) NOT NULL,
   PRIMARY KEY (`order_id`),
   KEY `order_id` (`order_id`),
@@ -181,6 +183,24 @@ CREATE TABLE IF NOT EXISTS `order` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `order_detail`
+--
+
+CREATE TABLE IF NOT EXISTS `order_detail` (
+  `user_order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_price` decimal(10,4) NOT NULL,
+  PRIMARY KEY (`user_order_id`),
+  KEY `customer_order_id` (`user_order_id`),
+  KEY `order_id` (`order_id`),
+  KEY `product_id` (`product_id`),
+  KEY `user_order_id` (`user_order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product`
 --
 
@@ -188,19 +208,24 @@ CREATE TABLE IF NOT EXISTS `product` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
   `prouduct_name` varchar(255) NOT NULL,
   `profile_id` int(11) NOT NULL,
-  `frenchise_id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
   `added_date` varchar(255) NOT NULL,
   `is_featured` enum('0','1') NOT NULL,
-  `product_price` decimal(2,0) NOT NULL,
+  `product_price` decimal(10,4) NOT NULL,
+  `discount_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
-  KEY `user_id` (`frenchise_id`),
-  KEY `user_id_2` (`frenchise_id`),
+  KEY `user_id` (`city_id`),
+  KEY `user_id_2` (`city_id`),
   KEY `product_id` (`product_id`),
   KEY `product_id_2` (`product_id`),
   KEY `profile_id` (`profile_id`),
-  KEY `user_id_3` (`frenchise_id`),
-  KEY `frenchise_id` (`frenchise_id`),
-  KEY `frenchise_id_2` (`frenchise_id`)
+  KEY `user_id_3` (`city_id`),
+  KEY `frenchise_id` (`city_id`),
+  KEY `frenchise_id_2` (`city_id`),
+  KEY `city_id` (`city_id`),
+  KEY `discount_id` (`discount_id`),
+  KEY `discount_id_2` (`discount_id`),
+  KEY `discount_id_3` (`discount_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -222,18 +247,32 @@ CREATE TABLE IF NOT EXISTS `product_catagories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_order`
+-- Table structure for table `product_discount`
 --
 
-CREATE TABLE IF NOT EXISTS `product_order` (
-  `user_order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `product_discount` (
+  `discount_id` int(11) NOT NULL AUTO_INCREMENT,
+  `discount_type` enum('fixed','percentage') NOT NULL,
+  `discount_value` decimal(10,4) NOT NULL,
+  PRIMARY KEY (`discount_id`),
+  KEY `discount_id` (`discount_id`),
+  KEY `discount_id_2` (`discount_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_image`
+--
+
+CREATE TABLE IF NOT EXISTS `product_image` (
+  `product_image_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_order_id`),
-  KEY `customer_order_id` (`user_order_id`),
-  KEY `order_id` (`order_id`),
-  KEY `product_id` (`product_id`),
-  KEY `user_order_id` (`user_order_id`)
+  `image_title` varchar(255) NOT NULL,
+  `image_small` varchar(255) NOT NULL,
+  `image_large` varchar(255) NOT NULL,
+  PRIMARY KEY (`product_image_id`),
+  KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -245,7 +284,6 @@ CREATE TABLE IF NOT EXISTS `product_order` (
 CREATE TABLE IF NOT EXISTS `product_profile` (
   `profile_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_type` varchar(255) NOT NULL,
-  `product_price` decimal(2,0) NOT NULL,
   `author_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `isbn` varchar(255) NOT NULL,
@@ -269,7 +307,14 @@ CREATE TABLE IF NOT EXISTS `site` (
   `site_descriptoin` varchar(255) NOT NULL,
   PRIMARY KEY (`site_id`),
   KEY `site_id` (`site_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `site`
+--
+
+INSERT INTO `site` (`site_id`, `site_name`, `site_descriptoin`) VALUES
+(1, 'darussalam', 'darussalam');
 
 -- --------------------------------------------------------
 
@@ -281,17 +326,33 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) NOT NULL,
   `user_password` varchar(255) NOT NULL,
-  `user_type` enum('superadmin','admin','customer') NOT NULL,
-  `status` enum('active','inactive','banned') NOT NULL COMMENT '1 for active 0 for disabled',
-  `frenchise_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL COMMENT '1 for active 0 for disabled',
+  `city_id` int(11) DEFAULT NULL,
+  `activation_key` varchar(255) NOT NULL,
+  `is_active` enum('active','inactive') NOT NULL DEFAULT 'inactive',
+  `site_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `user_id` (`user_id`),
   KEY `user_id_2` (`user_id`),
   KEY `user_id_3` (`user_id`),
-  KEY `frenchise_id` (`frenchise_id`),
-  KEY `frenchise_id_2` (`frenchise_id`),
-  KEY `user_id_4` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `frenchise_id` (`city_id`),
+  KEY `frenchise_id_2` (`city_id`),
+  KEY `user_id_4` (`user_id`),
+  KEY `city_id` (`city_id`),
+  KEY `site_id` (`site_id`),
+  KEY `role_id` (`role_id`),
+  KEY `status_id` (`status_id`),
+  KEY `role_id_2` (`role_id`),
+  KEY `status_id_2` (`status_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`) VALUES
+(2, 'zahid', 'c651148415ab2a260e6c506075c12ae3', 1, 1, NULL, '', 'inactive', 1);
 
 -- --------------------------------------------------------
 
@@ -302,15 +363,77 @@ CREATE TABLE IF NOT EXISTS `user` (
 CREATE TABLE IF NOT EXISTS `user_profile` (
   `user_profile_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `contact_number` varchar(255) NOT NULL,
   PRIMARY KEY (`user_profile_id`),
   KEY `customer_id` (`user_profile_id`),
   KEY `user_id` (`user_id`),
   KEY `user_profile_id` (`user_profile_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `user_profile`
+--
+
+INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_name`, `address`, `email`, `contact_number`) VALUES
+(1, 2, 'zahid', 'nadeem', 'STC lahore', 'zahidiubb@yahoo.com', '03336566326');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_role`
+--
+
+CREATE TABLE IF NOT EXISTS `user_role` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_title` varchar(255) NOT NULL,
+  PRIMARY KEY (`role_id`),
+  KEY `role_id` (`role_id`),
+  KEY `role_id_2` (`role_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`role_id`, `role_title`) VALUES
+(1, 'superadmin'),
+(2, 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_status`
+--
+
+CREATE TABLE IF NOT EXISTS `user_status` (
+  `status_id` int(11) NOT NULL AUTO_INCREMENT,
+  `status_title` varchar(255) NOT NULL,
+  PRIMARY KEY (`status_id`),
+  KEY `status_id` (`status_id`),
+  KEY `status_id_2` (`status_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `user_status`
+--
+
+INSERT INTO `user_status` (`status_id`, `status_title`) VALUES
+(1, 'active'),
+(2, 'inactive');
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `author`
+--
+ALTER TABLE `author`
+  ADD CONSTRAINT `author_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `product_profile` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cart`
@@ -322,12 +445,13 @@ ALTER TABLE `cart`
 -- Constraints for table `catagories`
 --
 ALTER TABLE `catagories`
-  ADD CONSTRAINT `catagories_ibfk_1` FOREIGN KEY (`frenchise_id`) REFERENCES `frenchise` (`frenchise_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `catagories_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `city`
 --
 ALTER TABLE `city`
+  ADD CONSTRAINT `city_ibfk_2` FOREIGN KEY (`layout_id`) REFERENCES `layout` (`layout_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `city_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `country` (`country_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -337,18 +461,16 @@ ALTER TABLE `country`
   ADD CONSTRAINT `country_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `frenchise`
+-- Constraints for table `language`
 --
-ALTER TABLE `frenchise`
-  ADD CONSTRAINT `frenchise_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `frenchise_ibfk_2` FOREIGN KEY (`country_id`) REFERENCES `country` (`country_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `frenchise_ibfk_3` FOREIGN KEY (`layout_id`) REFERENCES `layout` (`layout_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `frenchise_ibfk_4` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `language`
+  ADD CONSTRAINT `language_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `product_profile` (`language_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `layout`
 --
 ALTER TABLE `layout`
+  ADD CONSTRAINT `layout_ibfk_2` FOREIGN KEY (`layout_id`) REFERENCES `city` (`layout_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `layout_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -358,38 +480,50 @@ ALTER TABLE `order`
   ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `order_detail`
+--
+ALTER TABLE `order_detail`
+  ADD CONSTRAINT `order_detail_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`frenchise_id`) REFERENCES `frenchise` (`frenchise_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`profile_id`) REFERENCES `product_profile` (`profile_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_catagories`
 --
 ALTER TABLE `product_catagories`
-  ADD CONSTRAINT `product_catagories_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_catagories_ibfk_2` FOREIGN KEY (`catagory_id`) REFERENCES `catagories` (`catagory_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_catagories_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_catagories_ibfk_1` FOREIGN KEY (`catagory_id`) REFERENCES `catagories` (`catagory_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `product_order`
+-- Constraints for table `product_discount`
 --
-ALTER TABLE `product_order`
-  ADD CONSTRAINT `product_order_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_order_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `product_discount`
+  ADD CONSTRAINT `product_discount_ibfk_1` FOREIGN KEY (`discount_id`) REFERENCES `product` (`discount_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_image`
+--
+ALTER TABLE `product_image`
+  ADD CONSTRAINT `product_image_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_profile`
 --
 ALTER TABLE `product_profile`
-  ADD CONSTRAINT `product_profile_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `author` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_profile_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`language_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_profile_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `product` (`profile_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`frenchise_id`) REFERENCES `frenchise` (`frenchise_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `user_status` (`status_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_profile`
