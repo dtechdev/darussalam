@@ -17,7 +17,10 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'country_id'); ?>
-		<?php echo $form->textField($model,'country_id'); ?>
+                        <?php $models = Country::model()->findAll(); ?>
+                <?php $list = CHtml::listData($models,'country_id', 'country_name');?>
+		<?php echo $form->dropDownList($model,'country_id', $list, array('prompt'=>'Select Country')); ?>
+		<?php //echo $form->textField($model,'country_id'); ?>
 		<?php echo $form->error($model,'country_id'); ?>
 	</div>
 
@@ -41,7 +44,10 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'layout_id'); ?>
-		<?php echo $form->textField($model,'layout_id'); ?>
+                                    <?php $models = Layout::model()->findAll(); ?>
+                <?php $list = CHtml::listData($models,'layout_id', 'layout_name');?>
+		<?php echo $form->dropDownList($model,'layout_id', $list, array('prompt'=>'Select Layout')); ?>
+		<?php //echo $form->textField($model,'layout_id'); ?>
 		<?php echo $form->error($model,'layout_id'); ?>
 	</div>
 

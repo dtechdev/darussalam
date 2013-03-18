@@ -41,7 +41,10 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'city_id'); ?>
-		<?php echo $form->textField($model,'city_id'); ?>
+            <?php $models = City::model()->findAll(); ?>
+                <?php $list = CHtml::listData($models,'	city_id', 'city_name');?>
+		<?php echo $form->dropDownList($model,'city_id', $list, array('prompt'=>'Select City')); ?>
+		<?php //echo $form->textField($model,'city_id'); ?>
 		<?php echo $form->error($model,'city_id'); ?>
 	</div>
 
@@ -53,6 +56,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_active'); ?>
+            
 		<?php echo $form->textField($model,'is_active',array('size'=>8,'maxlength'=>8)); ?>
 		<?php echo $form->error($model,'is_active'); ?>
 	</div>
