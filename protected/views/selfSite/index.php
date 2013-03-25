@@ -1,18 +1,18 @@
 <?php
-/* @var $this UserRoleController */
+/* @var $this SelfSiteController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'User Roles',
+	'Self Sites',
 );
 
 $this->menu=array(
-	array('label'=>'Create UserRole', 'url'=>array('create')),
-	array('label'=>'Manage UserRole', 'url'=>array('admin')),
+	array('label'=>'Create SelfSite', 'url'=>array('create')),
+	array('label'=>'Manage SelfSite', 'url'=>array('admin')),
 );
 ?>
 
-<h1>User Roles</h1>
+<h1>Self Sites</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

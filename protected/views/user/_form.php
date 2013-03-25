@@ -8,28 +8,90 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'user-form',
-	'enableAjaxValidation'=>false,
+	'enableClientValidation'=>true,
+	
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
+        <?php $modelp = UserProfile::model(); ?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'user_name'); ?>
-		<?php echo $form->textField($model,'user_name',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'user_name'); ?>
+             
+		<?php echo $form->labelEx($modelp,'first_name'); ?>
+		<?php echo $form->textField($modelp,'first_name',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($modelp,'first_name'); ?>
 	</div>
+
+      <div class="row">
+             
+		<?php echo $form->labelEx($modelp,'last_name'); ?>
+		<?php echo $form->textField($modelp,'last_name',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($modelp,'last_name'); ?>
+	</div>
+        
+        
+         <div class="row">
+            
+                <?php echo $form->labelEx($modelp,'email'); ?>
+                <?php echo $form->textField($modelp,'email'); ?>
+                <?php echo $form->error($modelp,'email'); ?>
+        </div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'user_password'); ?>
-		<?php echo $form->textField($model,'user_password',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->passwordField($model,'user_password',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'user_password'); ?>
 	</div>
 
+       <div class="row">
+		<?php echo $form->labelEx($model,'user_password2'); ?>
+		<?php echo $form->passwordField($model,'user_password2',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'user_password2'); ?>
+	</div>
+        
+	
+
 	<div class="row">
+		<?php echo $form->labelEx($model,'city_id'); ?>
+
+            <?php $models = City::model()->findAll(); ?>
+                <?php $list = CHtml::listData($models,'	city_id', 'city_name');?>
+		<?php echo $form->dropDownList($model,'city_id', $list, array('prompt'=>'Select City')); ?>
+		<?php //echo $form->textField($model,'city_id'); ?>
+		<?php echo $form->error($model,'city_id'); ?>
+	</div>
+      
+	
+  <?php if(!Yii::app()->user->isGuest) { ?>
+
+        <div class="row">
+		<?php echo $form->labelEx($model,'activation_key'); ?>
+		<?php echo $form->textField($model,'activation_key',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'activation_key'); ?>
+	</div>
+
+	<div class="row">
+                <?php //$listd=CHtml::listData(User::model()->findAll(),'user_id','is_active');?>
+		<?php  echo $form->labelEx($model,'is_active'); ?>
+		<?php // echo $form->activeDropDownList($model,'is_active',$listd, array('prompt'=>'Select status')); ?>
+                <?php echo zHtml::enumDropDownList( $model,'is_active' ); ?>
+            
+		<?php echo $form->error($model,'is_active'); ?>
+	</div>
+  
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'site_id'); ?>
+		<?php $ld=CHtml::listData(SelfSite::model()->findAll(),'site_id','site_name');?>
+                 <?php echo $form->dropDownList($model,'site_id',$ld,array('prompt'=>'Select Site'));?>
+		<?php echo $form->error($model,'site_id'); ?>
+        </div>
+
+        <div class="row">
 		<?php echo $form->labelEx($model,'role_id'); ?>
-		<?php echo $form->textField($model,'role_id'); ?>
+		<?php $rolels=CHtml::listData(UserRole::model()->findAll(),'role_id','role_title');?>
+                <?php echo  $form->dropDownList($model,'role_id',$rolels,array('prompt'=>'Select a Role'));?>
 		<?php echo $form->error($model,'role_id'); ?>
 	</div>
 
@@ -38,34 +100,29 @@
 		<?php echo $form->textField($model,'status_id'); ?>
 		<?php echo $form->error($model,'status_id'); ?>
 	</div>
+     
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'city_id'); ?>
-            <?php $models = City::model()->findAll(); ?>
-                <?php $list = CHtml::listData($models,'	city_id', 'city_name');?>
-		<?php echo $form->dropDownList($model,'city_id', $list, array('prompt'=>'Select City')); ?>
-		<?php //echo $form->textField($model,'city_id'); ?>
-		<?php echo $form->error($model,'city_id'); ?>
+       <div class="row"><?php }?>
+             
+		<?php echo $form->labelEx($modelp,'address'); ?>
+		<?php echo $form->textField($modelp,'address',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($modelp,'address'); ?>
 	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'activation_key'); ?>
-		<?php echo $form->textField($model,'activation_key',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'activation_key'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'is_active'); ?>
-            
-		<?php echo $form->textField($model,'is_active',array('size'=>8,'maxlength'=>8)); ?>
-		<?php echo $form->error($model,'is_active'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'site_id'); ?>
-		<?php echo $form->textField($model,'site_id'); ?>
-		<?php echo $form->error($model,'site_id'); ?>
-	</div>
+	    <div class="row">
+                    <?php echo $form->labelEx($model,'reg_date'); ?>
+                    <?php
+                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                        'model' => $model,
+                        'attribute' => 'reg_date',
+                        'htmlOptions' => array(
+                            'size' => '15',// textField size
+                            'value'=>'00/00/0000',
+                            'maxlength' => '10',    // textField maxlength
+                        ),
+                    ));
+                    ?>
+            <?php echo $form->error($model,'reg_date'); ?>
+            </div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
