@@ -2,6 +2,7 @@
 
 class SiteController extends Controller
 {
+  
 	/**
 	 * Declares class-based actions.
 	 */
@@ -27,6 +28,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+              
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('index');
@@ -64,7 +66,7 @@ class SiteController extends Controller
 					"MIME-Version: 1.0\r\n".
 					"Content-type: text/plain; charset=UTF-8";
 
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
+				mail(Yii::app()->params["'adminEmail'=>'ubaidullah@darussalampk.com'"],$subject,$model->body,$headers);
 				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
 				$this->refresh();
 			}
@@ -106,4 +108,19 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+        
+        
+        public function actionMail()
+        {
+            
+            $email = Yii::app()->email;
+            $email->to = 'ubaidullah@darussalampk.com';
+            $email->subject = 'hellow i am inside subject';
+            $email->view = 'myMailView';
+            $email->viewVars = array('var1'=>'a','var2'=>'abc');
+            $email->send();
+           
+				
+        }
+        
 }

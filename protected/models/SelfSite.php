@@ -1,21 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "user_role".
+ * This is the model class for table "site".
  *
- * The followings are the available columns in table 'user_role':
- * @property integer $role_id
- * @property string $role_title
- *
- * The followings are the available model relations:
- * @property User[] $users
+ * The followings are the available columns in table 'site':
+ * @property integer $site_id
+ * @property string $site_name
+ * @property string $site_descriptoin
  */
-class UserRole extends CActiveRecord
+class SelfSite extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return UserRole the static model class
+	 * @return SelfSite the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +25,7 @@ class UserRole extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'user_role';
+		return 'site';
 	}
 
 	/**
@@ -38,11 +36,11 @@ class UserRole extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('role_title', 'required'),
-			array('role_title', 'length', 'max'=>255),
+			array('site_name, site_descriptoin', 'required'),
+			array('site_name, site_descriptoin', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('role_id, role_title', 'safe', 'on'=>'search'),
+			array('site_id, site_name, site_descriptoin', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,7 +52,6 @@ class UserRole extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::HAS_MANY, 'User', 'role_id'),
 		);
 	}
 
@@ -64,8 +61,9 @@ class UserRole extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'role_id' => 'Role',
-			'role_title' => 'Role Title',
+			'site_id' => 'Site',
+			'site_name' => 'Site Name',
+			'site_descriptoin' => 'Site Descriptoin',
 		);
 	}
 
@@ -80,8 +78,9 @@ class UserRole extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('role_id',$this->role_id);
-		$criteria->compare('role_title',$this->role_title,true);
+		$criteria->compare('site_id',$this->site_id);
+		$criteria->compare('site_name',$this->site_name,true);
+		$criteria->compare('site_descriptoin',$this->site_descriptoin,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

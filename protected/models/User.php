@@ -20,6 +20,8 @@
  * @property Site $site
  * @property UserRole $role
  * @property UserProfile[] $userProfiles
+ * 
+ * 
  */
 class User extends CActiveRecord
 {
@@ -28,6 +30,9 @@ class User extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return User the static model class
 	 */
+    
+     public $user_password2;
+     
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -49,10 +54,11 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_name, user_password, role_id, status_id, activation_key, site_id', 'required'),
+			array('user_name, user_password', 'required'),
 			array('role_id, status_id, city_id, site_id', 'numerical', 'integerOnly'=>true),
 			array('user_name, user_password, activation_key', 'length', 'max'=>255),
 			array('is_active', 'length', 'max'=>8),
+                        array('user_password2', 'compare', 'compareAttribute'=>'user_password' ),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('user_id, user_name, user_password, role_id, status_id, city_id, activation_key, is_active, site_id', 'safe', 'on'=>'search'),
@@ -90,6 +96,8 @@ class User extends CActiveRecord
 			'activation_key' => 'Activation Key',
 			'is_active' => 'Is Active',
 			'site_id' => 'Site',
+                    'reg_date' => 'Registration date',
+                    'user_password2'=>'Repeated pAssword',
 		);
 	}
 
@@ -118,4 +126,13 @@ class User extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+         public function validatePassword($password)
+                                     {
+                                         
+                                        
+                                            return $password;
+                                     }
+                                     
+                                    
 }
