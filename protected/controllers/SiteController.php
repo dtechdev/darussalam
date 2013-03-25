@@ -31,7 +31,10 @@ class SiteController extends Controller
               
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+                $siteUrl=$_SERVER['REQUEST_URI'];
+                $site_id= SelfSite::model()->getSiteId($siteUrl);
+                Yii::app()->session['site_id'] = $site_id;
+        	$this->render('index');
 	}
 
 	/**
@@ -94,7 +97,11 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
+                        {
+                            print_r(Yii::app()->user);
+                            exit;
 				$this->redirect(Yii::app()->user->returnUrl);
+                        }
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));

@@ -86,4 +86,19 @@ class SelfSite extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        public function getSiteId($url)
+        {
+                  $site = Yii::app()->db->createCommand()
+                  ->select('site_id,site_name')
+                  ->from($this->tableName())
+                  ->where("LOCATE(site_name,'$url')")
+                  ->queryAll();
+                  if(isset($site[0]))
+                  {
+                     return $site[0]['site_id'];
+                 }
+                 else
+                     return 0;
+                 
+        }
 }
