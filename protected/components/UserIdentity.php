@@ -10,7 +10,8 @@
  
 class UserIdentity extends CUserIdentity
 {
-                            private $_id;
+                            private $id;
+                          
 
                              public function authenticate()
                                 {
@@ -22,15 +23,23 @@ class UserIdentity extends CUserIdentity
                                                 $this->errorCode=self::ERROR_PASSWORD_INVALID;
                                         else
                                         {
-                                                $this->_id=$user->user_id;
-                                                $this->username=$user->user_name;
-                                                $this->errorCode=self::ERROR_NONE;
+                                                $this->id=$user->user_id;
+                                                //$this->username=$user->user_name;
+                                                $this->setState('username',$user->user_name);
+                                                $this->setState('role_id',$user->role_id);
+                                                $this->setState('status_id',$user->status_id);
+                                                $this->setState('city_id',$user->city_id);
+                                                $this->setState('site_id',$user->site_id);
+                                                $this->setState('is_active',$user->is_active);
+                                            
+                                                 $this->errorCode=self::ERROR_NONE;
                                         }
                                         return $this->errorCode==self::ERROR_NONE;
                                 }
 
                             public function getId()
                             {
-                                return $this->_id;
+                                return $this->id;
                             }
+                           
 }
