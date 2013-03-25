@@ -103,4 +103,13 @@ class UserProfile extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        public function getFullName()
+                                     {
+                                         
+                                         $firstN=  $this->first_name;
+                                         $lastN=$this->last_name;
+                                         return $firstN.$lastN;
+                                     }
+        
+
 }

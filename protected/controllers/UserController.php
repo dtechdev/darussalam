@@ -28,11 +28,11 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create'),
+				'actions'=>array('index','view','register'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update'),
+				'actions'=>array('update','create'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -94,9 +94,7 @@ class UserController extends Controller
                         if($user_profile->validate()){
                                     
                             $user_profile->save();  //getFull name is a getter function in profile model merge 1st + last name
-                                 
-                                  
-                                }
+                                  }
                                 else
                                     {
                                     echo CHtml::errorSummary($user_profile);
@@ -104,14 +102,7 @@ class UserController extends Controller
                            // print_r($user_profile->attributes);
                                    // exit(); 
                                     }
-
-                                             
-                                             //$model->user_password=  md5($model->user_password);
-                                             //$model->user_password2=$model->user_password;
-                        		
-                          
-			
-				$this->redirect(array('view','id'=>$model->user_id));
+                                $this->redirect(array('view','id'=>$model->user_id));
                 }}
 
 		$this->render('create',array(
@@ -120,6 +111,56 @@ class UserController extends Controller
 	}
         
         
+        public function  actionRegister()
+        {
+            
+            $model=new User;
+                $user_profile=new UserProfile('create');
+                $selfSite=new SelfSite();
+                 
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['User']))
+		{         
+                          
+			$model->attributes=$_POST['User'];
+                        $user_profile->attributes=$_POST['UserProfile'];
+                        $model->user_name=$user_profile->getFullName();
+                          if($model->site_id==NULL && $model->role_id==NULL && $model->status_id==NULL)
+                       
+                        {
+                            $model->site_id='1';
+                            $model->role_id='3';
+                            $model->status_id='2';
+                            $model->activation_key=sha1(mt_rand(10000, 99999).time().$user_profile->email);
+                            $activation_url = $this->createUrl('user/activate', array('key'=>$model->activation_key));
+                        
+                          
+                        }
+                        if($model->save())
+                        {
+                          $user_profile->user_id=$model->user_id;
+                       // $model->user_name=$user_profile->getFullName();
+                      
+                        if($user_profile->validate()){
+                                    
+                            $user_profile->save();
+                            //getFull name is a getter function in profile model merge 1st + last name
+                                  }
+                                else
+                                    {
+                                    echo CHtml::errorSummary($user_profile);
+                                    }
+                                $this->redirect(array('view','id'=>$model->user_id));
+                }}
+
+		$this->render('create',array(
+			'model'=>$model,
+		));
+        }
+
+
         public  function actionActivate()
         {
             

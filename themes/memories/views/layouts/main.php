@@ -32,7 +32,7 @@
 						array('label'=>'Home', 'url'=>array('/site/index')),
 						array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 						array('label'=>'Contact', 'url'=>array('/site/contact')),
-									array('label'=>'Registration', 'url'=>array('/user/create')),
+									array('label'=>'Registration', 'url'=>array('/user/register')),
                                               array('label'=>'Status Update', 'url'=>array('/site/contact'),'visible'=>!Yii::app()->user->isGuest),
 									
 						array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
