@@ -173,13 +173,11 @@ class UserController extends Controller
                                               Yii::app()->createAbsoluteUrl('user/activate', array('email' =>$user_profile->email)).
                                                                     
                                               "Thanks you. ". sha1(mt_rand(10000, 99999).time().$user_profile->email) ." </body></html>";
-                                           print_r($message2);
-                                           exit();
-                                                                    
+                                                          
                                           mail($to, $subject2, $message2, $headers);
                                             //email activation code end-----------------------------------------
                             }
-                                            $this->redirect(Yii::app()->user->returnUrl);
+                                            //$this->redirect(Yii::app()->user->returnUrl);
 
                             //getFull name is a getter function in profile model merge 1st + last name
                                   }
