@@ -28,7 +28,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','register'),
+				'actions'=>array('index','view','register','activate'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -37,7 +37,7 @@ class UserController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('ubaidullah'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -115,7 +115,7 @@ class UserController extends Controller
         {
             
             $model=new User;
-                $user_profile=new UserProfile('create');
+                $user_profile=new UserProfile();
                 $selfSite=new SelfSite();
                  
 		// Uncomment the following line if AJAX validation is needed
@@ -133,28 +133,64 @@ class UserController extends Controller
                             $model->site_id='1';
                             $model->role_id='3';
                             $model->status_id='2';
+                            
+                           
                             $model->activation_key=sha1(mt_rand(10000, 99999).time().$user_profile->email);
                             $activation_url = $this->createUrl('user/activate', array('key'=>$model->activation_key));
-                        
-                          
-                        }
+                         }
                         if($model->save())
                         {
                           $user_profile->user_id=$model->user_id;
                        // $model->user_name=$user_profile->getFullName();
                       
                         if($user_profile->validate()){
+                          
                                     
-                            $user_profile->save();
+                            if($user_profile->save())
+                            {
+                            
+                              $identity=new UserIdentity($model->user_name,$model->user_password);
+                                  $identity->authenticate();
+                                  Yii::app()->user->login($identity,0);
+                                  
+                                  
+                                           $to =$user_profile->email;
+                                            $subject = "abc.com!";
+                                            $message = "Thank you for joining!, we have sent you a separate email that contains your activation link";
+                                            $from = "FROM: mr.cdef.com";
+                                            
+                                            mail($to,$subject,$message,$from);
+                                            
+                                            //echo $to.$subject.$message.$from;
+                                            
+                                           $headers  = 'MIME-Version: 1.0' . "\r\n";
+                                           $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                                           $headers .= 'From: Mr. Ghazali < mr.ghazali@gmail.com>' . "\r\n";
+                                            
+                                           $subject2 = "Your Activation Link";
+    
+                                           $message2 = "<html><body>Please click this below to activate your membership<br />".
+                                              Yii::app()->createAbsoluteUrl('user/activate', array('email' =>$user_profile->email)).
+                                                                    
+                                              "Thanks you. ". sha1(mt_rand(10000, 99999).time().$user_profile->email) ." </body></html>";
+                                           print_r($message2);
+                                           exit();
+                                                                    
+                                          mail($to, $subject2, $message2, $headers);
+                                            //email activation code end-----------------------------------------
+                            }
+                                            $this->redirect(Yii::app()->user->returnUrl);
+
                             //getFull name is a getter function in profile model merge 1st + last name
                                   }
                                 else
                                     {
                                     echo CHtml::errorSummary($user_profile);
                                     }
-                                $this->redirect(array('view','id'=>$model->user_id));
+                                     Yii::app()->user->setFlash('registration','Thank you for Registration...Please activate your account by vising your email account.');
+                                $this->redirect(array('site/login'));  ///take him to login page....
                 }}
-
+                  
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -186,7 +222,7 @@ class UserController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->user_id));
 		}
-
+ 
 		$this->render('update',array(
 			'model'=>$model,
 		));

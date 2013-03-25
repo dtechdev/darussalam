@@ -8,6 +8,13 @@ $this->breadcrumbs=array(
 	'Login',
 );
 ?>
+<?php if(Yii::app()->user->hasFlash('registration')){ ?>
+
+<div class="flash-success">
+	<?php echo Yii::app()->user->getFlash('registration'); ?>
+</div>
+
+<?php } ?>
 
 <h1>Login</h1>
 
@@ -49,5 +56,5 @@ $this->breadcrumbs=array(
 		<?php echo CHtml::submitButton('Login'); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+<?php $this->endWidget();?>
 </div><!-- form -->
