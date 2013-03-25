@@ -37,6 +37,23 @@ class SiteController extends Controller
         	$this->render('index');
 	}
 
+        public function actionStoreHome()
+	{
+              
+              $city= City::model()->findByPk($_REQUEST['id']);
+              $layout_id=$city['layout_id'];
+              $layout= Layout::model()->findByPk($layout_id);
+              $layout_name=$layout['layout_name'];
+              
+              Yii::app()->session['layout']=$layout_name;
+              Yii::app()->session['country_short_name']=$_REQUEST['country'];
+              Yii::app()->session['city_short_name']=$_REQUEST['city'];
+              Yii::app()->session['city_id']=$_REQUEST['id'];
+              //Yii::app()->theme=Yii::app()->session['layout'];
+                
+        	$this->render('index');
+	}
+
 	/**
 	 * This is the action to handle external exceptions.
 	 */

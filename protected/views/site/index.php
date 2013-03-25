@@ -3,6 +3,7 @@
 
 $this->pageTitle=Yii::app()->name;
 //$this->layout='column2';
+
 ?>
 
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
@@ -29,3 +30,32 @@ Catering to the needs of the<br> present-day problems faced by Muslims.<br>
 Introducing educational devices for the learning of Quranic<br> teaching through computer technology.<br>
  Abdul Malik Mujahid
 Darussalam, Riyadh, KSA</p>
+<br />
+<br />
+<br />
+
+<?php
+$site_id = Yii::app()->session['site_id'];
+
+            $countries =  Country::model()->findAll(array('condition'=>'site_id="'.$site_id.'"'));
+            $total =count($countries);
+            //$n=0;
+            for($i=0;$i<$total;$i++) {
+                
+               echo $country_name=$countries[$i]['country_name']; 
+               $country_short_name=$countries[$i]['short_name']; 
+               print "<br />";
+               $country_id=$countries[$i]['country_id']; 
+                $cities =  City::model()->findAll(array('condition'=>'country_id="'.$country_id.'"'));
+                $totalcity =count($cities);
+                //$n=0;
+                for($j=0;$j<$totalcity;$j++) {
+                   $city_name=$cities[$j]['city_name']; 
+                   $city_short_name=$cities[$j]['short_name']; 
+                   $city_id=$cities[$j]['city_id']; 
+                    echo  CHtml::link($city_name,array('/site/storehome','country'=>$country_short_name,'city'=>$city_short_name,'id'=>$city_id),array('class'=>'blue-title-link'));
+                }
+                print "<br />";
+                
+            }
+?>

@@ -8,7 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Darussalam Publishers',
-       'theme'=>'memories',
+       //'theme'=>'memories',
 
           
 	// preloading 'log' component
@@ -51,10 +51,12 @@ return array(
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			 //'showScriptName' => false,
-            'rules' => array(               
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            'rules' => array( 
+                '<country:[\w-\.]+>/<city:[\w-\.]+>/<id:[\w-\.]+>'=>'/site/storehome',
+//                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+//                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+//                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                
 			),
 		),
 
