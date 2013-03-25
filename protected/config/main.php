@@ -7,8 +7,10 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'name'=>'Darussalam Publishers',
+       'theme'=>'memories',
 
+          
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -16,6 +18,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+            'application.extensions.email.debug.*',
 	),
 
 	'modules'=>array(
@@ -36,16 +39,25 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
+            
+            'email'=>array(
+        'class'=>'application.extensions.email.Email',
+        'delivery'=>'php', //Will use the php mailing function.  
+        //May also be set to 'debug' to instead dump the contents of the email into the view
+    ),
+            
 		// uncomment the following to enable URLs in path-format
-		/*
+		
 		'urlManager'=>array(
 			'urlFormat'=>'path',
-			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+			 //'showScriptName' => false,
+            'rules' => array(               
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
 			),
-		),*?
+		),
+
 		
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
