@@ -116,7 +116,7 @@ class UserController extends Controller {
 
             $model->attributes = $_POST['User'];
             $user_profile->attributes = $_POST['UserProfile'];
-            $model->user_name = $user_profile->getFullName();
+           // $model->user_name = $user_profile->getFullName();
             if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL) {
                 $model->site_id = '1';
                 $model->role_id = '3';
