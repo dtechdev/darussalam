@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 18, 2013 at 01:05 PM
+-- Generation Time: Mar 26, 2013 at 07:50 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `darussalam`
@@ -85,7 +79,16 @@ CREATE TABLE IF NOT EXISTS `city` (
   KEY `city_id` (`city_id`),
   KEY `layout_id` (`layout_id`),
   KEY `country_id` (`country_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `city`
+--
+
+INSERT INTO `city` (`city_id`, `country_id`, `city_name`, `short_name`, `address`, `layout_id`) VALUES
+(3, 1, 'Lahore', 'lhr', 'STR lahore', 3),
+(4, 2, 'New York', 'ny', 'stc ny 5400', 15),
+(5, 1, 'Karachi', 'kc', 'nazim abad', 23);
 
 -- --------------------------------------------------------
 
@@ -101,14 +104,15 @@ CREATE TABLE IF NOT EXISTS `country` (
   PRIMARY KEY (`country_id`),
   KEY `country_id` (`country_id`),
   KEY `site_id` (`site_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `country`
 --
 
 INSERT INTO `country` (`country_id`, `country_name`, `short_name`, `site_id`) VALUES
-(1, 'Pakistan', 'pk', 1);
+(1, 'Pakistan', 'pk', 1),
+(2, 'United States', 'US', 1);
 
 -- --------------------------------------------------------
 
@@ -136,10 +140,23 @@ CREATE TABLE IF NOT EXISTS `layout` (
   `layout_color` varchar(255) NOT NULL,
   `site_id` int(11) NOT NULL,
   PRIMARY KEY (`layout_id`),
-  UNIQUE KEY `site_id_2` (`site_id`),
+  UNIQUE KEY `layout_id_2` (`layout_id`),
   KEY `layout_id` (`layout_id`),
-  KEY `site_id` (`site_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `site_id` (`site_id`),
+  KEY `site_id_2` (`site_id`),
+  KEY `site_id_3` (`site_id`),
+  KEY `layout_id_3` (`layout_id`),
+  KEY `site_id_4` (`site_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+
+--
+-- Dumping data for table `layout`
+--
+
+INSERT INTO `layout` (`layout_id`, `layout_name`, `layout_description`, `layout_color`, `site_id`) VALUES
+(3, 'memories', 'layout', 'purple', 1),
+(15, 'classic', 'classic theme', 'black', 1),
+(23, 'default', 'default', 'black', 1);
 
 -- --------------------------------------------------------
 
@@ -257,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `product_discount` (
   PRIMARY KEY (`discount_id`),
   KEY `discount_id` (`discount_id`),
   KEY `discount_id_2` (`discount_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -306,15 +323,17 @@ CREATE TABLE IF NOT EXISTS `site` (
   `site_name` varchar(255) NOT NULL,
   `site_descriptoin` varchar(255) NOT NULL,
   PRIMARY KEY (`site_id`),
-  KEY `site_id` (`site_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  KEY `site_id` (`site_id`),
+  KEY `site_id_2` (`site_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `site`
 --
 
 INSERT INTO `site` (`site_id`, `site_name`, `site_descriptoin`) VALUES
-(1, 'darussalam', 'darussalam');
+(1, 'darussalam', 'darussalam'),
+(2, 'yahoo.com', 'abc');
 
 -- --------------------------------------------------------
 
@@ -352,7 +371,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`) VALUES
-(2, 'zahid', 'c651148415ab2a260e6c506075c12ae3', 1, 1, NULL, '', 'inactive', 1);
+(2, 'zahid', 'zahid', 1, 1, NULL, '', 'inactive', 1);
 
 -- --------------------------------------------------------
 
@@ -393,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   PRIMARY KEY (`role_id`),
   KEY `role_id` (`role_id`),
   KEY `role_id_2` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user_role`
@@ -401,7 +420,8 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 
 INSERT INTO `user_role` (`role_id`, `role_title`) VALUES
 (1, 'superadmin'),
-(2, 'admin');
+(2, 'admin'),
+(3, 'customer');
 
 -- --------------------------------------------------------
 
@@ -470,7 +490,6 @@ ALTER TABLE `language`
 -- Constraints for table `layout`
 --
 ALTER TABLE `layout`
-  ADD CONSTRAINT `layout_ibfk_2` FOREIGN KEY (`layout_id`) REFERENCES `city` (`layout_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `layout_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -483,27 +502,22 @@ ALTER TABLE `order`
 -- Constraints for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  ADD CONSTRAINT `order_detail_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_detail_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
+  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `product_discount` (`discount_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_catagories`
 --
 ALTER TABLE `product_catagories`
-  ADD CONSTRAINT `product_catagories_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_catagories_ibfk_1` FOREIGN KEY (`catagory_id`) REFERENCES `catagories` (`catagory_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `product_discount`
---
-ALTER TABLE `product_discount`
-  ADD CONSTRAINT `product_discount_ibfk_1` FOREIGN KEY (`discount_id`) REFERENCES `product` (`discount_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_catagories_ibfk_1` FOREIGN KEY (`catagory_id`) REFERENCES `catagories` (`catagory_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_catagories_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_image`
@@ -521,16 +535,13 @@ ALTER TABLE `product_profile`
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `user_status` (`status_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `user_status` (`status_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_profile`
 --
 ALTER TABLE `user_profile`
   ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
