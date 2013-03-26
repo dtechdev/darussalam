@@ -39,6 +39,12 @@ class UserController extends Controller
 				'actions'=>array('admin','delete'),
 				'users'=>array('ubaidullah'),
 			),
+                    
+                     array('allow',
+                            'expression'=>'$user->isAdmin',
+                             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
+                          ),
+                     
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -149,9 +155,9 @@ class UserController extends Controller
                             if($user_profile->save())
                             {
                             
-                              $identity=new UserIdentity($model->user_name,$model->user_password);
-                                  $identity->authenticate();
-                                  Yii::app()->user->login($identity,0);
+                             // $identity=new UserIdentity($model->user_name,$model->user_password);
+                               //   $identity->authenticate();
+                                 // Yii::app()->user->login($identity,0);
                                   
                                   
                                            $to =$user_profile->email;
@@ -198,8 +204,20 @@ class UserController extends Controller
         public  function actionActivate()
         {
             
-            echo "donew";
-            
+           $model=new ContactForm;
+                if(isset($_POST['ContactForm']))
+                {
+                        $model->attributes=$_POST['ContactForm'];
+                        if($model->validate())
+                        {
+                                $headers="From: {$model->email}\r\nReply-To: {$model->email}";
+                                mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);
+                               // Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
+                                $this->refresh();
+                        }
+                }
+               // $this->render('contact',array('model'=>$model)); 
+           
         }
 
         /**

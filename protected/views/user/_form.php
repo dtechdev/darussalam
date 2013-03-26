@@ -91,8 +91,10 @@
         <div class="row">
 		<?php echo $form->labelEx($model,'role_id'); ?>
 		<?php $rolels=CHtml::listData(UserRole::model()->findAll(),'role_id','role_title');?>
-                <?php echo  $form->dropDownList($model,'role_id',$rolels,array('prompt'=>'Select a Role'));?>
-		<?php echo $form->error($model,'role_id'); ?>
+                <?php //echo  $form->dropDownList($model,'role_id',$rolels,array('prompt'=>'Select a Role'));?>
+               <?php  // showing data from the webuser class AND the user getAccesslevellist method ?>
+		 <?php echo  $form->dropDownList($model,'role_id',$model->accessLevelList); ?>
+                 <?php echo $form->error($model,'role_id'); ?>
 	</div>
 
 	<div class="row">

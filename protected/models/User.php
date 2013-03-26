@@ -30,7 +30,7 @@ class User extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return User the static model class
 	 */
-    
+    const  LEVEL_CUSTOMER=3, LEVEL_ADMIN=2, LEVEL_SUPERADMIN=1,LEVEL_UNKNOWN=0;
      public $user_password2;
      
 	public static function model($className=__CLASS__)
@@ -100,6 +100,20 @@ class User extends CActiveRecord
                     'user_password2'=>'Repeated pAssword',
 		);
 	}
+        
+        
+                      static function getAccessLevelList( $level = null ){
+                              $levelList=array(
+                               self::LEVEL_CUSTOMER => 'Customer',
+                               self::LEVEL_ADMIN => 'Administrator',
+                               self::LEVEL_SUPERADMIN=> 'Superadmin',
+                               // self::LEVEL_UNKNOWN=> 'Unknown..'
+                              );
+                              if( $level === null)
+                               return $levelList;
+                              return $levelList[ $level ];
+                             }
+        
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
