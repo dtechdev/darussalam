@@ -73,7 +73,9 @@ class UserController extends Controller {
 
             $model->attributes = $_POST['User'];
             $user_profile->attributes = $_POST['UserProfile'];
-            $model->user_name = $user_profile->getFullName();
+            $date=strtotime($model->join_date);
+             $model->join_date=$date;
+            //$model->user_name = $user_profile->getFullName();
             if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL) {
                 $model->site_id = '1';
                 $model->role_id = '3';
@@ -116,14 +118,15 @@ class UserController extends Controller {
 
             $model->attributes = $_POST['User'];
             $user_profile->attributes = $_POST['UserProfile'];
-           // $model->user_name = $user_profile->getFullName();
+            
+            $date=strtotime($model->join_date);
+             $model->join_date=$date;
+             // $model->user_name = $user_profile->getFullName();
             if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL) {
                 $model->site_id = '1';
                 $model->role_id = '3';
                 $model->status_id = '2';
-
-
-                $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $user_profile->email);
+                 $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $user_profile->email);
                 $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
             }
             if ($model->save()) {
@@ -132,15 +135,12 @@ class UserController extends Controller {
 
                 if ($user_profile->validate()) {
 
-
-                    if ($user_profile->save()) {
+                 if ($user_profile->save()) {
 
                         // $identity=new UserIdentity($model->user_name,$model->user_password);
                         //   $identity->authenticate();
                         // Yii::app()->user->login($identity,0);
-
-
-                        $to = $user_profile->email;
+                         $to = $user_profile->email;
                         $subject = "abc.com!";
                         $message = "Thank you for joining!, we have sent you a separate email that contains your activation link";
                         $from = "FROM: mr.cdef.com";

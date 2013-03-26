@@ -118,11 +118,11 @@
 		<?php echo $form->error($modelp,'address'); ?>
 	</div>
 	    <div class="row">
-                    <?php echo $form->labelEx($model,'reg_date'); ?>
+                    <?php echo $form->labelEx($model,'join_date'); ?>
                     <?php
                     $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                         'model' => $model,
-                        'attribute' => 'reg_date',
+                        'attribute' => 'join_date',
                         'options' => array(
                       'mode'=>'focus',
                       'dateFormat'=>'d MM, yy',
@@ -135,7 +135,7 @@
                         ),
                     ));
                     ?>
-            <?php echo $form->error($model,'reg_date'); ?>
+            <?php echo $form->error($model,'join_date'); ?>
             </div>
 
 	<div class="row buttons">

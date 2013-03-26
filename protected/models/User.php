@@ -54,7 +54,7 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_name, user_password', 'required'),
+			array('user_name, user_password,join_date', 'required'),
 			array('role_id, status_id, city_id, site_id', 'numerical', 'integerOnly'=>true),
 			array('user_name, user_password, activation_key', 'length', 'max'=>255),
 			array('is_active', 'length', 'max'=>8),
@@ -96,8 +96,8 @@ class User extends CActiveRecord
 			'activation_key' => 'Activation Key',
 			'is_active' => 'Is Active',
 			'site_id' => 'Site',
-                    'reg_date' => 'Registration date',
-                    'user_password2'=>'Repeated pAssword',
+                    'join_date' => 'Registration date',
+                    'user_password2'=>'Repeated Password',
 		);
 	}
         
