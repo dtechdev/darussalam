@@ -51,7 +51,7 @@ class SiteController extends Controller
               Yii::app()->session['city_id']=$_REQUEST['id'];
               Yii::app()->theme=Yii::app()->session['layout'];
                 
-              $this->render('index');
+              $this->render('storehome');
 	}
 
 	/**
