@@ -32,12 +32,12 @@ class UserController extends Controller {
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('create'),
+                'actions' => array('create','update'),
                 'expression' => 'Yii::app()->user->isAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array('admin', 'delete'),
+                'actions' => array('admin', 'delete','update'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
