@@ -116,9 +116,14 @@
                     $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                         'model' => $model,
                         'attribute' => 'reg_date',
+                        'options' => array(
+                      'mode'=>'focus',
+                      'dateFormat'=>'d MM, yy',
+                      'showAnim' => 'slideDown',
+                      ),    
                         'htmlOptions' => array(
                             'size' => '15',// textField size
-                            'value'=>'00/00/0000',
+                            'value'=>date("d F, Y"),
                             'maxlength' => '10',    // textField maxlength
                         ),
                     ));

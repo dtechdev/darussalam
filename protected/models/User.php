@@ -106,7 +106,7 @@ class User extends CActiveRecord
                               $levelList=array(
                                self::LEVEL_CUSTOMER => 'Customer',
                                self::LEVEL_ADMIN => 'Administrator',
-                               self::LEVEL_SUPERADMIN=> 'Superadmin',
+                               //self::LEVEL_SUPERADMIN=> 'Superadmin',
                                // self::LEVEL_UNKNOWN=> 'Unknown..'
                               );
                               if( $level === null)
