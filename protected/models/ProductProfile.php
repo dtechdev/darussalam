@@ -43,7 +43,7 @@ class ProductProfile extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('author_id, language_id, isbn', 'required'),
+			array('product_id', 'required'),
 			array('author_id, language_id', 'numerical', 'integerOnly'=>true),
 			array('isbn', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -73,6 +73,7 @@ class ProductProfile extends CActiveRecord
 	{
 		return array(
 			'profile_id' => 'Profile',
+			'product_id' => 'Product',
 			'author_id' => 'Author',
 			'language_id' => 'Language',
 			'isbn' => 'Isbn',

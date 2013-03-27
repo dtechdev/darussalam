@@ -70,7 +70,7 @@
     </div>
     <div class="row">
         <?php echo $form->labelEx($mProductDiscount, 'discount_type'); ?>
-<?php echo $form->dropDownList($mProductDiscount, 'discount_type', array('fix' => 'Fixed', 'per' => 'Percentage'), array('size' => 1, 'maxlength' => 1)); ?>
+<?php echo $form->dropDownList($mProductDiscount, 'discount_type', array('fixed' => 'Fixed', 'percentage' => 'Percentage'), array('prompt' => 'Select Discount Type','size' => 1, 'maxlength' => 1)); ?>
 <?php echo $form->error($mProductDiscount, 'discount_type'); ?>
     </div>
 
