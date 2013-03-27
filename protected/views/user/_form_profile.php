@@ -30,7 +30,12 @@
 		<?php echo $form->error($modelp,'last_name'); ?>
 	</div>
         
-        
+        <div class="row">
+            
+                <?php echo $form->labelEx($modelp,'email'); ?>
+                <?php echo $form->textField($modelp,'email'); ?>
+                <?php echo $form->error($modelp,'email'); ?>
+        </div>
         <div class="row">
             
                 <?php echo $form->labelEx($model,'user_name'); ?>
@@ -38,12 +43,7 @@
                 <?php echo $form->error($model,'user_name'); ?>
         </div>
         
-         <div class="row">
-            
-                <?php echo $form->labelEx($modelp,'email'); ?>
-                <?php echo $form->textField($modelp,'email'); ?>
-                <?php echo $form->error($modelp,'email'); ?>
-        </div>
+         
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'user_password'); ?>
