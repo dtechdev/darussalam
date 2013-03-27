@@ -8,10 +8,10 @@ $this->breadcrumbs=array(
 	'Login',
 );
 ?>
-<?php if(Yii::app()->user->hasFlash('registration')){ ?>
+<?php if(Yii::app()->user->hasFlash('registration') || Yii::app()->user->hasFlash('login')){ ?>
 
 <div class="flash-success">
-	<?php echo Yii::app()->user->getFlash('registration'); ?>
+	<?php echo Yii::app()->user->getFlash('registration'); ?><?php echo Yii::app()->user->getFlash('login'); ?>
 </div>
 
 <?php } ?>

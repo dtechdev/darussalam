@@ -92,10 +92,7 @@ class UserController extends Controller {
                     $user_profile->save();  //getFull name is a getter function in profile model merge 1st + last name
                 } else {
                     echo CHtml::errorSummary($user_profile);
-
-                    // print_r($user_profile->attributes);
-                    // exit(); 
-                }
+                      }
                 $this->redirect(array('view', 'id' => $model->user_id));
             }
         }
@@ -125,10 +122,11 @@ class UserController extends Controller {
             if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL) {
                 $model->site_id = '1';
                 $model->role_id = '3';
-                $model->status_id = '2';
-                 $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $user_profile->email);
-                $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
+                $model->status_id = '0';
+                
             }
+               $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $user_profile->email);
+                $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
             if ($model->save()) {
                 $user_profile->user_id = $model->user_id;
                 // $model->user_name=$user_profile->getFullName();
@@ -156,14 +154,15 @@ class UserController extends Controller {
                         $subject2 = "Your Activation Link";
 
                         $message2 = "<html><body>Please click this below to activate your membership<br />" .
-                                Yii::app()->createAbsoluteUrl('user/activate', array('email' => $user_profile->email)) .
-                                "Thanks you. " . sha1(mt_rand(10000, 99999) . time() . $user_profile->email) . " </body></html>";
+                                Yii::app()->createAbsoluteUrl('user/activate', array('key' => $model->activation_key,'user_id'=>$model->user_id)).
+                                "<br> Thanks you. ".$user_profile->email . " </body></html>";
 
                         mail($to, $subject2, $message2, $headers);
+                       
                         //email activation code end-----------------------------------------
                     }
                     //$this->redirect(Yii::app()->user->returnUrl);
-                    //getFull name is a getter function in profile model merge 1st + last name
+                    
                 } else {
                     echo CHtml::errorSummary($user_profile);
                 }
@@ -178,18 +177,39 @@ class UserController extends Controller {
     }
 
     public function actionActivate() {
+        $user_id=$_GET['user_id'];
+        $activation_key=$_GET['key'];
+        $user_name='ali';
+        $criteria=new CDbCriteria;
+        $criteria->select='*';
+       $conditions=array();
 
-        $model = new ContactForm;
-        if (isset($_POST['ContactForm'])) {
-            $model->attributes = $_POST['ContactForm'];
-            if ($model->validate()) {
-                $headers = "From: {$model->email}\r\nReply-To: {$model->email}";
-                mail(Yii::app()->params['adminEmail'], $model->subject, $model->body, $headers);
-                // Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-                $this->refresh();
-            }
+            $conditions[]='t.user_id='.$user_id;
+            $conditions[]="activation_key='".$activation_key."'";
+            $criteria->condition=implode(' AND ',$conditions);
+                  
+        $obj=User::model()->findAll($criteria);
+        if($obj!=NULL)
+        {
+            foreach($obj as $data)
+            {
+            echo $data->status_id;
+            $modelUser=new User;
+            $modelUser->updateByPk($user_id,array('status_id'=>'1'));
+        
+            Yii::app()->user->setFlash('login','Thank You ! Login Please...Your account has been activated....Now Login');
+            $this->redirect(array('site/login'));
         }
-        // $this->render('contact',array('model'=>$model)); 
+        }
+         else 
+             {
+                echo 'hello not data in object model';     
+     
+            }
+        //print_r($obj);
+        //print_r($obj->activation_key);
+         exit();
+       // $this->render('contact',array('model'=>$model)); 
     }
 
     /**

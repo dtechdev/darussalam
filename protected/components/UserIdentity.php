@@ -19,7 +19,9 @@ class UserIdentity extends CUserIdentity
                                         if($user===null)
                                                 $this->errorCode=self::ERROR_USERNAME_INVALID;
                                         //else if(!$user->validatePassword($this->password))
-                                            else if($user->user_password!==$this->password)
+                                        else if($user->user_password!==$this->password)
+                                                $this->errorCode=self::ERROR_PASSWORD_INVALID;
+                                        else if($user->status_id=='0')
                                                 $this->errorCode=self::ERROR_PASSWORD_INVALID;
                                         else
                                         {
