@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2013 at 09:38 AM
+-- Generation Time: Mar 27, 2013 at 02:30 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -25,7 +25,15 @@ CREATE TABLE IF NOT EXISTS `author` (
   `author_name` varchar(255) NOT NULL,
   PRIMARY KEY (`author_id`),
   KEY `author_id` (`author_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `author`
+--
+
+INSERT INTO `author` (`author_id`, `author_name`) VALUES
+(2, 'zahid nadeem'),
+(3, 'Ubaid');
 
 -- --------------------------------------------------------
 
@@ -127,7 +135,14 @@ CREATE TABLE IF NOT EXISTS `language` (
   `language_name` varchar(255) NOT NULL,
   PRIMARY KEY (`language_id`),
   KEY `language_id` (`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `language`
+--
+
+INSERT INTO `language` (`language_id`, `language_name`) VALUES
+(2, 'English');
 
 -- --------------------------------------------------------
 
@@ -231,7 +246,6 @@ CREATE TABLE IF NOT EXISTS `product` (
   `added_date` varchar(255) NOT NULL,
   `is_featured` enum('0','1') NOT NULL,
   `product_price` decimal(10,4) NOT NULL,
-  `discount_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `user_id` (`city_id`),
   KEY `user_id_2` (`city_id`),
@@ -240,24 +254,15 @@ CREATE TABLE IF NOT EXISTS `product` (
   KEY `user_id_3` (`city_id`),
   KEY `frenchise_id` (`city_id`),
   KEY `frenchise_id_2` (`city_id`),
-  KEY `city_id` (`city_id`),
-  KEY `discount_id` (`discount_id`),
-  KEY `discount_id_2` (`discount_id`),
-  KEY `discount_id_3` (`discount_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  KEY `city_id` (`city_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`, `discount_id`) VALUES
-(1, 'abc', '', 3, '27-03-2013', '1', 3.0000, NULL),
-(2, 'herbal', '', 3, '27-03-2013', '0', 3.0000, NULL),
-(3, 'herbal', '', 3, '27-03-2013', '1', 32.0000, NULL),
-(4, 'abc', '', 3, '27-03-2013', '1', 30.0000, NULL),
-(5, 'test', '', 3, '27-03-2013', '1', 23.0000, NULL),
-(6, 'sadaf', '', 3, '27-03-2013', '1', 33.0000, NULL),
-(7, 'fsdafd', '', 3, '27-03-2013', '0', 345.0000, NULL);
+INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`) VALUES
+(23, 'dsf', 'sadfa', 3, '27-03-2013', '1', 32.0000);
 
 -- --------------------------------------------------------
 
@@ -290,7 +295,14 @@ CREATE TABLE IF NOT EXISTS `product_discount` (
   KEY `discount_id` (`discount_id`),
   KEY `discount_id_2` (`discount_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `product_discount`
+--
+
+INSERT INTO `product_discount` (`discount_id`, `product_id`, `discount_type`, `discount_value`) VALUES
+(3, 23, 'fixed', 8.0000);
 
 -- --------------------------------------------------------
 
@@ -326,7 +338,14 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
   KEY `author_id_2` (`author_id`),
   KEY `language_id` (`language_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `product_profile`
+--
+
+INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `language_id`, `isbn`) VALUES
+(5, 23, 2, 2, 'dgdfgd');
 
 -- --------------------------------------------------------
 
@@ -463,18 +482,12 @@ CREATE TABLE IF NOT EXISTS `user_status` (
 --
 
 INSERT INTO `user_status` (`status_id`, `status_title`) VALUES
-(1, 'active'),
-(2, 'inactive');
+(0, 'inactive'),
+(1, 'active');
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `author`
---
-ALTER TABLE `author`
-  ADD CONSTRAINT `author_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `product_profile` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cart`
@@ -500,12 +513,6 @@ ALTER TABLE `city`
 --
 ALTER TABLE `country`
   ADD CONSTRAINT `country_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `language`
---
-ALTER TABLE `language`
-  ADD CONSTRAINT `language_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `product_profile` (`language_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `layout`
@@ -555,7 +562,9 @@ ALTER TABLE `product_image`
 -- Constraints for table `product_profile`
 --
 ALTER TABLE `product_profile`
-  ADD CONSTRAINT `product_profile_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_profile_ibfk_3` FOREIGN KEY (`author_id`) REFERENCES `author` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_profile_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_profile_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`language_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`
