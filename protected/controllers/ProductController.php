@@ -62,7 +62,16 @@ class ProductController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Product;
+                $model=new Product;
+                $mProductProfile =new ProductProfile; 
+                $mProductDiscount =new ProductDiscount;
+                $mProductImage =new ProductImage;
+                $mProductCategories =new ProductCatagories;
+                $mAuthor =new Author;
+                $mLanguage =new Language;
+                $cityList=CHtml::listData(City::model()->findAll(),'city_id','city_name');
+                $languageList=CHtml::listData(Language::model()->findAll(),'language_id','language_name');
+                
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -71,11 +80,31 @@ class ProductController extends Controller
 		{
 			$model->attributes=$_POST['Product'];
 			if($model->save())
+                        {
+                            $product_id=$model->product_id;
+                            $mProductProfile->attributes=$_POST['ProductProfile'];
+                            $mProductProfile->product_id=$product_id;
+                            $mProductProfile->save();
+                            
+                            $mProductDiscount->attributes=$_POST['ProductProfile'];
+                            $mProductDiscount->product_id=$product_id;
+                            $mProductDiscount->save();
+                            
 				$this->redirect(array('view','id'=>$model->product_id));
+                        }
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'mProductProfile'=>$mProductProfile,
+			'mProductDiscount'=>$mProductDiscount,
+			'mProductImage'=>$mProductImage,
+			'mProductCategories'=>$mProductCategories,
+			'mAuthor'=>$mAuthor,
+			'mLanguage'=>$mLanguage,
+			'cityList'=>$cityList,
+			'languageList'=>$languageList
+                    
 		));
 	}
 

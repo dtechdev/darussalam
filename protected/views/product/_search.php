@@ -17,13 +17,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'prouduct_name'); ?>
-		<?php echo $form->textField($model,'prouduct_name',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'profile_id'); ?>
-		<?php echo $form->textField($model,'profile_id'); ?>
+		<?php echo $form->label($model,'product_name'); ?>
+		<?php echo $form->textField($model,'product_name',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
@@ -44,11 +39,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'product_price'); ?>
 		<?php echo $form->textField($model,'product_price',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'discount_id'); ?>
-		<?php echo $form->textField($model,'discount_id'); ?>
 	</div>
 
 	<div class="row buttons">

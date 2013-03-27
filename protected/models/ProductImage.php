@@ -41,7 +41,7 @@ class ProductImage extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('product_id, image_title, image_small, image_large', 'required'),
+			//array('product_id, image_small, image_large', 'required'),
 			array('product_id', 'numerical', 'integerOnly'=>true),
 			array('image_title, image_small, image_large', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -70,7 +70,6 @@ class ProductImage extends CActiveRecord
 		return array(
 			'product_image_id' => 'Product Image',
 			'product_id' => 'Product',
-			'image_title' => 'Image Title',
 			'image_small' => 'Image Small',
 			'image_large' => 'Image Large',
 		);
@@ -89,7 +88,6 @@ class ProductImage extends CActiveRecord
 
 		$criteria->compare('product_image_id',$this->product_image_id);
 		$criteria->compare('product_id',$this->product_id);
-		$criteria->compare('image_title',$this->image_title,true);
 		$criteria->compare('image_small',$this->image_small,true);
 		$criteria->compare('image_large',$this->image_large,true);
 

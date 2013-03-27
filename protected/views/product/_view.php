@@ -9,12 +9,8 @@
 	<?php echo CHtml::link(CHtml::encode($data->product_id), array('view', 'id'=>$data->product_id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('prouduct_name')); ?>:</b>
-	<?php echo CHtml::encode($data->prouduct_name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('profile_id')); ?>:</b>
-	<?php echo CHtml::encode($data->profile_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('product_name')); ?>:</b>
+	<?php echo CHtml::encode($data->product_name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('city_id')); ?>:</b>
@@ -32,12 +28,5 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('product_price')); ?>:</b>
 	<?php echo CHtml::encode($data->product_price); ?>
 	<br />
-
-	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('discount_id')); ?>:</b>
-	<?php echo CHtml::encode($data->discount_id); ?>
-	<br />
-
-	*/ ?>
 
 </div>

@@ -5,13 +5,11 @@
  *
  * The followings are the available columns in table 'product':
  * @property integer $product_id
- * @property string $prouduct_name
- * @property integer $profile_id
+ * @property string $product_name
  * @property integer $city_id
  * @property string $added_date
  * @property string $is_featured
  * @property string $product_price
- * @property integer $discount_id
  *
  * The followings are the available model relations:
  * @property Cart[] $carts
@@ -50,14 +48,14 @@ class Product extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('prouduct_name, profile_id, city_id, added_date, is_featured, product_price', 'required'),
-			array('profile_id, city_id, discount_id', 'numerical', 'integerOnly'=>true),
-			array('prouduct_name, added_date', 'length', 'max'=>255),
+			array('product_name, city_id, added_date, is_featured, product_price', 'required'),
+			array('city_id', 'numerical', 'integerOnly'=>true),
+			array('product_name, added_date', 'length', 'max'=>255),
 			array('is_featured', 'length', 'max'=>1),
 			array('product_price', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('product_id, prouduct_name, profile_id, city_id, added_date, is_featured, product_price, discount_id', 'safe', 'on'=>'search'),
+			array('product_id, product_name,product_description, city_id, added_date, is_featured, product_price', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,11 +69,11 @@ class Product extends CActiveRecord
 		return array(
 			'carts' => array(self::HAS_MANY, 'Cart', 'product_id'),
 			'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'product_id'),
-			'discount' => array(self::BELONGS_TO, 'ProductDiscount', 'discount_id'),
+			'discount' => array(self::HAS_MANY, 'ProductDiscount', 'product_id'),
 			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
 			'productCatagories' => array(self::HAS_MANY, 'ProductCatagories', 'product_id'),
 			'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
-			'productProfile' => array(self::HAS_ONE, 'ProductProfile', 'profile_id'),
+			'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
 		);
 	}
 
@@ -86,13 +84,12 @@ class Product extends CActiveRecord
 	{
 		return array(
 			'product_id' => 'Product',
-			'prouduct_name' => 'Prouduct Name',
-			'profile_id' => 'Profile',
+			'product_name' => 'Product Name',
+			'product_description' => 'Product Description',
 			'city_id' => 'City',
 			'added_date' => 'Added Date',
 			'is_featured' => 'Is Featured',
 			'product_price' => 'Product Price',
-			'discount_id' => 'Discount',
 		);
 	}
 
@@ -108,13 +105,12 @@ class Product extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('product_id',$this->product_id);
-		$criteria->compare('prouduct_name',$this->prouduct_name,true);
-		$criteria->compare('profile_id',$this->profile_id);
+		$criteria->compare('product_name',$this->product_name,true);
+		$criteria->compare('product_description',$this->product_description,true);
 		$criteria->compare('city_id',$this->city_id);
 		$criteria->compare('added_date',$this->added_date,true);
 		$criteria->compare('is_featured',$this->is_featured,true);
 		$criteria->compare('product_price',$this->product_price,true);
-		$criteria->compare('discount_id',$this->discount_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

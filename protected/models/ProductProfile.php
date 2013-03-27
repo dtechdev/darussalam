@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'product_profile':
  * @property integer $profile_id
- * @property string $product_type
+ * @property integer $product_id
  * @property integer $author_id
  * @property integer $language_id
  * @property string $isbn
@@ -43,12 +43,12 @@ class ProductProfile extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('product_type, author_id, language_id, isbn', 'required'),
+			array('author_id, language_id, isbn', 'required'),
 			array('author_id, language_id', 'numerical', 'integerOnly'=>true),
-			array('product_type, isbn', 'length', 'max'=>255),
+			array('isbn', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('profile_id, product_type, author_id, language_id, isbn', 'safe', 'on'=>'search'),
+			array('profile_id, author_id, language_id, isbn', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,7 +62,7 @@ class ProductProfile extends CActiveRecord
 		return array(
 			'author' => array(self::HAS_ONE, 'Author', 'author_id'),
 			'language' => array(self::HAS_ONE, 'Language', 'language_id'),
-			'profile' => array(self::BELONGS_TO, 'Product', 'profile_id'),
+			'profile' => array(self::BELONGS_TO, 'Product', 'product_id'),
 		);
 	}
 
@@ -73,7 +73,6 @@ class ProductProfile extends CActiveRecord
 	{
 		return array(
 			'profile_id' => 'Profile',
-			'product_type' => 'Product Type',
 			'author_id' => 'Author',
 			'language_id' => 'Language',
 			'isbn' => 'Isbn',
@@ -92,7 +91,6 @@ class ProductProfile extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('profile_id',$this->profile_id);
-		$criteria->compare('product_type',$this->product_type,true);
 		$criteria->compare('author_id',$this->author_id);
 		$criteria->compare('language_id',$this->language_id);
 		$criteria->compare('isbn',$this->isbn,true);

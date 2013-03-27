@@ -22,12 +22,10 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'product_id',
-		'prouduct_name',
-		'profile_id',
+		'product_name',
 		'city_id',
 		'added_date',
 		'is_featured',
 		'product_price',
-		'discount_id',
 	),
 )); ?>

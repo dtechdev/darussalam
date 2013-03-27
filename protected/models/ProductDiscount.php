@@ -66,6 +66,7 @@ class ProductDiscount extends CActiveRecord
 	{
 		return array(
 			'discount_id' => 'Discount',
+			'product_id' => 'Product',
 			'discount_type' => 'Discount Type',
 			'discount_value' => 'Discount Value',
 		);
@@ -83,6 +84,7 @@ class ProductDiscount extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('discount_id',$this->discount_id);
+		$criteria->compare('product_id',$this->product_id,true);
 		$criteria->compare('discount_type',$this->discount_type,true);
 		$criteria->compare('discount_value',$this->discount_value,true);
 
