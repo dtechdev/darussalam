@@ -23,8 +23,7 @@ $this->menu=array(
 			'mProductDiscount'=>$mProductDiscount,
 			'mProductImage'=>$mProductImage,
 			'mProductCategories'=>$mProductCategories,
-			'mAuthor'=>$mAuthor,
-			'mLanguage'=>$mLanguage,
 			'cityList'=>$cityList,
-			'languageList'=>$languageList
+			'languageList'=>$languageList,
+			'authorList'=>$authorList
     )); ?>

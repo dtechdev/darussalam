@@ -85,9 +85,14 @@
         <?php echo $form->error($mProductProfile, 'isbn'); ?>
     </div>
     <div class="row">
-        <?php echo $form->labelEx($mLanguage, 'language_id'); ?>
-        <?php echo $form->dropDownList($mLanguage, 'language_id', $languageList, array('prompt' => 'Select Language')); ?>
-        <?php echo $form->error($mLanguage, 'language_id'); ?>
+        <?php echo $form->labelEx($mProductProfile, 'language_id'); ?>
+        <?php echo $form->dropDownList($mProductProfile, 'language_id', $languageList, array('prompt' => 'Select Language')); ?>
+        <?php echo $form->error($mProductProfile, 'language_id'); ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($mProductProfile, 'author_id'); ?>
+        <?php echo $form->dropDownList($mProductProfile, 'author_id', $authorList, array('prompt' => 'Select Author')); ?>
+        <?php echo $form->error($mProductProfile, 'author_id'); ?>
     </div>
     <div class="row">
         <?php echo $form->labelEx($mProductImage, 'image'); ?>

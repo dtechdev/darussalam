@@ -63,10 +63,9 @@ class ProductController extends Controller {
         $mProductDiscount = new ProductDiscount;
         $mProductImage = new ProductImage;
         $mProductCategories = new ProductCatagories;
-        $mAuthor = new Author;
-        $mLanguage = new Language;
         $cityList = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name');
         $languageList = CHtml::listData(Language::model()->findAll(), 'language_id', 'language_name');
+        $authorList = CHtml::listData(Author::model()->findAll(), 'author_id', 'author_name');
 
 
         // Uncomment the following line if AJAX validation is needed
@@ -94,10 +93,9 @@ class ProductController extends Controller {
             'mProductDiscount' => $mProductDiscount,
             'mProductImage' => $mProductImage,
             'mProductCategories' => $mProductCategories,
-            'mAuthor' => $mAuthor,
-            'mLanguage' => $mLanguage,
             'cityList' => $cityList,
-            'languageList' => $languageList
+            'languageList' => $languageList,
+            'authorList' => $authorList
         ));
     }
 
@@ -109,31 +107,12 @@ class ProductController extends Controller {
     public function actionUpdate($id) {
         
         $model = $this->loadModel($id);
-        $mAuthor = new Author;
-        $mLanguage = new Language;
         $mProductDiscount = new ProductDiscount;
         $mProductImage = new ProductImage;
         $mProductCategories = new ProductCatagories;
         
         $mProductProfileArray = ProductProfile::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
         $mProductProfile = ProductProfile::model()->findByPk($mProductProfileArray[0]['profile_id']);
-        
-       
-        if($mProductProfileArray[0]['author_id'])
-        {
-            //$mAuthorArray =Author::model()->findAll(array('condition' => 'author_id="' . $mProductProfileArray[0]['author_id'] . '"')); 
-            //if ($mAuthorArray != NULL) {
-                $mAuthor = Author::model()->findByPk($mProductProfileArray[0]['author_id']);
-            //}
-        }
-        if($mProductProfileArray[0]['language_id'])
-        {
-            //$mLanguageArray =Language::model()->findAll(array('condition' => 'language_id="' . $mProductProfileArray[0]['language_id'] . '"')); 
-            //if ($mLanguageArray != NULL) {
-                $mLanguage = Language::model()->findByPk($mProductProfileArray[0]['language_id']);
-            //}
-        }
-        
         
         
         $mProductDiscountArray= ProductDiscount::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
@@ -155,6 +134,7 @@ class ProductController extends Controller {
 
         $cityList = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name');
         $languageList = CHtml::listData(Language::model()->findAll(), 'language_id', 'language_name');
+        $authorList = CHtml::listData(Author::model()->findAll(), 'author_id', 'author_name');
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -180,10 +160,9 @@ class ProductController extends Controller {
             'mProductDiscount' => $mProductDiscount,
             'mProductImage' => $mProductImage,
             'mProductCategories' => $mProductCategories,
-            'mAuthor' => $mAuthor,
-            'mLanguage' => $mLanguage,
             'cityList' => $cityList,
-            'languageList' => $languageList
+            'languageList' => $languageList,
+            'authorList' => $authorList
         ));
     }
 
