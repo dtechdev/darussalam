@@ -28,16 +28,16 @@ class UserController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create'),
+                'actions' => array('create','updateprofile'),
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('create','update'),
+                'actions' => array('create','update','updateprofile'),
                 'expression' => 'Yii::app()->user->isAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array('admin', 'delete','update'),
+                'actions' => array('admin', 'delete','update','updateprofile'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -283,6 +283,26 @@ class UserController extends Controller {
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
+    }
+    
+    
+    
+    public function actionUpdateProfile($id)
+        {
+        $model = $this->loadModel($id);
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->user_id));
+        }
+
+        $this->render('update_profile', array(
+            'model' => $model,
+        ));
     }
 
     /**

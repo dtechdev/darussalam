@@ -2,9 +2,12 @@
 /* @var $this SiteController */
 
 $this->pageTitle = Yii::app()->name;
+ $user_id = Yii::app()->user->id;
 //$this->layout='column2';
 if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
     $this->menu = array(
+       // echo chtml::link(CHtml::encode('Change Your Profile'),array('changeProfile','id'=>$model->id))
+        array('label'=>'Update Profile','url'=>array('/user/updateprofile/id/'.$user_id)),
         array('label' => 'Create Layout', 'url' => array('/layout/create')),
         array('label' => 'Manage Layout', 'url' => array('/layout/admin')),
         array('label' => 'Create User', 'url' => array('/user/create')),
@@ -14,6 +17,11 @@ if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
         array('label' => 'Create Country', 'url' => array('/country/create')),
         array('label' => 'Manage Country', 'url' => array('/country/admin')),
     );
+}
+if(Yii::app()->user->isCustomer)
+{
+   
+    $this->menu=array(array('label'=>'Update Profile','url'=>array('/user/updateprofile/id/'.$user_id)));
 }
 ?>
 

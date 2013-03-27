@@ -31,7 +31,10 @@ class User extends CActiveRecord
 	 * @return User the static model class
 	 */
     const  LEVEL_CUSTOMER=3, LEVEL_ADMIN=2, LEVEL_SUPERADMIN=1,LEVEL_UNKNOWN=0;
-     public $user_password2;
+    const WEAK = 0;
+    const STRONG = 1;
+
+    public $user_password2;
      
 	public static function model($className=__CLASS__)
 	{
@@ -59,6 +62,8 @@ class User extends CActiveRecord
 			array('user_name, user_password, activation_key', 'length', 'max'=>255),
 			array('is_active', 'length', 'max'=>8),
                         array('user_password2', 'compare', 'compareAttribute'=>'user_password' ),
+                         array('user_name','unique', 'message'=>'User Name already exists.'),
+                        array('user_password', 'passwordStrength', 'strength'=>self::STRONG),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('user_id, user_name, user_password, role_id, status_id, city_id, activation_key, is_active, site_id', 'safe', 'on'=>'search'),
@@ -148,5 +153,17 @@ class User extends CActiveRecord
                                             return $password;
                                      }
                                      
+                                     
+                                     public function passwordStrength($attribute,$params)
+                            {
+                                if ($params['strength'] === self::WEAK)
+                                    $pattern = '/^(?=.*[a-zA-Z0-9]).{5,}$/';  
+                                elseif ($params['strength'] === self::STRONG)
+                                    $pattern = '/^(?=.*[a-zA-Z](?=.*[a-zA-Z])).{5,}$/';  
+
+                                if(!preg_match($pattern, $this->$attribute))
+                                  $this->addError($attribute, 'Weak Password ! At least 5 characters.Passowrd can contain both letters and numbers!');
+                            }
+
                                     
 }
