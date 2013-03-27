@@ -16,6 +16,14 @@ if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
         array('label' => 'Manage City', 'url' => array('/city/admin')),
         array('label' => 'Create Country', 'url' => array('/country/create')),
         array('label' => 'Manage Country', 'url' => array('/country/admin')),
+        array('label'=>'Create Product', 'url'=>array('/product/create')),
+	array('label'=>'Manage Product', 'url'=>array('/product/admin')),
+        array('label'=>'Create Author', 'url'=>array('/author/create')),
+	array('label'=>'Manage Author', 'url'=>array('/author/admin')),
+        array('label'=>'Create Language', 'url'=>array('/language/create')),
+	array('label'=>'Manage Language', 'url'=>array('/language/admin')),
+        array('label'=>'Create Catagories', 'url'=>array('/catagories/create')),
+	array('label'=>'Manage Catagories', 'url'=>array('/catagories/admin')),
     );
 }
 if(Yii::app()->user->isCustomer)
