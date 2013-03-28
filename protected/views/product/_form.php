@@ -29,7 +29,11 @@
 <?php echo $form->textArea($model, 'product_description', array('cols' => 81, 'maxlength' => 255)); ?>
 <?php echo $form->error($model, 'product_description'); ?>
     </div>
-
+    <div class="row">
+        <?php echo $form->labelEx($model, 'is_featured'); ?>
+<?php echo $form->dropDownList($model, 'is_featured', array('1' => 'Yes', '0' => 'No'), array('size' => 1, 'maxlength' => 1)); ?>
+        <?php echo $form->error($model, 'is_featured'); ?>
+    </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'city_id'); ?>
@@ -37,32 +41,6 @@
         <?php echo $form->error($model, 'city_id'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'added_date'); ?>
-        <?php
-        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'model' => $model,
-            'attribute' => 'added_date',
-            'options' => array(
-                'mode' => 'focus',
-                'dateFormat' => 'dd-mm-yy',
-                'showAnim' => 'slideDown',
-            ),
-            'htmlOptions' => array(
-                'size' => '15', // textField size
-                'value' => date("d-m-Y"),
-                'maxlength' => '10', // textField maxlength
-            ),
-        ));
-        ?>
-<?php echo $form->error($model, 'added_date'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'is_featured'); ?>
-<?php echo $form->dropDownList($model, 'is_featured', array('1' => 'Yes', '0' => 'No'), array('size' => 1, 'maxlength' => 1)); ?>
-        <?php echo $form->error($model, 'is_featured'); ?>
-    </div>
     <div class="row">
         <?php echo $form->labelEx($model, 'product_price'); ?>
 <?php echo $form->textField($model, 'product_price', array('size' => 10, 'maxlength' => 10)); ?>

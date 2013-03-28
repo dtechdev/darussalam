@@ -95,7 +95,7 @@ class CategoriesController extends Controller
 		if(isset($_POST['Categories']))
 		{
 			$model->attributes=$_POST['Categories'];
-                        $model->added_date=  date('d-m-Y');
+                        $model->added_date=time();
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->category_id));
 		}
