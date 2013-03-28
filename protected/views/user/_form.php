@@ -31,9 +31,9 @@
 	</div>
         <div class="row">
             
-                <?php echo $form->labelEx($modelp,'email'); ?>
-                <?php echo $form->textField($modelp,'email'); ?>
-                <?php echo $form->error($modelp,'email'); ?>
+                <?php echo $form->labelEx($model,'user_email'); ?>
+                <?php echo $form->textField($model,'user_email'); ?>
+                <?php echo $form->error($model,'user_email'); ?>
         </div>
         
         <div class="row">

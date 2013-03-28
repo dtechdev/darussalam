@@ -48,6 +48,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'user_id',
 		'user_name',
 		'user_password',
+                'user_email',
 		'role_id',
 		'status_id',
 		'city_id',

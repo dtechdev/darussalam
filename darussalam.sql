@@ -3,12 +3,18 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 27, 2013 at 02:30 PM
+-- Generation Time: Mar 28, 2013 at 09:14 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `darussalam`
@@ -380,6 +386,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) NOT NULL,
   `user_password` varchar(255) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
   `role_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL COMMENT '1 for active 0 for disabled',
   `city_id` int(11) DEFAULT NULL,
@@ -400,16 +407,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`) VALUES
-(2, 'super', 'super', 1, 1, NULL, '', 'inactive', 1, ''),
-(3, 'admin', 'admin', 2, 1, 3, '', 'active', 1, ''),
-(4, 'customer', 'customer', 3, 1, 6, '1', 'active', 1, '');
+INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`) VALUES
+(2, 'super', 'super', 'admin@yahoo.com', 1, 1, 3, '1', 'active', 1, '28 March, 2013'),
+(3, 'admin', 'admin', 'admin@yahoo.com', 2, 1, 3, '', 'active', 1, ''),
+(4, 'customer', 'customer', 'customer@yahoo.com', 3, 1, 6, '1', 'active', 1, ''),
+(5, 'test', 'ubaid', 'test@yahoo.com', 3, 1, 3, 'ad5d9ee51b74eb711f4101aecece361ec403896c', 'active', 1, '28 March, 2013'),
+(6, 'ubaid', 'ux6cza3i7', 'kiu@gmail.com', 3, 1, 3, '72f74198e40d14d51b12dcb3be35af6f619bd67a', 'inactive', 1, '1364497980');
 
 -- --------------------------------------------------------
 
@@ -423,22 +432,22 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
   `contact_number` varchar(255) NOT NULL,
   PRIMARY KEY (`user_profile_id`),
   KEY `customer_id` (`user_profile_id`),
   KEY `user_id` (`user_id`),
   KEY `user_profile_id` (`user_profile_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `user_profile`
 --
 
-INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_name`, `address`, `email`, `contact_number`) VALUES
-(1, 2, 'super', 'admin', 'STC lahore', 'super@yahoo.com', '03336566326'),
-(2, 3, 'sub', 'admin', 'abc', 'admin@yahoo.com', ''),
-(3, 4, 'Richard', 'Arnold', 'abc', 'rich', '');
+INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_name`, `address`, `contact_number`) VALUES
+(1, 2, 'super', 'admin', 'STC lahore', '03336566326'),
+(2, 3, 'sub', 'admin', 'abc', ''),
+(3, 4, 'Richard', 'Arnold', 'abc', ''),
+(4, 6, 'kiu', 'kiu', 'aa', '');
 
 -- --------------------------------------------------------
 
@@ -580,3 +589,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_profile`
   ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

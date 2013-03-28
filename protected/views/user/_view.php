@@ -16,6 +16,9 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('user_password')); ?>:</b>
 	<?php echo CHtml::encode($data->user_password); ?>
 	<br />
+        <b><?php echo CHtml::encode($data->getAttributeLabel('user_email')); ?>:</b>
+	<?php echo CHtml::encode($data->user_email); ?>
+	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('role_id')); ?>:</b>
 	<?php echo CHtml::encode($data->role_id); ?>

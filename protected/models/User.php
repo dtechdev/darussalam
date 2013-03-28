@@ -57,12 +57,13 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_name, user_password,join_date', 'required'),
+			array('user_name, user_password,join_date,user_email', 'required'),
 			array('role_id, status_id, city_id, site_id', 'numerical', 'integerOnly'=>true),
 			array('user_name, user_password, activation_key', 'length', 'max'=>255),
 			array('is_active', 'length', 'max'=>8),
                         array('user_password2', 'compare', 'compareAttribute'=>'user_password' ),
                          array('user_name','unique', 'message'=>'User Name already exists.'),
+                        array('user_email','email'),
                         array('user_password', 'passwordStrength', 'strength'=>self::STRONG),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -101,6 +102,7 @@ class User extends CActiveRecord
 			'activation_key' => 'Activation Key',
 			'is_active' => 'Is Active',
 			'site_id' => 'Site',
+                        'user_email'=>'User Email',
                     'join_date' => 'Registration date',
                     'user_password2'=>'Repeated Password',
 		);
@@ -136,6 +138,7 @@ class User extends CActiveRecord
 		$criteria->compare('user_password',$this->user_password,true);
 		$criteria->compare('role_id',$this->role_id);
 		$criteria->compare('status_id',$this->status_id);
+                $criteria->compare('user_email',$this->status_id); 
 		$criteria->compare('city_id',$this->city_id);
 		$criteria->compare('activation_key',$this->activation_key,true);
 		$criteria->compare('is_active',$this->is_active,true);

@@ -50,6 +50,10 @@
 		<?php echo $form->label($model,'site_id'); ?>
 		<?php echo $form->textField($model,'site_id'); ?>
 	</div>
+       <div class="row">
+		<?php echo $form->label($model,'user_email'); ?>
+		<?php echo $form->textField($model,'user_email'); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>

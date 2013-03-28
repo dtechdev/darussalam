@@ -51,7 +51,10 @@ $this->breadcrumbs=array(
 		<?php echo $form->label($model,'rememberMe'); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
-
+        <div class="row">
+            <?php //echo  $form->labelEx($model,'Forgot Password...');?>
+            <?php echo CHtml::link('Forgot Your Password...?',Yii::app()->createUrl('user/forgot'));?>
+        </div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Login'); ?>
 	</div>

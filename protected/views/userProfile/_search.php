@@ -36,10 +36,7 @@
 		<?php echo $form->textField($model,'address',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
+	
 
 	<div class="row">
 		<?php echo $form->label($model,'contact_number'); ?>
