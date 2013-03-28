@@ -53,18 +53,18 @@ CREATE TABLE IF NOT EXISTS `cart` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `catagories`
+-- Table structure for table `categories`
 --
 
-CREATE TABLE IF NOT EXISTS `catagories` (
-  `catagory_id` int(11) NOT NULL AUTO_INCREMENT,
-  `catagory_name` varchar(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS `categories` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(255) NOT NULL,
   `added_date` varchar(255) NOT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `city_id` int(11) NOT NULL,
-  PRIMARY KEY (`catagory_id`),
-  KEY `catagory_id` (`catagory_id`),
-  KEY `catagory_id_2` (`catagory_id`),
+  PRIMARY KEY (`category_id`),
+  KEY `category_id` (`category_id`),
+  KEY `category_id_2` (`category_id`),
   KEY `parent_id` (`parent_id`),
   KEY `city_id` (`city_id`),
   KEY `city_id_2` (`city_id`)
@@ -267,17 +267,17 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `cit
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_catagories`
+-- Table structure for table `product_categories`
 --
 
-CREATE TABLE IF NOT EXISTS `product_catagories` (
-  `product_catagory_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `product_categories` (
+  `product_category_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
-  `catagory_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_catagory_id`),
-  KEY `catagory_id` (`catagory_id`),
+  `category_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_category_id`),
+  KEY `category_id` (`category_id`),
   KEY `product_id` (`product_id`),
-  KEY `product_catagory_id` (`product_catagory_id`)
+  KEY `product_category_id` (`product_category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -496,10 +496,10 @@ ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `catagories`
+-- Constraints for table `categories`
 --
-ALTER TABLE `catagories`
-  ADD CONSTRAINT `catagories_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `categories`
+  ADD CONSTRAINT `categories_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `city`
@@ -540,11 +540,11 @@ ALTER TABLE `product`
   ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `product_catagories`
+-- Constraints for table `product_categories`
 --
-ALTER TABLE `product_catagories`
-  ADD CONSTRAINT `product_catagories_ibfk_1` FOREIGN KEY (`catagory_id`) REFERENCES `catagories` (`catagory_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_catagories_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `product_categories`
+  ADD CONSTRAINT `product_categories_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_categories_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_discount`

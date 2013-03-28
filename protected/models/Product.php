@@ -16,7 +16,7 @@
  * @property OrderDetail[] $orderDetails
  * @property ProductDiscount $discount
  * @property City $city
- * @property ProductCatagories[] $productCatagories
+ * @property ProductCategories[] $productCategories
  * @property ProductImage[] $productImages
  * @property ProductProfile $productProfile
  */
@@ -71,7 +71,7 @@ class Product extends CActiveRecord
 			'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'product_id'),
 			'discount' => array(self::HAS_MANY, 'ProductDiscount', 'product_id'),
 			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
-			'productCatagories' => array(self::HAS_MANY, 'ProductCatagories', 'product_id'),
+			'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
 			'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
 			'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
 		);

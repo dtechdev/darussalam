@@ -22,8 +22,8 @@ if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
 	array('label'=>'Manage Author', 'url'=>array('/author/admin')),
         array('label'=>'Create Language', 'url'=>array('/language/create')),
 	array('label'=>'Manage Language', 'url'=>array('/language/admin')),
-        array('label'=>'Create Catagories', 'url'=>array('/catagories/create')),
-	array('label'=>'Manage Catagories', 'url'=>array('/catagories/admin')),
+        array('label'=>'Create Categories', 'url'=>array('/categories/create')),
+	array('label'=>'Manage Categories', 'url'=>array('/categories/admin')),
     );
 }
 if(Yii::app()->user->isCustomer)

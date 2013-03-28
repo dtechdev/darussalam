@@ -1,25 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "catagories".
+ * This is the model class for table "product_categories".
  *
- * The followings are the available columns in table 'catagories':
- * @property integer $catagory_id
- * @property string $catagory_name
- * @property string $added_date
- * @property integer $parent_id
- * @property integer $city_id
+ * The followings are the available columns in table 'product_categories':
+ * @property integer $product_category_id
+ * @property integer $product_id
+ * @property integer $category_id
  *
  * The followings are the available model relations:
- * @property City $city
- * @property ProductCatagories[] $productCatagories
+ * @property Categories $category
+ * @property Product $product
  */
-class Catagories extends CActiveRecord
+class ProductCategories extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Catagories the static model class
+	 * @return ProductCategories the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -31,7 +29,7 @@ class Catagories extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'catagories';
+		return 'product_categories';
 	}
 
 	/**
@@ -42,12 +40,11 @@ class Catagories extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('catagory_name, added_date, city_id', 'required'),
-			array('parent_id, city_id', 'numerical', 'integerOnly'=>true),
-			array('catagory_name, added_date', 'length', 'max'=>255),
+			array('product_id, category_id', 'required'),
+			array('product_id, category_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('catagory_id, catagory_name, added_date, parent_id, city_id', 'safe', 'on'=>'search'),
+			array('product_category_id, product_id, category_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,8 +56,8 @@ class Catagories extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
-			'productCatagories' => array(self::HAS_MANY, 'ProductCatagories', 'catagory_id'),
+			'category' => array(self::BELONGS_TO, 'Categories', 'category_id'),
+			'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
 		);
 	}
 
@@ -70,11 +67,9 @@ class Catagories extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'catagory_id' => 'Catagory',
-			'catagory_name' => 'Catagory Name',
-			'added_date' => 'Added Date',
-			'parent_id' => 'Parent',
-			'city_id' => 'City',
+			'product_category_id' => 'Product Category',
+			'product_id' => 'Product',
+			'category_id' => 'Category',
 		);
 	}
 
@@ -89,11 +84,9 @@ class Catagories extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('catagory_id',$this->catagory_id);
-		$criteria->compare('catagory_name',$this->catagory_name,true);
-		$criteria->compare('added_date',$this->added_date,true);
-		$criteria->compare('parent_id',$this->parent_id);
-		$criteria->compare('city_id',$this->city_id);
+		$criteria->compare('product_category_id',$this->product_category_id);
+		$criteria->compare('product_id',$this->product_id);
+		$criteria->compare('category_id',$this->category_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

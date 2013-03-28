@@ -1,13 +1,13 @@
 <?php
-/* @var $this CatagoriesController */
-/* @var $model Catagories */
+/* @var $this CategoriesController */
+/* @var $model Categories */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'catagories-form',
+	'id'=>'categories-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
@@ -15,10 +15,16 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
+        <div class="row">
+		<?php echo $form->labelEx($model,'parent_id'); ?>
+		<?php //echo $form->textField($model,'parent_id'); ?>
+                <?php echo $form->dropDownList($model, 'parent_id', $categoriesList, array('prompt' => 'Select Parent Category')); ?>
+		<?php echo $form->error($model,'parent_id'); ?>
+	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'catagory_name'); ?>
-		<?php echo $form->textField($model,'catagory_name',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'catagory_name'); ?>
+		<?php echo $form->labelEx($model,'category_name'); ?>
+		<?php echo $form->textField($model,'category_name',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'category_name'); ?>
 	</div>
 
 	<div class="row">
@@ -27,11 +33,7 @@
 		<?php echo $form->error($model,'added_date'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'parent_id'); ?>
-		<?php echo $form->textField($model,'parent_id'); ?>
-		<?php echo $form->error($model,'parent_id'); ?>
-	</div>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'city_id'); ?>

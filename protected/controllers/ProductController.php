@@ -72,7 +72,7 @@ class ProductController extends Controller {
         $mProductProfile = new ProductProfile;
         $mProductDiscount = new ProductDiscount;
         $mProductImage = new ProductImage;
-        $mProductCategories = new ProductCatagories;
+        $mProductCategories = new ProductCategories;
         $cityList = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name');
         $languageList = CHtml::listData(Language::model()->findAll(), 'language_id', 'language_name');
         $authorList = CHtml::listData(Author::model()->findAll(), 'author_id', 'author_name');
@@ -119,7 +119,7 @@ class ProductController extends Controller {
         $model = $this->loadModel($id);
         $mProductDiscount = new ProductDiscount;
         $mProductImage = new ProductImage;
-        $mProductCategories = new ProductCatagories;
+        $mProductCategories = new ProductCategories;
         
         $mProductProfileArray = ProductProfile::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
         $mProductProfile = ProductProfile::model()->findByPk($mProductProfileArray[0]['profile_id']);
@@ -135,9 +135,9 @@ class ProductController extends Controller {
             $mProductImage = ProductImage::model()->findByPk($mProductImageArray[0]['product_image_id']);
         }
         
-        $mProductCategoriesArray =ProductCatagories::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"')); 
+        $mProductCategoriesArray =ProductCategories::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"')); 
         if ($mProductCategoriesArray != NULL) {
-            $mProductCategories = ProductCatagories::model()->findByPk($mProductCategoriesArray[0]['product_catagory_id']);
+            $mProductCategories = ProductCategories::model()->findByPk($mProductCategoriesArray[0]['product_category_id']);
         }
         
   

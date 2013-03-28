@@ -12,7 +12,7 @@
  * @property integer $layout_id
  *
  * The followings are the available model relations:
- * @property Catagories[] $catagories
+ * @property Categories[] $categories
  * @property Layout $layout
  * @property Country $country
  * @property Layout $layout1
@@ -63,7 +63,7 @@ class City extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'catagories' => array(self::HAS_MANY, 'Catagories', 'city_id'),
+			'categories' => array(self::HAS_MANY, 'Categories', 'city_id'),
 			'layout' => array(self::BELONGS_TO, 'Layout', 'layout_id'),
 			'country' => array(self::BELONGS_TO, 'Country', 'country_id'),
 			'layout1' => array(self::HAS_ONE, 'Layout', 'layout_id'),

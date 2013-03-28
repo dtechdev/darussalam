@@ -1,6 +1,6 @@
 <?php
 
-class CatagoriesController extends Controller
+class CategoriesController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -72,20 +72,23 @@ class CatagoriesController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Catagories;
+		$model=new Categories;
+                
+                $categoriesList = CHtml::listData(Categories::model()->findAll(), 'category_id', 'category_name');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Catagories']))
+		if(isset($_POST['Categories']))
 		{
-			$model->attributes=$_POST['Catagories'];
+			$model->attributes=$_POST['Categories'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->catagory_id));
+				$this->redirect(array('view','id'=>$model->category_id));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+                        'categoriesList'=>$categoriesList
 		));
 	}
 
@@ -101,11 +104,11 @@ class CatagoriesController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Catagories']))
+		if(isset($_POST['Categories']))
 		{
-			$model->attributes=$_POST['Catagories'];
+			$model->attributes=$_POST['Categories'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->catagory_id));
+				$this->redirect(array('view','id'=>$model->category_id));
 		}
 
 		$this->render('update',array(
@@ -132,7 +135,7 @@ class CatagoriesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Catagories');
+		$dataProvider=new CActiveDataProvider('Categories');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -143,10 +146,10 @@ class CatagoriesController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Catagories('search');
+		$model=new Categories('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Catagories']))
-			$model->attributes=$_GET['Catagories'];
+		if(isset($_GET['Categories']))
+			$model->attributes=$_GET['Categories'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -157,12 +160,12 @@ class CatagoriesController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Catagories the loaded model
+	 * @return Categories the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Catagories::model()->findByPk($id);
+		$model=Categories::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -170,11 +173,11 @@ class CatagoriesController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Catagories $model the model to be validated
+	 * @param Categories $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='catagories-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='categories-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
