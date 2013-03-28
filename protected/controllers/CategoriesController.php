@@ -74,23 +74,51 @@ class CategoriesController extends Controller
 	{
 		$model=new Categories;
                 
-                $categoriesList = CHtml::listData(Categories::model()->findAll(), 'category_id', 'category_name');
-
+                global $categotyList;
+                $parentCategories = Categories::model()->findAllByAttributes(array('parent_id'=>'0'));
+                if ($parentCategories != null) {
+                    foreach ($parentCategories as $category) {
+                        $categotyList[]=array('category_id'=>$category->category_id,'category_name'=>$category->category_name);
+                        $this->getSubCategories($category->category_id,$category->category_name);
+                    }
+                }
+                if(empty($categotyList))
+                {
+                    $categotyList=array();
+                }
+                $categoriesList = CHtml::listData($categotyList,'category_id','category_name');
+                 $cityList = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name');
+                 unset($categotyList);
+                
+                
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Categories']))
 		{
 			$model->attributes=$_POST['Categories'];
+                        $model->added_date=time();
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->category_id));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
-                        'categoriesList'=>$categoriesList
+                        'categoriesList'=>$categoriesList,
+                        'cityList'=>$cityList
 		));
 	}
+        
+        public function getSubCategories($sub_catetory_id,$category_name)
+        {
+            global $categotyList;
+            $childCategories = Categories::model()->findAllByAttributes(array('parent_id'=>$sub_catetory_id));
+            if ($childCategories != null) {
+                  foreach ($childCategories as $child) {
+                       $categotyList[]=array('category_id'=>$child->category_id,'category_name'=>$category_name.' ->'.$child->category_name);
+                       $this->getSubCategories($child->category_id,$category_name.'->'.$child->category_name);
+                  }
+            }
+        }
+        
 
 	/**
 	 * Updates a particular model.
@@ -100,6 +128,21 @@ class CategoriesController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+                 global $categotyList;
+                $parentCategories = Categories::model()->findAllByAttributes(array('parent_id'=>'0'));
+                if ($parentCategories != null) {
+                    foreach ($parentCategories as $category) {
+                        $categotyList[]=array('category_id'=>$category->category_id,'category_name'=>$category->category_name);
+                        $this->getSubCategories($category->category_id,$category->category_name);
+                    }
+                }
+                if(empty($categotyList))
+                {
+                    $categotyList=array();
+                }
+                $categoriesList = CHtml::listData($categotyList,'category_id','category_name');
+                 $cityList = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name');
+                 unset($categotyList);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -113,6 +156,8 @@ class CategoriesController extends Controller
 
 		$this->render('update',array(
 			'model'=>$model,
+                        'categoriesList'=>$categoriesList,
+                        'cityList'=>$cityList
 		));
 	}
 

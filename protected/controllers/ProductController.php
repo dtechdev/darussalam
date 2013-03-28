@@ -83,6 +83,7 @@ class ProductController extends Controller {
 
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
+            $model->added_date =time();
             if ($model->save()) {
                 $product_id = $model->product_id;
                 $mProductProfile->attributes = $_POST['ProductProfile'];

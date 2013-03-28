@@ -27,19 +27,11 @@
 		<?php echo $form->error($model,'category_name'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'added_date'); ?>
-		<?php echo $form->textField($model,'added_date',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'added_date'); ?>
-	</div>
-
-
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'city_id'); ?>
-		<?php echo $form->textField($model,'city_id'); ?>
-		<?php echo $form->error($model,'city_id'); ?>
-	</div>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'city_id'); ?>
+            <?php echo $form->dropDownList($model, 'city_id', $cityList, array('prompt' => 'Select city')); ?>
+            <?php echo $form->error($model, 'city_id'); ?>
+        </div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
