@@ -139,25 +139,18 @@ class UserController extends Controller {
                         //   $identity->authenticate();
                         // Yii::app()->user->login($identity,0);
                         $to = $model->user_email;
-                        $subject = "Email Activatation";
-                        $message = "Thank you for joining!, we have sent you a separate email that contains your activation link";
-                        $from = "FROM: DTech.com";
-
-                        mail($to, $subject, $message, $from);
-
-                        //echo $to.$subject.$message.$from;
-
+                        $from = "ubaidullah@darussalampk.com";
                         $headers = 'MIME-Version: 1.0' . "\r\n";
                         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                         $headers .= 'From: DTech.com' . "\r\n";
 
-                        $subject2 = "Your Activation Link";
+                        $subject = "Your Activation Link";
 
-                        $message2 = "<html><body>Please click this below to activate your account<br />" .
+                        $message = "<html><body>Please click this below to activate your account <br />" .
                                 Yii::app()->createAbsoluteUrl('user/activate', array('key' => $model->activation_key,'user_id'=>$model->user_id)).
                                 "<br> Thanks you. ".$model->user_email . " </body></html>";
 
-                        mail($to, $subject2, $message2, $headers);
+                       Yii::app()->email->send($to, $from,$subject, $message);
                        
                         //email activation code end-----------------------------------------
                     }
@@ -324,10 +317,10 @@ class UserController extends Controller {
                         $to = $record->user_email;
                         $subject = "Forgot Password";
                         $message = "Thank you for joining!, we have send you a seperate message that contain your new password. Use this password to login";
-                        $from = "FROM: DTech.com";
+                        $from = 'ubaidullah@darussalampk.com';
 
-                        mail($to, $subject, $message, $from);
-
+                         Yii::app()->email->send($to, $from,$subject, $message);
+                        
                         //echo $to.$subject.$message.$from;
 
                         $headers = 'MIME-Version: 1.0' . "\r\n";
@@ -338,7 +331,7 @@ class UserController extends Controller {
 
                         $message2 = "Your New Password : ".$pass_new;
 
-                       $isSent= mail($to, $subject2, $message2, $headers);
+                       $isSent= Yii::app()->email->send($to, $from,$subject2, $message2);
                         
                         $user_id= $record->user_id;
                         $role_id=$record->role_id;

@@ -19,6 +19,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
             'application.extensions.email.debug.*',
+            'application.extensions.KEmail.KEmail',
 	),
 
 	'modules'=>array(
@@ -41,11 +42,14 @@ return array(
                     'class'=>'WebUser',
 		),
             
-            'email'=>array(
-        'class'=>'application.extensions.email.Email',
-        'delivery'=>'php', //Will use the php mailing function.  
-        //May also be set to 'debug' to instead dump the contents of the email into the view
-    ),
+           'email'=>array(
+            'class'=>'application.extensions.KEmail.KEmail',
+            'host_name'=>'smtp.gmail.com',
+            'user'=>'ubaidullah@darussalampk.com',
+            'password'=>'my gmail password here',
+            'host_port'=>465,
+            'ssl'=>'true',
+        ),
             
 		// uncomment the following to enable URLs in path-format
 		

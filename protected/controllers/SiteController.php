@@ -147,14 +147,10 @@ class SiteController extends Controller
         public function actionMail()
         {
             
-            $email = Yii::app()->email;
-            $email->to = 'ubaidullah@darussalampk.com';
-            $email->subject = 'hellow i am inside subject';
-            $email->view = 'myMailView';
-            $email->viewVars = array('var1'=>'a','var2'=>'abc');
-            $email->send();
+            print_r(Yii::app()->email->send('ubaidullah@darussalampk.com','ubaidullah@darussalampk.com','hellow','whatasdf'));
            
 				
         }
+        
         
 }
