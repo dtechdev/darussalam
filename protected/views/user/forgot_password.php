@@ -17,7 +17,7 @@
 <?php } ?>
     <div class="row" align="center">
          
-        <?php echo $form->labelEx(User::model(),'Please enter your email'); ?>
+        <?php echo $form->labelEx(User::model(),'Please enter your email address'); ?>
 		<?php echo CHtml::textField('email'); ?>
 		<?php echo CHtml::submitButton('Send'); ?>
                 <?php echo $form->error(User::model(),'user_email'); ?>
