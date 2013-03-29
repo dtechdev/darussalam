@@ -60,4 +60,5 @@ $this->breadcrumbs=array(
 	</div>
 
 <?php $this->endWidget();?>
+        <?php $this->widget('LoginWidget');?>
 </div><!-- form -->
