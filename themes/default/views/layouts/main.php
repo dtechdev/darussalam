@@ -17,48 +17,8 @@
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
-
-    <div id="fb-root"></div>
-    <script>
-        // Additional JS functions here
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '284640041668425', // App ID
-                channelUrl : 'b6c7909c508a01a6e2c70347edc6fc1a', // Channel File
-                status     : true, // check login status
-                cookie     : true, // enable cookies to allow the server to access the session
-                xfbml      : true  // parse XFBML
-            });
-
-            // Additional init code here
-            FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-                    alert(response.authResponse.userID);
-                
-                    // connected
-                } else if (response.status === 'not_authorized') {
-                    // not_authorized
-                    alert('login but not authorized');
-                } else {
-                    // not_logged_in
-                }
-            });
-
-        };
-
-        // Load the SDK Asynchronously
-        (function(d){
-            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement('script'); js.id = id; js.async = true;
-            js.src = "//connect.facebook.net/en_US/all.js";
-            ref.parentNode.insertBefore(js, ref);
-        }(document));
-    </script>
-    <script src="//connect.facebook.net/en_US/all.js"></script>
     <body>
         <div class="container" id="page">
-            <fb:login-button autologoutlink="true"></fb:login-button>
             <div id="header">
                 <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
             </div><!-- header -->
