@@ -19,7 +19,7 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function hybridauth($username)
 	{
-		$user=User::model()->find("username = '" . $username . "'");
+		$user=User::model()->find("user_name = '" . $username . "'");
 		if ( $user === null ) 
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 		else
@@ -33,17 +33,17 @@ class UserIdentity extends CUserIdentity
 	
 	public function authenticate()
 	{
-		$user=User::model()->find("username = '" . $this->username . "'");
+		$user=User::model()->find("user_name = '" . $this->username . "'");
 		if ( $user === null ) 
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 		
-		else if ( !$user->validatePassword ( $this->password , $user->password ))
+		else if ( !$user->validatePassword ( $this->password , $user->user_password ))
 			$this->errorCode = self::ERROR_PASSWORD_INVALID;
 		
 		else
 		{
-			$this->_id = $user->id;
-			$this->username = $user->username;
+			$this->_id = $user->user_id;
+			$this->username = $user->user_name;
 			$this->errorCode = self::ERROR_NONE;
 		}
 		return $this->errorCode == self::ERROR_NONE;
