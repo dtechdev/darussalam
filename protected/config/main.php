@@ -87,7 +87,7 @@ return array(
     'components' => array(
         'user' => array(
             // enable cookie-based authentication
-            //'allowAutoLogin'=>true,
+            'allowAutoLogin'=>true,
             'class' => 'WebUser',
         ),
         'email' => array(
@@ -119,7 +119,7 @@ return array(
             'connectionString' => 'mysql:host=localhost;dbname=darussalam',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'racpakistan47',
+            'password' => '',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(
