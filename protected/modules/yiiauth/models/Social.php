@@ -26,7 +26,7 @@ class Social extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{social}}';
+		return 'social';
 	}
 
 

@@ -53,10 +53,13 @@ class DefaultController extends Controller
 		$provider; // the provider name
 		$_GET['openid'];//the extra_info
 		**/
-		
+                print "<pre>";
+		print_r($user_profile);
+//                /exit;
 		// workOnUser returns an user object
 		if ( is_object ($user_profile) ){
-		$user = $this->workOnUser($provider,$user_profile->identifier); 
+		$user = $this->workOnUser($provider,$user_profile); 
+		//$user = $this->workOnUser($provider,$user_profile->identifier); 
 			if ( $this->autoLogin($user) ){
 				//successfull login render default/profile.php
 				$this->render('profile',

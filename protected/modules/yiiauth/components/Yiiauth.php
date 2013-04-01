@@ -24,28 +24,38 @@
 		Then a user model is returned that can be logged in.
 	*/
 	public function workOnUser($provider,$provideruser){
-		$userClass = Yii::app()->controller->module->userClass;
-
-		$social = Social::model()->find("provider='".$provider."' AND provideruser='".$provideruser."'");
+		$userClass = Yii::app()->controller->module->userClass; 
+		$social = Social::model()->find("provider='".$provider."' AND provideruser='".$provideruser->identifier."'");
 		if ( $social ){
-			 $user = $userClass::model()->find("id=".$social->yiiuser);
+			 $user = $userClass::model()->find("user_id=".$social->yiiuser);
 			 return $user;
 		}else{ // no user is connected to that provideruser, 
 			$social = new Social; // a new relation will be needed
 			$social->provider = $provider; // what provider
-			$social->provideruser = $provideruser; // the unique user
+			$social->provideruser = $provideruser->identifier; // the unique user
+
 			
 			// if a yii-user is already logged in add the provideruser to that account
 			if ( !Yii::app()->user->isGuest ){
-				$social->yiiuser = Yii::app()->user->id;	
-				$user = $userClass::model()->findByPk(Yii::app()->user->id);
+				$social->yiiuser = Yii::app()->user->user_id;	
+				$user = $userClass::model()->findByPk(Yii::app()->user->user_id);
 			}else{
 			// we want to create a new $userClass
 				$user = new $userClass;
-				$user->username = $provideruser; 
-
+				$user->social_id = $social->provideruser; 
+				$user->join_date= time();
+                                $user->site_id = '1';
+                                $user->user_password = 'temp';
+                                $user->is_active = 'active';
+                                $user->status_id = '1';
+                                $user->role_id = '3';
+                                $user->user_email = $provideruser->email; // the unique user
+                                //$user->emailVerified = $provideruser->emailVerified; // the unique user
+                                //$user->first_name = $provideruser->firstName; // the unique user
+                                //$user->last_name = $provideruser->lastName; // the unique user
+                                
 				if ( $user->save() ){ //we get an user id
-					$social->yiiuser = $user->id;
+					$social->yiiuser = $user->user_id;
 					}
 			}
 			if($social->save())
@@ -56,8 +66,8 @@
 	
 	public function autoLogin($user) //accepts a user object
 	{
-	$identity=new userIdentity($user->username, "");
-	$identity->hybridauth($user->username);
+	$identity=new userIdentity($user->social_id, "");
+	$identity->hybridauth($user->social_id);
 	if ( $identity->errorCode == UserIdentity::ERROR_NONE )
 		{
 			$duration= 3600*24*30; // 30 days
@@ -95,7 +105,7 @@ public function storeSession($provider){
 	$hybridauth->authenticate($provider);
 	$hybridauth_session_data = $hybridauth->getSessionData();
 	$model = new UserSessions;
-	$model->user_id = Yii::app()->user->id;
+	$model->user_id = Yii::app()->user->user_id;
 	$model->hybridauth_session = $hybridauth_session_data;
 	
 	if($model->save(false)){
@@ -115,7 +125,7 @@ public function storeSession($provider){
 */
 public function loadSession(){
 	$hybridauth = $this->newAuth();
-	$model = UserSession::model()->findByPk(Yii::app()->user->id);
+	$model = UserSession::model()->findByPk(Yii::app()->user->user_id);
 	$hybridauth_session_data = $model->hybridauth_session;
 	// then call Hybrid_Auth::restoreSessionData() to get stored data
 	$hybridauth->restoreSessionData( $hybridauth_session_data );

@@ -34,22 +34,22 @@ class User extends CActiveRecord
 	 */
 	 public function beforeValidate()
 	{
-        $this->usernameLegal = preg_replace( '/[^A-Za-z0-9@_#?!&-]/' , '', $this->username );
-        return true;
+            $this->usernameLegal = preg_replace( '/[^A-Za-z0-9@_#?!&-]/' , '', $this->user_name );
+            return true;
 	}
 	public function tableName()
 	{
-		return '{{user}}';
+		return 'user';
 	}
 	public function getFullName()
 	{
-		return $this->username;
+		return $this->user_name;
 	}
 	
 	public function getSuggest($q) 
 	{
 		$c = new CDbCriteria();
-		$c->addSearchCondition('username', $q, true, 'OR');
+		$c->addSearchCondition('user_name', $q, true, 'OR');
 		$c->addSearchCondition('email', $q, true, 'OR');
 		return $this->findAll($c);
 	}
@@ -63,12 +63,9 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password', 'required','on'=>'validation'),
-			array('username, password, last_activity', 'length', 'max'=>128,'on'=>'validation'),
-			array('avatar', 'length', 'max'=>255,'on'=>'validation'),
-			array('last_activity', 'safe','on'=>'validation'),
-			array('presentation','safe','on'=>'validation'),
-			 array('username', 'compare', 'compareAttribute'=>'usernameLegal', 'message'=>'Username contains illegal characters','on'=>'validation'),
+			array('user_email,user_password', 'required','on'=>'validation'),
+			array('user_password', 'length', 'max'=>128,'on'=>'validation'),
+			 //array('email', 'compare', 'compareAttribute'=>'usernameLegal', 'message'=>'Username contains illegal characters','on'=>'validation'),
 		//array('password', 'compare', 'compareAttribute'=>'password2'),              
 			array('email','length','max'=>256,'on'=>'validation'),
          // make sure email is a valid email
@@ -77,7 +74,7 @@ class User extends CActiveRecord
 		//array('username, email', 'unique'), 
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, email, created, last_activity,', 'safe', 'on'=>'search,validation'),
+			array('id, user_name, user_password, user_email, join_date', 'safe', 'on'=>'search,validation'),
 		);
 	}
 
@@ -112,12 +109,9 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
 			'password' => 'Password',
 			'email' => 'Email',
-			'created' => 'Created',
-			'last_activity' => 'Last Activity',
-			'avatar' => 'Avatar',
+			'join_date' => 'Joining Date',
 		);
 	}
 	protected function afterSave()
@@ -128,19 +122,17 @@ class User extends CActiveRecord
 	{
 		if ( parent::beforeSave() )
 		{
-			$time = new Datetime();
+			//$time = new Datetime();
 			if ( $this->isNewRecord )
 			{	
-				$this->created = $time->format('Y-m-d-h-m-s');
-				if ( isset ( $_POST['User']['password'] ) ){
-					$password = $_POST['User']['password'];
+				$this->join_date = time();
+				if ( isset ( $_POST['User']['user_password'] ) ){
+					$user_password = $_POST['User']['user_password'];
 				} else{
-					$password = rand(9999,999999);
+					$user_password = rand(9,99);
 				}
-				$this->password = crypt( $password,  Randomness::blowfishSalt() );
-			}
-			else{ 
-				$this->last_activity = $time->format('Y-m-d-h-m-s');
+				$this->user_password = $user_password;
+				//$this->user_password = crypt( $user_password,  Randomness::blowfishSalt() );
 			}
 			return true;
 		}
@@ -160,13 +152,10 @@ class User extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('username',$this->username,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('last_activity',$this->last_activity,true);
-		$criteria->compare('avatar',$this->avatar,true);
+		$criteria->compare('user_id',$this->_user_id);
+		$criteria->compare('user_password',$this->user_password,true);
+		$criteria->compare('user_email',$this->user_email,true);
+		$criteria->compare('join_date',$this->join_date,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

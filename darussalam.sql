@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 28, 2013 at 09:14 AM
+-- Generation Time: Apr 01, 2013 at 01:06 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -26,12 +26,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `author`
 --
 
+DROP TABLE IF EXISTS `author`;
 CREATE TABLE IF NOT EXISTS `author` (
   `author_id` int(11) NOT NULL AUTO_INCREMENT,
   `author_name` varchar(255) NOT NULL,
   PRIMARY KEY (`author_id`),
   KEY `author_id` (`author_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `author`
@@ -39,7 +40,8 @@ CREATE TABLE IF NOT EXISTS `author` (
 
 INSERT INTO `author` (`author_id`, `author_name`) VALUES
 (2, 'zahid nadeem'),
-(3, 'Ubaid');
+(3, 'Ubaid'),
+(4, 'Talha');
 
 -- --------------------------------------------------------
 
@@ -47,6 +49,7 @@ INSERT INTO `author` (`author_id`, `author_name`) VALUES
 -- Table structure for table `cart`
 --
 
+DROP TABLE IF EXISTS `cart`;
 CREATE TABLE IF NOT EXISTS `cart` (
   `cart_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -62,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
 -- Table structure for table `categories`
 --
 
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(255) NOT NULL,
@@ -74,7 +78,18 @@ CREATE TABLE IF NOT EXISTS `categories` (
   KEY `parent_id` (`parent_id`),
   KEY `city_id` (`city_id`),
   KEY `city_id_2` (`city_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`category_id`, `category_name`, `added_date`, `parent_id`, `city_id`) VALUES
+(1, 'Books', '25-03-2013', 0, 3),
+(2, 'Books', '25-03-2013', 0, 3),
+(3, 'Ahadees', '1364464356', 2, 3),
+(4, 'Madni', '28-03-2013', 3, 3),
+(5, 'Maki', '28-03-2013', 3, 3);
 
 -- --------------------------------------------------------
 
@@ -82,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- Table structure for table `city`
 --
 
+DROP TABLE IF EXISTS `city`;
 CREATE TABLE IF NOT EXISTS `city` (
   `city_id` int(11) NOT NULL AUTO_INCREMENT,
   `country_id` int(11) NOT NULL,
@@ -111,6 +127,7 @@ INSERT INTO `city` (`city_id`, `country_id`, `city_name`, `short_name`, `address
 -- Table structure for table `country`
 --
 
+DROP TABLE IF EXISTS `country`;
 CREATE TABLE IF NOT EXISTS `country` (
   `country_id` int(11) NOT NULL AUTO_INCREMENT,
   `country_name` varchar(255) NOT NULL,
@@ -136,6 +153,7 @@ INSERT INTO `country` (`country_id`, `country_name`, `short_name`, `site_id`) VA
 -- Table structure for table `language`
 --
 
+DROP TABLE IF EXISTS `language`;
 CREATE TABLE IF NOT EXISTS `language` (
   `language_id` int(11) NOT NULL AUTO_INCREMENT,
   `language_name` varchar(255) NOT NULL,
@@ -156,6 +174,7 @@ INSERT INTO `language` (`language_id`, `language_name`) VALUES
 -- Table structure for table `layout`
 --
 
+DROP TABLE IF EXISTS `layout`;
 CREATE TABLE IF NOT EXISTS `layout` (
   `layout_id` int(11) NOT NULL AUTO_INCREMENT,
   `layout_name` varchar(255) NOT NULL,
@@ -187,6 +206,7 @@ INSERT INTO `layout` (`layout_id`, `layout_name`, `layout_description`, `layout_
 -- Table structure for table `log`
 --
 
+DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
   `log_id` int(11) NOT NULL AUTO_INCREMENT,
   `action` varchar(100) NOT NULL,
@@ -206,6 +226,7 @@ CREATE TABLE IF NOT EXISTS `log` (
 -- Table structure for table `order`
 --
 
+DROP TABLE IF EXISTS `order`;
 CREATE TABLE IF NOT EXISTS `order` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -226,6 +247,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 -- Table structure for table `order_detail`
 --
 
+DROP TABLE IF EXISTS `order_detail`;
 CREATE TABLE IF NOT EXISTS `order_detail` (
   `user_order_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
@@ -244,6 +266,7 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
 -- Table structure for table `product`
 --
 
+DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_name` varchar(255) NOT NULL,
@@ -268,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`) VALUES
-(23, 'dsf', 'sadfa', 3, '27-03-2013', '1', 32.0000);
+(23, 'dsf', 'sadfa', 3, '27-03-2013', '0', 32.0000);
 
 -- --------------------------------------------------------
 
@@ -276,6 +299,7 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `cit
 -- Table structure for table `product_categories`
 --
 
+DROP TABLE IF EXISTS `product_categories`;
 CREATE TABLE IF NOT EXISTS `product_categories` (
   `product_category_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -292,6 +316,7 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
 -- Table structure for table `product_discount`
 --
 
+DROP TABLE IF EXISTS `product_discount`;
 CREATE TABLE IF NOT EXISTS `product_discount` (
   `discount_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -316,6 +341,7 @@ INSERT INTO `product_discount` (`discount_id`, `product_id`, `discount_type`, `d
 -- Table structure for table `product_image`
 --
 
+DROP TABLE IF EXISTS `product_image`;
 CREATE TABLE IF NOT EXISTS `product_image` (
   `product_image_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -331,6 +357,7 @@ CREATE TABLE IF NOT EXISTS `product_image` (
 -- Table structure for table `product_profile`
 --
 
+DROP TABLE IF EXISTS `product_profile`;
 CREATE TABLE IF NOT EXISTS `product_profile` (
   `profile_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -359,6 +386,7 @@ INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `languag
 -- Table structure for table `site`
 --
 
+DROP TABLE IF EXISTS `site`;
 CREATE TABLE IF NOT EXISTS `site` (
   `site_id` int(11) NOT NULL AUTO_INCREMENT,
   `site_name` varchar(255) NOT NULL,
@@ -379,9 +407,32 @@ INSERT INTO `site` (`site_id`, `site_name`, `site_descriptoin`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `social`
+--
+
+DROP TABLE IF EXISTS `social`;
+CREATE TABLE IF NOT EXISTS `social` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `yiiuser` int(11) NOT NULL,
+  `provider` varchar(50) NOT NULL,
+  `provideruser` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `social`
+--
+
+INSERT INTO `social` (`id`, `yiiuser`, `provider`, `provideruser`) VALUES
+(3, 12, 'facebook', '100000456873660');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) NOT NULL,
@@ -390,10 +441,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role_id` int(11) NOT NULL,
   `status_id` int(11) NOT NULL COMMENT '1 for active 0 for disabled',
   `city_id` int(11) DEFAULT NULL,
-  `activation_key` varchar(255) NOT NULL,
+  `activation_key` varchar(255) DEFAULT NULL,
   `is_active` enum('active','inactive') NOT NULL DEFAULT 'inactive',
   `site_id` int(11) NOT NULL,
   `join_date` varchar(222) NOT NULL,
+  `social_id` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `user_id` (`user_id`),
   KEY `user_id_2` (`user_id`),
@@ -407,18 +459,19 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`) VALUES
-(2, 'super', 'super', 'admin@yahoo.com', 1, 1, 3, '1', 'active', 1, '28 March, 2013'),
-(3, 'admin', 'admin', 'admin@yahoo.com', 2, 1, 3, '', 'active', 1, ''),
-(4, 'customer', 'customer', 'customer@yahoo.com', 3, 1, 6, '1', 'active', 1, ''),
-(5, 'test', 'ubaid', 'test@yahoo.com', 3, 1, 3, 'ad5d9ee51b74eb711f4101aecece361ec403896c', 'active', 1, '28 March, 2013'),
-(6, 'ubaid', 'ux6cza3i7', 'kiu@gmail.com', 3, 1, 3, '72f74198e40d14d51b12dcb3be35af6f619bd67a', 'inactive', 1, '1364497980');
+INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`, `social_id`) VALUES
+(2, 'super', 'super', 'admin@yahoo.com', 1, 1, 3, '1', 'active', 1, '28 March, 2013', ''),
+(3, 'admin', 'admin', 'admin@yahoo.com', 2, 1, 3, '', 'active', 1, '', ''),
+(4, 'customer', 'customer', 'customer@yahoo.com', 3, 1, 6, '1', 'active', 1, '', ''),
+(5, 'test', 'ubaid', 'test@yahoo.com', 3, 1, 3, 'ad5d9ee51b74eb711f4101aecece361ec403896c', 'active', 1, '28 March, 2013', ''),
+(6, 'ubaid', 'ux6cza3i7', 'kiu@gmail.com', 3, 1, 3, '72f74198e40d14d51b12dcb3be35af6f619bd67a', 'inactive', 1, '1364497980', ''),
+(12, '', '16', 'zahidiubb@yahoo.com', 3, 1, NULL, NULL, 'active', 1, '1364813558', '100000456873660');
 
 -- --------------------------------------------------------
 
@@ -426,6 +479,7 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role
 -- Table structure for table `user_profile`
 --
 
+DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE IF NOT EXISTS `user_profile` (
   `user_profile_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -455,6 +509,7 @@ INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_na
 -- Table structure for table `user_role`
 --
 
+DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE IF NOT EXISTS `user_role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_title` varchar(255) NOT NULL,
@@ -475,16 +530,30 @@ INSERT INTO `user_role` (`role_id`, `role_title`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_sessions`
+--
+
+DROP TABLE IF EXISTS `user_sessions`;
+CREATE TABLE IF NOT EXISTS `user_sessions` (
+  `user_id` int(11) NOT NULL COMMENT 'refer to your user id on your application',
+  `hybridauth_session` text NOT NULL COMMENT 'will contain the hybridauth session data',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_status`
 --
 
+DROP TABLE IF EXISTS `user_status`;
 CREATE TABLE IF NOT EXISTS `user_status` (
   `status_id` int(11) NOT NULL AUTO_INCREMENT,
   `status_title` varchar(255) NOT NULL,
   PRIMARY KEY (`status_id`),
   KEY `status_id` (`status_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `user_status`
@@ -571,9 +640,9 @@ ALTER TABLE `product_image`
 -- Constraints for table `product_profile`
 --
 ALTER TABLE `product_profile`
-  ADD CONSTRAINT `product_profile_ibfk_3` FOREIGN KEY (`author_id`) REFERENCES `author` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `product_profile_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_profile_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`language_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_profile_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`language_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_profile_ibfk_3` FOREIGN KEY (`author_id`) REFERENCES `author` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`
