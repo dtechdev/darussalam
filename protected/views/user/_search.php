@@ -16,10 +16,6 @@
 		<?php echo $form->textField($model,'user_id'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'user_name'); ?>
-		<?php echo $form->textField($model,'user_name',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'role_id'); ?>

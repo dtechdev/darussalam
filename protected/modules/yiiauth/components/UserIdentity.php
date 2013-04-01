@@ -19,13 +19,13 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function hybridauth($username)
 	{
-		$user=User::model()->find("user_name = '" . $username . "'");
+		$user=User::model()->find("social_id = '" . $username . "'");
 		if ( $user === null ) 
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 		else
 		{
-			$this->_id = $user->id;
-			$this->username = $user->username;
+			$this->_id = $user->user_id;
+			$this->username = $user->user_email;
 			$this->errorCode = self::ERROR_NONE;
 		}
 		return $this->errorCode == self::ERROR_NONE;
@@ -33,7 +33,7 @@ class UserIdentity extends CUserIdentity
 	
 	public function authenticate()
 	{
-		$user=User::model()->find("user_name = '" . $this->username . "'");
+		$user=User::model()->find("user_email = '" . $this->username . "'");
 		if ( $user === null ) 
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 		
@@ -43,7 +43,7 @@ class UserIdentity extends CUserIdentity
 		else
 		{
 			$this->_id = $user->user_id;
-			$this->username = $user->user_name;
+			$this->username = $user->user_email;
 			$this->errorCode = self::ERROR_NONE;
 		}
 		return $this->errorCode == self::ERROR_NONE;

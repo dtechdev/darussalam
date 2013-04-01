@@ -22,7 +22,6 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'user_id',
-		'user_name',
                 'user_email',
 		'user_password',
 		'role_id',

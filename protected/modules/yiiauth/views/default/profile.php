@@ -8,7 +8,7 @@ This page is rendered after a successfull login thrue one of the social provider
 	if( isset( $error ) ){
 		echo  $error;
 	}
-	echo "Your yii-user id: " .$yiiuser->id. "<br/>";
+	echo "Your yii-user id: " .$yiiuser->user_id. "<br/>";
 	echo "Connected with".$provider ."<br/>";
 	
 	

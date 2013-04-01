@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Dear: <?php echo $model->user_name; ?>  Update your Profile</h1>
+<h1>Dear: <?php echo $model->user_email; ?>  Update your Profile</h1>
 
 <?php echo $this->renderPartial('_form_profile', array('model'=>$model)); ?>

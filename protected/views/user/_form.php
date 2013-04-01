@@ -35,15 +35,6 @@
                 <?php echo $form->textField($model,'user_email'); ?>
                 <?php echo $form->error($model,'user_email'); ?>
         </div>
-        
-        <div class="row">
-            
-                <?php echo $form->labelEx($model,'user_name'); ?>
-                <?php echo $form->textField($model,'user_name'); ?>
-                <?php echo $form->error($model,'user_name'); ?>
-        </div>
-        
-         
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'user_password'); ?>

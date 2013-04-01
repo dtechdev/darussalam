@@ -66,7 +66,7 @@
 	
 	public function autoLogin($user) //accepts a user object
 	{
-	$identity=new userIdentity($user->social_id, "");
+	$identity=new UserIdentity($user->social_id, "");
 	$identity->hybridauth($user->social_id);
 	if ( $identity->errorCode == UserIdentity::ERROR_NONE )
 		{
