@@ -119,7 +119,7 @@ return array(
             'connectionString' => 'mysql:host=localhost;dbname=darussalam',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => '',
+            'password' => 'racpakistan47',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(
