@@ -1,5 +1,30 @@
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?> - Customer Area</i></h1>
+<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?> - Customers Area</i></h1>
+
+<?php
+//echo Yii::app()->getBaseUrl(true);
+
+
+foreach($product as $out)
+{
+    //print_r($out);//$array['Slideshow']
+    
+    
+    foreach($out['image'] as $image)
+     {echo $out['product_name'];
+     echo "<p>";
+       ?>
+<img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_small'];?>" width="50" height="50" />   
+<img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_large'];?>" width="250" height="150" />
+       <?php
+
+      echo "<hr>";
+    
+      
+     }
+    
+}
+?>
 
 <br>Darussalam is a multilingual international Islamic publishing house, with headquarters in Riyadh, Kingdom of Saudi 
 Arabia, and branches & agents in major cities of the world. <br>The foremost obligation of <br>TDarussalam is to publish most 

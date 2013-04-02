@@ -50,8 +50,62 @@ class SiteController extends Controller
               Yii::app()->session['city_short_name']=$_REQUEST['city'];
               Yii::app()->session['city_id']=$_REQUEST['id'];
               Yii::app()->theme=Yii::app()->session['layout'];
+              
+              $f='1';
+             $criteria=new CDbCriteria;
+             $criteria->select='*';  // only select the 'title' column
+             //$criteria->condition="is_featured='".$f."'";
+             $data=  Product::model()->findAll($criteria);
+            
+             
+             $product=array();
+             $images=array();
+             foreach($data as $products)
+             {
+                  $product_id=$products->product_id;
+                    $criteria2=new CDbCriteria;
+                 $criteria2->select='*';  // only select the 'title' column
+                 $criteria2->condition="product_id='".$product_id."'";
+                $imagedata=  ProductImage::model()->findAll($criteria2);
+                 $images=array();
+                 //$imagedata= ProductImage::model()->findAll($criteria);
+                    foreach($imagedata as $img)
+                    {
+                        //$featured_products=array();
+                      $images[]=array('product_image_id'=>$img->product_image_id,
+                                                                            'image_large'=>$img->image_large,
+                                                                         'image_small'=>$img->image_small,
+                                                                                       );
+                     
+                    }
+                    
+                    
+                    
+                    
+                    
+                 $product[]=array(
+                     'product_id'=>$products->product_id,
+                     'product_name'=>$products->product_name,
+                     'product_description'=>$products->product_description,
+                     'product_price'=>$products->product_price,
+                     'image'=>$images
+                     
+                 );
                 
-              $this->render('storehome');
+           
+           
+                   
+             }
+             //print $product;
+            // print_r($product);
+             //exit();
+             
+             //echo $featured_product_id=$data->product_id;
+            
+            //print_r($criteria);
+                
+              $this->render('storehome',array('product'=>$product)
+                      );
 	}
 
 	/**
