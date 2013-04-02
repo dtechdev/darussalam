@@ -31,8 +31,9 @@ class SiteController extends Controller
               
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-                $siteUrl=$_SERVER['REQUEST_URI'];
-                $site_id= SelfSite::model()->getSiteId($siteUrl);
+              echo   $siteUrl=$_SERVER['REQUEST_URI'];
+              echo "<br />";
+               echo $site_id= SelfSite::model()->getSiteId($siteUrl);
                 Yii::app()->session['site_id'] = $site_id;
         	$this->render('index');
 	}
