@@ -28,6 +28,8 @@
 		$social = Social::model()->find("provider='".$provider."' AND provideruser='".$provideruser->identifier."'");
 		if ( $social ){
 			 $user = $userClass::model()->find("user_id=".$social->yiiuser);
+                         $user->social_id=$provideruser->identifier;
+                         $user->save();
 			 return $user;
 		}else{ // no user is connected to that provideruser, 
 			$social = new Social; // a new relation will be needed
@@ -39,6 +41,7 @@
 			if ( !Yii::app()->user->isGuest ){
 				$social->yiiuser = Yii::app()->user->user_id;	
 				$user = $userClass::model()->findByPk(Yii::app()->user->user_id);
+                                
 			}else{
 			// we want to create a new $userClass
 				$user = new $userClass;
