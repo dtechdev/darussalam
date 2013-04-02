@@ -52,7 +52,7 @@ for ($i = 0; $i < $total; $i++) {
         $city_name = $cities[$j]['city_name'];
         $city_short_name = $cities[$j]['short_name'];
         $city_id = $cities[$j]['city_id'];
-        echo CHtml::link($city_name, array('/site/storehome', 'country' => $country_short_name, 'city' => $city_short_name, 'id' => $city_id), array('class' => 'blue-title-link'));
+        echo CHtml::link($city_name, array('/site/storehome', 'country' => $country_short_name, 'city' => $city_short_name, 'city_id' => $city_id), array('class' => 'blue-title-link'));
     }
     print "<br />";
 }

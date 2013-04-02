@@ -30,6 +30,7 @@ return array(
         'yiiauth' => array(
             'userClass' => 'User', //the name of your Userclass
             'config' => array(
+                //"base_url" => "http://localhost/darussalam/hybridauth/",
                 "base_url" => "http://darussalam.ilsainteractive.com/hybridauth/",
                 "providers" => array(
                     // openid providers
@@ -56,7 +57,8 @@ return array(
 // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
                         "display" => "page"
                     ),
-/*For local                    "Facebook" => array(
+//For local                    
+ /*   "Facebook" => array(
                         "enabled" => true,
                         "keys" => array("id" => "439038352850451", "secret" => "5363cb1657c7e19ac493d64e58995f71"),
 // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
@@ -113,7 +115,7 @@ return array(
             'urlFormat' => 'path',
             //'showScriptName' => false,
             'rules' => array(
-                '<country:[\w-\.]+>/<city:[\w-\.]+>/<id:[\w-\.]+>' => '/site/storehome',
+                '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>' => '/site/storehome',
 //                '<controller:\w+>/<id:\d+>' => '<controller>/view',
 //                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
 //                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
@@ -129,6 +131,7 @@ return array(
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => 'racpakistan47',
+            //'password' => '',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(

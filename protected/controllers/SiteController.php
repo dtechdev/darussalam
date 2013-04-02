@@ -31,7 +31,7 @@ class SiteController extends Controller
               
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-                $siteUrl=$_SERVER['HTTP_HOST'];
+                $siteUrl=$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
                 $site_id= SelfSite::model()->getSiteId($siteUrl);
                 Yii::app()->session['site_id'] = $site_id;
         	$this->render('index');
@@ -40,7 +40,7 @@ class SiteController extends Controller
         public function actionStoreHome()
 	{
               
-              $city= City::model()->findByPk($_REQUEST['id']);
+              $city= City::model()->findByPk($_REQUEST['city_id']);
               $layout_id=$city['layout_id'];
               $layout= Layout::model()->findByPk($layout_id);
               $layout_name=$layout['layout_name'];
@@ -48,7 +48,7 @@ class SiteController extends Controller
               Yii::app()->session['layout']=$layout_name;
               Yii::app()->session['country_short_name']=$_REQUEST['country'];
               Yii::app()->session['city_short_name']=$_REQUEST['city'];
-              Yii::app()->session['city_id']=$_REQUEST['id'];
+              Yii::app()->session['city_id']=$_REQUEST['city_id'];
               Yii::app()->theme=Yii::app()->session['layout'];
               
               $f='1';
