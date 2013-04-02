@@ -49,23 +49,23 @@ return array(
                         "scope" => ""
                     ),
  //For Live Dev
-                    "Facebook" => array(
+ /*                   "Facebook" => array(
                         "enabled" => true,
                         "keys" => array("id" => "441631942586140", "secret" => "0593fcad5651add77a4d531e56476349"),
 // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
                         "scope" => "",
 // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
                         "display" => "page"
-                    ),
+                    ),*/
 //For local                    
- /*   "Facebook" => array(
+    "Facebook" => array(
                         "enabled" => true,
                         "keys" => array("id" => "439038352850451", "secret" => "5363cb1657c7e19ac493d64e58995f71"),
 // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
                         "scope" => "",
 // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
                         "display" => "page"
-                   ),*/
+                   ),
                     "Twitter" => array(
                         "enabled" => true,
                         "keys" => array("key" => "rPmGEE1Wvsf56BSyQaWXw", "secret" => "V4SK09O0cPOgkabsxR5AruBSNrc0b1tzoBeWkL7ew0")
@@ -113,7 +113,7 @@ return array(
 
         'urlManager' => array(
             'urlFormat' => 'path',
-            //'showScriptName' => false,
+            'showScriptName' => false,
             'rules' => array(
                 '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>' => '/site/storehome',
 //                '<controller:\w+>/<id:\d+>' => '<controller>/view',
