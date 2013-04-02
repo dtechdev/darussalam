@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 02, 2013 at 08:08 AM
+-- Generation Time: Apr 02, 2013 at 11:28 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -418,15 +418,7 @@ CREATE TABLE IF NOT EXISTS `social` (
   `provider` varchar(50) NOT NULL,
   `provideruser` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
-
---
--- Dumping data for table `social`
---
-
-INSERT INTO `social` (`id`, `yiiuser`, `provider`, `provideruser`) VALUES
-(5, 14, 'facebook', '100001312390166'),
-(7, 17, 'facebook', '100000456873660');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -461,7 +453,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `user`
@@ -470,11 +462,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`, `social_id`) VALUES
 (2, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 3, '1', 'active', 1, '28 March, 2013', ''),
 (3, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 3, '', 'active', 1, '', ''),
-(4, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 6, '1', 'active', 1, '', ''),
-(6, '', 'ux6cza3i7', 'kiu@gmail.com', 3, 1, 3, '72f74198e40d14d51b12dcb3be35af6f619bd67a', 'inactive', 1, '1364497980', ''),
-(14, '', '69', 'ubaidcskiu@gmail.com', 3, 1, NULL, NULL, 'active', 1, '1364826944', '100001312390166'),
-(16, '', 'd32ec73eb8d6d4c5527287af5eb707d7', 'kashaf@yahoo.com', 3, 0, 3, '683f77c60b6aa360db2a890068b97f78d22e73ac', 'active', 1, '1364926380', ''),
-(17, '', '43', 'zahidiubb@yahoo.com', 3, 1, NULL, NULL, 'active', 1, '1364881483', '100000456873660');
+(4, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 6, '1', 'active', 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -503,9 +491,7 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
 INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_name`, `address`, `contact_number`) VALUES
 (1, 2, 'super', 'admin', 'STC lahore', '03336566326'),
 (2, 3, 'sub', 'admin', 'abc', ''),
-(3, 4, 'Richard', 'Arnold', 'abc', ''),
-(4, 6, 'kiu', 'kiu', 'aa', ''),
-(5, 16, 'customer', 'admin', 'abc', '');
+(3, 4, 'Richard', 'Arnold', 'abc', '');
 
 -- --------------------------------------------------------
 
