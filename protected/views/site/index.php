@@ -37,7 +37,7 @@ if(Yii::app()->user->isCustomer)
 $site_id = Yii::app()->session['site_id'];
 
 $countries = Country::model()->findAll(array('condition' => 'site_id="' . $site_id . '"'));
-$total = count($countries);
+echo $total = count($countries);
 //$n=0;
 for ($i = 0; $i < $total; $i++) {
 
