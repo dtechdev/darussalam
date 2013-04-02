@@ -5,55 +5,53 @@
  * It contains the authentication method that checks if the provided
  * data can identity the user.
  */
-class UserIdentity extends CUserIdentity
-{
-	private $_id;
-	/*ERROR_NONE=0;
-	ERROR_USERNAME_INVALID = 1;
-	ERROR_PASSWORD_INVALID = 2;
-	ERROR_UNKNOWN_IDENTITY = 100;
-	
-	/**
-	 * Authenticates a user.
-	 * @return boolean whether authentication succeeds.
-	 */
-	public function hybridauth($username)
-	{
-		$user=User::model()->find("social_id = '" . $username . "'");
-		if ( $user === null ) 
-			$this->errorCode = self::ERROR_USERNAME_INVALID;
-		else
-		{
-			$this->_id = $user->user_id;
-			$this->username = $user->user_email;
-			$this->errorCode = self::ERROR_NONE;
-		}
-		return $this->errorCode == self::ERROR_NONE;
-	}
-	
-	public function authenticate()
-	{
-		$user=User::model()->find("user_email = '" . $this->username . "'");
-		if ( $user === null ) 
-			$this->errorCode = self::ERROR_USERNAME_INVALID;
-		
-		else if ( !$user->validatePassword ( $this->password , $user->user_password ))
-			$this->errorCode = self::ERROR_PASSWORD_INVALID;
-		
-		else
-		{
-			$this->_id = $user->user_id;
-			$this->username = $user->user_email;
-			$this->errorCode = self::ERROR_NONE;
-		}
-		return $this->errorCode == self::ERROR_NONE;
-	}
+class UserIdentity extends CUserIdentity {
 
-	/**
-	 * @return integer the ID of the user record
-	 */
-	public function getId()
-	{
-		return $this->_id;
-	}
+    private $_id;
+
+    /* ERROR_NONE=0;
+      ERROR_USERNAME_INVALID = 1;
+      ERROR_PASSWORD_INVALID = 2;
+      ERROR_UNKNOWN_IDENTITY = 100;
+
+      /**
+     * Authenticates a user.
+     * @return boolean whether authentication succeeds.
+     */
+
+    public function hybridauth($username) {
+        $user = User::model()->find("social_id = '" . $username . "'");
+        if ($user === null)
+            $this->errorCode = self::ERROR_USERNAME_INVALID;
+        else {
+            $this->_id = $user->user_id;
+            $this->username = $user->user_email;
+            $this->errorCode = self::ERROR_NONE;
+        }
+        return $this->errorCode == self::ERROR_NONE;
+    }
+
+    public function authenticate() {
+        $user = User::model()->find("user_email = '" . $this->username . "'");
+        if ($user === null)
+            $this->errorCode = self::ERROR_USERNAME_INVALID;
+
+        else if (!$user->validatePassword($this->password, $user->user_password))
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+
+        else {
+            $this->_id = $user->user_id;
+            $this->username = $user->user_email;
+            $this->errorCode = self::ERROR_NONE;
+        }
+        return $this->errorCode == self::ERROR_NONE;
+    }
+
+    /**
+     * @return integer the ID of the user record
+     */
+    public function getId() {
+        return $this->_id;
+    }
+
 }

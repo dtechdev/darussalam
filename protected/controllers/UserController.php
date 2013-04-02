@@ -82,6 +82,7 @@ class UserController extends Controller {
                 $model->status_id = '2';
                 $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $model->user_email);
                 $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
+                $model->user_password = md5($model->user_password);
             }
             if ($model->save()) {
                 $user_profile->user_id = $model->user_id;
@@ -125,7 +126,10 @@ class UserController extends Controller {
                 $model->status_id = '0';
                 
             }
+
                $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $model->user_email);
+               $model->user_password = md5($model->user_password);
+               $model->user_password2 = md5($model->user_password2);
                 $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
             if ($model->save()) {
                 $user_profile->user_id = $model->user_id;

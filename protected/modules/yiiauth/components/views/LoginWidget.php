@@ -17,9 +17,9 @@
 		<img src="<?=$path;?>wordpress.png"/>
 	</a>
 	
-	<a href="#" id="openid" class="extra_info" title="Diffrent OpenID server">
+<!--	<a href="#" id="openid" class="extra_info" title="Diffrent OpenID server">
 		<img src="<?=$path;?>openid.png" alt="Diffrent OpenID provider"/> 
-	</a>
+	</a>-->
 	
 	<!-- target div for jQuery to set dynamic instructions to the user -->
 	<div id="extra_info_label"></div>

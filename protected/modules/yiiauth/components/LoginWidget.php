@@ -17,10 +17,11 @@ class LoginWidget extends CWidget {
 	//authenticate action url
 	public $url = "/yiiauth/default/authenticatewith";
 	//These you have to set up in your config with appkey and secret obtained from their sites
-	public $providers = array('twitter','facebook','google','linkedin','live','myspace');
+	//public $providers = array('twitter','facebook','google','linkedin','live','myspace');
+	public $providers = array('twitter','facebook','google','linkedin');
 	//Open id servers in format 'name on image'=>'providerServer'
-	public $openid_servers = array('yahoo'=>'https://me.yahoo.com',
-	'livejournal'=>'http://www.livejournal.com/openid/server.bml');
+	public $openid_servers =array(); //array('yahoo'=>'https://me.yahoo.com',
+	//'livejournal'=>'http://www.livejournal.com/openid/server.bml');
     /**
      * Publishes the required assets
      */
