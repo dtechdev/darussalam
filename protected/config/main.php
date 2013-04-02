@@ -47,14 +47,23 @@ return array(
                         "keys" => array("id" => "561516674806.apps.googleusercontent.com", "secret" => "6IltULRULS7DQSgBpMi05LOD"),
                         "scope" => ""
                     ),
+ //For Live Dev
                     "Facebook" => array(
                         "enabled" => true,
-                        "keys" => array("id" => "284640041668425", "secret" => "b6c7909c508a01a6e2c70347edc6fc1a"),
+                        "keys" => array("id" => "441631942586140", "secret" => "0593fcad5651add77a4d531e56476349"),
 // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
                         "scope" => "",
 // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
                         "display" => "page"
                     ),
+/*For local                    "Facebook" => array(
+                        "enabled" => true,
+                        "keys" => array("id" => "439038352850451", "secret" => "5363cb1657c7e19ac493d64e58995f71"),
+// A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
+                        "scope" => "",
+// The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
+                        "display" => "page"
+                   ),*/
                     "Twitter" => array(
                         "enabled" => true,
                         "keys" => array("key" => "rPmGEE1Wvsf56BSyQaWXw", "secret" => "V4SK09O0cPOgkabsxR5AruBSNrc0b1tzoBeWkL7ew0")
