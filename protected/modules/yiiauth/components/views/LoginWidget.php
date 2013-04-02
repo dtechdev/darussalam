@@ -13,9 +13,9 @@
 	}
 
 	?>
-	<a href="#" id="wordpress" class="extra_info" title="Wordpress">
+<!--    	<a href="#" id="wordpress" class="extra_info" title="Wordpress">
 		<img src="<?=$path;?>wordpress.png"/>
-	</a>
+	</a>-->
 	
 <!--	<a href="#" id="openid" class="extra_info" title="Diffrent OpenID server">
 		<img src="<?=$path;?>openid.png" alt="Diffrent OpenID provider"/> 
