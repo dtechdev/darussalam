@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2013 at 01:06 PM
+-- Generation Time: Apr 02, 2013 at 07:50 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `darussalam`
@@ -417,14 +411,15 @@ CREATE TABLE IF NOT EXISTS `social` (
   `provider` varchar(50) NOT NULL,
   `provideruser` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `social`
 --
 
 INSERT INTO `social` (`id`, `yiiuser`, `provider`, `provideruser`) VALUES
-(3, 12, 'facebook', '100000456873660');
+(5, 14, 'facebook', '100001312390166'),
+(7, 17, 'facebook', '100000456873660');
 
 -- --------------------------------------------------------
 
@@ -459,19 +454,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`, `social_id`) VALUES
-(2, 'super', 'super', 'admin@yahoo.com', 1, 1, 3, '1', 'active', 1, '28 March, 2013', ''),
-(3, 'admin', 'admin', 'admin@yahoo.com', 2, 1, 3, '', 'active', 1, '', ''),
-(4, 'customer', 'customer', 'customer@yahoo.com', 3, 1, 6, '1', 'active', 1, '', ''),
-(5, 'test', 'ubaid', 'test@yahoo.com', 3, 1, 3, 'ad5d9ee51b74eb711f4101aecece361ec403896c', 'active', 1, '28 March, 2013', ''),
-(6, 'ubaid', 'ux6cza3i7', 'kiu@gmail.com', 3, 1, 3, '72f74198e40d14d51b12dcb3be35af6f619bd67a', 'inactive', 1, '1364497980', ''),
-(12, '', '16', 'zahidiubb@yahoo.com', 3, 1, NULL, NULL, 'active', 1, '1364813558', '100000456873660');
+(2, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 3, '1', 'active', 1, '28 March, 2013', ''),
+(3, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 3, '', 'active', 1, '', ''),
+(4, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 6, '1', 'active', 1, '', ''),
+(6, '', 'ux6cza3i7', 'kiu@gmail.com', 3, 1, 3, '72f74198e40d14d51b12dcb3be35af6f619bd67a', 'inactive', 1, '1364497980', ''),
+(14, '', '69', 'ubaidcskiu@gmail.com', 3, 1, NULL, NULL, 'active', 1, '1364826944', '100001312390166'),
+(16, '', 'd32ec73eb8d6d4c5527287af5eb707d7', 'kashaf@yahoo.com', 3, 0, 3, '683f77c60b6aa360db2a890068b97f78d22e73ac', 'active', 1, '1364926380', ''),
+(17, '', '43', 'zahidiubb@yahoo.com', 3, 1, NULL, NULL, 'active', 1, '1364881483', '100000456873660');
 
 -- --------------------------------------------------------
 
@@ -491,7 +487,7 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
   KEY `customer_id` (`user_profile_id`),
   KEY `user_id` (`user_id`),
   KEY `user_profile_id` (`user_profile_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `user_profile`
@@ -501,7 +497,8 @@ INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_na
 (1, 2, 'super', 'admin', 'STC lahore', '03336566326'),
 (2, 3, 'sub', 'admin', 'abc', ''),
 (3, 4, 'Richard', 'Arnold', 'abc', ''),
-(4, 6, 'kiu', 'kiu', 'aa', '');
+(4, 6, 'kiu', 'kiu', 'aa', ''),
+(5, 16, 'customer', 'admin', 'abc', '');
 
 -- --------------------------------------------------------
 
@@ -658,7 +655,3 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_profile`
   ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
