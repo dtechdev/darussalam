@@ -54,7 +54,14 @@ class Yiiauth extends CController {
                 $user->is_active = 'active';
                 $user->status_id = '1';
                 $user->role_id = '3';
-                $user->user_email = $provideruser->email; // the unique user
+                if($provideruser->email!=null && isset($provideruser->email))
+                {
+                    $user->user_email = $provideruser->email; // the unique user
+                }
+                else{
+                    $user->user_email =$provideruser->displayName;
+                }
+                
                 //$user->emailVerified = $provideruser->emailVerified; // the unique user
                 //$user->first_name = $provideruser->firstName; // the unique user
                 //$user->last_name = $provideruser->lastName; // the unique user
@@ -62,19 +69,22 @@ class Yiiauth extends CController {
                 if ($user->save()) { //we get an user id
                     $social->yiiuser = $user->user_id;
 
-                    $to = $user->user_email;
-                    $from = "zahid.nadeem@darussalampk.com";
-                    $headers = 'MIME-Version: 1.0' . "\r\n";
-                    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                    $headers .= 'From: DTech.com' . "\r\n";
+                    if($provideruser->email)
+                    {
+                        $to = $user->user_email;
+                        $from = "zahid.nadeem@darussalampk.com";
+                        $headers = 'MIME-Version: 1.0' . "\r\n";
+                        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                        $headers .= 'From: DTech.com' . "\r\n";
 
-                    $subject = "Your Login Info";
+                        $subject = "Your Login Info";
 
-                    $message = "<html><body>Dear Customer, Your account has been created in your site. Login below link with following credentials  <br />" .
-                            Yii::app()->createAbsoluteUrl('site/login') .
-                            "<br>User Name : $user->user_email<br>Password : $pass_new<br> Login and Update your Profile.<br>Thanks you. </body></html>";
+                        $message = "<html><body>Dear Customer, Your account has been created in your site. Login below link with following credentials  <br />" .
+                                Yii::app()->createAbsoluteUrl('site/login') .
+                                "<br>User Name : $user->user_email<br>Password : $pass_new<br> Login and Update your Profile.<br>Thanks you. </body></html>";
 
-                    Yii::app()->email->send($from, $to, $subject, $message);
+                        Yii::app()->email->send($from, $to, $subject, $message);
+                    }
                 }
             }
             if ($social->save())

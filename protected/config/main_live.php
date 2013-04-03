@@ -30,7 +30,7 @@ return array(
         'yiiauth' => array(
             'userClass' => 'User', //the name of your Userclass
             'config' => array(
-                "base_url" => "http://darussalam.ilsainteractive.com/hybridauth/",
+                "base_url" => "http://".$_SERVER['SERVER_NAME']."/hybridauth/",
                 "providers" => array(
                     // openid providers
                     "OpenID" => array(
@@ -53,7 +53,7 @@ return array(
                         // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
                         "scope" => "",
                         // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
-                        "display" => "page"
+                        "display" => "popup"
                     ),
                     "Twitter" => array(
                         "enabled" => true,
