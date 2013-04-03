@@ -106,7 +106,7 @@ class UserController extends Controller {
     public function actionRegister() {
 
         $model = new User;
-        $user_profile = new UserProfile();
+        //$user_profile = new UserProfile();
         $selfSite = new SelfSite();
 
         // Uncomment the following line if AJAX validation is needed
@@ -115,7 +115,7 @@ class UserController extends Controller {
         if (isset($_POST['User'])) {
 
             $model->attributes = $_POST['User'];
-            $user_profile->attributes = $_POST['UserProfile'];
+            //$user_profile->attributes = $_POST['UserProfile'];
             
             $date=strtotime($model->join_date);
              $model->join_date=$date;
@@ -132,18 +132,27 @@ class UserController extends Controller {
                $model->user_password2 = md5($model->user_password2);
                 $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
             if ($model->save()) {
-                $user_profile->user_id = $model->user_id;
-                // $model->user_name=$user_profile->getFullName();
-
-                if ($user_profile->validate()) {
-
-                 if ($user_profile->save()) {
-
-                        // $identity=new UserIdentity($model->user_name,$model->user_password);
-                        //   $identity->authenticate();
-                        // Yii::app()->user->login($identity,0);
+//                $user_profile->user_id = $model->user_id;
+//                // $model->user_name=$user_profile->getFullName();
+//
+//                if ($user_profile->validate()) {
+//
+//                 if ($user_profile->save()) {
+//
+//                        // $identity=new UserIdentity($model->user_name,$model->user_password);
+//                        //   $identity->authenticate();
+//                        // Yii::app()->user->login($identity,0);
+//                       
+//                       
+//                        //email activation code end-----------------------------------------
+//                    }
+//                    //$this->redirect(Yii::app()->user->returnUrl);
+//                    
+//                } else {
+//                    echo CHtml::errorSummary($user_profile);
+//                }
                         $to = $model->user_email;
-                        $from = "ubaidullah@darussalampk.com";
+                        $from = "zahid.nadeem@darussalampk.com";
                         $headers = 'MIME-Version: 1.0' . "\r\n";
                         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                         $headers .= 'From: DTech.com' . "\r\n";
@@ -155,14 +164,6 @@ class UserController extends Controller {
                                 "<br> Thanks you. ".$model->user_email . " </body></html>";
 
                        Yii::app()->email->send($to, $from,$subject, $message);
-                       
-                        //email activation code end-----------------------------------------
-                    }
-                    //$this->redirect(Yii::app()->user->returnUrl);
-                    
-                } else {
-                    echo CHtml::errorSummary($user_profile);
-                }
                 Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by vising your email account.');
                 $this->redirect(array('site/login'));  ///take him to login page....
             }
@@ -321,7 +322,7 @@ class UserController extends Controller {
                         $to = $record->user_email;
                         $subject = "Forgot Password";
                         $message = "Thank you for joining!, we have send you a seperate message that contain your new password. Use this password to login";
-                        $from = 'ubaidullah@darussalampk.com';
+                        $from = 'zahid.nadeem@darussalampk.com';
 
                          Yii::app()->email->send($to, $from,$subject, $message);
                         
@@ -342,6 +343,7 @@ class UserController extends Controller {
                         if($role_id!=1)
                         {
                         $modelUser=new User;
+                        $pass_new=md5($pass_new);
                         if($modelUser->updateByPk($user_id,array('user_password'=>"$pass_new")))
                         {
                         //User::updateAll(array('email=>'), $condition='', $params=array());

@@ -16,6 +16,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
         <?php $modelp = UserProfile::model(); ?>
+        <?php if(!Yii::app()->user->isGuest) { ?>
 	<div class="row">
              
 		<?php echo $form->labelEx($modelp,'first_name'); ?>
@@ -29,6 +30,7 @@
 		<?php echo $form->textField($modelp,'last_name',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($modelp,'last_name'); ?>
 	</div>
+        <?php }?>
         <div class="row">
             
                 <?php echo $form->labelEx($model,'user_email'); ?>
@@ -48,7 +50,7 @@
 		<?php echo $form->error($model,'user_password2'); ?>
 	</div>
         
-	
+	 <?php if(!Yii::app()->user->isGuest) { ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'city_id'); ?>
@@ -61,7 +63,7 @@
 	</div>
       
 	
-  <?php if(!Yii::app()->user->isGuest) { ?>
+ 
 
         <div class="row">
 		<?php echo $form->labelEx($model,'activation_key'); ?>
@@ -102,7 +104,7 @@
 	</div>
      
 
-       <div class="row"><?php }?>
+
              
 		<?php echo $form->labelEx($modelp,'address'); ?>
 		<?php echo $form->textField($modelp,'address',array('size'=>60,'maxlength'=>255)); ?>
@@ -128,6 +130,7 @@
                     ?>
             <?php echo $form->error($model,'join_date'); ?>
             </div>
+       <div class="row"><?php }?>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

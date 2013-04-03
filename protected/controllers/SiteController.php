@@ -133,14 +133,29 @@ class SiteController extends Controller
 			$model->attributes=$_POST['ContactForm'];
 			if($model->validate())
 			{
-				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
-					"Content-type: text/plain; charset=UTF-8";
+                                                    $to = "zahid.nadeem@darussalampk.com";
+                                                    $from = $model->email;
+                                                    $headers = 'MIME-Version: 1.0' . "\r\n";
+                                                    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+                                                    $headers .= "From: Darussalam Publisher <$model->email>" . "\r\n";
 
-				mail(Yii::app()->params["'adminEmail'=>'ubaidullah@darussalampk.com'"],$subject,$model->body,$headers);
+                                                    $subject = '=?UTF-8?B?'.base64_encode($model->subject).'?=';
+
+                                                    $message = $model->body;
+
+                                                   Yii::app()->email->send($to, $from,$subject, $message);
+                                                   
+                                                   
+                                                   
+                                                   
+//				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
+//				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
+//				$headers="From: $name <{$model->email}>\r\n".
+//					"Reply-To: {$model->email}\r\n".
+//					"MIME-Version: 1.0\r\n".
+//					"Content-type: text/plain; charset=UTF-8";
+//
+//				mail(Yii::app()->params["'adminEmail'=>'ubaidullah@darussalampk.com'"],$subject,$model->body,$headers);
 				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
 				$this->refresh();
 			}
