@@ -109,6 +109,7 @@ class OrderDetail extends CActiveRecord
              $data=  Product::model()->findAll($criteria);
             
              
+             $featured_products=array();
              $product=array();
              $images=array();
              foreach($data as $products)
@@ -145,7 +146,8 @@ class OrderDetail extends CActiveRecord
         
         
         public function bestSellings()
-        {        
+        {     
+          $best_products=array();
           $qu = Yii::app()->db->createCommand("SELECT COUNT( product_id ) as totalOrder, product_id
                                                FROM order_detail group by product_id order by totalOrder DESC LIMIT 3");
           $best_sellings= $qu->queryAll();
