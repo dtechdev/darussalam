@@ -112,7 +112,12 @@ class Hybrid_Providers_LinkedIn extends Hybrid_Provider_Model
 			$this->user->profile->profileURL  = (string) $data->{'public-profile-url'}; 
 			$this->user->profile->description = (string) $data->{'summary'};  
 
-			$this->user->profile->phone       = (string) $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};  
+                        if( $data->{'phone-numbers'} && $data->{'phone-numbers'}->{'phone-number'} ){
+                            $this->user->profile->phone = (string) $data->{'phone-numbers'}->{'phone-number'}->{'phone-number'};
+                        }
+                        else{
+                            $this->user->profile->phone = null;
+                        }
 
 			if( $data->{'date-of-birth'} ) { 
 				$this->user->profile->birthDay   = (string) $data->{'date-of-birth'}->day;  
