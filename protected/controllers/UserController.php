@@ -319,15 +319,17 @@ class UserController extends Controller {
        else {  
            
                        $pass_new=substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 9);
-//                        $to = $record->user_email;
+//                        
 //                        $subject = "Forgot Password";
 //                        $message = "Thank you for joining!, we have send you a seperate message that contain your new password. Use this password to login";
-//                        $from = 'zahid.nadeem@darussalampk.com';
+//                        
 //
 //                         Yii::app()->email->send($from ,$to, $subject, $message);
                         
                         //echo $to.$subject.$message.$from;
 
+                        $from = 'zahid.nadeem@darussalampk.com';
+                        $to = $record->user_email;
                         $headers = 'MIME-Version: 1.0' . "\r\n";
                         $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                         $headers .= 'From: Dtech.com' . "\r\n";
