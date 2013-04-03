@@ -48,24 +48,24 @@ return array(
                         "keys" => array("id" => "561516674806.apps.googleusercontent.com", "secret" => "6IltULRULS7DQSgBpMi05LOD"),
                         "scope" => ""
                     ),
- //For Live Dev
-                    "Facebook" => array(
-                        "enabled" => true,
-                        "keys" => array("id" => "441631942586140", "secret" => "0593fcad5651add77a4d531e56476349"),
-// A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
-                        "scope" => "",
-// The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
-                        "display" => "page"
-                    ),
-//For local                    
- /*   "Facebook" => array(
+                    //For Live Dev
+                 "Facebook" => array(
+                      "enabled" => true,
+                      "keys" => array("id" => "441631942586140", "secret" => "0593fcad5651add77a4d531e56476349"),
+                      // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
+                      "scope" => "",
+                      // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
+                      "display" => "page"
+                      ), 
+                    //For local                    
+                 /*   "Facebook" => array(
                         "enabled" => true,
                         "keys" => array("id" => "439038352850451", "secret" => "5363cb1657c7e19ac493d64e58995f71"),
-// A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
+                        // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
                         "scope" => "",
-// The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
+                        // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
                         "display" => "page"
-                   ),*/
+                    ),*/
                     "Twitter" => array(
                         "enabled" => true,
                         "keys" => array("key" => "rPmGEE1Wvsf56BSyQaWXw", "secret" => "V4SK09O0cPOgkabsxR5AruBSNrc0b1tzoBeWkL7ew0")
@@ -98,14 +98,14 @@ return array(
     'components' => array(
         'user' => array(
             // enable cookie-based authentication
-            'allowAutoLogin'=>true,
+            'allowAutoLogin' => true,
             'class' => 'WebUser',
         ),
         'email' => array(
             'class' => 'application.extensions.KEmail.KEmail',
             'host_name' => 'smtp.gmail.com',
-            'user' => 'ubaidullah@darussalampk.com',
-            'password' => 'my gmail password here',
+            'user' => 'zahid.nadeem@darussalampk.com',
+            'password' => 'public420',
             'host_port' => 465,
             'ssl' => 'true',
         ),

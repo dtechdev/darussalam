@@ -118,27 +118,27 @@ class User extends CActiveRecord
 	{
 
 	}
-	protected function beforeSave()
-	{
-		if ( parent::beforeSave() )
-		{
-			//$time = new Datetime();
-			if ( $this->isNewRecord )
-			{	
-				$this->join_date = time();
-				if ( isset ( $_POST['User']['user_password'] ) ){
-					$user_password = $_POST['User']['user_password'];
-				} else{
-					$user_password = rand(9,99);
-				}
-				$this->user_password = $user_password;
-				//$this->user_password = crypt( $user_password,  Randomness::blowfishSalt() );
-			}
-			return true;
-		}
-		else
-			return false;
-	}
+//	protected function beforeSave()
+//	{
+//		if ( parent::beforeSave() )
+//		{
+//			//$time = new Datetime();
+//			if ( $this->isNewRecord )
+//			{	
+//				$this->join_date = time();
+//				if ( isset ( $_POST['User']['user_password'] ) ){
+//					$user_password = $_POST['User']['user_password'];
+//				} else{
+//					$user_password = rand(9,99);
+//				}
+//				$this->user_password = $user_password;
+//				//$this->user_password = crypt( $user_password,  Randomness::blowfishSalt() );
+//			}
+//			return true;
+//		}
+//		else
+//			return false;
+//	}
 
 
 	/**
