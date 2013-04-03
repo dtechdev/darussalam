@@ -143,14 +143,14 @@ class SiteController extends Controller
 
                                                     $message = $model->body;
 
-                                                   Yii::app()->email->send($to, $from,$subject, $message);
+                                                   Yii::app()->email->send($from,$to,$subject, $message);
                                                    
                                                    
                                                    
                                                    
 //				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
 //				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-//				$headers="From: $name <{$model->email}>\r\n".
+//				$headers="From: $   name <{$model->email}>\r\n".
 //					"Reply-To: {$model->email}\r\n".
 //					"MIME-Version: 1.0\r\n".
 //					"Content-type: text/plain; charset=UTF-8";

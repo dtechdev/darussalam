@@ -163,7 +163,7 @@ class UserController extends Controller {
                                 Yii::app()->createAbsoluteUrl('user/activate', array('key' => $model->activation_key,'user_id'=>$model->user_id)).
                                 "<br> Thanks you. ".$model->user_email . " </body></html>";
 
-                       Yii::app()->email->send($to, $from,$subject, $message);
+                       Yii::app()->email->send($from,$to,$subject, $message);
                 Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by vising your email account.');
                 $this->redirect(array('site/login'));  ///take him to login page....
             }
@@ -319,12 +319,12 @@ class UserController extends Controller {
        else {  
            
                        $pass_new=substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 9);
-                        $to = $record->user_email;
-                        $subject = "Forgot Password";
-                        $message = "Thank you for joining!, we have send you a seperate message that contain your new password. Use this password to login";
-                        $from = 'zahid.nadeem@darussalampk.com';
-
-                         Yii::app()->email->send($to, $from,$subject, $message);
+//                        $to = $record->user_email;
+//                        $subject = "Forgot Password";
+//                        $message = "Thank you for joining!, we have send you a seperate message that contain your new password. Use this password to login";
+//                        $from = 'zahid.nadeem@darussalampk.com';
+//
+//                         Yii::app()->email->send($from ,$to, $subject, $message);
                         
                         //echo $to.$subject.$message.$from;
 
@@ -336,7 +336,7 @@ class UserController extends Controller {
 
                         $message2 = "Your New Password : ".$pass_new;
 
-                       $isSent= Yii::app()->email->send($to, $from,$subject2, $message2);
+                       $isSent= Yii::app()->email->send($from,$to,$subject2, $message2);
                         
                         $user_id= $record->user_id;
                         $role_id=$record->role_id;
