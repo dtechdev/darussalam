@@ -1,27 +1,48 @@
 
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?> - Customers Area</i></h1>
-
+<b>Featured Books</b><br>
 <?php
 //echo Yii::app()->getBaseUrl(true);
 
 
-foreach($product as $out)
+foreach($product as $featured)
 {
     //print_r($out);//$array['Slideshow']
+    echo "<br>";
+    echo $featured['product_name'];
     
-    
-    foreach($out['image'] as $image)
-     {echo $out['product_name'];
+    foreach($featured['image'] as $image)
+     {
      echo "<p>";
        ?>
 <img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_small'];?>" width="50" height="50" />   
 <img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_large'];?>" width="250" height="150" />
        <?php
+       break;
+
+    }
+    
+}
+?>
+
+<hr> Best Selling Books<br>
+<?php
+foreach($best_sellings as $bests)
+{
+    //print_r($out);//$array['Slideshow']
+    echo '<br>';
+    echo $bests['product_name'];
+     echo '('.$bests['totalOrder'].')';
+    foreach($bests['image'] as $image)
+     {
+       ?>
+<img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_small'];?>" width="50" height="50" />   
+<img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_large'];?>" width="250" height="150" />
+       <?php
+       break;
 
       echo "<hr>";
-    
-      
-     }
+    }
     
 }
 ?>

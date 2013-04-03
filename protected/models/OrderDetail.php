@@ -15,7 +15,9 @@
  */
 class OrderDetail extends CActiveRecord
 {
+    public $TotalOrder;
 	/**
+         * 
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return OrderDetail the static model class
@@ -96,4 +98,100 @@ class OrderDetail extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        
+        public function featuredBooks()
+        {     
+             $f='1';
+             $criteria=new CDbCriteria;
+             $criteria->select='*';  // only select the 'title' column
+             $criteria->condition="is_featured='".$f."'";
+             $data=  Product::model()->findAll($criteria);
+            
+             
+             $product=array();
+             $images=array();
+             foreach($data as $products)
+             {
+                 $product_id=$products->product_id;
+                  $criteria2=new CDbCriteria;
+                 $criteria2->select='*';  // only select the 'title' column
+                 $criteria2->condition="product_id='".$product_id."'";
+                 $imagedata=  ProductImage::model()->findAll($criteria2);
+                 $images=array();
+                 //$imagedata= ProductImage::model()->findAll($criteria);
+                    foreach($imagedata as $img)
+                    {
+                        //$featured_products=array();
+                      $images[]=array('product_image_id'=>$img->product_image_id,
+                                       'image_large'=>$img->image_large,
+                                        'image_small'=>$img->image_small,
+                                      );
+                     
+                    }
+                       
+                   $featured_products[]=array(
+                     'product_id'=>$products->product_id,
+                     'product_name'=>$products->product_name,
+                     'product_description'=>$products->product_description,
+                     'product_price'=>$products->product_price,
+                     'image'=>$images
+                     
+                 );
+                }
+                return $featured_products;
+            
+        }
+        
+        
+        public function bestSellings()
+        {        
+          $qu = Yii::app()->db->createCommand("SELECT COUNT( product_id ) as totalOrder, product_id
+                                               FROM order_detail group by product_id order by totalOrder DESC LIMIT 3");
+          $best_sellings= $qu->queryAll();
+          $total=count($best_sellings);
+          for($i=0; $i < $total;  $i++)
+          {
+              
+              $best_products_id=$best_sellings[$i]['product_id'];
+              $best_products_order=$best_sellings[$i]['totalOrder'];
+              
+                $criteria6=new CDbCriteria;
+                 $criteria6->select='*';  // only select the 'title' column
+                 $criteria6->condition="product_id='".$best_products_id."'";
+                 $imagebest=  ProductImage::model()->findAll($criteria6);
+                 $imagesbestproducts=array();
+                 //$imagedata= ProductImage::model()->findAll($criteria);
+                    foreach($imagebest as $img)
+                    {
+                        //$featured_products=array();
+                      $imagesbestproducts[]=array('product_image_id'=>$img->product_image_id,
+                                                'image_large'=>$img->image_large,
+                                                'image_small'=>$img->image_small,
+                                      );
+                     
+                    }
+                    
+                    $criteria8=new CDbCriteria;
+                     $criteria8->select='*';  // only select the 'title' column
+                    $criteria8->condition="product_id='".$best_products_id."'";
+                    $product_name=  Product::model()->findAll($criteria8);
+                    foreach($product_name as $name)
+                    {
+                        $bestName=$name->product_name;
+                    }
+                    
+                    
+                    
+              
+            
+            $best_products[]=array('product_id'=>$best_products_id,
+                                    'product_name'=>$bestName,
+                                    'totalOrder'=>$best_products_order,
+                                      'image'=>$imagesbestproducts);
+            
+          }
+         return $best_products;
+            
+        }
 }
