@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 02, 2013 at 11:28 AM
+-- Generation Time: Apr 03, 2013 at 08:26 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -117,8 +117,8 @@ CREATE TABLE IF NOT EXISTS `city` (
 --
 
 INSERT INTO `city` (`city_id`, `country_id`, `city_name`, `short_name`, `address`, `layout_id`) VALUES
-(3, 1, 'Lahore', 'lhr', 'STR lahore', 3),
-(4, 2, 'New York', 'ny', 'stc ny 5400', 15),
+(3, 1, 'Lahore', 'lhr', 'STR lahore', 23),
+(4, 2, 'New York', 'ny', 'stc ny 5400', 23),
 (5, 1, 'Karachi', 'kc', 'nazim abad', 23),
 (6, 3, 'London', 'ln', 'london street 7 gulbarb 2', 23);
 
@@ -147,6 +147,27 @@ INSERT INTO `country` (`country_id`, `country_name`, `short_name`, `site_id`) VA
 (1, 'Pakistan', 'pk', 1),
 (2, 'United States', 'US', 1),
 (3, 'United Kingdom', 'uk', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kemail_queue`
+--
+
+DROP TABLE IF EXISTS `kemail_queue`;
+CREATE TABLE IF NOT EXISTS `kemail_queue` (
+  `id` int(15) NOT NULL AUTO_INCREMENT,
+  `priority` int(1) NOT NULL DEFAULT '5',
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `from` varchar(500) NOT NULL,
+  `to` varchar(500) NOT NULL,
+  `subject` varchar(500) NOT NULL,
+  `body` longtext NOT NULL,
+  `additional_headers` longtext,
+  PRIMARY KEY (`id`),
+  KEY `priority` (`priority`),
+  KEY `time` (`time`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -197,8 +218,6 @@ CREATE TABLE IF NOT EXISTS `layout` (
 --
 
 INSERT INTO `layout` (`layout_id`, `layout_name`, `layout_description`, `layout_color`, `site_id`) VALUES
-(3, 'memories', 'layout', 'purple', 1),
-(15, 'classic', 'classic theme', 'black', 1),
 (23, 'default', 'default', 'black', 1);
 
 -- --------------------------------------------------------
@@ -453,7 +472,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `user`
@@ -482,7 +501,7 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
   KEY `customer_id` (`user_profile_id`),
   KEY `user_id` (`user_id`),
   KEY `user_profile_id` (`user_profile_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user_profile`
