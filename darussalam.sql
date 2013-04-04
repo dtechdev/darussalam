@@ -3,19 +3,13 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 03, 2013 at 08:26 AM
+-- Generation Time: Apr 04, 2013 at 02:14 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `darussalam`
@@ -218,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `layout` (
 --
 
 INSERT INTO `layout` (`layout_id`, `layout_name`, `layout_description`, `layout_color`, `site_id`) VALUES
-(23, 'default', 'default', 'black', 1);
+(23, 'default_old', 'default', 'black', 1);
 
 -- --------------------------------------------------------
 
@@ -346,14 +340,7 @@ CREATE TABLE IF NOT EXISTS `product_discount` (
   KEY `discount_id` (`discount_id`),
   KEY `discount_id_2` (`discount_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `product_discount`
---
-
-INSERT INTO `product_discount` (`discount_id`, `product_id`, `discount_type`, `discount_value`) VALUES
-(3, 23, 'fixed', 8.0000);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -391,14 +378,7 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
   KEY `author_id_2` (`author_id`),
   KEY `language_id` (`language_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `product_profile`
---
-
-INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `language_id`, `isbn`) VALUES
-(5, 23, 2, 2, 'dgdfgd');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -472,7 +452,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Dumping data for table `user`
@@ -668,7 +648,3 @@ ALTER TABLE `user`
 ALTER TABLE `user_profile`
   ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
