@@ -44,7 +44,7 @@ return array(
                     ),
                     "Google" => array(
                         "enabled" => true,
-                        "keys" => array("id" => "602525919522-q4ri59rfnkq2rs0q6p0nio4ebgmp6640.apps.googleusercontent.com", "secret" => "bF_1iXt0A92vE3rYjjuRlAq8"),
+                        "keys" => array("id" => "602525919522-hl6envd5j4tcreapm6573hj02k8duft2.apps.googleusercontent.com", "secret" => "dgEMB1JZcOzelNciFUdrOQrH"),
                         "scope" => ""
                     ),
                     "Facebook" => array(
