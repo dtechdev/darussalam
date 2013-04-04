@@ -7,7 +7,7 @@
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Darussalam Publishers',
-    'theme' => 'default',
+    'theme' => 'default_old',
     // preloading 'log' component
     'preload' => array('log'),
     // autoloading model and component classes
