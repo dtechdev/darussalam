@@ -250,7 +250,7 @@ class UserController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        Yii::app()->controller->layout='//layouts/main';
+        Yii::app()->controller->layout='//layouts/column2';
         Yii::app()->theme='admin';
         $dataProvider = new CActiveDataProvider('User');
         $this->render('index', array(
@@ -262,7 +262,7 @@ class UserController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        Yii::app()->controller->layout='//layouts/main';
+        Yii::app()->controller->layout='//layouts/column2';
         Yii::app()->theme='admin';
         $model = new User('search');
         $model->unsetAttributes();  // clear any default values

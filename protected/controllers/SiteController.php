@@ -149,7 +149,7 @@ class SiteController extends Controller
                             }
                             if(Yii::app()->user->isAdmin)
                             {
-                                $this->redirect(array('user/index'));
+                                $this->redirect(array('user/admin'));
                             }
                             if(Yii::app()->user->isCustomer)
                             {

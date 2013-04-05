@@ -79,6 +79,7 @@
     </div>
     <section>
     	<div id="main_section">
+            
           	
           <?php echo $content; ?>
         </div>
