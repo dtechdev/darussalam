@@ -26,7 +26,10 @@
                 <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
             </div>
             <div id="text">
-            	<h1><a href="#">Sign In</a>
+                <?php if(!Yii::app()->user->isGuest){?>
+            	<h1><a href="<?php echo $this->createUrl('/site/logout')?>">Logout</a>
+                    <?php }else{?>
+            	<h1><a href="<?php echo $this->createUrl('/site/login')?>">Sign In</a>
                     <div class="under_text">
                                <?php
                         /* @var $this SiteController */
@@ -58,6 +61,7 @@
                          <?php // $this->widget('LoginWidget');?>
                     </div>
                 </h1>
+                    <?php }?>
             </div>
         </div>
     </header>
