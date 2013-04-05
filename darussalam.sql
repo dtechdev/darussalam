@@ -3,13 +3,19 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 04, 2013 at 02:14 PM
+-- Generation Time: Apr 05, 2013 at 02:50 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `darussalam`
@@ -212,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `layout` (
 --
 
 INSERT INTO `layout` (`layout_id`, `layout_name`, `layout_description`, `layout_color`, `site_id`) VALUES
-(23, 'default_old', 'default', 'black', 1);
+(23, 'default', 'default', 'black', 1);
 
 -- --------------------------------------------------------
 
@@ -253,7 +259,15 @@ CREATE TABLE IF NOT EXISTS `order` (
   KEY `customer_id_2` (`user_id`),
   KEY `user_id` (`user_id`),
   KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`order_id`, `user_id`, `total_price`, `order_date`) VALUES
+(1, 2, 22.0000, '3333'),
+(2, 3, 33.0000, '333');
 
 -- --------------------------------------------------------
 
@@ -272,7 +286,21 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`),
   KEY `user_order_id` (`user_order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `order_detail`
+--
+
+INSERT INTO `order_detail` (`user_order_id`, `order_id`, `product_id`, `product_price`) VALUES
+(1, 1, 23, 33.0000),
+(2, 1, 24, 32.0000),
+(3, 2, 24, 2.0000),
+(6, 1, 25, 33.0000),
+(7, 2, 23, 33.0000),
+(8, 1, 23, 0.0000),
+(9, 2, 24, 33.0000),
+(10, 2, 24, 33.0000);
 
 -- --------------------------------------------------------
 
@@ -298,14 +326,16 @@ CREATE TABLE IF NOT EXISTS `product` (
   KEY `frenchise_id` (`city_id`),
   KEY `frenchise_id_2` (`city_id`),
   KEY `city_id` (`city_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`) VALUES
-(23, 'dsf', 'sadfa', 3, '27-03-2013', '0', 32.0000);
+(23, 'Quran', 'Azeeem book', 3, '27-03-2013', '1', 32.0000),
+(24, 'Ahadees', 'The life of Muslims', 3, '222', '1', 121212.0000),
+(25, 'Fiqa', 'aaa', 3, '', '1', 33.0000);
 
 -- --------------------------------------------------------
 
@@ -340,7 +370,14 @@ CREATE TABLE IF NOT EXISTS `product_discount` (
   KEY `discount_id` (`discount_id`),
   KEY `discount_id_2` (`discount_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `product_discount`
+--
+
+INSERT INTO `product_discount` (`discount_id`, `product_id`, `discount_type`, `discount_value`) VALUES
+(3, 23, 'fixed', 8.0000);
 
 -- --------------------------------------------------------
 
@@ -356,7 +393,18 @@ CREATE TABLE IF NOT EXISTS `product_image` (
   `image_large` varchar(255) NOT NULL,
   PRIMARY KEY (`product_image_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `product_image`
+--
+
+INSERT INTO `product_image` (`product_image_id`, `product_id`, `image_small`, `image_large`) VALUES
+(1, 23, 'small2.jpg', 'large1.jpg'),
+(2, 24, 'small3.jpg', 'large4.jpg'),
+(3, 23, 'small1.jpg', 'large1.jpg'),
+(4, 25, 'small3.jpg', 'large2.jpg'),
+(5, 24, 'small4.jpg', 'large1.jpg');
 
 -- --------------------------------------------------------
 
@@ -378,7 +426,14 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
   KEY `author_id_2` (`author_id`),
   KEY `language_id` (`language_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `product_profile`
+--
+
+INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `language_id`, `isbn`) VALUES
+(5, 23, 2, 2, 'dgdfgd');
 
 -- --------------------------------------------------------
 
@@ -452,7 +507,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 --
 -- Dumping data for table `user`
@@ -648,3 +703,7 @@ ALTER TABLE `user`
 ALTER TABLE `user_profile`
   ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
