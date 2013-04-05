@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="style.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style.css" media="screen, projection" />
 <title>Darussalam</title>
 </head>
 
@@ -17,26 +17,45 @@
                 </ul>
             </nav>
             <div id="world">
-            	<img src="images/world_img_03.jpg" alt="world img" />
+            	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/world_img_03.jpg" alt="world img" />
                 <span><a href="#">United States</a> - <a href="#">English</a></span>
-                <a href="#"><img src="images/world_arrow_img_03.jpg" alt="arrow img" /></a>
+                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/world_arrow_img_03.jpg" alt="arrow img" /></a>
             </div>
             <div id="right_header_part">
-            	<a href="#"><img src="images/heart_img_03.jpg" alt="heart img" class="heart_img" /></a>
-                <a href="#"><img src="images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
+            	<a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/heart_img_03.jpg" alt="heart img" class="heart_img" /></a>
+                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
             </div>
             <div id="text">
             	<h1><a href="#">Sign In</a>
                     <div class="under_text">
+                               <?php
+                        /* @var $this SiteController */
+                        /* @var $model LoginForm */
+                        /* @var $form CActiveForm  */
+
+                        $this->pageTitle=Yii::app()->name . ' - Login';
+                        $this->breadcrumbs=array(
+                                'Login',
+                        );
+                        ?>
+                        <?php $form=$this->beginWidget('CActiveForm', array(
+                         'id'=>'login-form',
+                        'enableClientValidation'=>true,
+                        'clientOptions'=>array(
+                        'validateOnSubmit'=>true,
+                        ),));  $model=new LoginForm; ?>
+                        
                         <ul>
-                        	<li class="frst">Sign In</li>
-                        	<li class="second"><input type="text" value="Sign In" /></li>
-                            <li class="second"><input type="password" value="123" /></li>
-                            <li class="check"><input type="checkbox" /> Keep me Sign in.</li>
-                            <li class="second"><input type="button" value="Sign In" class="btn" /></li>
-                            <li class="second"><a href="#">Register a new account.</a></li>
-                            <li class="second"><a href="#">Forgeot User ID or Password?</a></li>
+                            <li class="frst">Sign In</li>
+                            <li class="second"><?php echo $form->textField($model,'username'); ?></li>
+                            <li class="second"><?php echo $form->passwordField($model,'password'); ?></li>
+                            <li class="check"><?php echo $form->checkBox($model,'rememberMe'); ?>Keep me Sign in.</li>
+                            <li class="second"><?php echo CHtml::submitButton('Sign In'); ?></li>
+                            <li class="second"><a href="<?php echo $this->createUrl('/user/register')?>">Register a new account</a></li>
+                            <li class="second"><a href="<?php echo $this->createUrl('/user/forgot')?>">Forgeot User ID or Password?.</a></li>
                      	</ul>
+                        <?php $this->endWidget();?>
+                         <?php // $this->widget('LoginWidget');?>
                     </div>
                 </h1>
             </div>
@@ -45,17 +64,17 @@
     <div id="banner">
      	<div id="main_banner">
         	<div id="left_banner">
-                <a href="index.html"><img src="images/darussalam-inner-logo.png" alt="logo" /></a>
+                <a href="index.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
                 <nav>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact us</a></li>
+                        <li><a href="<?php echo $this->createUrl('/site/page',array('view'=>'about'))?>" >About Us</a></li>
+                        <li><a href="<?php echo $this->createUrl('/site/contact')?>">Contact us</a></li>
                         <li><a href="#">Help</a></li>
                     </ul>
                 </nav>
                 <div class="txt">
                 	<div class="search_img">
-                    	<a href="#"><img src="images/search_img_03.jpg" alt="search img" /></a>
+                    	<a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/search_img_03.jpg" alt="search img" /></a>
                    	</div>
                 	<input type="text" name="" value="" class="txt_bar" />
                 	<input type="button" value="Search" name="" class="txt_btn" />
@@ -64,7 +83,7 @@
              <div id="right_banner">
                 <div class="small_book">
                 	<div class="small_book_img">
-                		<img src="images/small_book_1_03.jpg" alt="scientific book" />
+                		<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/small_book_1_03.jpg" alt="scientific book" />
                    	</div>
                     <div class="small_book_content">
                         <p><a href="#">Talha Jutt </a>recommended this book</p>
@@ -74,7 +93,7 @@
                 </div>
                 <div class="small_book">
                 	<div class="small_book_img">
-                		<img src="images/small_book_2_03.jpg" alt="scientific book" />
+                		<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/small_book_2_03.jpg" alt="scientific book" />
                    	</div>
                     <div class="small_book_content">
                         <p><a href="#">Zain Khan </a>recommended this book</p>
@@ -85,7 +104,7 @@
                 </div>
                 <div class="small_book">
                 	<div class="small_book_img">
-                		<img src="images/small_book_3_03.jpg" alt="scientific book" />
+                		<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/small_book_3_03.jpg" alt="scientific book" />
                   	</div>
                     <div class="small_book_content">
                         <p><a href="#" class="science">Scientific Wonders on the earth and in space</a></p>
@@ -94,7 +113,7 @@
                 </div>
                 <div class="small_book">
                 	<div class="small_book_img">
-                		<img src="images/small_book_1_03.jpg" alt="scientific book" />
+                		<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/small_book_1_03.jpg" alt="scientific book" />
                   	</div>
                     <div class="small_book_content">
                         <p><a href="#">Talha Jutt </a>recommended this book</p>
@@ -132,6 +151,7 @@
                         <li><a href="#">Fiqh</a></li>
                     </ul>
                 </div>
+                
                 <div class="section_list">
                     <ul>
                         <li><a href="#">General</a></li>
@@ -173,51 +193,18 @@
                     </ul>
                 </div>
           	</div>
-            <div id="left_books">
-            	<h2>FEATURED PRODUCTS <span>( <a href="#">VIEW ALL</a> )</span></h2>
-                <div class="books">
-                	<a href="#"><img src="images/pen_QURAN_img_03.jpg" alt="Pen QURAN PAK" /></a>
-                    <p><a href="#">Pen Quran</a></p>
-                </div>
-                <div class="books">
-                	<a href="#"><img src="images/HAZRAT_KHADIJA_life_03.jpg" alt="Pen QURAN PAK" /></a>
-                    <p><a href="#">Pen Quran</a></p>
-                </div>
-                <div class="books">
-                	<a href="#"><img src="images/enjoy_your_life_book_03.jpg" alt="Pen QURAN PAK" /></a>
-                    <p><a href="#">Pen Quran</a></p>
-                </div>
-            </div>
-            <div id="right_books">
-            	<h2>BEST SELLING BOOKS <span>( <a href="#">VIEW ALL</a> )</h2>
-                <div class="books2">
-                	<a href="#"><img src="images/golden_rays_img_03.jpg" alt="Pen QURAN PAK" /></a>
-                    <p><a href="#">Pen Quran</a></p>
-                </div>
-                <div class="books2">
-                	<a href="#"><img src="images/HAZRAT_KHADIJA_life_03.jpg" alt="Pen QURAN PAK" /></a>
-                    <p><a href="#">Pen Quran</a></p>
-                </div>
-                <div class="books2">
-                	<a href="#"><img src="images/enjoy_your_life_book_03.jpg" alt="Pen QURAN PAK" /></a>
-                    <p><a href="#">Pen Quran</a></p>
-                </div>
-            </div>
+          <?php echo $content; ?>
         </div>
     </section>
     <footer>
     	<div id="under_footer">
        		<div id="left_footer">
             	<h1>Connect to DARUSSALAM</h1>
-                <a href="#"><img src="images/f_img_03.jpg" alt="f"></a>
-                <a href="#"><img src="images/t_img_03.jpg" alt="t"></a>
-                <a href="#"><img src="images/dots_img_03.jpg" alt="dot"></a>
-                <a href="#"><img src="images/u_img_03.jpg" alt="u"></a>
-                <a href="#"><img src="images/subscriber_img_03.jpg" alt="sub"></a>
+                <?php  $this->widget('LoginWidget');?>
                 <div id="left_under_footer">
-                	<li><img src="images/phone_img_03.jpg" alt="phone"> +(92) 42 35254654 - 54</li>
-                    <li><img src="images/gmail_img_03.jpg" alt="phone"><a href="#"> support@darussalam.com</a></li>
-                    <li><img src="images/home_img_03.jpg" alt="phone"> Darussalam Publishers</li>
+                	<li><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/phone_img_03.jpg" alt="phone"> +(92) 42 35254654 - 54</li>
+                    <li><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/gmail_img_03.jpg" alt="phone"><a href="#"> support@darussalam.com</a></li>
+                    <li><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/home_img_03.jpg" alt="phone"> Darussalam Publishers</li>
                 </div>
                	<p>is a multilingual international Islamic publishing house, with headquarters in Riyadh, Kingdom of Saudi Arabia.</p>
             </div>
