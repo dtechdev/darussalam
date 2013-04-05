@@ -105,6 +105,7 @@ class UserController extends Controller {
 
     public function actionRegister() {
 
+        Yii::app()->controller->layout='//layouts/main';
         $model = new User;
         //$user_profile = new UserProfile();
         $selfSite = new SelfSite();

@@ -84,6 +84,7 @@ class SiteController extends Controller
 	 */
 	public function actionContact()
 	{
+                Yii::app()->controller->layout='//layouts/main';
 		$model=new ContactForm;
 		if(isset($_POST['ContactForm']))
 		{

@@ -2,8 +2,6 @@
             	<h2>FEATURED PRODUCTS <span>( <a href="#">VIEW ALL</a> )</span></h2>
 <?php
 //echo Yii::app()->getBaseUrl(true);
-
-
 foreach($product as $featured)
 {
     $name=$featured['product_name'];
@@ -14,12 +12,9 @@ foreach($product as $featured)
                 	<a href="#"><img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_large'];?>" alt="Pen QURAN PAK" /></a>
                     <p><a href="#"><?php echo $name; ?></a></p>
                 </div>
-                
        <?php
        break;
-
     }
-    
 }
 ?>
 </div>
@@ -28,8 +23,6 @@ foreach($product as $featured)
 <?php
 foreach($best_sellings as $bests)
 {
-    //print_r($out);//$array['Slideshow']
-    
     $pro_name=$bests['product_name'];
      $orders= '('.$bests['totalOrder'].')';
     foreach($bests['image'] as $image)
@@ -37,17 +30,12 @@ foreach($best_sellings as $bests)
        ?>
     <div class="books2">
                 	<a href="#"><img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_large'];?>" alt="Pen QURAN PAK" /></a>
-                    <p><a href="#">Pen Quran</a></p>
+                    <p><a href="#"><?php echo $pro_name.'('.$orders.')'; ?></a></p>
                 </div>
-    
-
        <?php
        break;
-
     }
-    
 }
 ?>
-
-            </div>
+ </div>
        
