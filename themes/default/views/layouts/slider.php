@@ -4,7 +4,7 @@
     <div id="banner">
      	<div id="main_banner">
         	<div id="left_banner">
-                <a href="index.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
+                <a href="<?php echo $this->createUrl('/site/index')?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
                 <nav>
                     <ul>
                         <li><a href="<?php echo $this->createUrl('/site/page',array('view'=>'about'))?>" >About Us</a></li>
