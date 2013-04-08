@@ -1,7 +1,7 @@
 <div id="book_content">
     	<div id="book_main_content">
         	<div class="left_book_main_content">
-            	<a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
+            	<a href="<?php echo $this->createUrl('/site/storehome',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])); ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
             </div>
             <div class="search_box">
             	<input type="text" placeholder="Search keywords or image ids..." value="" class="search_text" />

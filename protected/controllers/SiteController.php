@@ -56,8 +56,9 @@ class SiteController extends Controller
                 
               //  echo '<pre>';
                 //print_r($order_detail->featuredBooks());
-               $featured_products= $order_detail->featuredBooks();
-               $bestSellings= $order_detail->bestSellings();
+                $limit=3;
+               $featured_products= $order_detail->featuredBooks($limit);
+               $bestSellings= $order_detail->bestSellings($limit);
                //echo '<pre>';
                //print_r($bestSellings['product_id']);
             

@@ -15,7 +15,7 @@
  */
 class OrderDetail extends CActiveRecord
 {
-    public $TotalOrder;
+    public $totalOrder;
 	/**
          * 
 	 * Returns the static model of the specified AR class.
@@ -100,12 +100,18 @@ class OrderDetail extends CActiveRecord
 	}
         
         
-        public function featuredBooks()
+        public function featuredBooks($limit=30)
         {     
-             $f='1';
-             $criteria=new CDbCriteria;
-             $criteria->select='*';  // only select the 'title' column
-             $criteria->condition="is_featured='".$f."'";
+             $is_featured='1';
+            
+            $criteria=new CDbCriteria(array(
+                'select'=>'*',
+                'condition'=>"is_featured='".$is_featured."' AND city_id='".Yii::app()->session['city_id']."'",
+                'limit'=>$limit,
+                'order'=>'product_id ASC',
+                //'with'=>'commentCount' 
+               ));
+
              $data=  Product::model()->findAll($criteria);
             
              
@@ -120,10 +126,8 @@ class OrderDetail extends CActiveRecord
                  $criteria2->condition="product_id='".$product_id."'";
                  $imagedata=  ProductImage::model()->findAll($criteria2);
                  $images=array();
-                 //$imagedata= ProductImage::model()->findAll($criteria);
                     foreach($imagedata as $img)
                     {
-                        //$featured_products=array();
                       $images[]=array('product_image_id'=>$img->product_image_id,
                                        'image_large'=>$img->image_large,
                                         'image_small'=>$img->image_small,
@@ -145,12 +149,23 @@ class OrderDetail extends CActiveRecord
         }
         
         
-        public function bestSellings()
+        public function bestSellings($limit=30)
         {     
           $best_products=array();
-          $qu = Yii::app()->db->createCommand("SELECT COUNT( product_id ) as totalOrder, product_id
-                                               FROM order_detail group by product_id order by totalOrder DESC LIMIT 3");
-          $best_sellings= $qu->queryAll();
+          
+          $criteria=new CDbCriteria(array(
+                'select'=>"COUNT( product_id ) as totalOrder, product_id",
+               'group'=>'product_id',
+               // 'condition'=>"is_featured='".$is_featured."' AND city_id='".Yii::app()->session['city_id']."'",
+                'limit'=>$limit,
+                'order'=>'totalOrder DESC',
+                //'with'=>'commentCount' 
+               ));
+           $best_sellings=  OrderDetail::model()->findAll($criteria);
+          
+//          $qu = Yii::app()->db->createCommand("SELECT COUNT( product_id ) as totalOrder, product_id
+//                                               FROM order_detail group by product_id order by totalOrder DESC LIMIT 3");
+//          $best_sellings= $qu->queryAll();
           $total=count($best_sellings);
           for($i=0; $i < $total;  $i++)
           {
@@ -160,7 +175,7 @@ class OrderDetail extends CActiveRecord
               
                 $criteria6=new CDbCriteria;
                  $criteria6->select='*';  // only select the 'title' column
-                 $criteria6->condition="product_id='".$best_products_id."'";
+                 $criteria6->condition='product_id="'.$best_products_id.'"';
                  $imagebest=  ProductImage::model()->findAll($criteria6);
                  $imagesbestproducts=array();
                  //$imagedata= ProductImage::model()->findAll($criteria);
