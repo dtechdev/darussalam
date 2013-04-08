@@ -64,8 +64,22 @@ class SiteController extends Controller
               $this->render('storehome',array('product'=>$featured_products,'best_sellings'=>$bestSellings)
                       );
 	}
+        
+        public function  actionproductListing()
+        {
+            
+            Yii::app()->controller->layout='//layouts/main';
+            $this->render('product_listing');
+        }
+        
+        public function  actionproductDetail()
+        {
+            
+            Yii::app()->controller->layout='//layouts/main';
+            $this->render('product_detail');
+        }
 
-	/**
+        /**
 	 * This is the action to handle external exceptions.
 	 */
 	public function actionError()

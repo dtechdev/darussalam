@@ -53,7 +53,7 @@
                 </div>
           	</div>    
 <div id="left_books">
-            	<h2>FEATURED PRODUCTS <span>( <a href="#">VIEW ALL</a> )</span></h2>
+            	<h2>FEATURED PRODUCTS <span>( <a href="<?php echo $this->createUrl('/site/productListing')?>">VIEW ALL</a> )</span></h2>
 <?php
 //echo Yii::app()->getBaseUrl(true);
 foreach($product as $featured)
