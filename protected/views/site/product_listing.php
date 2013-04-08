@@ -1,7 +1,7 @@
 <div id="book_content">
     	<div id="book_main_content">
         	<div class="left_book_main_content">
-            	<a href="index.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
+            	<a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
             </div>
             <div class="search_box">
             	<input type="text" placeholder="Search keywords or image ids..." value="" class="search_text" />
@@ -98,19 +98,19 @@
            	</div>
             <div id="right_main_content">
             	<div class="condition">
-                	<a href="<?php echo $this->createUrl('/site/productDetail')?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
+                	<a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
                     <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
                     <p>Muhammad Manzoor Elahi</p>
                     <article>$13.03</article>
                 </div>
                 <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
+                	<a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
                     <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
                     <p>Muhammad Manzoor Elahi</p>
                     <article>$13.03</article>
                 </div>
                 <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
+                	<a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
                     <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
                     <p>Muhammad Manzoor Elahi</p>
                     <article>$13.03</article>

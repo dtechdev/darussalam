@@ -65,6 +65,21 @@ class SiteController extends Controller
                       );
 	}
         
+        public function  actionfeaturedProducts()
+        {
+            //queries 
+            
+            Yii::app()->controller->layout='//layouts/main';
+            $this->render('featured_products');
+        }
+        public function  actionbestSellings()
+        {
+            //queries 
+            
+            Yii::app()->controller->layout='//layouts/main';
+            $this->render('best_sellings');
+        }
+        
         public function  actionproductListing()
         {
             

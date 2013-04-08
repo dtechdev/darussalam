@@ -53,7 +53,9 @@
                 </div>
           	</div>    
 <div id="left_books">
-            	<h2>FEATURED PRODUCTS <span>( <a href="<?php echo $this->createUrl('/site/productListing')?>">VIEW ALL</a> )</span></h2>
+    <?php //echo CHtml::link('( View All )', array('/site/featuredProducts', 'country' => $country_short_name, 'city' => $city_short_name, 'city_id' => $city_id), array('class' => 'blue-title-link')); ?>
+            	<h2>FEATURED PRODUCTS <span><?php echo CHtml::link('( VIEW ALL )', array('/site/featuredProducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']), array('class' => 'blue-title-link'));?></span></h2>
+<!--            	<h2>FEATURED PRODUCTS <span>( <a href="<?php //echo $this->createUrl('/site/featuredProducts')?>">VIEW ALL</a> )</span></h2>-->
 <?php
 //echo Yii::app()->getBaseUrl(true);
 foreach($product as $featured)
@@ -73,7 +75,8 @@ foreach($product as $featured)
 ?>
 </div>
 <div id="right_books">
-    <h2>BEST SELLING BOOKS <span>( <a href="#">VIEW ALL</a> )</h2>
+    <h2>BEST SELLING BOOKS <span><?php echo CHtml::link('( VIEW ALL )', array('/site/bestSellings', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']), array('class' => 'blue-title-link'));?></h2>
+<!--    <h2>BEST SELLING BOOKS <span>( <a href="<?php echo $this->createUrl('/site/bestSellings')?>">VIEW ALL</a> )</h2>-->
 <?php
 foreach($best_sellings as $bests)
 {
