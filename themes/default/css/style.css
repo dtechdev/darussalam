@@ -13,7 +13,7 @@ body { width:100%; font-family:Arial, Helvetica, sans-serif; }
 
 header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repeat-x top center; border-bottom: 1px solid #a9a9a9; }
 
-#main_header { width:960px; padding: 0; margin: 0 auto; }
+#main_header { width:960px; padding: 0; margin: 0 auto; max-width:100%; }
 
 #main_header nav { width:360px; padding: 0; margin: 0; height:38px; float:left; }
 
@@ -47,27 +47,53 @@ header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repe
 
 #text h1:hover { background:#f7f7f7; text-align:center; }
 
-#text h1 { padding: 0 0 0 3px; margin: 0 0 0 0; float:none; text-align:center; }
+#text h1 { padding: 0 0 0 20px; margin: 0 0 0 5px; float:none; }
 
 #text h1 a { padding: 0; margin: 0 0 0 0; text-decoration:none; font-size:12px; font-weight:bold; font-family:Arial, Helvetica, sans-serif; color:#2f2f2f; }
 
-#text h1 a:hover { color:#036; }
+#text h1 a:hover { color:#036; padding: 0 0 0 0; margin: 0 0 0 0; }
 
-#text h1:hover .under_text { padding: 10px; margin: 6px 0 0 -133px; width:180px; background:#FFF; display:block; border-radius: 5px 0 5px 5px; height:230px; border-bottom: 1px solid #dbdada; border-left: 1px solid #dbdada; border-right: 1px solid #dbdada; float:none; position:relative; z-index:1000; }
+#text h1:hover .under_text { padding: 10px 10px 0 20px; margin: 6px 0 0 -283px; width:296px; background:#FFF; display:block; height:425px; border-top: 1px solid #000; border-bottom: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; float:none; position:relative; z-index:1000; }
 
-#text:hover h1 a { color:#036; }
+#text:hover h1 a { color:#036; padding: 10px 7px 13px 0px; top:10px; margin: -2px 0 0 0; border-bottom:none; background:#FFF; }
 
 #text h1:hover .under_text ul { padding: 0; margin: 0; }
 
-.frst { color:#333333; font-size:16px; font-weight:bold; text-align:left; }
+#text h1:hover .under_text p { display:block; font-weight:normal; text-align:left; font-size:12px; color:#2f2f2f; padding: 0; margin: 55px 0 5px 0; }
 
-.second { text-align:left; padding: 0; margin: 0; width:280px; }
+#text h1:hover .under_text p a { background:none; color:#2f2f2f; font-size:12px; padding: 0; margin: 0 0 0 0; font-weight:normal; font-family:Arial, Helvetica, sans-serif; }
 
-.check { font-size:11px; color:#333333; text-align:left; }
+.forgot { padding: 0; margin: -15px 0 0 0; text-align:left; background:none; }
+
+.dont { padding: 0; margin: 0; width:200px; }
+
+.sign_in { width:120px; float:left; padding: 0; margin: 3px 0 0 5px; }
+
+.sign_in a img { float:left; }
+
+.f_img { float:left; width:78px; height:30px; border:none; background:#3b5999; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-size:13px; }
+
+.l_img { float:left; width:78px; height:30px; border:none; background:#1a81b5; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-size:13px; }
+
+.t_img { float:left; width:78px; height:30px; border:none; background:#1bb5e7; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-size:13px; }
+
+.g_img { float:left; width:78px; height:30px; border:none; background:#dd583f; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-size:13px; }
+
+#text h1:hover .under_text ul li { display:block; }
+
+#text h1:hover .under_text ul p { padding: 0; margin: 10px 0 0 0; font-weight:normal; font-size:12px; text-align:left; color:#2f2f2f; }
+
+.frst { padding: 0; margin: 0; color:#000000; font-size:19.44px; text-align:left; }
+
+.second { float:left; text-align:left; padding: 3px 0 3px 0; border:none; border: 1px solid #d0d0d0; margin: 5px 0 5px 0; width:245px; }
+
+.pswrd { padding: 0; margin: 3px 0 3px 0;}
+
+.check { display:block; width:100px; padding: 0; margin: 0; font-size:11px; color:#333333; text-align:left; }
 
 #text h1:hover .under_text ul li { list-style:none; padding: 0; margin: 0; }
 
-.btn { border:none; border-radius:5px; background:#003a83; color:#FFF; padding: 5px 2px 5px 2px; }
+.btn { width:88px; height:30px; border:none; margin: 8px 0 0 0; border-radius:5px; background:#008dde; color:#FFF; padding: 5px 2px 5px 2px; float:left; }
 
 #text .under_text { display:none; }
 
@@ -77,7 +103,7 @@ header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repe
 
 #text h1:hover .under_text ul li a:hover { text-decoration:underline; }
 
-#banner { float:left; padding: 0; margin: 0; background:url(../images/QURAN_Pak_bg_img_02.jpg) no-repeat 10px; width:100%; height:453px; }
+#banner { float:left; padding: 0; margin: 0; background:url(../images/QURAN_Pak_bg_img_02.jpg) no-repeat 0px 10px; background-position: left bottom; width:100%; height:453px; }
 
 #main_banner { width:960px; padding: 0; margin: 0 auto; }
 
@@ -95,19 +121,21 @@ header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repe
 
 #left_banner nav ul li a:hover { color:#2e3192; }
 
-.txt { float:left; padding: 0; margin: 110px 200px 0 0; width:452px; border: 3px solid #909090; border-radius:10px; background:#FFF; }
+.txt { background:#FFF; border:3px solid #909090; border-radius:10px;  float:left; padding: 0; margin: 110px 200px 0 0; height:49px; width:458px; }
 
-.search_img { width:22px; float:left; margin: 15px 0 0 5px; padding: 0; }
+.txt2 { border:1px solid #7b7b7b; border-radius:5px; padding: 0; margin: 0; height:47px; }
 
-.txt_bar { padding: 10px 7px 10px 7px; margin: 0 0 0 0px; height:18px; width:310px; border:none; }
+.txt .search_img { width:22px; float:left; margin: 17px 0 0 10px; padding: 0; }
 
-.txt_btn { background:url(../images/search_bg_img_03.jpg) repeat-x; border-radius: 0 7px 7px 0; padding: 3px 5px 4px 5px; height:47px; font-size:19px; margin: 0 0 0 0px; width:96px; border:none; color:#FFF; }
+.txt .txt_bar { padding: 10px 7px 10px 0px; margin: 5px 0 0 0px; height:20px; width:305px; border:none; width:310px; float:left; }
 
-#right_banner { width:320px; padding: 0; margin: 20px 0 0 0; float:left; border:1px solid #d0d0d0; border-radius:5px; -moz-border-radius:5px; }
+.txt .txt_btn { background:url(../images/search.png); float:left; font-family:Arial, Helvetica, sans-serif; padding: 0px 5px 0px 15px; height:47px; font-size:19px; margin: 0px 0 0 0px; border:none; color:#FFF; width:107px; }
+
+#right_banner { width:318px; padding: 10px 0 10px 0; margin: 20px 0 0 0; float:left; border:1px solid #d0d0d0; }
 
 #right_banner h1 { color:#1a1a1a; font-size:13px; border-bottom:1px solid #e3e3e3; padding: 0 0 10px 10px; }
 
-.small_book { width:313px; padding: 0 10px 10px 10px; margin: 10px 0 0 0; float:left; }
+.small_book { width:311px; padding: 0 10px 0px 10px; margin: 10px 0 0 0; float:left; }
 
 .small_book_img { width:45px; float:left; padding: 0; margin: 0; }
 
@@ -121,7 +149,7 @@ header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repe
 
 .science:hover { text-decoration:underline; }
 
-#content { float:left; padding: 0; margin: -38px 0 0 0; width:100%; background:url(../images/bg.png) repeat-x; height:51px; }
+#content { float:left; padding: 0; margin: 0px 0 0 0; width:100%; background:url(../images/bg.png) repeat-x; height:51px; }
 
 #main_content { width:960px; padding: 0; margin: 0 auto; }
 
@@ -139,13 +167,13 @@ header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repe
 
 #right_content ul li a:hover { color:#FFF; }
 
-@font-face { font-family: Franklin Gothic; src:url(../fonts/Franklin%20Gothic%20Regular.ttf); }
+@font-face { font-family: Franklin Gothic; src:url(fonts/Franklin%20Gothic%20Regular.ttf); }
 
 section { float:left; padding: 0; margin: 0; width:100%; }
 
 #main_section { width:960px; padding: 0; margin: 0 auto; }
 
-#main_section h1 { padding: 0px 0 0 15px; margin: 40px 0 0 0px; width:950px; text-align:center; background:url(../images/h_border_03.jpg) no-repeat 10px; font-size:15px; font-weight:normal; color:#3f3f3f; font-family: Franklin Gothic; }
+#main_section h1 { padding: 0px 0 0 15px; margin: 40px 0 0 0px; width:950px; text-align:center; background:url(images/h_border_03.jpg) no-repeat 10px; font-size:15px; font-weight:normal; color:#3f3f3f; font-family: Franklin Gothic; }
 
 .browse { background: linear-gradient( to right, #FFFFFF 0%, #f7f7f7 50%, #FFFFFF 100%) repeat scroll 0 0 transparent; height:130px; padding: 10px 0 0 0; margin: 10px 0 0 0 }
 
@@ -261,7 +289,7 @@ footer { font-family:Arial, Helvetica, sans-serif; font-size:12px; background:ur
 
 .searching_img { position:absolute; padding: 0; margin: 10px 0 0 -40px; }
 
-#book_main_content nav { width:203px; padding: 0; margin: 34px 0 10px 20px; float:left; }
+#book_main_content nav { width:200px; padding: 0; margin: 34px 0 10px 20px; float:left; }
 
 #book_main_content nav ul { padding: 0; margin: 0; }
 
@@ -315,13 +343,21 @@ footer { font-family:Arial, Helvetica, sans-serif; font-size:12px; background:ur
 
 #booked_content { width:960px; padding: 0; margin: 0 auto; }
 
-.left_book { float:left; padding: 0; margin: 0; width:300px; }
+.left_book { float:left; padding: 0; margin: 0; width:280px; }
 
-.left_book img { padding: 0 20px; margin: 0; }
+.left_book img { padding: 10px; margin: 0; border: 1px solid #efefef; }
+
+.small_product img { margin: 15px 10px 0 0px; }
 
 .right_book { width:615px; padding: 0; margin: 0px 0 0 15px; float:left; }
 
-.right_book h1 { color:#2e3192; font-size:16px; padding: 0; margin: 5px 0 0 0; }
+.middle_book { width:630px; padding: 0; margin: 0; }
+
+.middle_book span { float:left; color:#000; width:490px; font-size:27px; font-weight:bold; padding: 0; margin: 5px 0 0 0; }
+
+.middle_book p { padding: 0; margin: 10px 0 5px 0; float:left; color:#888888; font-size:18px; font-family:Arial, Helvetica, sans-serif; }
+
+.products_img { float:left; width:140px; }
 
 .left_td { font-size:13px; color:#333333; font-weight:bold; }
 
@@ -329,6 +365,21 @@ footer { font-family:Arial, Helvetica, sans-serif; font-size:12px; background:ur
 
 table tr td { width:200px; padding: 10px 0 0 0; margin: 0 0 0 0; }
 
-.right_book h2 { color:#2e3192; font-size:15px; padding: 0; margin: 30px 0 0 0; }
+.right_book h2 { color:#2e3192; font-size:15px; padding: 0; margin: 40px 0 0 0; }
 
 .right_book p { color:#5b5b5b; font-size:13px; }
+
+
+@media screen and (max-width: 700px) {
+
+.txt { width:auto; }
+
+.txt .txt_bar { width:50.5%; }
+
+}
+
+@media screen and (max-width: 480px) {
+
+.txt { width:auto; height:auto; }
+
+}

@@ -1,37 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style.css" media="screen, projection" />
+<link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/gumby.css">
+<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/libs/modernizr-2.6.2.min.js"></script>
 <title>Darussalam</title>
+<script>window.jQuery || document.write('<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/libs/jquery-1.8.3.min.js"><\/script>')</script>
+  <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/libs/gumby.min.js"></script>
+  <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/plugins.js"></script>
+  <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/main.js"></script>
+  <script>
+    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
+    Modernizr.load({
+      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+    });
+  </script>
+<script src="http://www.marghoobsuleman.com/misc/jquery.js"></script>
+<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/dd.css" />
+<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/msdropdown/jquery.dd.min.js"></script>
+<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/flags.css" />
+  
 </head>
 
 <body>
 	<header>
     	<div id="main_header">
-        	<nav>
-            	<ul>
-                	<li><a href="#">BOOKS</a></li>
-                    <li><a href="#">QURAN</a></li>
-                    <li><a href="#">EDUCATIONAL TOYS</a></li>
-                    <li><a href="#">OTHERS</a></li>
-                </ul>
-            </nav>
+        	<div class="pretty navbar" gumby-fixed="top" id="nav3">
+                <nav class="row">
+                    <a class="toggle" gumby-trigger="#nav3 > .row > ul" href="#"><i class="icon-menu"></i></a>
+                    <ul class="eight columns">
+                        <li><a href="#">BOOKS</a></li>
+                        <li><a href="#">QURAN</a></li>
+                        <li><a href="#">EDUCATIONAL TOYS</a></li>
+                        <li><a href="#">OTHERS</a></li>
+                    </ul>
+                </nav>
+          	</div>
             <div id="world">
-            	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/world_img_03.jpg" alt="world img" />
-                <span><a href="#">United States</a> - <a href="#">English</a></span>
-                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/world_arrow_img_03.jpg" alt="arrow img" /></a>
+            	<div id="input">
+            	<select name="countries" id="countries" style="width:200px;">
+                      <option value='af' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag af" data-title="Afghanistan" selected="selected">Afghanistan - Pashto</option>
+                      <option value='ae' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag ae" data-title="United Arab Emirates">United Arab Emirates - Arabic</option>
+                      <option value='au' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag au" data-title="Australia">Australia - English</option>
+                      <option value='bd' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag bd" data-title="Bangladesh">Bangladesh - Bengali</option>
+                      <option value='bt' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag bt" data-title="Bhutan">Bhutan - Dzongkha</option>
+                      <option value='ca' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag ca" data-title="Canada">Canada - English</option>
+                      <option value='cn' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag cn" data-title="China">China - Standard Mandarin</option>
+                      <option value='de' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag de" data-title="Germany">Germany - German</option>
+                   
+               	</select>
+				<script>
+                $(document).ready(function() {
+                    $("#countries").msDropdown();
+                })
+                </script>
+            	</div>
             </div>
-            <div id="right_header_part">
-            	<a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/heart_img_03.jpg" alt="heart img" class="heart_img" /></a>
-                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
-            </div>
-            <div id="text">
-                <?php if(!Yii::app()->user->isGuest){?>
-            	<h1><a href="<?php echo $this->createUrl('/site/logout')?>">Logout</a>
-                    <?php }else{?>
-            	<h1><a href="<?php echo $this->createUrl('/site/login')?>">Sign In</a>
-                    <div class="under_text">
-                               <?php
+            <div class="right_middle">
+                <div id="right_header_part">
+                    <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/heart_img_03.jpg" alt="heart img" class="heart_img" /></a>
+                    <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
+                </div>
+                <div id="text">
+                          <?php
                         /* @var $this SiteController */
                         /* @var $model LoginForm */
                         /* @var $form CActiveForm  */
@@ -46,23 +77,49 @@
                         'enableClientValidation'=>true,
                         'clientOptions'=>array(
                         'validateOnSubmit'=>true,
-                        ),));  $model=new LoginForm; ?>
-                        
-                        <ul>
-                            <li class="frst">Sign In</li>
-                            <li class="second"><?php echo $form->textField($model,'username'); ?></li>
-                            <li class="second"><?php echo $form->passwordField($model,'password'); ?></li>
-                            <li class="check"><?php echo $form->checkBox($model,'rememberMe'); ?>Keep me Sign in.</li>
-                            <li class="second"><?php echo CHtml::submitButton('Sign In'); ?></li>
-                            <li class="second"><a href="<?php echo $this->createUrl('/user/register')?>">Register a new account</a></li>
-                            <li class="second"><a href="<?php echo $this->createUrl('/user/forgot')?>">Forgeot User ID or Password?.</a></li>
-                     	</ul>
-                        <?php $this->endWidget();?>
-                         <?php // $this->widget('LoginWidget');?>
-                    </div>
-                </h1>
-                    <?php }?>
-            </div>
+                        ),)); 
+                        $model=new LoginForm; ?>
+                    <?php if(!Yii::app()->user->isGuest){?>
+            	<h1><a href="<?php echo $this->createUrl('/site/logout')?>">Logout</a>
+                    <?php }else{?>
+            	<h1><a href="<?php echo $this->createUrl('/site/login')?>">Sign In</a>
+                        <div class="under_text">
+                            <ul>
+                                <li class="frst">Sign In</li>
+                                <p class="mail">EMAIL</p>
+                                <li><?php echo $form->textField($model,'username',$htmlOptions=array("class"=>"second")); ?></li>
+                                <li><?php echo $form->error($model,'username'); ?></li>
+                                <p class="pswrd">PASSWORD</p>
+                                <li><?php echo $form->passwordField($model,'password',$htmlOptions=array ("class"=>"second")); ?></li>
+                               <?php echo $form->error($model,'password'); ?>
+                                <li class="check"><?php echo $form->checkBox($model,'rememberMe'); ?>Stay Signed in</li>
+                                <li class="forgot"><a href="<?php echo $this->createUrl('/user/forgot')?>">Forgot Password</a></li>
+                            </ul>
+                            <?php echo CHtml::submitButton("Sign In",array("class"=> "btn")); ?>
+                            <p class="signinp">Sign in with</p>
+                            <div class="sign_in">
+                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/facebook_img_03.jpg"></a>
+                                <input type="button" class="f_img" value="Facebook" />
+                            </div>
+                            <div class="sign_in">
+                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/linkedin_img_03.jpg"></a>
+                                <input type="button" class="l_img" value="Linkedin" />
+                            </div>
+                            <div class="sign_in">
+                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/twitter_img_03.jpg"></a>
+                                <input type="button" class="t_img" value="Twitter" />
+                            </div>
+                            <div class="sign_in">
+                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/google_img_03.jpg"></a>
+                                <input type="button" class="g_img" value="Google" />
+                            </div>
+                            <p class="dont"><a href="<?php echo $this->createUrl('/user/register')?>">Don't have account?</a></p>
+                      
+                            <a href="<?php echo $this->createUrl('/user/register')?>"><input type="button" value="Sign Up" class="btn" /></a>
+                        </div>
+                    <?php } $this->endWidget();?> </h1>
+                </div>
+          	</div>
         </div>
     </header>
 <?php echo $content; ?>
