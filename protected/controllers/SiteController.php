@@ -31,7 +31,31 @@ class SiteController extends Controller {
         $siteUrl = $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
         $site_id = SelfSite::model()->getSiteId($siteUrl);
         Yii::app()->session['site_id'] = $site_id;
-        $this->render('index');
+        //$this->render('index');
+         $city_id='3';
+        if(isset($_REQUEST['city_id']))
+        {
+            $city_id=$_REQUEST['city_id'];
+        }
+        else if(isset(Yii::app()->session['city_id']))
+        {
+            $city_id=Yii::app()->session['city_id'];
+        }
+        $city = City::model()->findByPk($city_id);
+        $countries = Country::model()->findByPk($city['country_id']);
+        $country_short_name=$countries['short_name'];
+        $city_short_name=$city['short_name'];
+        
+        $layout_id = $city['layout_id'];
+        $layout = Layout::model()->findByPk($layout_id);
+        $layout_name = $layout['layout_name'];
+
+        Yii::app()->session['layout'] = $layout_name;
+        Yii::app()->session['country_short_name'] = $country_short_name;
+        Yii::app()->session['city_short_name'] = $city_short_name;
+        Yii::app()->session['city_id'] = $city['city_id'];
+        Yii::app()->theme = Yii::app()->session['layout'];
+        $this->redirect(array('/site/storehome','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
     }
 
     public function actionStoreHome() {
@@ -57,18 +81,27 @@ class SiteController extends Controller {
         );
     }
 
+    public function actionallProducts() {
+        //queries 
+        $order_detail = new OrderDetail;
+        $all_products = $order_detail->featuredBooks();
+        Yii::app()->controller->layout = '//layouts/main';
+        $this->render('all_products',array('products'=>$all_products));
+    }
     public function actionfeaturedProducts() {
         //queries 
-
+        $order_detail = new OrderDetail;
+        $featured_products = $order_detail->featuredBooks();
         Yii::app()->controller->layout = '//layouts/main';
-        $this->render('featured_products');
+        $this->render('featured_products',array('products'=>$featured_products));
     }
 
     public function actionbestSellings() {
         //queries 
-
+        $order_detail = new OrderDetail;
+        $best_sellings = $order_detail->featuredBooks();
         Yii::app()->controller->layout = '//layouts/main';
-        $this->render('best_sellings');
+        $this->render('best_sellings',array('products'=>$best_sellings));
     }
 
     public function actionproductListing() {
@@ -155,7 +188,8 @@ class SiteController extends Controller {
                     $this->redirect(array('user/admin'));
                 }
                 if (Yii::app()->user->isCustomer) {
-                    $this->redirect(array('site/index'));
+                    //$this->redirect(array('site/index'));
+                    $this->redirect(array('/site/allProducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
                 }
             }
         }

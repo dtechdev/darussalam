@@ -97,78 +97,16 @@
                 </div>
            	</div>
             <div id="right_main_content">
-            	<div class="condition">
-                	<a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
-                <div class="condition">
-                	<a href="book.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/conditions_book_03.jpg" alt="condition"></a>
-                    <h3><a href="#">Two Conditions for acceptance of deeds</a></h3>
-                    <p>Muhammad Manzoor Elahi</p>
-                    <article>$13.03</article>
-                </div>
+                <?php
+                foreach ($products as $product) {
+                ?>
+                    <div class="condition">
+                            <a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));?>"><img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$product['image'][0]['image_large'];?>" alt="condition"></a>
+                        <h3><a href="#"><?php echo  $product['product_name'];?></a></h3>
+                        <p>Muhammad Manzoor Elahi</p>
+                        <article>&dollar;<?php echo round($product['product_price'],2);?></article>
+                    </div>
+                <?php }?>
             </div>
         </div>
     </div>
