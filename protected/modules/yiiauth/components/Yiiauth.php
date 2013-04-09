@@ -72,10 +72,13 @@ class Yiiauth extends CController {
                     if($provideruser->email)
                     {
                         $to = $user->user_email;
-                        $from = "zahid.nadeem@darussalampk.com";
-                        $headers = 'MIME-Version: 1.0' . "\r\n";
-                        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                        $headers .= 'From: DTech.com' . "\r\n";
+                        $from = Yii::app()->params->adminEmail;
+                        
+                        $headers = array(
+                            'MIME-Version: 1.0',
+                            'Content-type: text/html; charset=iso-8859-1',
+                        );
+                        
 
                         $subject = "Your Login Info";
 
@@ -83,7 +86,7 @@ class Yiiauth extends CController {
                                 Yii::app()->createAbsoluteUrl('site/login') .
                                 "<br>User Name : $user->user_email<br>Password : $pass_new<br> Login and Update your Profile.<br>Thanks you. </body></html>";
 
-                        Yii::app()->email->send($from, $to, $subject, $message);
+                        Yii::app()->email->send($from, $to, $subject, $message,$headers);
                     }
                 }
             }
