@@ -24,20 +24,20 @@ class UserController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'register', 'activate','forgot'),
+                'actions' => array('index', 'view', 'register', 'activate', 'forgot'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create','updateprofile'),
+                'actions' => array('create', 'updateprofile'),
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('create','update','updateprofile'),
+                'actions' => array('create', 'update', 'updateprofile'),
                 'expression' => 'Yii::app()->user->isAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array('admin', 'delete','update','updateprofile'),
+                'actions' => array('admin', 'delete', 'update', 'updateprofile'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -73,8 +73,8 @@ class UserController extends Controller {
 
             $model->attributes = $_POST['User'];
             $user_profile->attributes = $_POST['UserProfile'];
-            $date=strtotime($model->join_date);
-             $model->join_date=$date;
+            $date = strtotime($model->join_date);
+            $model->join_date = $date;
             //$model->user_name = $user_profile->getFullName();
             if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL) {
                 $model->site_id = '1';
@@ -93,7 +93,7 @@ class UserController extends Controller {
                     $user_profile->save();  //getFull name is a getter function in profile model merge 1st + last name
                 } else {
                     echo CHtml::errorSummary($user_profile);
-                      }
+                }
                 $this->redirect(array('view', 'id' => $model->user_id));
             }
         }
@@ -105,70 +105,47 @@ class UserController extends Controller {
 
     public function actionRegister() {
 
-        Yii::app()->controller->layout='//layouts/main';
+        Yii::app()->controller->layout = '//layouts/main';
         $model = new User;
-        //$user_profile = new UserProfile();
-        $selfSite = new SelfSite();
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
 
         if (isset($_POST['User'])) {
 
             $model->attributes = $_POST['User'];
-            //$user_profile->attributes = $_POST['UserProfile'];
-            
-            $date=strtotime($model->join_date);
-             $model->join_date=$date;
-             // $model->user_name = $user_profile->getFullName();
+            $date = strtotime($model->join_date);
+            $model->join_date = $date;
+
             if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL) {
-                $model->site_id = '1';
+                $model->site_id = Yii::app()->session['site_id'];
                 $model->role_id = '3';
                 $model->status_id = '0';
-                
             }
 
-               $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $model->user_email);
-              
-                $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
+            $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $model->user_email);
+            $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
+
             if ($model->save()) {
-                
-                 $model->user_password = md5($model->user_password);
-                 $model->user_password2 = md5($model->user_password2);
-                 $model->save();
-                 
-//                $user_profile->user_id = $model->user_id;
-//                // $model->user_name=$user_profile->getFullName();
-//
-//                if ($user_profile->validate()) {
-//
-//                 if ($user_profile->save()) {
-//
-//                        // $identity=new UserIdentity($model->user_name,$model->user_password);
-//                        //   $identity->authenticate();
-//                        // Yii::app()->user->login($identity,0);
-//                       
-//                       
-//                        //email activation code end-----------------------------------------
-//                    }
-//                    //$this->redirect(Yii::app()->user->returnUrl);
-//                    
-//                } else {
-//                    echo CHtml::errorSummary($user_profile);
-//                }
-                        $to = $model->user_email;
-                        $from = "zahid.nadeem@darussalampk.com";
-                        $headers = 'MIME-Version: 1.0' . "\r\n";
-                        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                        $headers .= 'From: DTech.com' . "\r\n";
 
-                        $subject = "Your Activation Link";
+                $model->user_password = md5($model->user_password);
+                $model->user_password2 = md5($model->user_password2);
+                $model->save();
 
-                        $message = "<html><body>Please click this below to activate your account <br />" .
-                                Yii::app()->createAbsoluteUrl('user/activate', array('key' => $model->activation_key,'user_id'=>$model->user_id)).
-                                "<br> Thanks you. ".$model->user_email . " </body></html>";
+                //Sending email part - For activation
+                $to = $model->user_email;
+                $from = Yii::app()->params->adminEmail;
+                $headers = array(
+                    'MIME-Version: 1.0',
+                    'Content-type: text/html; charset=iso-8859-1',
+                );
+                $subject = "Your Activation Link";
+                $message = "<html>
+                                <body>
+                                    Please click this below to activate your account <br /><br />" .
+                                    Yii::app()->createAbsoluteUrl('user/activate', array('key' => $model->activation_key, 'user_id' => $model->user_id)) .
+                                    "<br /><br /> Thanks you 
+                                </body>
+                            </html>";
 
-                       Yii::app()->email->send($from,$to,$subject, $message);
+                Yii::app()->email->send($from, $to, $subject, $message, $headers);
                 Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by vising your email account.');
                 $this->redirect(array('site/login'));  ///take him to login page....
             }
@@ -180,35 +157,40 @@ class UserController extends Controller {
     }
 
     public function actionActivate() {
-        $user_id=$_GET['user_id'];
-        $activation_key=$_GET['key'];
-         $criteria=new CDbCriteria;
-        $criteria->select='*';
-       $conditions=array();
-
-            $conditions[]='t.user_id='.$user_id;
-            $conditions[]="activation_key='".$activation_key."'";
-            $criteria->condition=implode(' AND ',$conditions);
-                  
-        $obj=User::model()->findAll($criteria);
-        if($obj!=NULL)
-        {
-            $modelUser=new User;
-            $modelUser->updateByPk($user_id,array('status_id'=>'1'));
+        $user_id = $_GET['user_id'];
+        $activation_key = $_GET['key'];
         
-            Yii::app()->user->setFlash('login','Thank You ! Login Please...Your account has been activated....Now Login');
-            $this->redirect(array('site/login'));
+        $criteria = new CDbCriteria;
+        $criteria->select = '*';
+        $conditions = array();
+        $conditions[] = 't.user_id=' . $user_id;
+        //$conditions[] = "activation_key='" . $activation_key . "'";
+        //$conditions[] = "status_id=0";
+        $criteria->condition = implode(' AND ', $conditions);
+
+        $obj = User::model()->findAll($criteria);
        
-        }
-         else 
-             {
-                echo 'hello not data in object model';     
-     
+        if ($obj != NULL) {
+            if($obj[0]->status_id=='1')
+            {
+                //already activated
+                Yii::app()->user->setFlash('login', 'Your account already activated. Please try login or if you miss your login information then go to forgot password section. Thank You');
+                $this->redirect(array('site/login'));
             }
-        //print_r($obj);
-        //print_r($obj->activation_key);
-         exit();
-       // $this->render('contact',array('model'=>$model)); 
+            else if($obj[0]->activation_key!=$activation_key)
+            {
+                 Yii::app()->user->setFlash('login', 'Your activation key not registered. Please resend activation key and activate your account. Thank You');
+                $this->redirect(array('site/login'));
+            }
+            $modelUser = new User;
+            $modelUser->updateByPk($user_id, array('status_id' => '1'));
+
+            Yii::app()->user->setFlash('login', 'Thank You ! Login Please...Your account has been activated....Now Login');
+            $this->redirect(array('site/login'));
+        } else {
+             Yii::app()->user->setFlash('login', 'User not exist. Please signup and get activation link again.');
+             $this->redirect(array('site/login'));
+        }
     }
 
     /**
@@ -250,8 +232,8 @@ class UserController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        Yii::app()->controller->layout='//layouts/column2';
-        Yii::app()->theme='admin';
+        Yii::app()->controller->layout = '//layouts/column2';
+        Yii::app()->theme = 'admin';
         $dataProvider = new CActiveDataProvider('User');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
@@ -262,8 +244,8 @@ class UserController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        Yii::app()->controller->layout='//layouts/column2';
-        Yii::app()->theme='admin';
+        Yii::app()->controller->layout = '//layouts/column2';
+        Yii::app()->theme = 'admin';
         $model = new User('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['User']))
@@ -287,11 +269,8 @@ class UserController extends Controller {
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
-    
-    
-    
-    public function actionUpdateProfile($id)
-        {
+
+    public function actionUpdateProfile($id) {
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
@@ -307,71 +286,62 @@ class UserController extends Controller {
             'model' => $model,
         ));
     }
-    
-    public function actionForgot()
-    {
-        if(isset($_POST['email']))
-        {
-        $email=$_POST['email'];
-        
-        $record=  User::model()->find(array(
-        'select'=>'*',
-        'condition'=>"user_email='".$email."'"
-               
-         )
-         );
-        if($record===null)
-        {
-          Yii::app()->user->setFlash('incorrect_email','Email does not exists...Please try correct email address');
-            
-        }
-       else {  
-           
-                       $pass_new=substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 9);
+
+    public function actionForgot() {
+        if (isset($_POST['email'])) {
+            $email = $_POST['email'];
+
+            $record = User::model()->find(array(
+                'select' => '*',
+                'condition' => "user_email='" . $email . "'"
+                    )
+            );
+            if ($record === null) {
+                Yii::app()->user->setFlash('incorrect_email', 'Email does not exists...Please try correct email address');
+            } else {
+                
+
+
+                $pass_new = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 9);
 //                        
 //                        $subject = "Forgot Password";
 //                        $message = "Thank you for joining!, we have send you a seperate message that contain your new password. Use this password to login";
 //                        
 //
 //                         Yii::app()->email->send($from ,$to, $subject, $message);
-                        
-                        //echo $to.$subject.$message.$from;
+                //echo $to.$subject.$message.$from;
 
-                        $from = 'zahid.nadeem@darussalampk.com';
-                        $to = $record->user_email;
-                        $headers = 'MIME-Version: 1.0' . "\r\n";
-                        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                        $headers .= 'From: Dtech.com' . "\r\n";
+                $from = Yii::app()->params->adminEmail;
+                $to = $record->user_email;
 
-                        $subject2 = "Your New Password";
+                $headers = array(
+                    'MIME-Version: 1.0',
+                    'Content-type: text/html; charset=iso-8859-1',
+                );
+                                
+                $subject = "Your New Password";
 
-                        $message2 = "Your New Password : ".$pass_new;
+                $message = "Your New Password : " . $pass_new;
 
-                       $isSent= Yii::app()->email->send($from,$to,$subject2, $message2);
-                        
-                        $user_id= $record->user_id;
-                        $role_id=$record->role_id;
-                        if($role_id!=1)
-                        {
-                        $modelUser=new User;
-                        $pass_new=md5($pass_new);
-                        if($modelUser->updateByPk($user_id,array('user_password'=>"$pass_new")))
-                        {
+                $isSent = Yii::app()->email->send($from, $to, $subject, $message,$headers);
+
+                $user_id = $record->user_id;
+                $role_id = $record->role_id;
+                if ($role_id != 1) {
+                    $modelUser = new User;
+                    $pass_new = md5($pass_new);
+                    if ($modelUser->updateByPk($user_id, array('user_password' => "$pass_new"))) {
                         //User::updateAll(array('email=>'), $condition='', $params=array());
-                       
-                        Yii::app()->user->setFlash('password_reset','Your passowrd has been sent to your Email.Please get your new password form your email account');
-                        }
-                        
-                        }
-                        else
-                        {
-                          Yii::app()->user->setFlash('superAdmin','Sorry we can not change your password  ');   
-                        }
+
+                        Yii::app()->user->setFlash('password_reset', 'Your passowrd has been sent to your Email.Please get your new password form your email account');
+                    }
+                } else {
+                    Yii::app()->user->setFlash('superAdmin', 'Sorry we can not change your password  ');
+                }
             }
         }
-         
-         $this->render('forgot_password',array('model'=>  UserProfile::model(),));
-       
+
+        $this->render('forgot_password', array('model' => UserProfile::model(),));
     }
 
     /**

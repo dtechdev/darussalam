@@ -44,7 +44,7 @@ return array(
                     ),
                     "Google" => array(
                         "enabled" => true,
-                       "keys" => array("id" => "602525919522-btoe9e878to546igevhc2p2o6qqc0b0f.apps.googleusercontent.com", "secret" => "BZfzZrphAzCOrXH4Cl_g-PdX"),
+                        "keys" => array("id" => "602525919522-btoe9e878to546igevhc2p2o6qqc0b0f.apps.googleusercontent.com", "secret" => "BZfzZrphAzCOrXH4Cl_g-PdX"),
                         "scope" => ""
                     ),
                     "Facebook" => array(
@@ -90,14 +90,6 @@ return array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
             'class' => 'WebUser',
-        ),
-        'email' => array(
-            'class' => 'application.extensions.KEmail.KEmail',
-            'host_name' => 'smtp.gmail.com',
-            'user' => 'zahid.nadeem@darussalampk.com',
-            'password' => 'public420',
-            'host_port' => 465,
-            'ssl' => 'true',
         ),
         // uncomment the following to enable URLs in path-format
 
@@ -146,11 +138,23 @@ return array(
              */
             ),
         ),
+        'email' => array(
+            'class' => 'application.extensions.KEmail.KEmail',
+            'host_name' => 'smtp.gmail.com',
+            'user' => 'zahid.nadeem@darussalampk.com',
+            'password' => 'public420',
+            'host_port' => 465,
+            'ssl' => 'true',
+        ),
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
     'params' => array(
         // this is used in contact page
-        'adminEmail' => 'zahid.nadeem@darussalampk.com.com',
+        'adminEmail' => 'zahid.nadeem@darussalampk.com', //Should be same component->email->user, use for sending emails to customer (sign up conformation, sending activation link, sending new password)
+        'replyTo' => 'zahid.nadeem@darussalampk.com',
+        'cc' => 'zahid.nadeem@darussalampk.com',
+        'bcc' => 'zahid.nadeem@darussalampk.com',
+        'supportEmail' => 'zahid.nadeem@darussalampk.com', //receiveing customer emails
     ),
 );
