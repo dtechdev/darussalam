@@ -100,7 +100,7 @@ return array(
                 '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>' => '/site/storehome',
                 '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/featuredProducts' => '/site/featuredProducts',
                 '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/bestSellings' => '/site/bestSellings',
-                '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/productDetail' => '/site/productDetail',
+                '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/<product_id:[\w-\.]+>/productDetail' => '/site/productDetail',
                 '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/allProducts' => '/site/allProducts',
 //                '<controller:\w+>/<id:\d+>' => '<controller>/view',
 //                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

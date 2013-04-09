@@ -112,8 +112,11 @@ class SiteController extends Controller {
 
     public function actionproductDetail() {
 
+        $product_obj = new Product();
+        $product=$product_obj->find($condition='product_id='.$_REQUEST['product_id']);
+        
         Yii::app()->controller->layout = '//layouts/main';
-        $this->render('product_detail');
+        $this->render('product_detail',array('product'=>$product));
     }
 
     /**
