@@ -82,7 +82,7 @@
                     <?php if(!Yii::app()->user->isGuest){?>
             	<h1><a href="<?php echo $this->createUrl('/site/logout')?>">Logout</a>
                     <?php }else{?>
-            	<h1><a href="<?php echo $this->createUrl('/site/login')?>">Sign In</a>
+            	<h1><a href="#">Sign In</a>
                         <div class="under_text">
                             <ul>
                                 <li class="frst">Sign In</li>
@@ -98,20 +98,20 @@
                             <?php echo CHtml::submitButton("Sign In",array("class"=> "btn")); ?>
                             <p class="signinp">Sign in with</p>
                             <div class="sign_in">
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/facebook_img_03.jpg"></a>
-                                <input type="button" class="f_img" value="Facebook" />
+                                <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/facebook');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/facebook_img_03.jpg">
+                                <input type="button" class="f_img" value="Facebook" /></a>
                             </div>
                             <div class="sign_in">
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/linkedin_img_03.jpg"></a>
-                                <input type="button" class="l_img" value="Linkedin" />
+                                <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/linkedin');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/linkedin_img_03.jpg">
+                                <input type="button" class="l_img" value="Linkedin" /></a>
                             </div>
                             <div class="sign_in">
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/twitter_img_03.jpg"></a>
-                                <input type="button" class="t_img" value="Twitter" />
+                                <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/twitter');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/twitter_img_03.jpg">
+                                <input type="button" class="t_img" value="Twitter" /></a>
                             </div>
                             <div class="sign_in">
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/google_img_03.jpg"></a>
-                                <input type="button" class="g_img" value="Google" />
+                                <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/google');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/google_img_03.jpg">
+                                <input type="button" class="g_img" value="Google" /></a>
                             </div>
                             <p class="dont"><a href="<?php echo $this->createUrl('/user/register')?>">Don't have account?</a></p>
                       
