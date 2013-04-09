@@ -61,14 +61,15 @@ class DefaultController extends Controller
 		$user = $this->workOnUser($provider,$user_profile); 
 		//$user = $this->workOnUser($provider,$user_profile->identifier); 
 			if ( $this->autoLogin($user) ){
-				//successfull login render default/profile.php
-				$this->render('profile',
-					array(
-					'error'=>$error, //string
-					'provideruser'=>$user_profile,//object
-					'yiiuser'=>$user, //object
-					'provider'=>$provider,	//string
-					) );
+   			    //successfull login render default/profile.php
+                            $this->redirect(array('/site/allProducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+//				$this->render('profile',
+//					array(
+//					'error'=>$error, //string
+//					'provideruser'=>$user_profile,//object
+//					'yiiuser'=>$user, //object
+//					'provider'=>$provider,	//string
+//					) );
 				}else{
 					// this is where u go otherwise
 					$this->render('authenticatewith',array('error'=>$error,'user_profile'=>$user_profile ) );
