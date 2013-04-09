@@ -83,22 +83,25 @@ class SiteController extends Controller {
 
     public function actionallProducts() {
         //queries 
-
+        $order_detail = new OrderDetail;
+        $all_products = $order_detail->featuredBooks();
         Yii::app()->controller->layout = '//layouts/main';
-        $this->render('all_products');
+        $this->render('all_products',array('products'=>$all_products));
     }
     public function actionfeaturedProducts() {
         //queries 
-
+        $order_detail = new OrderDetail;
+        $featured_products = $order_detail->featuredBooks();
         Yii::app()->controller->layout = '//layouts/main';
-        $this->render('featured_products');
+        $this->render('featured_products',array('products'=>$featured_products));
     }
 
     public function actionbestSellings() {
         //queries 
-
+        $order_detail = new OrderDetail;
+        $best_sellings = $order_detail->featuredBooks();
         Yii::app()->controller->layout = '//layouts/main';
-        $this->render('best_sellings');
+        $this->render('best_sellings',array('products'=>$best_sellings));
     }
 
     public function actionproductListing() {
