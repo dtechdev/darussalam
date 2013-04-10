@@ -157,5 +157,6 @@ return array(
         'cc' => 'zahid.nadeem@darussalampk.com',
         'bcc' => 'zahid.nadeem@darussalampk.com',
         'supportEmail' => 'zahid.nadeem@darussalampk.com', //receiveing customer emails
+        'head_office_city' => 'lahore',
     ),
 );

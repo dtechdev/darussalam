@@ -32,5 +32,18 @@ class WebUser extends CWebUser{
                      }
                      return $this->_user;
                     }
+                     
+                    function getIpInfo(){
+                        $ip = getenv("REMOTE_ADDR") ;
+                        $content = @file_get_contents('http://api.hostip.info/?ip='.$ip);
+                        if ($content != FALSE) {
+                                $xml = new SimpleXmlElement($content);
+                                $location['citystate'] = $xml->children('gml', TRUE)->featureMember->children('', TRUE)->Hostip->children('gml', TRUE)->name;
+                                $location['country'] =  $xml->children('gml', TRUE)->featureMember->children('', TRUE)->Hostip->countryName;
+                                $location['short_country'] =  $xml->children('gml', TRUE)->featureMember->children('', TRUE)->Hostip->countryAbbrev;
+                                return $location;
+                        }
+                        else return false;
+                    }
 }
 ?>
