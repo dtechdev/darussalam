@@ -234,10 +234,7 @@ class SiteController extends Controller {
         Yii::app()->session['city_short_name'] = $city_short_name;
         Yii::app()->session['city_id'] = $city['city_id'];
         Yii::app()->theme = Yii::app()->session['layout'];
-        //header('Location: './site/storehome, true, $statusCode);
-        echo json_encode(array('redirect'=>$this->createUrl('/site/storehome','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
-        
-       // $this->redirect(array('/site/storehome','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+        echo CJSON::encode(array('redirect'=>$this->createUrl('/site/storehome',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']))));
     }
 
 }
