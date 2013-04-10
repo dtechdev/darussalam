@@ -38,17 +38,24 @@
           	</div>
             <div id="world">
             	<div id="input">
-            	<select name="countries" id="countries" style="width:200px;">
+                    
+                    <?php
+                    
+                    $city=array(1=>'Lahore',2=>'Karachi');
+                    echo CHtml::form();
+                    $mod=Country::model()->findAll();
+//                    $lst=CHtml::listData($mod,'country_id',$city[1]);
+//                        print_r($lst);
+//                        //CHtml::image('http://www.glhf.it/images/flags/it.png');
+//                    $list= CHtml::dropDownList('country_name','',$lst);
+//                   echo $list;
+                     echo CHtml::dropDownList('country_name', '',
+                          CHtml::listData(Country::model()->findAll(), 'country_id', 'country_name','short_name'),array('id'=>'countries','style'=>'width:200px;  background:url(/darussalam/themes/default/images/search_img_03.jpg);'));
+                    echo CHtml::endForm();
+                    ?>
+<!--            	<select name="countries" id="countries" style="width:200px;">
                       <option value='af' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag af" data-title="Afghanistan" selected="selected">Afghanistan - Pashto</option>
-                      <option value='ae' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag ae" data-title="United Arab Emirates">United Arab Emirates - Arabic</option>
-                      <option value='au' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag au" data-title="Australia">Australia - English</option>
-                      <option value='bd' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag bd" data-title="Bangladesh">Bangladesh - Bengali</option>
-                      <option value='bt' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag bt" data-title="Bhutan">Bhutan - Dzongkha</option>
-                      <option value='ca' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag ca" data-title="Canada">Canada - English</option>
-                      <option value='cn' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag cn" data-title="China">China - Standard Mandarin</option>
-                      <option value='de' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag de" data-title="Germany">Germany - German</option>
-                   
-               	</select>
+                       </select>-->
 				<script>
                 $(document).ready(function() {
                     $("#countries").msDropdown();
