@@ -40,18 +40,23 @@
             	<div id="input">
                     
                     <?php
-                    
-                    $city=array(1=>'Lahore',2=>'Karachi');
                     echo CHtml::form();
-                    $mod=Country::model()->findAll();
-//                    $lst=CHtml::listData($mod,'country_id',$city[1]);
-//                        print_r($lst);
-//                        //CHtml::image('http://www.glhf.it/images/flags/it.png');
-//                    $list= CHtml::dropDownList('country_name','',$lst);
-//                   echo $list;
-                     echo CHtml::dropDownList('country_name', '',
-                          CHtml::listData(Country::model()->findAll(), 'country_id', 'country_name','short_name'),array('id'=>'countries','style'=>'width:200px;  background:url(/darussalam/themes/default/images/search_img_03.jpg);'));
-                    echo CHtml::endForm();
+                    $model=new Country();
+                    //print "<pre>";
+                    $countries = Country::model()->findAll();
+                   // print_r($countries);
+                   // exit;
+                if ($countries != null) {
+                    foreach ($countries as $country) {
+                        foreach($country->cities as $city)
+                        {
+                            $countryList[]=array('city_id'=>$city->city_id,'city_name'=>$city->city_name,'country_name'=>$country->country_name);
+                        }
+                    }
+                }
+                $countriesList = CHtml::listData($countryList,'city_id','city_name','country_name');
+                echo CHtml::dropDownList('country_name', '',$countriesList,array('id'=>'countries','style'=>'width:200px;'));
+                echo CHtml::endForm();
                     ?>
 <!--            	<select name="countries" id="countries" style="width:200px;">
                       <option value='af' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag af" data-title="Afghanistan" selected="selected">Afghanistan - Pashto</option>
