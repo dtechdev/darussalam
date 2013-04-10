@@ -55,7 +55,19 @@
                     }
                 }
                 $countriesList = CHtml::listData($countryList,'city_id','city_name','country_name');
-                echo CHtml::dropDownList('country_name', '',$countriesList,array('id'=>'countries','style'=>'width:200px;'));
+                echo CHtml::dropDownList('city_id', '',$countriesList,
+                        array(
+                            'ajax'=>array(
+                                'type'=>'POST',
+                                'dataType'=>'json',
+                                'data'=>array('city_id'=>'js:$(\'#city_id\').val()'),
+                                'url'=>  CController::createUrl('/site/DdlAjax'),
+                                
+                                
+                            ),
+                            
+                        ),
+                        array('id'=>'countries','style'=>'width:200px;'));
                 echo CHtml::endForm();
                     ?>
 <!--            	<select name="countries" id="countries" style="width:200px;">
