@@ -62,6 +62,9 @@
                                 'dataType'=>'json',
                                 'data'=>array('city_id'=>'js:$(\'#city_id\').val()'),
                                 'url'=>  CController::createUrl('/site/DdlAjax'),
+                                 'success' => 'js:function(){window.location.href=redirect}',
+                                
+                                // 'success' => 'js:window.location.href=jsonParsedObject.redirect',
                                 
                                 
                             ),

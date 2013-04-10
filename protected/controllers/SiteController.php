@@ -215,5 +215,29 @@ class SiteController extends Controller {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }
+    
+    public function actionDdlAjax()
+    {
+        
+        $city_id=$_POST['city_id'];
+        $city = City::model()->findByPk($city_id);
+        $countries = Country::model()->findByPk($city['country_id']);
+        $country_short_name=$countries['short_name'];
+        $city_short_name=$city['short_name'];
+        
+        $layout_id = $city['layout_id'];
+        $layout = Layout::model()->findByPk($layout_id);
+        $layout_name = $layout['layout_name'];
+
+        Yii::app()->session['layout'] = $layout_name;
+        Yii::app()->session['country_short_name'] = $country_short_name;
+        Yii::app()->session['city_short_name'] = $city_short_name;
+        Yii::app()->session['city_id'] = $city['city_id'];
+        Yii::app()->theme = Yii::app()->session['layout'];
+        //header('Location: './site/storehome, true, $statusCode);
+        echo json_encode(array('redirect'=>$this->createUrl('/site/storehome','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+        
+       // $this->redirect(array('/site/storehome','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+    }
 
 }
