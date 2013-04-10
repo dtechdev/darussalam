@@ -54,9 +54,12 @@
                         }
                     }
                 }
+                
+                
                 $countriesList = CHtml::listData($countryList,'city_id','city_name','country_name');
                 echo CHtml::dropDownList('city_id', '',$countriesList,
                         array(
+                            'options'=>array(Yii::app()->session['city_id']=>array('selected'=>true)),
                             'ajax'=>array(
                                 'type'=>'POST',
                                 'dataType'=>'json',

@@ -31,22 +31,30 @@ class SiteController extends Controller {
         $siteUrl = $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
         $site_id = SelfSite::model()->getSiteId($siteUrl);
         Yii::app()->session['site_id'] = $site_id;
-                
-        $locationArray=Yii::app()->user->IpInfo;
-        $city_auto=  strtolower($locationArray['citystate']);
-        $country_auto=  strtolower($locationArray['country']);
-        $short_country_auto=  strtolower($locationArray['short_country']);
         
-        $cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
-        if($cityfind!=null)
+        if(isset(Yii::app()->session['city_id']) && Yii::app()->session['city_id']!='')
         {
-            $city_id=$cityfind->city_id;
+             $city_id=Yii::app()->session['city_id'];
         }
         else
         {
-            $city_auto=Yii::app()->params->head_office_city;
+            $locationArray=Yii::app()->user->IpInfo;
+            $city_auto=  strtolower($locationArray['citystate']);
+            $country_auto=  strtolower($locationArray['country']);
+            $short_country_auto=  strtolower($locationArray['short_country']);
+
             $cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
-            $city_id=$cityfind->city_id;
+            if($cityfind!=null)
+            {
+                $city_id=$cityfind->city_id;
+            }
+            else
+            {
+                $city_auto=Yii::app()->params->head_office_city;
+                $cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
+                $city_id=$cityfind->city_id;
+            }
+        
         }
 
         $city = City::model()->findByPk($city_id);
