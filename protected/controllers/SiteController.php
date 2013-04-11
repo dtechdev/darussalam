@@ -50,9 +50,18 @@ class SiteController extends Controller {
             }
             else
             {
-                $city_auto=Yii::app()->params->head_office_city;
-                $cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
-                $city_id=$cityfind->city_id;
+                $countryfind = Country::model()->find('LOWER(country_name)=?',array($country_auto));
+                if($countryfind!=null)
+                {
+                    $city_find = City::model()->find('country_id=?',array($countryfind->country_id));
+                    $city_id=$city_find->city_id;
+                }
+                else
+                {
+                    $city_auto=Yii::app()->params->head_office_city;
+                    $cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
+                    $city_id=$cityfind->city_id;
+                }
             }
         
         }
