@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/gumby.css">
 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/libs/modernizr-2.6.2.min.js"></script>
 <title>Darussalam</title>
 <script>window.jQuery || document.write('<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/libs/jquery-1.8.3.min.js"><\/script>')</script>
-  <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/libs/gumby.min.js"></script>
+  <script src="<?php  echo Yii::app()->theme->baseUrl; ?>/js/libs/gumby.min.js"></script>
   <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/plugins.js"></script>
   <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/main.js"></script>
   <script>
@@ -19,7 +20,6 @@
 <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/dd.css" />
 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/msdropdown/jquery.dd.min.js"></script>
 <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/flags.css" />
-  
 </head>
 
 <body>
@@ -75,7 +75,7 @@
                 echo CHtml::endForm();
                     ?>
 <!--            	<select name="countries" id="countries" style="width:200px;">
-                      <option value='af' data-image="<?php echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag af" data-title="Afghanistan" selected="selected">Afghanistan - Pashto</option>
+                      <option value='af' data-image="<?php //echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag af" data-title="Afghanistan" selected="selected">Afghanistan - Pashto</option>
                        </select>-->
 				<script>
                 $(document).ready(function() {
@@ -90,7 +90,8 @@
                     <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
                 </div>
                 <div id="text">
-                          <?php
+                	<div class="example2">
+                    	                          <?php
                         /* @var $this SiteController */
                         /* @var $model LoginForm */
                         /* @var $form CActiveForm  */
@@ -110,52 +111,49 @@
                     <?php if(!Yii::app()->user->isGuest){?>
             	<h1><a href="<?php echo $this->createUrl('/site/logout')?>">Logout</a>
                     <?php }else{?>
-            	<h1><a href="#">Sign In</a>
-                        <div class="under_text">
-                            <ul>
-                                <li class="frst">Sign In</li>
-                                <p class="mail">EMAIL</p>
-                                <li><?php echo $form->textField($model,'username',$htmlOptions=array("class"=>"second")); ?></li>
-                                <li><?php echo $form->error($model,'username'); ?></li>
-                                <p class="pswrd">PASSWORD</p>
-                                <li><?php echo $form->passwordField($model,'password',$htmlOptions=array ("class"=>"second")); ?></li>
-                               <?php echo $form->error($model,'password'); ?>
-                                <li class="check"><?php echo $form->checkBox($model,'rememberMe'); ?>Stay Signed in</li>
-                                <li class="forgot"><a href="<?php echo $this->createUrl('/user/forgot')?>">Forgot Password</a></li>
-                            </ul>
-                            <?php echo CHtml::submitButton("Sign In",array("class"=> "btn")); ?>
-                            <p class="signinp">Sign in with</p>
-                            <div class="sign_in">
-                                <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/facebook');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/facebook_img_03.jpg">
-                                <input type="button" class="f_img" value="Facebook" /></a>
-                            </div>
-                            <div class="sign_in">
-                                <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/linkedin');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/linkedin_img_03.jpg">
-                                <input type="button" class="l_img" value="Linkedin" /></a>
-                            </div>
-                            <div class="sign_in">
-                                <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/twitter');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/twitter_img_03.jpg">
-                                <input type="button" class="t_img" value="Twitter" /></a>
-                            </div>
-                            <div class="sign_in">
-                                <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/google');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/google_img_03.jpg">
-                                <input type="button" class="g_img" value="Google" /></a>
-                            </div>
-                            <p class="dont"><a href="<?php echo $this->createUrl('/user/register')?>">Don't have account?</a></p>
-                      
-                            <a href="<?php echo $this->createUrl('/user/register')?>"><input type="button" value="Sign Up" class="btn" /></a>
-                        </div>
-                    </h1>
+            	<h1>Sign In</h1>
+                       	<p>EMAIL</p>
+                        <?php echo $form->textField($model,'username',$htmlOptions=array("class"=>"second")); ?>
+                       	<p>PASSWORD</p>
+                        <?php echo $form->passwordField($model,'password',$htmlOptions=array ("class"=>"second")); ?>
+                      	<?php echo $form->checkBox($model,'rememberMe',$htmlOptions=array ("class"=>"check")); ?><span> Stay Signed in</span>
+                        <a href="<?php echo $this->createUrl('/user/forgot')?>" class="forgot"> Forgot Password</a>
+                        <div class="sign_in_button">
+                      		<?php echo CHtml::submitButton("Sign In",array("class"=> "btn")); ?>
+                      	</div>
+                  		<h2 class="signinp">Sign in with</h2>
+                      	<div class="sign_in">
+                      		<a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/facebook');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/facebook_img_03.jpg"></a>
+                        	<input type="button" class="f_img" value="Facebook" />
+                   		</div>
+                      	<div class="sign_in">
+                          	<a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/linkedin');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/linkedin_img_03.jpg"></a>
+                           	<input type="button" class="l_img" value="Linkedin" />
+                      	</div>
+                     	<div class="sign_in">
+                         	<a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/twitter');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/twitter_img_03.jpg"></a>
+                        	<input type="button" class="t_img" value="Twitter" />
+                    	</div>
+                     	<div class="sign_in">
+                          	<a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/google');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/google_img_03.jpg"></a>
+                         	<input type="button" class="g_img" value="Google" />
+                      	</div>
+                          	<h3 class="dont">Don't have account?</h3>
+                           	<div class="sign_up_button">
+                      			<a href="<?php echo $this->createUrl('/user/register')?>"><input type="button" value="Sign In" class="btn" /></a>
+                      		</div>
+                      	</div>
+                 	</div>
                 </div>
           	</div>
         </div>
     </header>
 <?php echo $content; ?> <?php } $this->endWidget();?>
-    <footer>
+     <footer>
     	<div id="under_footer">
        		<div id="left_footer">
             	<h1>Connect to DARUSSALAM</h1>
-                <?php  $this->widget('LoginWidget');?>
+               <?php  $this->widget('LoginWidget');?>s
                 <div id="left_under_footer">
                 	<li><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/phone_img_03.jpg" alt="phone"> +(92) 42 35254654 - 54</li>
                     <li><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/gmail_img_03.jpg" alt="phone"><a href="#"> support@darussalam.com</a></li>
@@ -182,5 +180,14 @@
             </div>
        	</div>
   	</footer>
+     <script type="text/javascript">
+$(document).ready(function(){	
+    $('.example2').hide().before('<a href="#" id="toggle-example2" class="button">Sign In</a>');
+	$('a#toggle-example2').click(function() {
+		$('.example2').slideToggle(200);
+		return false;
+	});
+});
+</script> 
 </body>
 </html>

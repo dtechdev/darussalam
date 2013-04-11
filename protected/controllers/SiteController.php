@@ -160,7 +160,7 @@ class SiteController extends Controller {
      * Displays the contact page
      */
     public function actionContact() {
-       // Yii::app()->controller->layout = '//layouts/slider';
+        Yii::app()->controller->layout = '//layouts/slider';
         //Yii::app()->theme='admin';
         $model = new ContactForm;
         if (isset($_POST['ContactForm'])) {

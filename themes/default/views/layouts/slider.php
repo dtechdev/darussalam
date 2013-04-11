@@ -13,11 +13,13 @@
                     </ul>
                 </nav>
                 <div class="txt">
-                	<div class="search_img">
-                    	<a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/search_img_03.jpg" alt="search img" /></a>
-                   	</div>
-                	<input type="text" name="" value="" class="txt_bar" />
-                	<input type="button" value="Search" name="" class="txt_btn" />
+                	<div class="txt2">
+                        <div class="search_img">
+                            <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/search_img_03.jpg" alt="search img" /></a>
+                        </div>
+                        <input type="text" name="" value="" class="txt_bar" />
+                        <input type="button" value="Search" name="" class="txt_btn" />
+                  	</div>
               	</div>
           	</div>
              <div id="right_banner">
@@ -50,6 +52,16 @@
                         <p><a href="#" class="science">Scientific Wonders on the earth and in space</a></p>
                         <p>7,165 people recommended this book</p>
                    	</div>
+                </div>
+                <div class="small_book">
+                	<div class="small_book_img">
+                		<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/small_book_1_03.jpg" alt="scientific book" />
+                  	</div>
+                    <div class="small_book_content">
+                        <p><a href="#">Talha Jutt </a>recommended this book</p>
+                        <p><a href="#" class="science">Scientific Wonders on the earth and in space</a></p>
+                        <p class="minutes">about 2 seconds ago</p>
+                  	</div>
                 </div>
                 <div class="small_book">
                 	<div class="small_book_img">
