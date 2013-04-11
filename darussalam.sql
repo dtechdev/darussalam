@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2013 at 02:50 PM
+-- Generation Time: Apr 11, 2013 at 07:55 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -86,11 +86,11 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `category_name`, `added_date`, `parent_id`, `city_id`) VALUES
-(1, 'Books', '25-03-2013', 0, 3),
-(2, 'Books', '25-03-2013', 0, 3),
-(3, 'Ahadees', '1364464356', 2, 3),
-(4, 'Madni', '28-03-2013', 3, 3),
-(5, 'Maki', '28-03-2013', 3, 3);
+(1, 'Books', '25-03-2013', 0, 1),
+(2, 'Books', '25-03-2013', 0, 1),
+(3, 'Ahadees', '1364464356', 2, 1),
+(4, 'Madni', '28-03-2013', 3, 1),
+(5, 'Maki', '28-03-2013', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -110,17 +110,27 @@ CREATE TABLE IF NOT EXISTS `city` (
   KEY `city_id` (`city_id`),
   KEY `layout_id` (`layout_id`),
   KEY `country_id` (`country_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `city`
 --
 
 INSERT INTO `city` (`city_id`, `country_id`, `city_name`, `short_name`, `address`, `layout_id`) VALUES
-(3, 1, 'Lahore', 'lhr', 'STR lahore', 23),
-(4, 2, 'New York', 'ny', 'stc ny 5400', 23),
-(5, 1, 'Karachi', 'kc', 'nazim abad', 23),
-(6, 3, 'London', 'ln', 'london street 7 gulbarb 2', 23);
+(1, 1, 'Lahore', 'lhr', 'STR lahore', 1),
+(2, 1, 'Karachi', 'kc', 'nazim abad', 1),
+(3, 2, 'New York', 'ny', 'stc ny 5400', 1),
+(4, 3, 'London', 'ln', 'london street 7 gulbarb 2', 1),
+(5, 4, 'Riyadh', 'ria', 'Riyadh soudi arabia', 1),
+(6, 4, 'Mecca', 'mec', 'Mecca soudi arabia', 1),
+(7, 4, 'Jeddah', 'jed', 'jeddah soudi arabia', 1),
+(8, 4, 'Medina', 'med', 'Medina soudi arabia', 1),
+(9, 4, 'Dammam', 'dam', 'Dammam soudi arabia', 1),
+(10, 4, 'Khobar', 'kho', 'Khobar soudi arabia', 1),
+(11, 4, 'Al-Ahsa', 'al-ahsa', '	Al-Ahsa soudi arabia', 1),
+(12, 5, 'Bogota', 'bog', 'Bogota colombia', 1),
+(13, 5, 'Medellin', 'mdl', 'Medell?n colombia', 1),
+(14, 5, 'Cali', 'cali', 'Cali colombia', 1);
 
 -- --------------------------------------------------------
 
@@ -137,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   PRIMARY KEY (`country_id`),
   KEY `country_id` (`country_id`),
   KEY `site_id` (`site_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `country`
@@ -146,7 +156,9 @@ CREATE TABLE IF NOT EXISTS `country` (
 INSERT INTO `country` (`country_id`, `country_name`, `short_name`, `site_id`) VALUES
 (1, 'Pakistan', 'pk', 1),
 (2, 'United States', 'US', 1),
-(3, 'United Kingdom', 'uk', 1);
+(3, 'United Kingdom', 'uk', 1),
+(4, 'Saudi Arabia', 'ksa', 1),
+(5, 'Colombia', 'col', 1);
 
 -- --------------------------------------------------------
 
@@ -211,14 +223,14 @@ CREATE TABLE IF NOT EXISTS `layout` (
   KEY `site_id_3` (`site_id`),
   KEY `layout_id_3` (`layout_id`),
   KEY `site_id_4` (`site_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `layout`
 --
 
 INSERT INTO `layout` (`layout_id`, `layout_name`, `layout_description`, `layout_color`, `site_id`) VALUES
-(23, 'default', 'default', 'black', 1);
+(1, 'default', 'default', 'black', 1);
 
 -- --------------------------------------------------------
 
@@ -266,8 +278,8 @@ CREATE TABLE IF NOT EXISTS `order` (
 --
 
 INSERT INTO `order` (`order_id`, `user_id`, `total_price`, `order_date`) VALUES
-(1, 2, 22.0000, '3333'),
-(2, 3, 33.0000, '333');
+(1, 1, 22.0000, '3333'),
+(2, 2, 33.0000, '333');
 
 -- --------------------------------------------------------
 
@@ -293,14 +305,14 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
 --
 
 INSERT INTO `order_detail` (`user_order_id`, `order_id`, `product_id`, `product_price`) VALUES
-(1, 1, 23, 33.0000),
-(2, 1, 24, 32.0000),
-(3, 2, 24, 2.0000),
-(6, 1, 25, 33.0000),
-(7, 2, 23, 33.0000),
-(8, 1, 23, 0.0000),
-(9, 2, 24, 33.0000),
-(10, 2, 24, 33.0000);
+(1, 1, 1, 33.0000),
+(2, 1, 2, 32.0000),
+(3, 2, 2, 2.0000),
+(6, 1, 3, 33.0000),
+(7, 2, 1, 33.0000),
+(8, 1, 1, 0.0000),
+(9, 2, 2, 33.0000),
+(10, 2, 2, 33.0000);
 
 -- --------------------------------------------------------
 
@@ -326,16 +338,16 @@ CREATE TABLE IF NOT EXISTS `product` (
   KEY `frenchise_id` (`city_id`),
   KEY `frenchise_id_2` (`city_id`),
   KEY `city_id` (`city_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`) VALUES
-(23, 'Quran', 'Azeeem book', 3, '27-03-2013', '1', 32.0000),
-(24, 'Ahadees', 'The life of Muslims', 3, '222', '1', 121212.0000),
-(25, 'Fiqa', 'aaa', 3, '', '1', 33.0000);
+(1, 'Quran', 'Azeeem book', 1, '27-03-2013', '1', 32.0000),
+(2, 'Ahadees', 'The life of Muslims', 1, '222', '1', 121212.0000),
+(3, 'Fiqa', 'aaa', 1, '', '1', 33.0000);
 
 -- --------------------------------------------------------
 
@@ -377,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `product_discount` (
 --
 
 INSERT INTO `product_discount` (`discount_id`, `product_id`, `discount_type`, `discount_value`) VALUES
-(3, 23, 'fixed', 8.0000);
+(3, 1, 'fixed', 8.0000);
 
 -- --------------------------------------------------------
 
@@ -400,11 +412,11 @@ CREATE TABLE IF NOT EXISTS `product_image` (
 --
 
 INSERT INTO `product_image` (`product_image_id`, `product_id`, `image_small`, `image_large`) VALUES
-(1, 23, 'small2.jpg', 'large1.jpg'),
-(2, 24, 'small3.jpg', 'large4.jpg'),
-(3, 23, 'small1.jpg', 'large1.jpg'),
-(4, 25, 'small3.jpg', 'large2.jpg'),
-(5, 24, 'small4.jpg', 'large1.jpg');
+(1, 1, 'small2.jpg', 'large1.jpg'),
+(2, 2, 'small3.jpg', 'large4.jpg'),
+(3, 1, 'small1.jpg', 'large1.jpg'),
+(4, 3, 'small3.jpg', 'large2.jpg'),
+(5, 2, 'small4.jpg', 'large1.jpg');
 
 -- --------------------------------------------------------
 
@@ -426,14 +438,14 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
   KEY `author_id_2` (`author_id`),
   KEY `language_id` (`language_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `product_profile`
 --
 
 INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `language_id`, `isbn`) VALUES
-(5, 23, 2, 2, 'dgdfgd');
+(1, 1, 2, 2, 'dgdfgd');
 
 -- --------------------------------------------------------
 
@@ -507,16 +519,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`, `social_id`) VALUES
-(2, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 3, '1', 'active', 1, '28 March, 2013', ''),
-(3, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 3, '', 'active', 1, '', ''),
-(4, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 6, '1', 'active', 1, '', '');
+(1, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '28 March, 2013', ''),
+(2, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '', ''),
+(3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -543,9 +555,9 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
 --
 
 INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_name`, `address`, `contact_number`) VALUES
-(1, 2, 'super', 'admin', 'STC lahore', '03336566326'),
-(2, 3, 'sub', 'admin', 'abc', ''),
-(3, 4, 'Richard', 'Arnold', 'abc', '');
+(1, 1, 'super', 'admin', 'STC lahore', '03336566326'),
+(2, 2, 'sub', 'admin', 'abc', ''),
+(3, 3, 'Richard', 'Arnold', 'abc', '');
 
 -- --------------------------------------------------------
 
