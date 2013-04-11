@@ -124,7 +124,7 @@ class SiteController extends Controller {
     public function actionbestSellings() {
         //queries 
         $order_detail = new OrderDetail;
-        $best_sellings = $order_detail->featuredBooks();
+        $best_sellings = $order_detail->bestSellings();
         Yii::app()->controller->layout = '//layouts/main';
         $this->render('best_sellings',array('products'=>$best_sellings));
     }

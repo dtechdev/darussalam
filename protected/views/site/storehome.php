@@ -86,8 +86,8 @@ foreach($best_sellings as $bests)
      {
        ?>
     <div class="books2">
-                	<a href="#"><img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_large'];?>" alt="Pen QURAN PAK" /></a>
-                    <p><a href="#"><?php echo $pro_name.'('.$orders.')'; ?></a></p>
+                	<a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$bests['product_id']));?>"><img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_large'];?>" alt="Pen QURAN PAK" /></a>
+                    <p><a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$bests['product_id']));?>"><?php echo $pro_name.'('.$orders.')'; ?></a></p>
                 </div>
        <?php
        break;

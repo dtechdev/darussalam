@@ -138,66 +138,50 @@ class OrderDetail extends CActiveRecord {
 
     public function bestSellings($limit = 30) {
         $best_products = array();
-        $bestName = array();
-        $best_join = OrderDetail::model()->with(array(
-                    'product' => array('select' => '*',
-                        'joinType' => 'INNER JOIN',
-                    //'condition'=>'product.city_id="3"'
-                    ),
-                ))->findAll();
-        foreach ($best_join as $best) {
-            $bestName = $best->product->product_name;
-            $bestName = $best->product->product_price;
-            $bestName = $best->product->product_description;
-        }
-
+        $city_id= Yii::app()->session['city_id'];
+        
         $criteria = new CDbCriteria(array(
-                    'select' => "COUNT( product_id ) as totalOrder, product_id",
-                    'group' => 'product_id',
+                    'select' => "COUNT( t.product_id ) as totalOrder",
+                    'group' => 't.product_id',
                     // 'condition'=>"is_featured='".$is_featured."' AND city_id='".Yii::app()->session['city_id']."'",
                     'limit' => $limit,
                     'order' => 'totalOrder DESC',
                 ));
-        $best_sellings = OrderDetail::model()->findAll($criteria);
+      
+        $best_join = OrderDetail::model()->with(array(
+                    'product' => array('select' => '*',
+                        'joinType' => 'INNER JOIN',
+                    'condition'=>'product.city_id= "'.$city_id.'"' ),))->findAll($criteria);
 
-        // $qu = Yii::app()->db->createCommand("SELECT COUNT( product_id ) as totalOrder, product_id
-        //   FROM order_detail group by product_id order by totalOrder DESC LIMIT 3");
-//          $qu = Yii::app()->db->createCommand("SELECT  `product`.`product_name` ,  `product_image`.`product_id` ,  `product_image` . * ,  
-//                                                `order_detail`.`product_id` ,  `order_detail` . *  
-//                                               FROM  `product_image` ,  `product` ,  `order_detail` 
-//                                               WHERE (
-//                                               (
-//                                               `product_image`.`product_id` =  `product`.`product_id`
-//                                               )
-//                                               AND (
-//                                               `order_detail`.`product_id` =  `product`.`product_id`
-//                                               )
-//                                               )");
-//          $best_sellings= $qu->queryAll();
+         $counter=count($best_join);
+      for($i=0; $i<$counter; $i++)
+      {
+       $product_id= $best_join[$i]->product->product_id;  
+       $product_name= $best_join[$i]->product->product_name;  
+       $product_description= $best_join[$i]->product->product_description; 
+       $product_price= $best_join[$i]->product->product_price; 
+       $product_totalOrder= $best_join[$i]->totalOrder; 
+      
+                                    $criteria6 = new CDbCriteria;
+                  $criteria6->select = '*';  // only select the 'title' column
+                  $criteria6->condition = 'product_id="' . $product_id . '"';
+                  $imagebest = ProductImage::model()->findAll($criteria6);
+                  $imagesbestproducts = array();
+                  foreach ($imagebest as $img) {
+                      $imagesbestproducts[] = array('product_image_id' => $img->product_image_id,
+                          'image_large' => $img->image_large,
+                          'image_small' => $img->image_small,
+                      );
+                  }
+       
+                 $best_products[] = array('product_id' => $product_id,
+                                        'product_name' => $product_name,
+                                        'product_description' => $product_description,
+                                        'product_price' => $product_price,
+                                        'totalOrder' => $product_totalOrder,
+                                        'image' => $imagesbestproducts);  
+                    }
 
-        $total = count($best_sellings);
-        for ($i = 0; $i < $total; $i++) {
-
-            $best_products_id = $best_sellings[$i]['product_id'];
-            $best_products_order = $best_sellings[$i]['totalOrder'];
-
-            $criteria6 = new CDbCriteria;
-            $criteria6->select = '*';  // only select the 'title' column
-            $criteria6->condition = 'product_id="' . $best_products_id . '"';
-            $imagebest = ProductImage::model()->findAll($criteria6);
-            $imagesbestproducts = array();
-            foreach ($imagebest as $img) {
-                $imagesbestproducts[] = array('product_image_id' => $img->product_image_id,
-                    'image_large' => $img->image_large,
-                    'image_small' => $img->image_small,
-                );
-            }
-
-            $best_products[] = array('product_id' => $best_products_id,
-                'product_name' => $bestName,
-                'totalOrder' => $best_products_order,
-                'image' => $imagesbestproducts);
-        }
         return $best_products;
     }
 
