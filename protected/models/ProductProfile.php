@@ -44,11 +44,11 @@ class ProductProfile extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('product_id', 'required'),
-			array('author_id, language_id', 'numerical', 'integerOnly'=>true),
+			array('author_id', 'numerical', 'integerOnly'=>true),
 			array('isbn', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('profile_id, author_id, language_id, isbn', 'safe', 'on'=>'search'),
+			array('profile_id, author_id, isbn', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,8 +60,7 @@ class ProductProfile extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'author' => array(self::HAS_ONE, 'Author', 'author_id'),
-			'language' => array(self::HAS_ONE, 'Language', 'language_id'),
+			'author' => array(self::BELONGS_TO, 'Author', 'author_id'),
 			'profile' => array(self::BELONGS_TO, 'Product', 'product_id'),
 		);
 	}
@@ -75,7 +74,6 @@ class ProductProfile extends CActiveRecord
 			'profile_id' => 'Profile',
 			'product_id' => 'Product',
 			'author_id' => 'Author',
-			'language_id' => 'Language',
 			'isbn' => 'Isbn',
 		);
 	}
@@ -93,7 +91,6 @@ class ProductProfile extends CActiveRecord
 
 		$criteria->compare('profile_id',$this->profile_id);
 		$criteria->compare('author_id',$this->author_id);
-		$criteria->compare('language_id',$this->language_id);
 		$criteria->compare('isbn',$this->isbn,true);
 
 		return new CActiveDataProvider($this, array(

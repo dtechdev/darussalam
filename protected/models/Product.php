@@ -73,6 +73,7 @@ class Product extends CActiveRecord
 			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
 			'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
 			'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
+			'productLanguage' => array(self::HAS_MANY, 'ProductLanguage', 'product_id'),
 			'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
 		);
 	}

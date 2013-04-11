@@ -26,20 +26,41 @@
                 <table width="400">
                 	<tr>
                     	<td class="left_td">Language:</td>
-                        <td class="right_td">English\Urdu\Spanish</td>
+                        <td class="right_td"><?php 
+                        $i=0;
+                        foreach($product->productLanguage as $lan)
+                        {
+                            if($i==0)
+                                echo $lan->language->language_name;
+                            else 
+                                echo ' / '.$lan->language->language_name;
+                            
+                             $i++;
+                        }
+                        ?></td>
                     </tr>
                     <tr>
                     	<td class="left_td">Category:</td>
                         <td class="right_td"><?php 
+                         $i=0;
                         foreach($product->productCategories as $cat)
                         {
-                            echo $cat['name'];
+                            if($i==0)
+                                echo $cat->category->category_name;
+                            else
+                                echo ' / '.$cat->category->category_name;
+                            $i++;
                         }
                         ?></td>
                     </tr>
                     <tr>
                     	<td class="left_td">Writer:</td>
-                        <td class="right_td"><?php //echo $product->author->name;?>Abdul Malik Mujahid</td>
+                        <td class="right_td"><?php 
+                            foreach($product->productProfile as $pp)
+                            {
+                                echo $pp->author->author_name;
+                            }?>
+                        </td>
                     </tr>
                     <tr>
                     	<td class="left_td">Publishers:</td>
