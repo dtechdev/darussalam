@@ -145,12 +145,12 @@
                       
                             <a href="<?php echo $this->createUrl('/user/register')?>"><input type="button" value="Sign Up" class="btn" /></a>
                         </div>
-                    <?php } $this->endWidget();?> </h1>
+                    </h1>
                 </div>
           	</div>
         </div>
     </header>
-<?php echo $content; ?>
+<?php echo $content; ?> <?php } $this->endWidget();?>
     <footer>
     	<div id="under_footer">
        		<div id="left_footer">
