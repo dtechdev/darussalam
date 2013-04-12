@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2013 at 10:13 AM
+-- Generation Time: Apr 12, 2013 at 10:58 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -466,7 +466,14 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
   KEY `profile_id_2` (`profile_id`),
   KEY `author_id_2` (`author_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `product_profile`
+--
+
+INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `isbn`) VALUES
+(1, 1, 2, NULL);
 
 -- --------------------------------------------------------
 
