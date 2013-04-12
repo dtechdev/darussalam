@@ -2,26 +2,15 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style.css" rel="stylesheet" />
-<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/gumby.css">
-<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/libs/modernizr-2.6.2.min.js"></script>
-<title>Darussalam</title>
-<script>window.jQuery || document.write('<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/libs/jquery-1.8.3.min.js"><\/script>')</script>
-  <script src="<?php  echo Yii::app()->theme->baseUrl; ?>/js/libs/gumby.min.js"></script>
-  <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/plugins.js"></script>
-  <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/main.js"></script>
-  <script>
-    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
-    Modernizr.load({
-      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-    });
-  </script>
-<script src="http://www.marghoobsuleman.com/misc/jquery.js"></script>
+<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style.css" />
+<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/gumby.css" />
+<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/sign_in2.js"></script>
 <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/dd.css" />
-<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/msdropdown/jquery.dd.min.js"></script>
-<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/flags.css" />
-</head>
 
+<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/flags.css" />
+<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/sign_in.js"></script>
+<title>Darussalam</title>
+</head>
 <body>
 	<header>
     	<div id="main_header">
@@ -69,9 +58,10 @@
                                                             window.location.href=data.redirect
                                                            }',
                             ),
+                           
                             
-                        ),
-                        array('id'=>'countries','style'=>'width:200px;'));
+                        ),$htmlOptions=array('id'=>'countries','style'=>'width:500px;')
+                        );
                 echo CHtml::endForm();
                     ?>
 <!--            	<select name="countries" id="countries" style="width:200px;">
@@ -180,14 +170,6 @@
             </div>
        	</div>
   	</footer>
-     <script type="text/javascript">
-$(document).ready(function(){	
-    $('.example2').hide().before('<a href="#" id="toggle-example2" class="button">Sign In</a>');
-	$('a#toggle-example2').click(function() {
-		$('.example2').slideToggle(200);
-		return false;
-	});
-});
-</script> 
+      <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/msdropdown/jquery.dd.min.js"></script>
 </body>
 </html>
