@@ -171,7 +171,7 @@
                 <article><i>iPhone, Android & iPad Islamic apps</i></article>
                 <p><a href="#">D-Tech - Working on technologies</a></p>
                 <article><i>iPhone, Android & iPad Islamic apps</i></article>
-                <section>&copy; 2013 Darussalam, Inc. All Rights Reserved.</section>
+                <section>&copy; 2013 Darussalam, Inc. All Rights Reserved</section>
             </div>
        	</div>
     </footer>
