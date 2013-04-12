@@ -114,6 +114,7 @@ class SiteController extends Controller {
         $this->render('all_products',array('products'=>$all_products));
     }
     public function actionfeaturedProducts() {
+        Yii::app()->theme = Yii::app()->session['layout'];
         //queries 
         $order_detail = new OrderDetail;
         $featured_products = $order_detail->featuredBooks();
@@ -122,6 +123,7 @@ class SiteController extends Controller {
     }
 
     public function actionbestSellings() {
+        Yii::app()->theme = Yii::app()->session['layout'];
         //queries 
         $order_detail = new OrderDetail;
         $best_sellings = $order_detail->bestSellings();
@@ -130,12 +132,14 @@ class SiteController extends Controller {
     }
 
     public function actionproductListing() {
+        Yii::app()->theme = Yii::app()->session['layout'];
 
         Yii::app()->controller->layout = '//layouts/main';
         $this->render('product_listing');
     }
 
     public function actionproductDetail() {
+        Yii::app()->theme = Yii::app()->session['layout'];
 
         $product_obj = new Product();
         $product=$product_obj->find($condition='product_id='.$_REQUEST['product_id']);
