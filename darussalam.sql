@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 11, 2013 at 07:55 AM
+-- Generation Time: Apr 12, 2013 at 08:49 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -54,10 +54,13 @@ DROP TABLE IF EXISTS `cart`;
 CREATE TABLE IF NOT EXISTS `cart` (
   `cart_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
   `added_date` varchar(255) NOT NULL,
   PRIMARY KEY (`cart_id`),
   KEY `cart_id` (`cart_id`),
-  KEY `product_id` (`product_id`)
+  KEY `product_id` (`product_id`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -192,15 +195,18 @@ CREATE TABLE IF NOT EXISTS `language` (
   `language_id` int(11) NOT NULL AUTO_INCREMENT,
   `language_name` varchar(255) NOT NULL,
   PRIMARY KEY (`language_id`),
-  KEY `language_id` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  KEY `language_id` (`language_id`),
+  KEY `language_id_2` (`language_id`),
+  KEY `language_id_3` (`language_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `language`
 --
 
 INSERT INTO `language` (`language_id`, `language_name`) VALUES
-(2, 'English');
+(2, 'English'),
+(3, 'Arabic');
 
 -- --------------------------------------------------------
 
@@ -337,7 +343,8 @@ CREATE TABLE IF NOT EXISTS `product` (
   KEY `user_id_3` (`city_id`),
   KEY `frenchise_id` (`city_id`),
   KEY `frenchise_id_2` (`city_id`),
-  KEY `city_id` (`city_id`)
+  KEY `city_id` (`city_id`),
+  KEY `product_id_3` (`product_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
@@ -347,7 +354,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`) VALUES
 (1, 'Quran', 'Azeeem book', 1, '27-03-2013', '1', 32.0000),
 (2, 'Ahadees', 'The life of Muslims', 1, '222', '1', 121212.0000),
-(3, 'Fiqa', 'aaa', 1, '', '1', 33.0000);
+(3, 'Fiqa', 'aaa', 2, '', '0', 33.0000);
 
 -- --------------------------------------------------------
 
@@ -364,7 +371,16 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   KEY `category_id` (`category_id`),
   KEY `product_id` (`product_id`),
   KEY `product_category_id` (`product_category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `product_categories`
+--
+
+INSERT INTO `product_categories` (`product_category_id`, `product_id`, `category_id`) VALUES
+(1, 2, 4),
+(2, 3, 1),
+(3, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -421,6 +437,37 @@ INSERT INTO `product_image` (`product_image_id`, `product_id`, `image_small`, `i
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `product_language`
+--
+
+DROP TABLE IF EXISTS `product_language`;
+CREATE TABLE IF NOT EXISTS `product_language` (
+  `product_language_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_language_id`),
+  KEY `product_id` (`product_id`),
+  KEY `language_id` (`language_id`),
+  KEY `language_id_2` (`language_id`),
+  KEY `language_id_3` (`language_id`),
+  KEY `product_id_2` (`product_id`),
+  KEY `language_id_4` (`language_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `product_language`
+--
+
+INSERT INTO `product_language` (`product_language_id`, `product_id`, `language_id`) VALUES
+(1, 1, 2),
+(2, 1, 3),
+(3, 3, 2),
+(4, 2, 3),
+(5, 2, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product_profile`
 --
 
@@ -429,14 +476,12 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
   `profile_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `author_id` int(11) DEFAULT NULL,
-  `language_id` int(11) DEFAULT NULL,
   `isbn` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`profile_id`),
   KEY `profile_id` (`profile_id`),
   KEY `author_id` (`author_id`),
   KEY `profile_id_2` (`profile_id`),
   KEY `author_id_2` (`author_id`),
-  KEY `language_id` (`language_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -444,8 +489,29 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
 -- Dumping data for table `product_profile`
 --
 
-INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `language_id`, `isbn`) VALUES
-(1, 1, 2, 2, 'dgdfgd');
+INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `isbn`) VALUES
+(1, 2, 2, 'dgdfgd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_reviews`
+--
+
+DROP TABLE IF EXISTS `product_reviews`;
+CREATE TABLE IF NOT EXISTS `product_reviews` (
+  `reviews_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `reviews` text NOT NULL,
+  `added_date` varchar(255) NOT NULL,
+  `is_approved` enum('yes','no') NOT NULL,
+  PRIMARY KEY (`reviews_id`),
+  KEY `product_id` (`product_id`),
+  KEY `user_id` (`user_id`),
+  KEY `product_id_2` (`product_id`),
+  KEY `user_id_2` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -484,7 +550,15 @@ CREATE TABLE IF NOT EXISTS `social` (
   `provider` varchar(50) NOT NULL,
   `provideruser` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `social`
+--
+
+INSERT INTO `social` (`id`, `yiiuser`, `provider`, `provideruser`) VALUES
+(1, 4, 'facebook', '100000456873660'),
+(2, 5, 'google', '101970047434735800356');
 
 -- --------------------------------------------------------
 
@@ -519,7 +593,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `user`
@@ -528,7 +602,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`, `social_id`) VALUES
 (1, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '28 March, 2013', ''),
 (2, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '', ''),
-(3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', '');
+(3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', ''),
+(4, '', '93f3bc82bec7de8119453fa02391729e', 'zahidiubb@yahoo.com', 3, 1, NULL, NULL, 'active', 1, '1365680541', '100000456873660'),
+(5, '', '52a5bd7718e860a249295567e00909fb', 'zahid.nadeem@darussalampk.com', 3, 1, NULL, NULL, 'active', 1, '1365740577', '101970047434735800356');
 
 -- --------------------------------------------------------
 
@@ -693,12 +769,25 @@ ALTER TABLE `product_image`
   ADD CONSTRAINT `product_image_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `product_language`
+--
+ALTER TABLE `product_language`
+  ADD CONSTRAINT `product_language_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_language_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`language_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `product_profile`
 --
 ALTER TABLE `product_profile`
-  ADD CONSTRAINT `product_profile_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_profile_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`language_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_profile_ibfk_3` FOREIGN KEY (`author_id`) REFERENCES `author` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_profile_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `author` (`author_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_profile_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product_reviews`
+--
+ALTER TABLE `product_reviews`
+  ADD CONSTRAINT `product_reviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user`
