@@ -26,7 +26,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
+                'actions' => array('index', 'view', 'addtocart'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -83,7 +83,7 @@ class ProductController extends Controller {
 
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
-            $model->added_date =time();
+            $model->added_date = time();
             if ($model->save()) {
                 $product_id = $model->product_id;
                 $mProductProfile->attributes = $_POST['ProductProfile'];
@@ -116,32 +116,32 @@ class ProductController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
-        
+
         $model = $this->loadModel($id);
         $mProductDiscount = new ProductDiscount;
         $mProductImage = new ProductImage;
         $mProductCategories = new ProductCategories;
-        
+
         $mProductProfileArray = ProductProfile::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
         $mProductProfile = ProductProfile::model()->findByPk($mProductProfileArray[0]['profile_id']);
-        
-        
-        $mProductDiscountArray= ProductDiscount::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
+
+
+        $mProductDiscountArray = ProductDiscount::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
         if ($mProductDiscountArray != NULL) {
             $mProductDiscount = ProductDiscount::model()->findByPk($mProductDiscountArray[0]['discount_id']);
         }
-        
+
         $mProductImageArray = ProductImage::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
-         if ($mProductImageArray != NULL) {
+        if ($mProductImageArray != NULL) {
             $mProductImage = ProductImage::model()->findByPk($mProductImageArray[0]['product_image_id']);
         }
-        
-        $mProductCategoriesArray =ProductCategories::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"')); 
+
+        $mProductCategoriesArray = ProductCategories::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
         if ($mProductCategoriesArray != NULL) {
             $mProductCategories = ProductCategories::model()->findByPk($mProductCategoriesArray[0]['product_category_id']);
         }
-        
-  
+
+
 
         $cityList = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name');
         $languageList = CHtml::listData(Language::model()->findAll(), 'language_id', 'language_name');
@@ -152,7 +152,7 @@ class ProductController extends Controller {
 
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
-            if ($model->save()){
+            if ($model->save()) {
                 $product_id = $id;
                 $mProductProfile->attributes = $_POST['ProductProfile'];
                 $mProductProfile->product_id = $product_id;
@@ -212,6 +212,47 @@ class ProductController extends Controller {
         $this->render('admin', array(
             'model' => $model,
         ));
+    }
+
+    public function actionAddtocart() {
+
+        $cart_model = new Cart();
+        if (isset(Yii::app()->user->id)) {
+            $cart = $cart_model->find('product_id=' . $_REQUEST['product_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . Yii::app()->getSession()->sessionID . '")');
+        } else {
+            $cart = $cart_model->find('product_id=' . $_REQUEST['product_id'] . ' AND session_id="' . Yii::app()->getSession()->sessionID . '"');
+        }
+        if ($cart != null) {
+            $cart_model = $cart;
+            $cart_model->quantity = $cart->quantity + $_REQUEST['quantity'];
+        } else {
+            $cart_model = new Cart();
+            $cart_model->quantity = $_REQUEST['quantity'];
+            $cart_model->product_id = $_REQUEST['product_id'];
+            $cart_model->user_id = Yii::app()->user->id;
+            $cart_model->city_id = Yii::app()->session['city_id'];
+            $cart_model->added_date = time();
+            $cart_model->session_id = Yii::app()->getSession()->sessionID;
+            ;
+        }
+        $cart_model->save();
+
+        //count total added products in cart
+        if (isset(Yii::app()->user->id)) {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('sum(quantity) as cart_total')
+                    ->from('cart')
+                    ->where('session_id="' . Yii::app()->getSession()->sessionID . '" or user_id=' . Yii::app()->user->id)
+                    ->queryRow();
+        } else {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('sum(quantity) as cart_total')
+                    ->from('cart')
+                    ->where('session_id="' . Yii::app()->getSession()->sessionID . '"')
+                    ->queryRow();
+        }
+
+        echo CJSON::encode(array('product_id' => '1', 'cart_counter' => $tot['cart_total']));
     }
 
     /**

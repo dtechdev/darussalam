@@ -75,6 +75,26 @@
                     <div id="right_header_part">
                         <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/heart_img_03.jpg" alt="heart img" class="heart_img" /></a>
                         <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
+                        <p id="cart_counter">
+                            <?php 
+                             //count total added products in cart
+        if (isset(Yii::app()->user->id)) {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('sum(quantity) as cart_total')
+                    ->from('cart')
+                    ->where('session_id="' . Yii::app()->getSession()->sessionID . '" or user_id=' . Yii::app()->user->id)
+                    ->queryRow();
+        } else {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('sum(quantity) as cart_total')
+                    ->from('cart')
+                    ->where('session_id="' . Yii::app()->getSession()->sessionID . '"')
+                    ->queryRow();
+        }
+        echo $tot['cart_total'];
+                            ?>
+                            
+                        </p>
                     </div>
                     <div id="text">
 <?php if (!Yii::app()->user->isGuest) { ?>
