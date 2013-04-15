@@ -74,7 +74,7 @@
                 <div class="right_middle">
                     <div id="right_header_part">
                         <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/heart_img_03.jpg" alt="heart img" class="heart_img" /></a>
-                        <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
+                        <a href="<?php echo $this->createUrl('/product/viewcart') ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
                         <p id="cart_counter">
                             <?php 
                              //count total added products in cart

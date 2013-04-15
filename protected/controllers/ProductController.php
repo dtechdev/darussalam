@@ -26,7 +26,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'addtocart'),
+                'actions' => array('index', 'view', 'addtocart','viewcart'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -253,6 +253,11 @@ class ProductController extends Controller {
         }
 
         echo CJSON::encode(array('product_id' => '1', 'cart_counter' => $tot['cart_total']));
+    }
+    public function actionViewcart() {
+        Yii::app()->theme = Yii::app()->session['layout'];
+        Yii::app()->controller->layout = '//layouts/main';
+        $this->render('viewcart');
     }
 
     /**
