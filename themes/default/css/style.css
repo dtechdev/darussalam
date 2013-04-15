@@ -47,13 +47,13 @@ header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repe
 
 #text { width:70px; float:left; padding: 0 0px 0 0px; margin: -6px 0 0 0px; height:25px; }
 
-.example2 { padding: 18px 25px; margin: 45px 0 0 -231px; float:left; background:#FFF; position:absolute; width:250px; border:1px solid #000; }
+.example2 { z-index:10; padding: 18px 25px; margin: 45px 0 0 -231px; float:left; background:#FFF; position:absolute; width:250px; border:1px solid #a9a9a9; border-top:none; box-shadow: 5px 5px 5px #a9a9a9; }
 
 #text h1 { color:#000000; font-size:19.44px; font-family:Arial, Helvetica, sans-serif; }
 
-.button { color:#2f2f2f; font-weight:bold; font-size:12px; padding: 11px; margin: 6px 0 0 10px; float:left; }
+.button { color:#2f2f2f; font-weight:bold; font-size:12px; padding: 10px; margin: 7px 0 0 10px; float:left; }
 
-.button:hover { background:#FFF; }
+.button:hover { background:#FFF; height:16px; z-index:1000; }
 
 .example2 h1 { padding: 0; margin: 0; }
 
@@ -61,15 +61,15 @@ header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repe
 
 .second { float:left; text-align:left; padding: 3px 0 6px 0; border:none; border: 1px solid #d0d0d0; width:245px; }
 
-.check { display:block; float:left; width:25px; padding: 0; margin: 10px 0 0 0; font-size:11px; color:#333333; }
+.check { display:block; float:left; width:20px; padding: 0; margin: 10px 0 0 0; font-size:11px; color:#333333; }
 
 .example2 span { padding: 0 0 0 0; margin: 10px 10px 0 5px; float:left; color:#2f2f2f; font-size:12px; }
 
 .forgot { padding: 0; margin: 10px -20px 0 0; color:#2e3192; font-size:12px; float:left; }
 
-.btn { width:88px; height:30px; border:none; margin: 0px 0 0px 0; border-radius:2px; background:#008dde; color:#FFF; padding: 5px 2px 5px 2px; }
+.btn { width:88px; height:30px; border:none; margin: 0px 0 0px 0; border-radius:2px; background:#008dde; color:#FFF; padding: 5px 2px 5px 2px; font-weight:normal; font-family:Arial, Helvetica, sans-serif; }
 
-.signinp { padding: 0; margin: 5px 0 5px 0; color:#2f2f2f; font-size:12px; float:left; width:250px; }
+.signinp { font-weight:normal; padding: 0; margin: 5px 0 5px 0; color:#2f2f2f; font-size:12px; float:left; width:250px; }
 
 .forgot { padding: 0; margin: 10px 0 0 0; color:#2e3192; font-size:12px; }
 
@@ -79,11 +79,13 @@ header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repe
 
 .sign_in a img { float:left; }
 
+.sign_in_button { padding: 0; margin: 0; width:250px; float:left; }
+
 .sign_up_button { padding: 0; margin: 0; width:98px; float:right; }
 
 .btn { float:left; width:88px; height:30px; border:none; margin: 15px 0 10px 0; border-radius:2px; background:#008dde; font-weight:bold; color:#FFF; padding: 5px 2px 5px 2px; }
 
-.f_img { float:left; width:78px; height:30px; border:none; background:#3b5999; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-size:13px; }
+.f_img { padding: 0; margin: 0; float:left; width:78px; height:30px; border:none; background:#3b5999; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-size:13px; }
 
 .l_img { padding: 0 10px 0 0; margin: 0; float:left; width:78px; height:30px; border:none; background:#1a81b5; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-size:13px; }
 
@@ -95,7 +97,7 @@ img.selectphoto { float: left; margin: 3px 5px 0 0; }
 
 .selectphotolabel { margin: 10px 0 10px 0; padding: 0 0 0 0; margin-bottom: 10px; }
 
-#banner { float:left; padding: 0; margin: 0; background:url(../images/QURAN_Pak_bg_img_02.jpg) no-repeat 0px 10px; background-position: left bottom; width:100%; height:453px; background-color: lightgoldenrodyellow}
+#banner { float:left; padding: 0; margin: 0; background:url(../images/QURAN_Pak_bg_img_02.jpg) no-repeat 0px 10px; background-position: left bottom; width:100%; height:453px; }
 
 #main_banner { width:960px; padding: 0; margin: 0 auto; }
 
@@ -147,7 +149,7 @@ img.selectphoto { float: left; margin: 3px 5px 0 0; }
 
 #left_content { width:615px; padding: 0; margin: 0; float:left; }
 
-#left_content h1 { font-family: Franklin Gothic; padding: 0; margin: 7px 0 0 0; color:#ffffff; font-size:26px; font-weight:normal; }
+#left_content h1 { font-family: 'Franklin Gothic Book'; src:url(../fonts/Franklin%20Gothic%20Book.ttf); padding: 0; margin: 7px 0 0 0; color:#ffffff; font-size:26px; font-weight:normal; }
 
 #right_content { width:345px; padding: 0; margin: 0; float:left; }
 
@@ -155,17 +157,17 @@ img.selectphoto { float: left; margin: 3px 5px 0 0; }
 
 #right_content ul li { list-style:none; display:inline; padding: 0; margin: 10px 0 0 0; float:left; }
 
-#right_content ul li a { color:#faf18a; font-size:21px; font-family: Franklin Gothic; padding: 0 10px 0 10px; margin: 0 0 0 0; border-left: 1px solid #5f74ab; }
+#right_content ul li a { color:#faf18a; font-size:21px; font-family: 'Franklin Gothic Book'; src:url(../fonts/Franklin%20Gothic%20Book.ttf); padding: 0 10px 0 10px; margin: 0 0 0 0; border-left: 1px solid #5f74ab; }
 
 #right_content ul li a:hover { color:#FFF; }
 
-@font-face { font-family: Franklin Gothic; src:url(fonts/Franklin%20Gothic%20Regular.ttf); }
+@font-face { font-family: 'Franklin Gothic Book'; src:url(../fonts/Franklin%20Gothic%20Book.ttf); }
 
-section { float:left; padding: 0; margin: 0; width:100%; background-color: lightgoldenrodyellow}
+section { float:left; padding: 0; margin: 0; width:100%; }
 
 #main_section { width:960px; padding: 0; margin: 0 auto; }
 
-#main_section h1 { padding: 0px 0 0 15px; margin: 40px 0 0 0px; width:950px; text-align:center; background:url(../images/h_border_03.jpg) no-repeat 10px; font-size:15px; font-weight:normal; color:#3f3f3f; font-family: Franklin Gothic; }
+#main_section h1 { padding: 0px 0 0 15px; margin: 40px 0 0 0px; width:950px; text-align:center; background:url(../images/h_border_03.jpg) no-repeat 10px; font-size:15px; font-weight:normal; color:#3f3f3f; font-family: 'Franklin Gothic Book'; src:url(../fonts/Franklin%20Gothic%20Book.ttf); }
 
 .browse { background: linear-gradient( to right, #FFFFFF 0%, #f7f7f7 50%, #FFFFFF 100%) repeat scroll 0 0 transparent; height:130px; padding: 10px 0 0 0; margin: 10px 0 0 0 }
 
@@ -181,7 +183,7 @@ section { float:left; padding: 0; margin: 0; width:100%; background-color: light
 
 #left_books { width:479px; float:left; padding: 0; margin: 50px 0 0 0; border-right: 1px solid #d3d3d3; }
 
-#left_books h2 { color:#3f3f3f; font-size:15px; font-weight:normal; font-family: Franklin Gothic; }
+#left_books h2 { color:#3f3f3f; font-size:15px; font-weight:normal; font-family: 'Franklin Gothic Book'; src:url(../fonts/Franklin%20Gothic%20Book.ttf); }
 
 .books { float:left; padding: 0; margin: 20px 0 20px 0; width:159px; }
 
@@ -199,7 +201,7 @@ section { float:left; padding: 0; margin: 0; width:100%; background-color: light
 
 #right_books { width:450px; float:left; padding: 0; margin: 50px 0 0 30px; }
 
-#right_books h2 { color:#3f3f3f; font-size:15px; font-weight:normal; font-family: Franklin Gothic; }
+#right_books h2 { color:#3f3f3f; font-size:15px; font-weight:normal; font-family: 'Franklin Gothic Book'; src:url(../fonts/Franklin%20Gothic%20Book.ttf); }
 
 #right_books p a { color:#2f2f2f; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
 
@@ -265,7 +267,7 @@ footer { font-family:Arial, Helvetica, sans-serif; font-size:12px; background:ur
 
 #right_footer section { padding: 0; margin: 100px 0 0 0; color:#888888; }
 
-#book_content { float:left; width:100%; margin: 10px 0 0 0; padding: 0; background-color: lightgoldenrodyellow;}
+#book_content { float:left; width:100%; margin: 10px 0 0 0; padding: 0; }
 
 #book_main_content { width:960px; padding: 0; margin: 0 auto; }
 
@@ -315,7 +317,7 @@ footer { font-family:Arial, Helvetica, sans-serif; font-size:12px; background:ur
 
 #category_list ul li a { font-size:11px; color:#003a83; }
 
-#right_main_content { width:664px; padding: 0 0px 0 0px; margin: 30px 0 0 90px; float:left; background-color: lightgoldenrodyellow;}
+#right_main_content { width:664px; padding: 0 0px 0 0px; margin: 30px 0 0 90px; float:left; }
 
 .condition { width:160px; padding: 20px 6px 10px 0px; margin: 0; float:left; }
 
@@ -335,11 +337,11 @@ footer { font-family:Arial, Helvetica, sans-serif; font-size:12px; background:ur
 
 #booked_content { width:960px; padding: 0; margin: 0 auto; }
 
-.left_book { float:left; padding: 0; margin: 0; width:280px; }
+.left_book { float:left; padding: 0; margin: 0; width:310px; }
 
-.left_book img { padding: 10px; margin: 0; border: 1px solid #efefef; }
+.small_product_first { padding: 10px; margin: 0; width:290px; border: 1px solid #efefef; }
 
-.small_product img { margin: 15px 10px 0 0px; }
+.small_product img { margin: 10px 5px 0 0px; padding: 5px; border: 1px solid #efefef; }
 
 .right_book { width:600px; padding: 0 0 0 30px; margin: 0px 0 0 0px; float:left; }
 
