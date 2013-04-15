@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 12, 2013 at 10:58 AM
+-- Generation Time: Apr 15, 2013 at 02:12 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -56,12 +56,21 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `product_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `city_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `added_date` varchar(255) NOT NULL,
+  `session_id` varchar(255) NOT NULL,
   PRIMARY KEY (`cart_id`),
   KEY `cart_id` (`cart_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `product_id`, `user_id`, `city_id`, `quantity`, `added_date`, `session_id`) VALUES
+(1, 1, 0, 1, 14, '1366026127', 'n72qq6on8irv13hdja0rlcnoq4');
 
 -- --------------------------------------------------------
 
@@ -341,6 +350,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `added_date` varchar(255) NOT NULL,
   `is_featured` enum('0','1') NOT NULL,
   `product_price` decimal(10,4) NOT NULL,
+  `product_rating` int(11) NOT NULL,
   PRIMARY KEY (`product_id`),
   KEY `user_id` (`city_id`),
   KEY `user_id_2` (`city_id`),
@@ -357,13 +367,13 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`) VALUES
-(1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000),
-(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000),
-(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000),
-(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000),
-(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000),
-(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000);
+INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`, `product_rating`) VALUES
+(1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000, 0),
+(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000, 0),
+(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000, 0),
+(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000, 0),
+(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000, 0),
+(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000, 0);
 
 -- --------------------------------------------------------
 
@@ -489,6 +499,7 @@ CREATE TABLE IF NOT EXISTS `product_reviews` (
   `reviews` text NOT NULL,
   `added_date` varchar(255) NOT NULL,
   `is_approved` enum('yes','no') NOT NULL,
+  `is_email` tinyint(1) NOT NULL,
   PRIMARY KEY (`reviews_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`),
