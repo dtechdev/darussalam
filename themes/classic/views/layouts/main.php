@@ -18,7 +18,7 @@
                     <nav class="row">
                         <a class="toggle" gumby-trigger="#nav3 > .row > ul" href="#"><i class="icon-menu"></i></a>
                         <ul class="eight columns">
-                            <li><a href="#">BOOKS</a></li>
+                            <li><a href="<?php echo $this->createUrl('/site/allproducts') ?>">BOOKS</a></li>
                             <li><a href="#">QURAN</a></li>
                             <li><a href="#">EDUCATIONAL TOYS</a></li>
                             <li><a href="#">OTHERS</a></li>
