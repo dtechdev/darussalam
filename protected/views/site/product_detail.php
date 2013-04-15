@@ -114,13 +114,32 @@
                     	<tr class="price_cart">
                         	<td class="price"><?php echo  '$ '.round($product->product_price,2);?></td>
                             <td class="quantity">Quantity 
-                            <select>
+                            <select id="quantity">
                             	<option value="1"> 1
-                                <option value="1"> 2
-                                <option value="1"> 3
-                                <option value="1"> 4
+                                <option value="2"> 2
+                                <option value="3"> 3
+                                <option value="4"> 4
                             </select></td>
-                            <td class="add_cart"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/add_to_cart_img.png" /><input type="button" src="<?php echo Yii::app()->theme->baseUrl; ?>/images/add_to_cart_img.png" value="Add to Cart" class="add_to_cart" /></td>
+                            <td class="add_cart"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/add_to_cart_img.png" />
+                                
+<!--                                <input type="button" src="<?php echo Yii::app()->theme->baseUrl; ?>/images/add_to_cart_img.png" value="Add to Cart" class="add_to_cart" />-->
+                            <?php echo CHtml::ajaxButton('Add to Cart',
+                                                Yii::app()->createUrl('product/addtocart'),
+                                                array('data'=>array(
+                                                                    'product_id'=>$product->product_id,
+                                                                    'quantity'=>'js:$(\'#quantity\').val()'
+                                                                    ),
+                                                    'type'=>'POST',
+                                                    'dataType' => 'json',
+                                                       'success'=>'function(data){
+                                                                                $("#cart_counter").html(data.cart_counter);
+                                                                                }',
+                                                        
+                                                    ),
+                                                    array('class'=>'add_to_cart')
+                                                
+                                    );?>
+                            </td>
                             <td class="wishlist"><a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/heart_img_03.jpg" /></a> Add to wishlist</td>
                         </tr>
                     </div>
@@ -154,16 +173,6 @@
                     	<div class="left_comments">
                         	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/talha_mujahid_img_03.png">
                         </div>
-                        
-                        <?php $form=$this->beginWidget('CActiveForm', array(
-                                    'id'=>'review-form',
-                                    'action' => Yii::app()->createUrl('/user/ProductReview'),
-                                    'enableClientValidation'=>true,
-                                    'clientOptions'=>array(
-                                            'validateOnSubmit'=>true,
-                                        
-                                    ),
-                            )); ?>
                         <div class="right_comments">
                         	<div>
                         		<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />
