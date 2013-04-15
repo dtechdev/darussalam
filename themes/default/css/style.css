@@ -11,9 +11,11 @@ a img { border: none; max-width:100%; }
 
 html, body { margin: 0; padding: 0; }
 
+a:active, a:hover { outline: 0; }
+
 body { width:100%; font-family:Arial, Helvetica, sans-serif; max-width:100%; }
 
-header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repeat-x top center; border-bottom: 1px solid #a9a9a9; }
+header { float:left; width:100%; background:#f3f3f3; border-bottom: 1px solid #a9a9a9; height:auto; }
 
 #main_header { width:960px; padding: 0; margin: 0 auto; max-width:100%; }
 
@@ -23,7 +25,7 @@ header { float:left; width:100%; background:url(../images/header_bg_02.jpg) repe
 
 #main_header nav ul li { height:30px; list-style:none; float:left; display:inline; border-right: 1px solid #a9a9a9; padding: 8px 0 0 0; margin: 0; }
 
-#main_header nav ul li a { font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:bold; padding: 10px 10px 10px 10px; margin: 0; }
+#main_header nav ul li a { font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:bold; padding: 10px; margin: 0; }
 
 #main_header nav ul li a:hover { color:#2e3192; border-bottom:none; }
 
@@ -97,7 +99,7 @@ img.selectphoto { float: left; margin: 3px 5px 0 0; }
 
 .selectphotolabel { margin: 10px 0 10px 0; padding: 0 0 0 0; margin-bottom: 10px; }
 
-#banner { float:left; padding: 0; margin: 0; background:url(../images/QURAN_Pak_bg_img_02.jpg) no-repeat 0px 10px; background-position: left bottom; width:100%; height:453px; }
+#banner { float:left; padding: 0; margin: 0; width:100%; background:url(../images/QURAN_Pak_bg_img_02.jpg) no-repeat 0px 10px; background-position: left bottom; height:453px; }
 
 #main_banner { width:960px; padding: 0; margin: 0 auto; }
 
@@ -486,3 +488,95 @@ table tr td { width:200px; padding: 10px 0 0 0; margin: 0 0 0 0; }
 .right_right_cart_td { padding: 7px 0; margin: 0; width:80px; color:#3f3f3f; font-weight:bold; }
 
 .check_out { background:#008dde; border:none; width:107px; height:30px; color:#FFF; font-size:13px; font-family:Arial, Helvetica, sans-serif; padding: 0; margin: 5px 0 20px 0; border-radius: 2px; }
+
+#payment_method { float:left; width:100%; padding: 0; margin: 0; }
+
+#main_payment_method { width:960px; padding: 0; margin: 0 auto; max-width:100%; }
+
+.top_payment_method { padding: 0; margin: 0; width:960px; float:left; }
+
+.top_payment_method img { padding: 0; margin: 10px 0 10px 0; }
+
+.middle_payment_method { float:left; width:960px; padding: 0; margin: 0; }
+
+.left_middle_payment_method { float:left; padding: 0; margin: 0; width:880px; }
+
+.left_middle_payment_method h1 { padding: 0; margin: 0; color:#606060; font-size:21px; font-weight:bold; font-family:Arial, Helvetica, sans-serif; }
+
+.left_middle_payment_method h2 { padding: 0; margin: 0; color:#3f3f3f; font-size:11px; font-weight:normal; font-family:Arial, Helvetica, sans-serif; }
+
+.right_middle_payment_method { float:left; padding: 0; margin: 0; width:80px; }
+
+.bottom_payment_method { float:left; width:960px; padding: 0; margin: 0; }
+
+.left_method { border-radius:5px; border: 1px solid #dbdbdb; background:#eeeeee; max-height:560px; width:465px; padding: 0; margin: 10px 0 10px 10px; float:left; }
+
+.left_method h3 { color:#3f3f3f; font-size:18px; font-weight:bold; font-family:Arial, Helvetica, sans-serif; padding: 0; margin: 15px; }
+
+.under_left_method { padding: 10px 10px 10px 10px; margin: 0px 5px 10px 5px; width:433px; border: 1px solid #dbdbdb; background:#FFF; }
+
+.under_left_method p { padding: 10px 6px 0 4px; margin: 0; color:#3f3f3f; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
+
+.under_left_method p span { color:#e23b30; }
+
+.under_left_method p i { color:#797979; }
+
+.payment_text { width:340px; border:none; border: 1px solid #a0a0a0; height:22px; padding: 0; margin: 5px 0 5px 10px; }
+
+.small_text { width:72px; border:none; border: 1px solid #a0a0a0; height:22px; padding: 0; margin: 5px 5px 5px 5px; }
+
+.payment_small_img { padding: 0; margin: 5px 0 5px 0; }
+
+.small2_text { width:72px; border:none; border: 1px solid #a0a0a0; height:22px; padding: 0; margin: 10px 5px 0px 5px; float:left; }
+
+.visa_img { padding: 0; margin: 5px 10px 0 3px; float:left; }
+
+.card_img { padding: 0; margin: 5px 0 0 0; }
+
+.payment_option { padding: 0; margin: 10px 0 18px 0; }
+
+.payment_option p { color:#797979; font-size:12px; font-weight:normal; font-family:Arial, Helvetica, sans-serif; float:left; padding: 0; margin: 3px 5px 0 12px; }
+
+.payment_option span { color:#797979; font-size:12px; font-weight:normal; font-family:Arial, Helvetica, sans-serif; padding: 0; margin: 0 5px 0 10px; }
+
+.payment_option select { padding: 5px; border:none; border: 1px solid #a0a0a0; }
+
+.paypal { padding: 0; margin: -5px 10px 10px 0; }
+
+.paypal span { color:#3f3f3f; font-size:18px; font-weight:bold; font-family:Arial, Helvetica, sans-serif; padding: 0; margin: 15px; }
+
+.paypal_img { float:right; padding: 0; margin: 0; }
+
+.payment_check { font-size:12px; color:#3f3f3f; font-family:Arial, Helvetica, sans-serif; padding: 0; margin: 0; }
+
+.left_method h4 { color:#3f3f3f; font-size:18px; font-weight:bold; font-family:Arial, Helvetica, sans-serif; padding: 0; margin: 15px; }
+
+.mandatory { float:right; padding: 0; margin: -40px 10px 0 0; color:#3f3f3f; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
+
+.mandatory span { color:#e23b30; }
+
+.left_prefix { width:75px; padding: 0; margin: 0; color:#3f3f3f; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
+
+.left_prefix select { padding: 3px 5px; border:none; border: 1px solid #a0a0a0; height:25px; font-size:12px; color:#3f3f3f; }
+
+.under_left_method table tr td span { color:#e23b30; }
+
+.right_prefix { width:400px; padding: 0; margin: 0; color:#3f3f3f; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
+
+.small_right_text { width:275px; border:none; border: 1px solid #a0a0a0; height:22px; padding: 0; margin: 5px 5px 5px 5px; }
+
+.country_option select { width:340px; border:none; border: 1px solid #a0a0a0; height:25px; padding: 3px; margin: 5px 0 5px 10px; }
+
+.country_option { padding: 0; margin: 0; }
+
+.state_table { padding: 0; margin: 10px 0 0 0; }
+
+.left_state { width:180px; padding: 0; margin: 0; color:#3f3f3f; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
+
+.left_state select { width:170px; padding: 0; margin: 5px 0 0 10px; border:none; border: 1px solid #a0a0a0; height:25px; padding: 3px; }
+
+.right_state { width:220px; padding: 0; margin: 0; color:#3f3f3f; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
+
+.zip_text { width:140px; padding: 0; margin: 5px 0 0 10px; border:none; border: 1px solid #a0a0a0; height:25px; padding: 3px; }
+
+.continue { border:none; background:#008dde; padding: 0px 0 2px 0; margin: 10px 0 0 420px; color:#FFF; font-weight:bold; font-size:13px; width:125px; height:35px; border-radius:3px; }
