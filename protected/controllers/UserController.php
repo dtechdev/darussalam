@@ -343,6 +343,13 @@ class UserController extends Controller {
 
         $this->render('forgot_password', array('model' => UserProfile::model(),));
     }
+    
+    
+    public function actionProductReview()
+    {
+        
+        
+    }
 
     /**
      * Performs the AJAX validation.

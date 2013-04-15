@@ -109,7 +109,7 @@ class SiteController extends Controller {
     public function actionallProducts() {
         //queries 
         $order_detail = new OrderDetail;
-        $all_products = $order_detail->featuredBooks();
+        $all_products = $order_detail->allProducts();
         Yii::app()->controller->layout = '//layouts/main';
         $this->render('all_products',array('products'=>$all_products));
     }

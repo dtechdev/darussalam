@@ -94,7 +94,7 @@
                         <tr class="product_tr">
                             <td class="left_td">Product Rating</td>
                             <td class="right_td"><?php 
-                            $rate=3;
+                            $rate= $product->product_rating;
                             $this->widget('CStarRating',array(
                                             'name'=>'rating3',
                                             'minRating'=>1,
@@ -130,62 +130,40 @@
                 	<p><?php echo $product->product_description;?></p>
                	</div>
                 <div id="product_comments">
-                	<div class="comments">
-                    	<div class="left_comments">
-                        	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/Ahmad_rasool_img_03.jpg">
-                            <h3>Ahmad Rasool</h3>
-                        </div>
-                        <div class="right_comments">
-                        	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />
-                        	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <h4>11 hours ago <a href="#">- Report as inappropriate</a></h4>
-                            <div class="bottom_border">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comments">
-                    	<div class="left_comments">
-                        	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/saleem_khan_img_03.jpg">
-                            <h3>Saleem Khan</h3>
-                        </div>
-                        <div class="right_comments">
-                        	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />
-                        	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <h4>11 hours ago <a href="#">- Report as inappropriate</a></h4>
-                            <div class="bottom_border">
-                            </div>
-                        </div>
-                    </div>
+
+           <?php foreach ($product->product_reviews as $rev)
+                                { ?>
                     <div class="comments">
                     	<div class="left_comments">
                         	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/talha_mujahid_img_03.png">
-                            <h3>Talha Mujahid</h3>
+                            <h3><?php echo $rev->user->user_name;  
+                             ?></h3>
                         </div>
+                        
                         <div class="right_comments">
                         	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />
-                        	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                <p>
+                                    <?php echo $rev->reviews;?>
+                                </p>
                             <h4>11 hours ago <a href="#">- Report as inappropriate</a></h4>
                             <div class="bottom_border">
                             </div>
                         </div>
-                    </div>
-                    <div class="comments">
-                    	<div class="left_comments">
-                        	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/talha_mujahid_img_03.png">
-                            <h3>Talha Mujahid</h3>
-                        </div>
-                        <div class="right_comments">
-                        	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />
-                        	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <h4>11 hours ago <a href="#">- Report as inappropriate</a></h4>
-                            <div class="bottom_border">
-                            </div>
-                        </div>
-                    </div>
+                                </div><?php } ?>
                     <div class="comments">
                     	<div class="left_comments">
                         	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/talha_mujahid_img_03.png">
                         </div>
+                        
+                        <?php $form=$this->beginWidget('CActiveForm', array(
+                                    'id'=>'review-form',
+                                    'action' => Yii::app()->createUrl('/user/ProductReview'),
+                                    'enableClientValidation'=>true,
+                                    'clientOptions'=>array(
+                                            'validateOnSubmit'=>true,
+                                        
+                                    ),
+                            )); ?>
                         <div class="right_comments">
                         	<div>
                         		<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />

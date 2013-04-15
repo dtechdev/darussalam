@@ -75,6 +75,7 @@ class Product extends CActiveRecord
 			'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
 			'productLanguage' => array(self::HAS_MANY, 'ProductLanguage', 'product_id'),
 			'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
+			'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id'),
 		);
 	}
 
