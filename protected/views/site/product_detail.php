@@ -9,8 +9,8 @@
             </div>
             <nav>
             	<ul>
-                	<li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                	<li><a href="<?php echo $this->createUrl('/site/page',array('view'=>'about'))?>">About Us</a></li>
+                    <li><a href="<?php echo $this->createUrl('/site/contact')?>">Contact Us</a></li>
                     <li><a href="#">Help</a></li>
                 </ul>
             </nav>
@@ -21,15 +21,17 @@
         	<div class="left_book">
             	<img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$product->productImages[0]->image_large;?>" class="small_product_first">
                 <div class="small_product">
-                	<img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$product->productImages[0]->image_small;?>" width="66px" height="95px">
-                    <img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$product->productImages[0]->image_small;?>" width="66px" height="95px">
-                    <img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$product->productImages[0]->image_small;?>" width="66px" height="95px">
+                    <?php foreach($product->productImages as $img)
+                    {?>
+                	<img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$img->image_small;?>" width="66px" height="95px">
+
+                  <?php }?>
                 </div>
             </div>
             <div class="right_book">
             	<table width="400">
                 	<div class="middle_book">
-                        <h1>Loving Our Parents</h1>
+                        <h1><?php echo $product->product_name;?></h1>
                         <div class="products_img">
                         	<div class="fly_product_hover">
                             </div>
@@ -39,7 +41,7 @@
                             </div>
                             <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/f_like_product_img_03.jpg"></a>
                         </div>
-                        <h2>Stories of duties &amp; obligations</h2>
+                        <h2><?php echo $product->product_description;?></h2>
                    	</div>
                     <div class="prodcut_table">
                         <tr class="product_tr">
