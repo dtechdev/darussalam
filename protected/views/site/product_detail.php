@@ -165,7 +165,9 @@
                                 <p>
                                     <?php echo $rev->reviews;?>
                                 </p>
-                            <h4>11 hours ago <a href="#">- Report as inappropriate</a></h4>
+                            <h4><?php //echo time()-$rev->added_date;
+                            echo $numDays = round(abs(time() - $rev->added_date)/60/60,2);
+                            ?> hours ago <a href="#">- Report as inappropriate</a></h4>
                             <div class="bottom_border">
                             </div>
                         </div>
@@ -176,7 +178,7 @@
                                     'action' => Yii::app()->createUrl('/user/ProductReview'),
                                     'enableClientValidation'=>true,
                                     'clientOptions'=>array(
-                                            'validateOnSubmit'=>true,
+                                                'validateOnSubmit'=>true,
                                         
                                     ),
                             )); ?>
