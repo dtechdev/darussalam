@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 16, 2013 at 01:06 PM
+-- Generation Time: Apr 16, 2013 at 02:03 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `author` (
   `author_name` varchar(255) NOT NULL,
   PRIMARY KEY (`author_id`),
   KEY `author_id` (`author_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `author`
@@ -42,7 +42,9 @@ CREATE TABLE IF NOT EXISTS `author` (
 INSERT INTO `author` (`author_id`, `author_name`) VALUES
 (2, 'zahid nadeem'),
 (3, 'Ubaid'),
-(4, 'Talha');
+(4, 'Talha'),
+(5, 'Abdul Malik Mujahid'),
+(6, 'Abdul Kalam');
 
 -- --------------------------------------------------------
 
@@ -99,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 INSERT INTO `categories` (`category_id`, `category_name`, `added_date`, `parent_id`, `city_id`) VALUES
 (1, 'Books', '25-03-2013', 0, 1),
-(2, 'Books', '25-03-2013', 0, 1),
+(2, 'Pemflate', '25-03-2013', 0, 1),
 (3, 'Ahadees', '1364464356', 2, 1),
 (4, 'Madni', '28-03-2013', 3, 1),
 (5, 'Maki', '28-03-2013', 3, 1);
@@ -361,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   KEY `frenchise_id_2` (`city_id`),
   KEY `city_id` (`city_id`),
   KEY `product_id_3` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `product`
@@ -369,11 +371,12 @@ CREATE TABLE IF NOT EXISTS `product` (
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`, `product_rating`) VALUES
 (1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000, 4),
-(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000, 0),
-(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000, 0),
-(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000, 0),
-(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000, 0),
-(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000, 0);
+(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000, 4),
+(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000, 2),
+(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000, 5),
+(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000, 4),
+(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000, 0),
+(7, 'Sahih Bukhari Shareef', 'One of the Famous Islamic Ahadess Book the Bukhari Shareef', 1, '', '0', 145.0000, 2);
 
 -- --------------------------------------------------------
 
@@ -390,16 +393,20 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   KEY `category_id` (`category_id`),
   KEY `product_id` (`product_id`),
   KEY `product_category_id` (`product_category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `product_categories`
 --
 
 INSERT INTO `product_categories` (`product_category_id`, `product_id`, `category_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3);
+(1, 1, 5),
+(2, 3, 2),
+(3, 2, 3),
+(4, 4, 5),
+(5, 5, 4),
+(6, 6, 5),
+(7, 7, 5);
 
 -- --------------------------------------------------------
 
@@ -433,7 +440,7 @@ CREATE TABLE IF NOT EXISTS `product_image` (
   `image_large` varchar(255) NOT NULL,
   PRIMARY KEY (`product_image_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `product_image`
@@ -445,7 +452,15 @@ INSERT INTO `product_image` (`product_image_id`, `product_id`, `image_small`, `i
 (3, 3, 'Ibn_ul_khitab_large.jpg', 'Ibn_ul_khitab_large.jpg'),
 (4, 4, 'sayedna_umer_life_small.jpg', 'sayedna_umer_life_large.jpg'),
 (5, 5, 'the_sealed_necter_small.jpg', 'the_sealed_necter_large.jpg'),
-(6, 6, 'goden_stories_abu_baker_sidique_small.jpg', 'goden_stories_abu_baker_sidique_large.jpg');
+(6, 6, 'goden_stories_abu_baker_sidique_small.jpg', 'goden_stories_abu_baker_sidique_large.jpg'),
+(7, 1, 'the_sealed_necter_small.jpg', ''),
+(8, 2, 'the_sealed_necter_small.jpg', ''),
+(9, 4, 'the_sealed_necter_small.jpg', ''),
+(10, 6, 'the_sealed_necter_small.jpg', ''),
+(11, 1, 'Ibn_ul_khitab_large.jpg', ''),
+(12, 6, 'Ibn_ul_khitab_large.jpg', ''),
+(13, 7, 'sahih_bukhari_small.jpg', 'sahih_bukhari_large.jpg'),
+(14, 7, 'the_sealed_necter_small.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -465,7 +480,7 @@ CREATE TABLE IF NOT EXISTS `product_language` (
   KEY `language_id_3` (`language_id`),
   KEY `product_id_2` (`product_id`),
   KEY `language_id_4` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `product_language`
@@ -473,7 +488,13 @@ CREATE TABLE IF NOT EXISTS `product_language` (
 
 INSERT INTO `product_language` (`product_language_id`, `product_id`, `language_id`) VALUES
 (1, 1, 3),
-(2, 1, 2);
+(2, 2, 2),
+(3, 3, 2),
+(4, 4, 3),
+(5, 6, 3),
+(6, 5, 3),
+(7, 7, 2),
+(8, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -493,14 +514,20 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
   KEY `profile_id_2` (`profile_id`),
   KEY `author_id_2` (`author_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `product_profile`
 --
 
 INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `isbn`) VALUES
-(1, 1, 2, '546546-654-14');
+(1, 1, 5, '546546-654-14'),
+(2, 2, 6, '9001-4773729-3'),
+(3, 3, 5, '9001-333729-2'),
+(4, 4, 6, '9001-4773729-9'),
+(5, 6, 6, '9001-4773766'),
+(6, 5, 5, '9001-47429-3'),
+(8, 7, 5, '9001-47222429-3');
 
 -- --------------------------------------------------------
 
@@ -522,7 +549,17 @@ CREATE TABLE IF NOT EXISTS `product_reviews` (
   KEY `user_id` (`user_id`),
   KEY `product_id_2` (`product_id`),
   KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `product_reviews`
+--
+
+INSERT INTO `product_reviews` (`reviews_id`, `product_id`, `user_id`, `reviews`, `added_date`, `is_approved`, `is_email`) VALUES
+(1, 1, 3, 'SubhanAllah it is great book i recommend all muslims to study this book by Abdul Mujahid .', '1366112460', 'yes', 0),
+(2, 1, 4, 'I have studied this book very nice book...i liked it', '1366112655', 'yes', 1),
+(3, 2, 4, 'Character of Abu Baker Siddique RA', '1366112704', 'yes', 0),
+(4, 3, 4, 'iBN uL KHITAB RA...The Great Companion of Holy Prophet SAW', '1366112746', 'yes', 1);
 
 -- --------------------------------------------------------
 
@@ -604,16 +641,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`, `social_id`) VALUES
-(1, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '28 March, 2013', ''),
-(2, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '', ''),
-(3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', '');
+(1, 'Super', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '28 March, 2013', ''),
+(2, 'Admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '', ''),
+(3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', ''),
+(4, 'Ubaid Khan', '397d0eeffeeb20e65b68a7e99f1fe6f5', 'ubaidullah@darussalampk.com', 3, 1, NULL, 'a4bceb3cb67477df00a98127e160791241642f75', 'inactive', 1, '', '');
 
 -- --------------------------------------------------------
 
