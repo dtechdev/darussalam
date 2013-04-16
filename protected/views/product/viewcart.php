@@ -70,11 +70,26 @@
                             <table width="100%">
                                 <tr class="cart_tr">
                                     <td class="cart_left_td">Author</td>
-                                    <td class="cart_right_td">Abdul Malik Mujahid</td>
+                                    <td class="cart_right_td"><?php 
+                            foreach($pro->product->productProfile as $pp)
+                            {
+                                echo $pp->author->author_name;
+                            }?></td>
                                 </tr>
                                 <tr class="cart_tr">
                                     <td class="cart_left_td">Language</td>
-                                    <td class="cart_right_td">English</td>
+                                    <td class="cart_right_td"><?php 
+                        $i=0;
+                        foreach($pro->product->productLanguage as $lan)
+                        {
+                            if($i==0)
+                                echo $lan->language->language_name;
+                            else 
+                                echo ' / '.$lan->language->language_name;
+                            
+                             $i++;
+                        }
+                        ?></td>
                                 </tr>
                                 <tr class="cart_tr">
                                 </tr>

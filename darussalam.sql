@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2013 at 02:12 PM
+-- Generation Time: Apr 16, 2013 at 01:06 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -63,14 +63,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `cart_id` (`cart_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`cart_id`, `product_id`, `user_id`, `city_id`, `quantity`, `added_date`, `session_id`) VALUES
-(1, 1, 0, 1, 14, '1366026127', 'n72qq6on8irv13hdja0rlcnoq4');
+(19, 1, 0, 1, 1, '1366109672', '2auh9agam9uignpuorqvbq0b90');
 
 -- --------------------------------------------------------
 
@@ -368,7 +368,7 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`, `product_rating`) VALUES
-(1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000, 0),
+(1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000, 4),
 (2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000, 0),
 (3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000, 0),
 (4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000, 0),
@@ -390,7 +390,16 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   KEY `category_id` (`category_id`),
   KEY `product_id` (`product_id`),
   KEY `product_category_id` (`product_category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `product_categories`
+--
+
+INSERT INTO `product_categories` (`product_category_id`, `product_id`, `category_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -456,7 +465,15 @@ CREATE TABLE IF NOT EXISTS `product_language` (
   KEY `language_id_3` (`language_id`),
   KEY `product_id_2` (`product_id`),
   KEY `language_id_4` (`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `product_language`
+--
+
+INSERT INTO `product_language` (`product_language_id`, `product_id`, `language_id`) VALUES
+(1, 1, 3),
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -483,7 +500,7 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
 --
 
 INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `isbn`) VALUES
-(1, 1, 2, NULL);
+(1, 1, 2, '546546-654-14');
 
 -- --------------------------------------------------------
 
@@ -587,7 +604,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user`
@@ -596,9 +613,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`, `social_id`) VALUES
 (1, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '28 March, 2013', ''),
 (2, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '', ''),
-(3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', ''),
-(4, '', '93f3bc82bec7de8119453fa02391729e', 'zahidiubb@yahoo.com', 3, 1, NULL, NULL, 'active', 1, '1365680541', '100000456873660'),
-(5, '', '52a5bd7718e860a249295567e00909fb', 'zahid.nadeem@darussalampk.com', 3, 1, NULL, NULL, 'active', 1, '1365740577', '101970047434735800356');
+(3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', '');
 
 -- --------------------------------------------------------
 
