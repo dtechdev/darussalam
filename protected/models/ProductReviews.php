@@ -44,10 +44,10 @@ class ProductReviews extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('product_id, user_id, reviews, added_date, is_approved, is_email', 'required'),
+			array('product_id, reviews', 'required'),
 			array('product_id, user_id, is_email', 'numerical', 'integerOnly'=>true),
-			array('added_date', 'length', 'max'=>255),
-			array('is_approved', 'length', 'max'=>3),
+			//array('added_date', 'length', 'max'=>255),
+			//array('is_approved', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('reviews_id, product_id, user_id, reviews, added_date, is_approved, is_email', 'safe', 'on'=>'search'),
