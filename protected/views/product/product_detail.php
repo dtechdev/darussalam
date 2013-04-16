@@ -167,7 +167,14 @@
                     <div class="comments">
                     	<div class="left_comments">
                         	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/talha_mujahid_img_03.png">
-                            <h3><?php echo $rev->user->user_name;  
+                            <h3><?php 
+                            if($rev->user->user_name!=NULL)
+                            {
+                            echo $rev->user->user_name;
+                            }
+                           else {
+                              echo $rev->user->user_email; 
+                           }
                              ?></h3>
                         </div>
                         
