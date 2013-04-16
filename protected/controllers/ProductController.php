@@ -270,18 +270,21 @@ class ProductController extends Controller {
     }
 
     public function actionEditcart() {
-        Yii::app()->theme = Yii::app()->session['layout'];
-        Yii::app()->controller->layout = '//layouts/main';
+
+        if($_REQUEST['type']=='delete_cart')
+        {
+            $cart_model = new Cart();
+            $cart_model->findByPk($_REQUEST['cart_id'])->delete();
+            //$this->redirect('/product/viewcart');
         
-        $cart_model = new Cart();
-        if (isset(Yii::app()->user->id)) {
-            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id . ' OR session_id="' . Yii::app()->getSession()->sessionID . '"');
-        } else {
-            $cart = $cart_model->findAll('session_id="' . Yii::app()->getSession()->sessionID . '"');
+        }else{
+            $cart_model = new Cart();
+            $cart = $cart_model->find('cart_id=' . $_REQUEST['cart_id']);
+            $cart_model = $cart;
+            $cart_model->quantity = $_REQUEST['quantity'];
+            $cart_model->save();
         }
-        
-        
-        $this->render('viewcart',array('cart'=>$cart));
+        echo CJSON::encode(array('redirect'=>$this->createUrl('/product/viewcart')));
     }
 
     /**

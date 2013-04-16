@@ -1,16 +1,7 @@
-<?php 
-//print "<pre>";
-//print_r($cart);
-//echo $cart->cart_id;
-foreach($cart as $pro){
-   // print_r($pro->product->product_name);
-    //print "<br />";
-}
-?>
 <div id="book_content">
     	<div id="book_main_content">
         	<div class="left_book_main_content">
-            	<a href="index.html"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
+            	<a href="<?php echo $this->createUrl('/site/storehome',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
             </div>
             <div class="search_box">
             	<input type="text" placeholder="Search keywords or image ids..." value="" class="search_text" />
@@ -41,14 +32,40 @@ foreach($cart as $pro){
                     
                 	<div class="upper_cart">
                         <div class="left_left_cart">
-                            <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/small_product_img.png" />
+                            <img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$pro->product->productImages[0]->image_small;?>" />
                         </div>
                           
                            
                             
                         <div class="left_right_cart">
                             <h1><?php echo $pro->product->product_name;?></h1>
-                            <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/close_img_03.png" class="close_img" /></a>
+                            <?php
+                            echo 
+        CHtml::ajaxLink(
+                CHtml::image(
+                        Yii::app()->theme->baseUrl . "/images/close_img_03.png",
+                        "Publish",
+                        array(
+                                "title"=>"Delete",
+                                "class"=>"close_img",
+                        )
+                ),
+                Yii::app()->createUrl("product/editcart"),
+                array(
+                        "type"=>"POST",
+                        "dataType"=>"json",
+                        "data"=>array(
+                                "type"=>'delete_cart',
+                                "cart_id"=>$pro->cart_id,
+                        ),
+                        "success"=>"function(data) {
+                                                            window.location.href=data.redirect
+                                                           }",
+                )
+        );
+
+                            ?>
+<!--                            <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/close_img_03.png" class="close_img" /></a>-->
                             <h2><?php echo $pro->product->product_description;?></h2>
                             <table width="100%">
                                 <tr class="cart_tr">
@@ -67,7 +84,19 @@ foreach($cart as $pro){
                                 <span>Quantity</span> 
                                 <?php 
                                 $quantities = array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10');
-                                echo CHtml::dropDownList('quantity'.$pro->cart_id,'', $quantities , array('options' => array($pro->quantity=>array('selected'=>true))),array( 'onChange' => 'javascript:totalPrice(this.value,"'.$pro->product->product_price.'")' ));
+                                echo CHtml::dropDownList('quantity'.$pro->cart_id,'', $quantities ,
+                                        array(
+                                            'options' => array($pro->quantity=>array('selected'=>true)),
+                                            'ajax'=>array(
+                                            'type'=>'POST',
+                                            'url'=>Yii::app()->createUrl('product/editcart'),
+                                            'data'=>array('quantity'=>'js:jQuery(this).val()','type'=>'update_quantity','cart_id'=>$pro->cart_id),
+                                            'dataType' => 'json',
+                                            'success' => 'function(data) {
+                                                            window.location.href=data.redirect
+                                                           }',
+                                        ))
+                                        );
                                 ?>
                                 <h3>$<?php echo round($pro->quantity*$pro->product->product_price,2);?></h3>
                             </div>
