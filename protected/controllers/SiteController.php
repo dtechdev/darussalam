@@ -25,61 +25,7 @@ class SiteController extends Controller {
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
-
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        $siteUrl = $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-        $site_id = SelfSite::model()->getSiteId($siteUrl);
-        Yii::app()->session['site_id'] = $site_id;
-        
-        if(isset(Yii::app()->session['city_id']) && Yii::app()->session['city_id']!='')
-        {
-             $city_id=Yii::app()->session['city_id'];
-        }
-        else
-        {
-            $locationArray=Yii::app()->user->IpInfo;
-            $city_auto=  strtolower($locationArray['citystate']);
-            $country_auto=  strtolower($locationArray['country']);
-            $short_country_auto=  strtolower($locationArray['short_country']);
-
-            $cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
-            if($cityfind!=null)
-            {
-                $city_id=$cityfind->city_id;
-            }
-            else
-            {
-                $countryfind = Country::model()->find('LOWER(country_name)=?',array($country_auto));
-                if($countryfind!=null)
-                {
-                    $city_find = City::model()->find('country_id=?',array($countryfind->country_id));
-                    $city_id=$city_find->city_id;
-                }
-                else
-                {
-                    $city_auto=Yii::app()->params->head_office_city;
-                    $cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
-                    $city_id=$cityfind->city_id;
-                }
-            }
-        
-        }
-
-        $city = City::model()->findByPk($city_id);
-        $countries = Country::model()->findByPk($city['country_id']);
-        $country_short_name=$countries['short_name'];
-        $city_short_name=$city['short_name'];
-        
-        $layout_id = $city['layout_id'];
-        $layout = Layout::model()->findByPk($layout_id);
-        $layout_name = $layout['layout_name'];
-
-        Yii::app()->session['layout'] = $layout_name;
-        Yii::app()->session['country_short_name'] = $country_short_name;
-        Yii::app()->session['city_short_name'] = $city_short_name;
-        Yii::app()->session['city_id'] = $city['city_id'];
-        Yii::app()->theme = Yii::app()->session['layout'];
+        Yii::app()->user->SiteSessions;
         $this->redirect(array('/site/storehome','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
     }
 
@@ -108,12 +54,14 @@ class SiteController extends Controller {
 
     public function actionallProducts() {
         //queries 
+        Yii::app()->user->SiteSessions;
         $order_detail = new OrderDetail;
         $all_products = $order_detail->allProducts();
         Yii::app()->controller->layout = '//layouts/main';
         $this->render('all_products',array('products'=>$all_products));
     }
     public function actionfeaturedProducts() {
+        Yii::app()->user->SiteSessions;
         Yii::app()->theme = Yii::app()->session['layout'];
         //queries 
         $order_detail = new OrderDetail;
@@ -123,6 +71,7 @@ class SiteController extends Controller {
     }
 
     public function actionbestSellings() {
+        Yii::app()->user->SiteSessions;
         Yii::app()->theme = Yii::app()->session['layout'];
         //queries 
         $order_detail = new OrderDetail;
@@ -139,6 +88,7 @@ class SiteController extends Controller {
     }
 
     public function actionproductDetail() {
+        
         Yii::app()->theme = Yii::app()->session['layout'];
 
         $product_obj = new Product();
