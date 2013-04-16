@@ -112,14 +112,13 @@
                    	</div>
                     <div class="product_cart">
                     	<tr class="price_cart">
-                        	<td class="price"><?php echo  '$ '.round($product->product_price,2);?></td>
+                        	<td class="price"  id="price"><?php echo  '$ '.round($product->product_price,2);?></td>
                             <td class="quantity">Quantity 
-                            <select id="quantity">
-                            	<option value="1"> 1
-                                <option value="2"> 2
-                                <option value="3"> 3
-                                <option value="4"> 4
-                            </select></td>
+                            <?php 
+                                $quantities = array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10');
+                                echo CHtml::dropDownList('quantity','', $quantities,array( 'onChange' => 'javascript:totalPrice(this.value,"'.$product->product_price.'")' ), array());
+                                ?>
+                            </td>
                             <td class="add_cart"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/add_to_cart_img.png" />
                                 
 <!--                                <input type="button" src="<?php echo Yii::app()->theme->baseUrl; ?>/images/add_to_cart_img.png" value="Add to Cart" class="add_to_cart" />-->
@@ -218,4 +217,11 @@
             </div>
         </div>
    	</div>
+        <script>
+        function totalPrice(quantity,price)
+        {
+            total_price=quantity*price;
+            $('#price').html('$'+total_price);
+        }    
+        </script>
     

@@ -26,7 +26,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'addtocart','viewcart'),
+                'actions' => array('index', 'view', 'addtocart','viewcart','editcart'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -257,7 +257,31 @@ class ProductController extends Controller {
     public function actionViewcart() {
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
-        $this->render('viewcart');
+        
+                $cart_model = new Cart();
+        if (isset(Yii::app()->user->id)) {
+            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id . ' OR session_id="' . Yii::app()->getSession()->sessionID . '"');
+        } else {
+            $cart = $cart_model->findAll('session_id="' . Yii::app()->getSession()->sessionID . '"');
+        }
+        
+        
+        $this->render('viewcart',array('cart'=>$cart));
+    }
+
+    public function actionEditcart() {
+        Yii::app()->theme = Yii::app()->session['layout'];
+        Yii::app()->controller->layout = '//layouts/main';
+        
+        $cart_model = new Cart();
+        if (isset(Yii::app()->user->id)) {
+            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id . ' OR session_id="' . Yii::app()->getSession()->sessionID . '"');
+        } else {
+            $cart = $cart_model->findAll('session_id="' . Yii::app()->getSession()->sessionID . '"');
+        }
+        
+        
+        $this->render('viewcart',array('cart'=>$cart));
     }
 
     /**
