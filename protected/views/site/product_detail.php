@@ -169,6 +169,16 @@
                             </div>
                         </div>
                                 </div><?php } ?>
+                    
+                    <?php $form=$this->beginWidget('CActiveForm', array(
+                                    'id'=>'login-form',
+                                    'action' => Yii::app()->createUrl('/user/ProductReview'),
+                                    'enableClientValidation'=>true,
+                                    'clientOptions'=>array(
+                                            'validateOnSubmit'=>true,
+                                        
+                                    ),
+                            )); ?>
                     <div class="comments">
                     	<div class="left_comments">
                         	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/talha_mujahid_img_03.png">
@@ -177,11 +187,33 @@
                         	<div>
                         		<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />
                            	</div>
-                       		<textarea rows="2" cols="59"></textarea>
-                            <input type="checkbox" class="comments_checkbox" value="Send me an email for each new comment."> <span>Send me an email for each new comment.</span>
-                            <input type="button" value="Add Comment" class="add_comment">
+                       		
+
+                                   <?php 
+                                   $modelC= new  ProductReviews;
+                                   $pid=$product->product_id;
+                                   if(Yii::app()->user->id!=NUll)
+                                {
+                                   echo $form->textArea($modelC, 'reviews', $htmlOptions=array('maxlength' => 300, 'rows'=>'2', 'cols'=>'59'));
+                                }else { 
+                                  echo $form->textArea($modelC, 'reviews', $htmlOptions=array('maxlength' => 300, 'rows'=>'2', 'cols'=>'59','readonly'=>'readonly'));
+                                  
+                                }
+                                   echo $form->hiddenField($modelC,'product_id',array('value'=>$pid)); 
+                                   ?>
+
+                               <?php echo $form->checkBox($modelC,'is_email',$htmlOptions=array('class'=>'comments_checkbox')); ?>
+                                <span>Send me an email for each new comment.</span>
+                               <?php if(Yii::app()->user->id!=NUll)
+                                {
+                             echo CHtml::submitButton('Add Comments',array('class'=>'add_comment'));
+                             }else
+                             {
+                               echo CHtml::submitButton('Add Comments',$htmlOptions=array('class'=>'add_comment','disabled'=>'disabled'));  
+                             }?>
                         </div>
                     </div>
+                    <?php $this->endWidget(); ?>
                 </div>
             </div>
         </div>
