@@ -166,8 +166,35 @@
                                     <?php echo $rev->reviews;?>
                                 </p>
                             <h4><?php //echo time()-$rev->added_date;
-                            echo $numDays = round(abs(time() - $rev->added_date)/60/60,2);
-                            ?> hours ago <a href="#">- Report as inappropriate</a></h4>
+                            $numDays = round(abs(time() - $rev->added_date)/86400 % 7);
+                            $numHours = round(abs(time() - $rev->added_date)/ 3600 % 24);
+                            $numMinutes = round(abs(time() - $rev->added_date)/ 60 % 60);
+                            $numSeconds = round(abs(time() - $rev->added_date)% 60);
+                            $remainingtime='';
+                            if($numDays!=0 AND $numDays==1)
+                            {
+                                $remainingtime.=$numDays.' Day ';
+                            }
+                            if($numDays!=0 AND $numDays >1)
+                            {
+                                $remainingtime.=$numDays.' Days ';
+                            }
+                            if($numHours!=0)
+                            {
+                                $remainingtime.=$numHours.' Hours ';
+                            }
+                            if($numMinutes!=0)
+                            {
+                                $remainingtime.=$numMinutes.' Minutes ';
+                            }
+                            if($numSeconds!=0)
+                            {
+                                $remainingtime.=$numSeconds.' Seconds ';
+                            }
+
+                            echo $remainingtime;
+
+                            ?> ago <a href="#">- Report as inappropriate</a></h4>
                             <div class="bottom_border">
                             </div>
                         </div>
