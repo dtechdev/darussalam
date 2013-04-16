@@ -30,7 +30,7 @@ class SiteController extends Controller {
     }
 
     public function actionStoreHome() {
-
+   
         $city = City::model()->findByPk($_REQUEST['city_id']);
         $layout_id = $city['layout_id'];
         $layout = Layout::model()->findByPk($layout_id);
@@ -107,7 +107,7 @@ class SiteController extends Controller {
      */
     public function actionLogin() {
         $model = new LoginForm;
-
+        $ip = getenv("REMOTE_ADDR");
         // if it is ajax validation request
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
             echo CActiveForm::validate($model);
@@ -127,7 +127,17 @@ class SiteController extends Controller {
                     $this->redirect(array('user/admin'));
                 }
                 if (Yii::app()->user->isCustomer) {
-                    //$this->redirect(array('site/index'));
+                    $cart_model = new Cart();
+                    $cart = $cart_model->findAll('session_id="' . $ip . '"');
+                    foreach($cart as $pro)
+                    {
+                        $cart_model2 = new Cart();
+                        $cart_model2 = $pro;
+                        $cart_model2->user_id=Yii::app()->user->id;
+                        $cart_model2->session_id='';
+                        $cart_model2->save();
+                    }
+                    
                     $this->redirect(array('/product/allProducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
                 }
             }

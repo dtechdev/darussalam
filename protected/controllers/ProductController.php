@@ -216,11 +216,12 @@ class ProductController extends Controller {
 
     public function actionAddtocart() {
 
+        $ip = getenv("REMOTE_ADDR");
         $cart_model = new Cart();
         if (isset(Yii::app()->user->id)) {
-            $cart = $cart_model->find('product_id=' . $_REQUEST['product_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . Yii::app()->getSession()->sessionID . '")');
+            $cart = $cart_model->find('product_id=' . $_REQUEST['product_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
         } else {
-            $cart = $cart_model->find('product_id=' . $_REQUEST['product_id'] . ' AND session_id="' . Yii::app()->getSession()->sessionID . '"');
+            $cart = $cart_model->find('product_id=' . $_REQUEST['product_id'] . ' AND session_id="' . $ip . '"');
         }
         if ($cart != null) {
             $cart_model = $cart;
@@ -232,7 +233,7 @@ class ProductController extends Controller {
             $cart_model->user_id = Yii::app()->user->id;
             $cart_model->city_id = Yii::app()->session['city_id'];
             $cart_model->added_date = time();
-            $cart_model->session_id = Yii::app()->getSession()->sessionID;
+            $cart_model->session_id = $ip;
             ;
         }
         $cart_model->save();
@@ -242,27 +243,28 @@ class ProductController extends Controller {
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')
-                    ->where('session_id="' . Yii::app()->getSession()->sessionID . '" or user_id=' . Yii::app()->user->id)
+                    ->where('session_id="' . $ip . '" or user_id=' . Yii::app()->user->id)
                     ->queryRow();
         } else {
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')
-                    ->where('session_id="' . Yii::app()->getSession()->sessionID . '"')
+                    ->where('session_id="' . $ip . '"')
                     ->queryRow();
         }
 
         echo CJSON::encode(array('product_id' => '1', 'cart_counter' => $tot['cart_total']));
     }
     public function actionViewcart() {
+        $ip = getenv("REMOTE_ADDR");
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
         
                 $cart_model = new Cart();
         if (isset(Yii::app()->user->id)) {
-            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id . ' OR session_id="' . Yii::app()->getSession()->sessionID . '"');
+            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '"');
         } else {
-            $cart = $cart_model->findAll('session_id="' . Yii::app()->getSession()->sessionID . '"');
+            $cart = $cart_model->findAll('session_id="' . $ip . '"');
         }
         
         

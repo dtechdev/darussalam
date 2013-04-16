@@ -34,7 +34,7 @@ class WebUser extends CWebUser{
                     }
                      
                     function getIpInfo(){
-                        $ip = getenv("REMOTE_ADDR") ;
+                        $ip = getenv("REMOTE_ADDR");
                         $content = @file_get_contents('http://api.hostip.info/?ip='.$ip);
                         if ($content != FALSE) {
                                 $xml = new SimpleXmlElement($content);
