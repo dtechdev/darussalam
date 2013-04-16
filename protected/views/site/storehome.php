@@ -53,8 +53,8 @@
                 </div>
           	</div>    
 <div id="left_books">
-    <?php //echo CHtml::link('( View All )', array('/site/featuredProducts', 'country' => $country_short_name, 'city' => $city_short_name, 'city_id' => $city_id), array('class' => 'blue-title-link')); ?>
-            	<h2>FEATURED PRODUCTS <span><?php echo CHtml::link('( VIEW ALL )', array('/site/featuredProducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']), array('class' => 'blue-title-link'));?></span></h2>
+    <?php //echo CHtml::link('( View All )', array('/product/featuredProducts', 'country' => $country_short_name, 'city' => $city_short_name, 'city_id' => $city_id), array('class' => 'blue-title-link')); ?>
+            	<h2>FEATURED PRODUCTS <span><?php echo CHtml::link('( VIEW ALL )', array('/product/featuredProducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']), array('class' => 'blue-title-link'));?></span></h2>
 <!--            	<h2>FEATURED PRODUCTS <span>( <a href="<?php //echo $this->createUrl('/site/featuredProducts')?>">VIEW ALL</a> )</span></h2>-->
 <?php
 //echo Yii::app()->getBaseUrl(true);
@@ -65,8 +65,8 @@ foreach($product as $featured)
      {
        ?>
                 <div class="books">
-                	<a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$featured['product_id']));?>"><img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_small'];?>" alt="Pen QURAN PAK" /></a>
-                    <p><a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$featured['product_id']));?>"><?php echo $name; ?></a></p>
+                	<a href="<?php echo $this->createUrl('/product/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$featured['product_id']));?>"><img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_small'];?>" alt="Pen QURAN PAK" /></a>
+                    <p><a href="<?php echo $this->createUrl('/product/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$featured['product_id']));?>"><?php echo $name; ?></a></p>
                 </div>
        <?php
        break;
@@ -75,8 +75,8 @@ foreach($product as $featured)
 ?>
 </div>
 <div id="right_books">
-    <h2>BEST SELLING BOOKS <span><?php echo CHtml::link('( VIEW ALL )', array('/site/bestSellings', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']), array('class' => 'blue-title-link'));?></h2>
-<!--    <h2>BEST SELLING BOOKS <span>( <a href="<?php echo $this->createUrl('/site/bestSellings')?>">VIEW ALL</a> )</h2>-->
+    <h2>BEST SELLING BOOKS <span><?php echo CHtml::link('( VIEW ALL )', array('/product/bestSellings', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']), array('class' => 'blue-title-link'));?></h2>
+<!--    <h2>BEST SELLING BOOKS <span>( <a href="<?php echo $this->createUrl('/product/bestSellings')?>">VIEW ALL</a> )</h2>-->
 <?php
 foreach($best_sellings as $bests)
 {
@@ -86,8 +86,8 @@ foreach($best_sellings as $bests)
      {
        ?>
     <div class="books2">
-                	<a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$bests['product_id']));?>"><img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_small'];?>" alt="Pen QURAN PAK" /></a>
-                    <p><a href="<?php echo $this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$bests['product_id']));?>"><?php echo $pro_name.'('.$orders.')'; ?></a></p>
+                	<a href="<?php echo $this->createUrl('/product/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$bests['product_id']));?>"><img src="<?php  echo Yii::app()->baseUrl.'/images/product_images/'.$image['image_small'];?>" alt="Pen QURAN PAK" /></a>
+                    <p><a href="<?php echo $this->createUrl('/product/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$bests['product_id']));?>"><?php echo $pro_name.'('.$orders.')'; ?></a></p>
                 </div>
        <?php
        break;

@@ -363,11 +363,11 @@ class UserController extends Controller {
             if ($modelComment->validate()) {
 
                     if ($modelComment->save()){
-               $this->redirect($this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$product_id)));
+               $this->redirect($this->createUrl('/product/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$product_id)));
         } //getFull name is a getter function in profile model merge 1st + last name
                 } else {
                     echo CHtml::errorSummary($modelComment);
-                     $this->redirect($this->createUrl('/site/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$product_id)));
+                     $this->redirect($this->createUrl('/product/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$product_id)));
                 }
            
 //        $this->render('update_profile', array(

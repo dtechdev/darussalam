@@ -52,51 +52,7 @@ class SiteController extends Controller {
         );
     }
 
-    public function actionallProducts() {
-        //queries 
-        Yii::app()->user->SiteSessions;
-        $order_detail = new OrderDetail;
-        $all_products = $order_detail->allProducts();
-        Yii::app()->controller->layout = '//layouts/main';
-        $this->render('all_products',array('products'=>$all_products));
-    }
-    public function actionfeaturedProducts() {
-        Yii::app()->user->SiteSessions;
-        Yii::app()->theme = Yii::app()->session['layout'];
-        //queries 
-        $order_detail = new OrderDetail;
-        $featured_products = $order_detail->featuredBooks();
-        Yii::app()->controller->layout = '//layouts/main';
-        $this->render('featured_products',array('products'=>$featured_products));
-    }
-
-    public function actionbestSellings() {
-        Yii::app()->user->SiteSessions;
-        Yii::app()->theme = Yii::app()->session['layout'];
-        //queries 
-        $order_detail = new OrderDetail;
-        $best_sellings = $order_detail->bestSellings();
-        Yii::app()->controller->layout = '//layouts/main';
-        $this->render('best_sellings',array('products'=>$best_sellings));
-    }
-
-    public function actionproductListing() {
-        Yii::app()->theme = Yii::app()->session['layout'];
-
-        Yii::app()->controller->layout = '//layouts/main';
-        $this->render('product_listing');
-    }
-
-    public function actionproductDetail() {
-        
-        Yii::app()->theme = Yii::app()->session['layout'];
-
-        $product_obj = new Product();
-        $product=$product_obj->find($condition='product_id='.$_REQUEST['product_id']);
-        
-        Yii::app()->controller->layout = '//layouts/main';
-        $this->render('product_detail',array('product'=>$product));
-    }
+    
 
     /**
      * This is the action to handle external exceptions.
@@ -172,7 +128,7 @@ class SiteController extends Controller {
                 }
                 if (Yii::app()->user->isCustomer) {
                     //$this->redirect(array('site/index'));
-                    $this->redirect(array('/site/allProducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+                    $this->redirect(array('/product/allProducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
                 }
             }
         }
