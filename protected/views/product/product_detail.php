@@ -33,13 +33,24 @@
                 	<div class="middle_book">
                         <h1><?php echo $product->product_name;?></h1>
                         <div class="products_img">
+                            
+                            <div id="fb-root"></div>
+                                <script>(function(d, s, id) {
+                                  var js, fjs = d.getElementsByTagName(s)[0];
+                                  if (d.getElementById(id)) return;
+                                  js = d.createElement(s); js.id = id;
+                                  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                                  fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));</script>
+                            
                         	<div class="fly_product_hover">
                             </div>
                             <div class="f_product_hover">
                             </div>
                             <div class="t_product_hover">
                             </div>
-                            <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/f_like_product_img_03.jpg"></a>
+                            <a href="#">
+                             <div class="fb-like" data-href="http://darussalam.ilsainteractive.com"  data-layout="button_count" data-width="200" data-show-faces="true"></div></a>
                         </div>
                         <h2><?php echo $product->product_description;?></h2>
                    	</div>
