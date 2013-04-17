@@ -132,8 +132,20 @@ class SiteController extends Controller {
                     foreach($cart as $pro)
                     {
                         $cart_model2 = new Cart();
-                        $cart_model2 = $pro;
+                        $exitstProduct=$cart_model2->find("user_id=".Yii::app()->user->id." AND product_id=".$pro->product_id);
+                        if($exitstProduct)
+                        {
+                            $exitstProduct->quantity=$exitstProduct->quantity+$pro->quantity;
+                            $cart_model2=$exitstProduct;
+                            Cart::model()->findByPk($pro->cart_id)->delete();
+                        }
+                        else
+                        {
+                            $cart_model2 = $pro;
+                        }
+                        
                         $cart_model2->user_id=Yii::app()->user->id;
+                        
                         $cart_model2->session_id='';
                         $cart_model2->save();
                     }

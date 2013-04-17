@@ -83,7 +83,7 @@
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')
-                    ->where('session_id="' .$ip. '" or user_id=' . Yii::app()->user->id)
+                    ->where('user_id=' . Yii::app()->user->id)
                     ->queryRow();
         } else {
             $tot = Yii::app()->db->createCommand()
