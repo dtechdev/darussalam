@@ -138,7 +138,7 @@
                                 <td class="right_right_cart_td">$<?php echo $grand_total;?></td>
                             </tr>
                       	</table>
-                        <input type="button" value="Checkout" class="check_out" />
+                                <a href="<?php echo $this->createUrl('/product/paymentmethod');?>"><input type="button" value="Checkout" class="check_out" /></a>
                   	</div>
                 </div>
            	</div>

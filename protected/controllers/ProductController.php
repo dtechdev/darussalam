@@ -26,7 +26,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'addtocart','viewcart','editcart','allproducts','featuredproducts','bestsellings','productdetail','productlisting'),
+                'actions' => array('index', 'view', 'addtocart','viewcart','editcart','allproducts','featuredproducts','bestsellings','productdetail','productlisting','paymentmethod'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -336,7 +336,15 @@ class ProductController extends Controller {
         Yii::app()->controller->layout = '//layouts/main';
         $this->render('product_detail',array('product'=>$product));
     }
-    /**
+    public function  actionpaymentMethod()
+    {
+     Yii::app()->theme = Yii::app()->session['layout'];
+     Yii::app()->controller->layout = '//layouts/main';
+        $this->render('payment_method');
+        
+    }
+
+        /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
