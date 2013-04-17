@@ -167,10 +167,6 @@ body, html { padding: 0; margin: 0; width:auto; }
 
 .txt .txt_bar { width:302px; }
 
-.txt_bar { padding: 0; }
-
-.txt2 .txt_btn { padding: 0; }
-
 }
 
 @media screen and (max-width: 480px) {
@@ -187,13 +183,11 @@ body, html { padding: 0; margin: 0; width:auto; }
 
 #left_banner { width:280px; }
 
+#text { padding: 0; margin: 32px 0 0 0; }
+
 .txt { width:270px; }
 
 .txt .txt_bar { width:154px; }
-
-.txt_bar { padding: 0; }
-
-.txt2 .txt_btn { padding: 0; }
 
 #right_banner { display:none; }
 
@@ -228,6 +222,8 @@ body, html { padding: 0; margin: 0; width:auto; }
 }
 
 @media screen and (max-width: 320px) {
+	
+#text { padding: 0; margin: 0px 0 0 0; }
 	
 #main_header nav { width:250px; }	
 
