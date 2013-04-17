@@ -203,6 +203,8 @@ class Paypal extends CComponent{
     public function isCallSucceeded($resArray){
         $ack = strtoupper($resArray["ACK"]); 
         //Detect Errors 
+        
+        
         if($ack != "SUCCESS" && $ack != 'SUCCESSWITHWARNING'){ 
             return false;
         }else{

@@ -149,9 +149,9 @@ return array(
         
         'Paypal' => array(
 			'class'=>'application.components.Paypal',
-			'apiUsername' => 'ubaidullah-facilitator_api1.darussalampk.com',
-			'apiPassword' => '1366182478',
-			'apiSignature' => 'Aapaqm6ans4WJekg4.XfJgGjSuI5A6JoJ-0wPCJBJcNA.zUb7O3t19LN',
+			'apiUsername' => 'zahid.nadeem-facilitator_api1.darussalampk.com',
+			'apiPassword' => '1366199236',
+			'apiSignature' => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS',
 			'apiLive' => false,
 			
 			'returnUrl' => 'paypal/confirm/', //regardless of url management component

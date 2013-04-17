@@ -8,10 +8,13 @@ class PaypalController extends Controller
 		$paymentInfo['Order']['theTotal'] = 30.00;
 		$paymentInfo['Order']['description'] = "Good Descriptoin of products....";
 		$paymentInfo['Order']['quantity'] = '2';
+                
 
 		// call paypal 
 		$result = Yii::app()->Paypal->SetExpressCheckout($paymentInfo); 
 		//Detect Errors 
+                
+                
 		if(!Yii::app()->Paypal->isCallSucceeded($result)){ 
 			if(Yii::app()->Paypal->apiLive === true){
 				//Live mode basic error message
@@ -38,12 +41,11 @@ class PaypalController extends Controller
 		$payerId = trim($_GET['PayerID']);
 		
 		
-		
 		$result = Yii::app()->Paypal->GetExpressCheckoutDetails($token);
 
 		$result['PAYERID'] = $payerId; 
 		$result['TOKEN'] = $token; 
-		$result['ORDERTOTAL'] = 0.00;
+		$result['ORDERTOTAL'] = 30.00;
 
 		//Detect errors 
 		if(!Yii::app()->Paypal->isCallSucceeded($result)){ 
