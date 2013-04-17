@@ -147,6 +147,18 @@ return array(
             'host_port' => 465,
             'ssl' => 'true',
         ),
+        
+                'Paypal' => array(
+			'class'=>'application.components.Paypal',
+			'apiUsername' => 'ubaidullah-facilitator_api1.darussalampk.com',
+			'apiPassword' => '1366182478',
+			'apiSignature' => 'Aapaqm6ans4WJekg4.XfJgGjSuI5A6JoJ-0wPCJBJcNA.zUb7O3t19LN',
+			'apiLive' => false,
+			
+			'returnUrl' => 'paypal/confirm/', //regardless of url management component
+			'cancelUrl' => 'paypal/cancel/', //regardless of url management component
+		),
+        
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']

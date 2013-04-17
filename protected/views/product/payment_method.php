@@ -71,7 +71,7 @@
                     </div>
                     <div class="paypal">
                     	<span>PayPal</span>
-                    	<a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/paypal_img_03.png" alt="paypal img" class="paypal_img" /></a>
+                    	<a href="<?php echo  $this->createUrl('/Paypal/buy');?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/paypal_img_03.png" alt="paypal img" class="paypal_img" /></a>
                   	</div>
                     <div class="under_left_method">
                     	<input type="checkbox" /><span class="payment_check"> Save your payment method for any future transactions</span>
