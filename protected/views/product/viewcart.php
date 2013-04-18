@@ -23,7 +23,7 @@
                                 <div id="shopping_cart" style="height:308px;text-align:center;  ">
     	                            <div id="main_shopping_cart">
                                         <div class="left_right_cart">
-                                        Your Card IS empty
+                                        Your Cart IS empty
                                       </div>
                                     </div>                                        
                                 </div>
