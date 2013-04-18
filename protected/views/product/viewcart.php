@@ -42,8 +42,10 @@
                 <div class="left_cart">
                      <?php 
                      $grand_total=0;
+                     $total_quantity=0;
                             foreach($cart as $pro){
                                 $grand_total=$grand_total+($pro->quantity*$pro->product->product_price);
+                                $total_quantity+=$pro->quantity;
 
                             ?>
                     
@@ -157,8 +159,11 @@
                       	</table>
                                 <?php if (Yii::app()->user->id)
                                 {?>
-                                  <a href="<?php echo $this->createUrl('/product/paymentmethod');?>"><input type="button" value="Checkout" class="check_out" /></a>
-                                 
+                                  <form method="POST" action="<?php echo $this->createUrl('/product/paymentmethod');?>">
+                                    <input type="hidden" name="total_price" value="<?php echo $grand_total;?>">
+                                    <input type="hidden" name="quantity" value="<?php echo $total_quantity;?>">
+                                    <input type="submit" value="Checkout" class="check_out" />
+                                  </form>
                                 <?php }  else { ?>
                                 <a href="<?php echo $this->createUrl('/site/login');?>"><input type="button" value="Checkout" class="check_out" /></a>
                                      <?php } ?>
