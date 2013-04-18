@@ -30,7 +30,7 @@ class ProductController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
+                'actions' => array('create', 'update','confirmorder'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -344,6 +344,25 @@ class ProductController extends Controller {
      Yii::app()->theme = Yii::app()->session['layout'];
      Yii::app()->controller->layout = '//layouts/main';
         $this->render('payment_method');
+        
+    }
+
+    public function  actionconfirmOrder()
+    {
+        Yii::app()->user->SiteSessions;
+        $ip = getenv("REMOTE_ADDR");
+        Yii::app()->theme = Yii::app()->session['layout'];
+        Yii::app()->controller->layout = '//layouts/main';
+        
+                $cart_model = new Cart();
+        if (isset(Yii::app()->user->id)) {
+            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '"');
+        } else {
+            $cart = $cart_model->findAll('session_id="' . $ip . '"');
+        }
+        
+        
+        $this->render('confirm_order',array('cart'=>$cart));
         
     }
 

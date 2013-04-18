@@ -159,11 +159,7 @@
                       	</table>
                                 <?php if (Yii::app()->user->id)
                                 {?>
-                                  <form method="POST" action="<?php echo $this->createUrl('/product/paymentmethod');?>">
-                                    <input type="hidden" name="total_price" value="<?php echo $grand_total;?>">
-                                    <input type="hidden" name="quantity" value="<?php echo $total_quantity;?>">
-                                    <input type="submit" value="Checkout" class="check_out" />
-                                  </form>
+                                  <a href="<?php echo $this->createUrl('/product/paymentmethod');?>"><input type="button" value="Checkout" class="check_out" /></a>
                                 <?php }  else { ?>
                                 <a href="<?php echo $this->createUrl('/site/login');?>"><input type="button" value="Checkout" class="check_out" /></a>
                                      <?php } ?>
@@ -172,11 +168,3 @@
            	</div>
         </div>
 </div><?php }?>
-
-        <script>
-    function totalPrice(quantity,price)
-    {
-        total_price=quantity*price;
-        $('#price').html('$'+total_price);
-    }    
-    </script>

@@ -5,9 +5,9 @@ class PaypalController extends Controller
 	public function actionBuy(){
                
 		// set 
-		$paymentInfo['Order']['theTotal'] = 30.00;
-		$paymentInfo['Order']['description'] = "Good Descriptoin of products....";
-		$paymentInfo['Order']['quantity'] = '2';
+		$paymentInfo['Order']['theTotal'] = Yii::app()->session['total_price']  ;
+		$paymentInfo['Order']['description'] = Yii::app()->session['description'];
+		$paymentInfo['Order']['quantity'] = Yii::app()->session['quantity'];
                 
 
 		// call paypal 
@@ -43,9 +43,10 @@ class PaypalController extends Controller
 		
 		$result = Yii::app()->Paypal->GetExpressCheckoutDetails($token);
 
+                
 		$result['PAYERID'] = $payerId; 
 		$result['TOKEN'] = $token; 
-		$result['ORDERTOTAL'] = 30.00;
+		$result['ORDERTOTAL'] = Yii::app()->session['total_price'];
 
 		//Detect errors 
 		if(!Yii::app()->Paypal->isCallSucceeded($result)){ 
