@@ -60,7 +60,25 @@
                         <input type="checkbox"><span>Italian</span>
                     </div>
                     <h1>Author</h1>
-                    <select>
+                    <?php 
+                    $models=  Author::model()->findAll();
+                    $lstdata=CHtml::listData($models,'author_id','author_name');
+                    echo CHtml::dropDownList('author_id','', $lstdata,//not in action.....
+                            
+                                          array(
+                                            'options' => array('author_name'=>array('selected'=>true)),
+                                            'ajax'=>array(
+                                            'type'=>'POST',
+                                            'url'=>Yii::app()->createUrl('product/editcart'),
+                                            'data'=>array('quantity'=>'js:jQuery(this).val()','type'=>'update_quantity'),
+                                            'dataType' => 'json',
+                                            'success' => 'function(data) {
+                                                            window.location.href=data.redirect
+                                                           }',)
+                                              ));
+                            
+                    ?>
+<!--                    <select>
                         <option value="Any Author" selected>Any Author</option>
                         <option value="Abdul Aziz">Abdul Aziz</option>
                         <option value="Abdul Aziz Shanwai">Abdul Aziz Shanwai</option>
@@ -69,7 +87,7 @@
                         <option value="Abdul Ahad">Abdul Ahad</option>
                         <option value="Abdul Qasim">Abdul Qasim</option>
                         <option value="Abdul Mujahid">Abdul Mujahid</option>
-                    </select>
+                    </select>-->
                 </div>
                 <div id="category_list">
                 <h2>VIEW BY CATEGORY</h2>
