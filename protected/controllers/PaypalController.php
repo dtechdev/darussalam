@@ -87,7 +87,9 @@ class PaypalController extends Controller
                                 $order_detail=new OrderDetail;
                                 $order_detail->order_id=$order->order_id;
                                 $order_detail->product_id=$pro->product_id;
-                                $order_detail->product_price=$pro->product->product_price;
+                                $order_detail->quantity=$pro->quantity;
+                                $order_detail->product_price=round($pro->product->product_price,2);
+                                $order_detail->total_price=round($pro->product->product_price*$pro->quantity,2);
                                 $order_detail->save();
                                 Cart::model()->findByPk($pro->cart_id)->delete();
                             }
@@ -109,24 +111,25 @@ class PaypalController extends Controller
 	public function actionDirectPayment(){ 
 		$paymentInfo = array('Member'=> 
 			array( 
-				'first_name'=>'name_here', 
-				'last_name'=>'lastName_here', 
-				'billing_address'=>'address_here', 
-				'billing_address2'=>'address2_here', 
-				'billing_country'=>'country_here', 
-				'billing_city'=>'city_here', 
-				'billing_state'=>'state_here', 
-				'billing_zip'=>'zip_here' 
+				'first_name'=>'zahid', 
+				'last_name'=>'nadeem', 
+				'billing_address'=>'132kv grid station US ', 
+				'billing_address2'=>'uk street', 
+				'billing_country'=>'US', 
+				'billing_city'=>'bahawalpur', 
+				'billing_state'=>'punjab', 
+				'billing_zip'=>'63100' 
 			), 
 			'CreditCard'=> 
 			array( 
-				'card_number'=>'number_here', 
-				'expiration_month'=>'month_here', 
-				'expiration_year'=>'year_here', 
-				'cv_code'=>'code_here' 
+				'card_number'=>'4329098833756315', 
+				'expiration_month'=>'4', 
+				'expiration_year'=>'2018', 
+				'cv_code'=>'123', 
+				'credit_type'=>'Visa' 
 			), 
 			'Order'=> 
-			array('theTotal'=>1.00) 
+			array('theTotal'=>12.00) 
 		); 
 
 	   /* 

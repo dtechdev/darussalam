@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 16, 2013 at 02:03 PM
+-- Generation Time: Apr 18, 2013 at 01:22 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `author` (
   `author_name` varchar(255) NOT NULL,
   PRIMARY KEY (`author_id`),
   KEY `author_id` (`author_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `author`
@@ -42,9 +42,7 @@ CREATE TABLE IF NOT EXISTS `author` (
 INSERT INTO `author` (`author_id`, `author_name`) VALUES
 (2, 'zahid nadeem'),
 (3, 'Ubaid'),
-(4, 'Talha'),
-(5, 'Abdul Malik Mujahid'),
-(6, 'Abdul Kalam');
+(4, 'Talha');
 
 -- --------------------------------------------------------
 
@@ -65,14 +63,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `cart_id` (`cart_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`cart_id`, `product_id`, `user_id`, `city_id`, `quantity`, `added_date`, `session_id`) VALUES
-(19, 1, 0, 1, 1, '1366109672', '2auh9agam9uignpuorqvbq0b90');
+(14, 3, 3, 1, 1, '1366283509', '');
 
 -- --------------------------------------------------------
 
@@ -101,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 INSERT INTO `categories` (`category_id`, `category_name`, `added_date`, `parent_id`, `city_id`) VALUES
 (1, 'Books', '25-03-2013', 0, 1),
-(2, 'Pemflate', '25-03-2013', 0, 1),
+(2, 'Books', '25-03-2013', 0, 1),
 (3, 'Ahadees', '1364464356', 2, 1),
 (4, 'Madni', '28-03-2013', 3, 1),
 (5, 'Maki', '28-03-2013', 3, 1);
@@ -290,15 +288,17 @@ CREATE TABLE IF NOT EXISTS `order` (
   KEY `customer_id_2` (`user_id`),
   KEY `user_id` (`user_id`),
   KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `order`
 --
 
 INSERT INTO `order` (`order_id`, `user_id`, `total_price`, `order_date`) VALUES
-(1, 1, 22.0000, '3333'),
-(2, 2, 33.0000, '333');
+(1, 3, 123.0000, '2013-04-18'),
+(2, 3, 123.0000, '2013-04-18'),
+(3, 3, 90.0000, '2013-04-18'),
+(4, 3, 90.0000, '2013-04-18');
 
 -- --------------------------------------------------------
 
@@ -311,31 +311,15 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   `user_order_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `product_price` decimal(10,4) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `product_price` int(11) NOT NULL,
+  `total_price` decimal(10,4) NOT NULL,
   PRIMARY KEY (`user_order_id`),
   KEY `customer_order_id` (`user_order_id`),
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`),
   KEY `user_order_id` (`user_order_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
-
---
--- Dumping data for table `order_detail`
---
-
-INSERT INTO `order_detail` (`user_order_id`, `order_id`, `product_id`, `product_price`) VALUES
-(1, 1, 1, 33.0000),
-(2, 1, 2, 32.0000),
-(3, 2, 2, 2.0000),
-(6, 1, 3, 33.0000),
-(7, 2, 1, 33.0000),
-(8, 1, 5, 0.0000),
-(9, 2, 4, 33.0000),
-(10, 2, 2, 33.0000),
-(11, 1, 6, 100.0000),
-(12, 2, 6, 32.0000),
-(13, 1, 6, 100.0000),
-(14, 2, 5, 32.0000);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -363,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   KEY `frenchise_id_2` (`city_id`),
   KEY `city_id` (`city_id`),
   KEY `product_id_3` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `product`
@@ -371,12 +355,11 @@ CREATE TABLE IF NOT EXISTS `product` (
 
 INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`, `product_rating`) VALUES
 (1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000, 4),
-(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000, 4),
-(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000, 2),
-(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000, 5),
-(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000, 4),
-(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000, 0),
-(7, 'Sahih Bukhari Shareef', 'One of the Famous Islamic Ahadess Book the Bukhari Shareef', 1, '', '0', 145.0000, 2);
+(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000, 0),
+(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000, 0),
+(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000, 0),
+(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000, 0),
+(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000, 0);
 
 -- --------------------------------------------------------
 
@@ -393,20 +376,16 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   KEY `category_id` (`category_id`),
   KEY `product_id` (`product_id`),
   KEY `product_category_id` (`product_category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `product_categories`
 --
 
 INSERT INTO `product_categories` (`product_category_id`, `product_id`, `category_id`) VALUES
-(1, 1, 5),
-(2, 3, 2),
-(3, 2, 3),
-(4, 4, 5),
-(5, 5, 4),
-(6, 6, 5),
-(7, 7, 5);
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -440,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `product_image` (
   `image_large` varchar(255) NOT NULL,
   PRIMARY KEY (`product_image_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `product_image`
@@ -452,15 +431,7 @@ INSERT INTO `product_image` (`product_image_id`, `product_id`, `image_small`, `i
 (3, 3, 'Ibn_ul_khitab_large.jpg', 'Ibn_ul_khitab_large.jpg'),
 (4, 4, 'sayedna_umer_life_small.jpg', 'sayedna_umer_life_large.jpg'),
 (5, 5, 'the_sealed_necter_small.jpg', 'the_sealed_necter_large.jpg'),
-(6, 6, 'goden_stories_abu_baker_sidique_small.jpg', 'goden_stories_abu_baker_sidique_large.jpg'),
-(7, 1, 'the_sealed_necter_small.jpg', ''),
-(8, 2, 'the_sealed_necter_small.jpg', ''),
-(9, 4, 'the_sealed_necter_small.jpg', ''),
-(10, 6, 'the_sealed_necter_small.jpg', ''),
-(11, 1, 'Ibn_ul_khitab_large.jpg', ''),
-(12, 6, 'Ibn_ul_khitab_large.jpg', ''),
-(13, 7, 'sahih_bukhari_small.jpg', 'sahih_bukhari_large.jpg'),
-(14, 7, 'the_sealed_necter_small.jpg', '');
+(6, 6, 'goden_stories_abu_baker_sidique_small.jpg', 'goden_stories_abu_baker_sidique_large.jpg');
 
 -- --------------------------------------------------------
 
@@ -480,7 +451,7 @@ CREATE TABLE IF NOT EXISTS `product_language` (
   KEY `language_id_3` (`language_id`),
   KEY `product_id_2` (`product_id`),
   KEY `language_id_4` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `product_language`
@@ -488,13 +459,7 @@ CREATE TABLE IF NOT EXISTS `product_language` (
 
 INSERT INTO `product_language` (`product_language_id`, `product_id`, `language_id`) VALUES
 (1, 1, 3),
-(2, 2, 2),
-(3, 3, 2),
-(4, 4, 3),
-(5, 6, 3),
-(6, 5, 3),
-(7, 7, 2),
-(8, 7, 3);
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -514,20 +479,14 @@ CREATE TABLE IF NOT EXISTS `product_profile` (
   KEY `profile_id_2` (`profile_id`),
   KEY `author_id_2` (`author_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `product_profile`
 --
 
 INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `isbn`) VALUES
-(1, 1, 5, '546546-654-14'),
-(2, 2, 6, '9001-4773729-3'),
-(3, 3, 5, '9001-333729-2'),
-(4, 4, 6, '9001-4773729-9'),
-(5, 6, 6, '9001-4773766'),
-(6, 5, 5, '9001-47429-3'),
-(8, 7, 5, '9001-47222429-3');
+(1, 1, 2, '546546-654-14');
 
 -- --------------------------------------------------------
 
@@ -549,17 +508,7 @@ CREATE TABLE IF NOT EXISTS `product_reviews` (
   KEY `user_id` (`user_id`),
   KEY `product_id_2` (`product_id`),
   KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `product_reviews`
---
-
-INSERT INTO `product_reviews` (`reviews_id`, `product_id`, `user_id`, `reviews`, `added_date`, `is_approved`, `is_email`) VALUES
-(1, 1, 3, 'SubhanAllah it is great book i recommend all muslims to study this book by Abdul Mujahid .', '1366112460', 'yes', 0),
-(2, 1, 4, 'I have studied this book very nice book...i liked it', '1366112655', 'yes', 1),
-(3, 2, 4, 'Character of Abu Baker Siddique RA', '1366112704', 'yes', 0),
-(4, 3, 4, 'iBN uL KHITAB RA...The Great Companion of Holy Prophet SAW', '1366112746', 'yes', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -648,10 +597,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`, `social_id`) VALUES
-(1, 'Super', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '28 March, 2013', ''),
-(2, 'Admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '', ''),
+(1, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '28 March, 2013', ''),
+(2, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '', ''),
 (3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', ''),
-(4, 'Ubaid Khan', '397d0eeffeeb20e65b68a7e99f1fe6f5', 'ubaidullah@darussalampk.com', 3, 1, NULL, 'a4bceb3cb67477df00a98127e160791241642f75', 'inactive', 1, '', '');
+(4, '', '21232f297a57a5a743894a0e4a801fc3', 'zahidiubb@yahoo.com', 3, 1, NULL, 'd3c9aad03688a6f6e764cfad6ba538d24fc6bda7', 'inactive', 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -667,6 +616,8 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
   `last_name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `contact_number` varchar(255) NOT NULL,
+  `gender` varchar(123) NOT NULL,
+  `city` varchar(123) NOT NULL,
   PRIMARY KEY (`user_profile_id`),
   KEY `customer_id` (`user_profile_id`),
   KEY `user_id` (`user_id`),
@@ -677,10 +628,10 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
 -- Dumping data for table `user_profile`
 --
 
-INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_name`, `address`, `contact_number`) VALUES
-(1, 1, 'super', 'admin', 'STC lahore', '03336566326'),
-(2, 2, 'sub', 'admin', 'abc', ''),
-(3, 3, 'Richard', 'Arnold', 'abc', '');
+INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_name`, `address`, `contact_number`, `gender`, `city`) VALUES
+(1, 1, 'super', 'admin', 'STC lahore', '03336566326', '', ''),
+(2, 2, 'sub', 'admin', 'abc', '', '', ''),
+(3, 3, 'Richard', 'Arnold', 'abc', '', '', '');
 
 -- --------------------------------------------------------
 
