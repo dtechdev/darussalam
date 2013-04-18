@@ -16,6 +16,23 @@
             </nav>
       	</div>
    	</div>
+                            <?php 
+
+                            if(empty($cart))
+                            {?>
+                                <div id="shopping_cart" style="height:308px;text-align:center;  ">
+    	                            <div id="main_shopping_cart">
+                                        <div class="left_right_cart">
+                                        Your Card IS empty
+                                      </div>
+                                    </div>                                        
+                                </div>
+                            <?php
+                                }  else {
+
+
+                            ?>
+
     <div id="shopping_cart">
     	<div id="main_shopping_cart">
         	<div class="top_cart">
@@ -149,7 +166,7 @@
                 </div>
            	</div>
         </div>
-    </div>
+</div><?php }?>
 
         <script>
     function totalPrice(quantity,price)
