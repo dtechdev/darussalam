@@ -59,7 +59,36 @@ class DefaultController extends Controller
 		// workOnUser returns an user object
 		if ( is_object ($user_profile) ){
 		$user = $this->workOnUser($provider,$user_profile); 
-		//$user = $this->workOnUser($provider,$user_profile->identifier); 
+		//$user = $this->workOnUser($provider,$user_profile->identifier);
+//               echo '<pre>';
+//              //  print_r($user_profile);
+//               print_r($user_profile);
+//               exit;
+                $pro=  UserProfile::model()->find('user_id='.$user->user_id);
+                if(empty($pro))
+                {
+            //echo $pro;exit;
+                $user_pro= new UserProfile;
+                $user_pro->user_id=$user->user_id;
+                $user_pro->first_name=$user_profile->firstName;
+                $user_pro->last_name=$user_profile->lastName;
+                $user_pro->address=$user_profile->region;
+                $user_pro->contact_number=$user_profile->phone;
+                $user_pro->gender=$user_profile->gender;
+                $user_pro->city=$user_profile->city;
+               //echo '<pre>'; print_r($user_pro);
+             
+                if ($user_pro->validate()){
+                $user_pro->save();
+                }
+                else
+                {
+                    echo CHtml::errorSummary($user_pro);
+                }
+                }
+//                echo '<pre>';
+//                print_r($user);
+//                exit;
 			if ( $this->autoLogin($user) ){
    			    //successfull login render default/profile.php
                             $this->redirect(array('/product/allproducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
