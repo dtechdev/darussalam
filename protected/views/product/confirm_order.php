@@ -36,7 +36,7 @@
     <div id="shopping_cart">
     	<div id="main_shopping_cart">
         	<div class="top_cart">
-            	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/shopping_cart_img_03.png" />
+            	<img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/shopping_cart_img_04.png" />
             </div>
             <div id="cart">
                 <div class="left_cart" style="width:66%">

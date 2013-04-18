@@ -75,8 +75,24 @@ class PaypalController extends Controller
 				Yii::app()->end();
 			}else{
 				//payment was completed successfully
+                            $order=new Order;
+                            $order->user_id=Yii::app()->user->id;
+                            $order->total_price=Yii::app()->session['total_price'];
+                            $order->order_date=date('Y-m-d');
+                            $order->save();
+                            //echo $order->order_id;
+                            $cart_model = new Cart();
+                            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id);
+                            foreach($cart as $pro){
+                                $order_detail=new OrderDetail;
+                                $order_detail->order_id=$order->order_id;
+                                $order_detail->product_id=$pro->product_id;
+                                $order_detail->product_price=$pro->product->product_price;
+                                $order_detail->save();
+                                Cart::model()->findByPk($pro->cart_id)->delete();
+                            }
 				
-				$this->render('confirm');
+                            $this->render('confirm');
 			}
 			
 		}
