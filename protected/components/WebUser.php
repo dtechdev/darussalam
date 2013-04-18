@@ -51,7 +51,11 @@ class WebUser extends CWebUser{
                         $site_id = SelfSite::model()->getSiteId($siteUrl);
                         Yii::app()->session['site_id'] = $site_id;
                         
-                        if(isset(Yii::app()->session['city_id']) && Yii::app()->session['city_id']!='')
+                        if(isset($_REQUEST['city_id']) && $_REQUEST['city_id']!='')
+                        {
+                            $city_id=$_REQUEST['city_id'];
+                        }
+                        else if(isset(Yii::app()->session['city_id']) && Yii::app()->session['city_id']!='')
                         {
                              $city_id=Yii::app()->session['city_id'];
                         }

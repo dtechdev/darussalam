@@ -257,6 +257,8 @@ class ProductController extends Controller {
         echo CJSON::encode(array('product_id' => '1', 'cart_counter' => $tot['cart_total']));
     }
     public function actionViewcart() {
+        
+        Yii::app()->user->SiteSessions;
         $ip = getenv("REMOTE_ADDR");
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
@@ -328,7 +330,7 @@ class ProductController extends Controller {
     }
 
     public function actionproductDetail() {
-        
+        Yii::app()->user->SiteSessions;
         Yii::app()->theme = Yii::app()->session['layout'];
 
         $product_obj = new Product();

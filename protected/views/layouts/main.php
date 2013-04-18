@@ -18,7 +18,7 @@
                     <nav class="row">
                         <a class="toggle" gumby-trigger="#nav3 > .row > ul" href="#"><i class="icon-menu"></i></a>
                         <ul class="eight columns">
-                            <li><a href="<?php echo $this->createUrl('/product/allproducts') ?>">BOOKS</a></li>
+                            <li><a href="<?php echo $this->createUrl('/product/allproducts',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])); ?>">BOOKS</a></li>
                             <li><a href="#">QURAN</a></li>
                             <li><a href="#">EDUCATIONAL TOYS</a></li>
                             <li><a href="#">OTHERS</a></li>
@@ -74,7 +74,7 @@
                 <div class="right_middle">
                     <div id="right_header_part">
                         <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/heart_img_03.jpg" alt="heart img" class="heart_img" /></a>
-                        <a href="<?php echo $this->createUrl('/product/viewcart') ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
+                        <a href="<?php echo $this->createUrl('/product/viewcart',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])) ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
                         <p id="cart_counter">
                             <?php 
                             $ip = getenv("REMOTE_ADDR");
