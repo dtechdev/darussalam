@@ -150,7 +150,7 @@ class SiteController extends Controller {
                         $cart_model2->save();
                     }
                     
-                    $this->redirect(array('/product/allProducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+                    $this->redirect(array('/product/allproducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
                 }
             }
         }
