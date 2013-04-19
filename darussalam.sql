@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 18, 2013 at 01:22 PM
+-- Generation Time: Apr 19, 2013 at 07:29 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -63,14 +63,16 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `cart_id` (`cart_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`cart_id`, `product_id`, `user_id`, `city_id`, `quantity`, `added_date`, `session_id`) VALUES
-(14, 3, 3, 1, 1, '1366283509', '');
+(1, 2, 3, 1, 1, '1366347443', ''),
+(2, 3, 3, 1, 1, '1366347453', ''),
+(3, 5, 3, 2, 1, '1366347462', '');
 
 -- --------------------------------------------------------
 
@@ -118,6 +120,9 @@ CREATE TABLE IF NOT EXISTS `city` (
   `short_name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `layout_id` int(11) NOT NULL,
+  `api_username` varchar(255) NOT NULL,
+  `api_password` varchar(255) NOT NULL,
+  `api_signature` varchar(255) NOT NULL,
   PRIMARY KEY (`city_id`),
   KEY `city_id` (`city_id`),
   KEY `layout_id` (`layout_id`),
@@ -128,21 +133,21 @@ CREATE TABLE IF NOT EXISTS `city` (
 -- Dumping data for table `city`
 --
 
-INSERT INTO `city` (`city_id`, `country_id`, `city_name`, `short_name`, `address`, `layout_id`) VALUES
-(1, 1, 'Lahore', 'lhr', 'STR lahore', 1),
-(2, 1, 'Karachi', 'kc', 'nazim abad', 2),
-(3, 2, 'New York', 'ny', 'stc ny 5400', 3),
-(4, 3, 'London', 'ln', 'london street 7 gulbarb 2', 1),
-(5, 4, 'Riyadh', 'ria', 'Riyadh soudi arabia', 1),
-(6, 4, 'Mecca', 'mec', 'Mecca soudi arabia', 1),
-(7, 4, 'Jeddah', 'jed', 'jeddah soudi arabia', 1),
-(8, 4, 'Medina', 'med', 'Medina soudi arabia', 1),
-(9, 4, 'Dammam', 'dam', 'Dammam soudi arabia', 1),
-(10, 4, 'Khobar', 'kho', 'Khobar soudi arabia', 1),
-(11, 4, 'Al-Ahsa', 'al-ahsa', '	Al-Ahsa soudi arabia', 1),
-(12, 5, 'Bogota', 'bog', 'Bogota colombia', 1),
-(13, 5, 'Medellin', 'mdl', 'Medell?n colombia', 1),
-(14, 5, 'Cali', 'cali', 'Cali colombia', 1);
+INSERT INTO `city` (`city_id`, `country_id`, `city_name`, `short_name`, `address`, `layout_id`, `api_username`, `api_password`, `api_signature`) VALUES
+(1, 1, 'Lahore', 'lhr', 'STR lahore', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(2, 1, 'Karachi', 'kc', 'nazim abad', 2, 'ubaidullah-facilitator_api1.darussalampk.com', '1366182478', 'Aapaqm6ans4WJekg4.XfJgGjSuI5A6JoJ-0wPCJBJcNA.zUb7O3t19LN'),
+(3, 2, 'New York', 'ny', 'stc ny 5400', 3, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(4, 3, 'London', 'ln', 'london street 7 gulbarb 2', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(5, 4, 'Riyadh', 'ria', 'Riyadh soudi arabia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(6, 4, 'Mecca', 'mec', 'Mecca soudi arabia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(7, 4, 'Jeddah', 'jed', 'jeddah soudi arabia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(8, 4, 'Medina', 'med', 'Medina soudi arabia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(9, 4, 'Dammam', 'dam', 'Dammam soudi arabia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(10, 4, 'Khobar', 'kho', 'Khobar soudi arabia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(11, 4, 'Al-Ahsa', 'al-ahsa', '	Al-Ahsa soudi arabia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(12, 5, 'Bogota', 'bog', 'Bogota colombia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(13, 5, 'Medellin', 'mdl', 'Medell?n colombia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(14, 5, 'Cali', 'cali', 'Cali colombia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS');
 
 -- --------------------------------------------------------
 

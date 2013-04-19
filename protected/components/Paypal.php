@@ -215,9 +215,17 @@ class Paypal extends CComponent{
      
     public function hash_call($methodName,$nvpStr){
          
-        $API_UserName = $this->apiUsername; 
-        $API_Password = $this->apiPassword; 
-        $API_Signature = $this->apiSignature; 
+        $city = City::model()->findByPk(Yii::app()->session['city_id']);
+        $api_username= $city['api_username'];
+        $api_password= $city['api_password'];
+        $api_signature= $city['api_signature'];
+
+        $API_UserName = $api_username; 
+        $API_Password = $api_password; 
+        $API_Signature = $api_signature; 
+//        $API_UserName = $this->apiUsername; 
+//        $API_Password = $this->apiPassword; 
+//        $API_Signature = $this->apiSignature; 
         $API_Endpoint = $this->endPoint; 
         $version = $this->version; 
          
