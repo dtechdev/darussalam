@@ -33,7 +33,7 @@
                         $model = new Country();
                         $login_model = new LoginForm;
                         //print "<pre>";
-                        $countries = Country::model()->findAll();
+                        $countries = Country::model()->findAll('site_id='.Yii::app()->session['site_id']);
                         // print_r($countries);
                         // exit;
                         if ($countries != null) {

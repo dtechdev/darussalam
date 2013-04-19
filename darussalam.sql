@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2013 at 07:29 AM
+-- Generation Time: Apr 19, 2013 at 01:57 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -70,9 +70,9 @@ CREATE TABLE IF NOT EXISTS `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `product_id`, `user_id`, `city_id`, `quantity`, `added_date`, `session_id`) VALUES
-(1, 2, 3, 1, 1, '1366347443', ''),
+(1, 2, 3, 1, 3, '1366347443', ''),
 (2, 3, 3, 1, 1, '1366347453', ''),
-(3, 5, 3, 2, 1, '1366347462', '');
+(3, 5, 3, 2, 10, '1366347462', '');
 
 -- --------------------------------------------------------
 
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `city` (
   KEY `city_id` (`city_id`),
   KEY `layout_id` (`layout_id`),
   KEY `country_id` (`country_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `city`
@@ -147,7 +147,8 @@ INSERT INTO `city` (`city_id`, `country_id`, `city_name`, `short_name`, `address
 (11, 4, 'Al-Ahsa', 'al-ahsa', '	Al-Ahsa soudi arabia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
 (12, 5, 'Bogota', 'bog', 'Bogota colombia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
 (13, 5, 'Medellin', 'mdl', 'Medell?n colombia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
-(14, 5, 'Cali', 'cali', 'Cali colombia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS');
+(14, 5, 'Cali', 'cali', 'Cali colombia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
+(15, 6, 'bejing', 'bej', 'abjd', 2, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -164,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   PRIMARY KEY (`country_id`),
   KEY `country_id` (`country_id`),
   KEY `site_id` (`site_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `country`
@@ -175,7 +176,8 @@ INSERT INTO `country` (`country_id`, `country_name`, `short_name`, `site_id`) VA
 (2, 'United States', 'US', 1),
 (3, 'United Kingdom', 'uk', 1),
 (4, 'Saudi Arabia', 'ksa', 1),
-(5, 'Colombia', 'col', 1);
+(5, 'Colombia', 'col', 1),
+(6, 'Chaina', 'cha', 2);
 
 -- --------------------------------------------------------
 
@@ -526,6 +528,7 @@ CREATE TABLE IF NOT EXISTS `site` (
   `site_id` int(11) NOT NULL AUTO_INCREMENT,
   `site_name` varchar(255) NOT NULL,
   `site_descriptoin` varchar(255) NOT NULL,
+  `site_headoffice` int(11) NOT NULL,
   PRIMARY KEY (`site_id`),
   KEY `site_id` (`site_id`),
   KEY `site_id_2` (`site_id`)
@@ -535,9 +538,9 @@ CREATE TABLE IF NOT EXISTS `site` (
 -- Dumping data for table `site`
 --
 
-INSERT INTO `site` (`site_id`, `site_name`, `site_descriptoin`) VALUES
-(1, 'darussalam', 'darussalam'),
-(2, 'yahoo.com', 'abc');
+INSERT INTO `site` (`site_id`, `site_name`, `site_descriptoin`, `site_headoffice`) VALUES
+(1, 'darussalam', 'darussalam', 1),
+(2, 'yahoo.com', 'abc', 15);
 
 -- --------------------------------------------------------
 
@@ -605,7 +608,7 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role
 (1, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '28 March, 2013', ''),
 (2, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '', ''),
 (3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', ''),
-(4, '', '21232f297a57a5a743894a0e4a801fc3', 'zahidiubb@yahoo.com', 3, 1, NULL, 'd3c9aad03688a6f6e764cfad6ba538d24fc6bda7', 'inactive', 1, '', '');
+(4, '', '21232f297a57a5a743894a0e4a801fc3', 'zahidiubb@yahoo.com', 3, 1, NULL, 'd3c9aad03688a6f6e764cfad6ba538d24fc6bda7', 'inactive', 1, '', '100000456873660');
 
 -- --------------------------------------------------------
 
@@ -627,7 +630,7 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
   KEY `customer_id` (`user_profile_id`),
   KEY `user_id` (`user_id`),
   KEY `user_profile_id` (`user_profile_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `user_profile`
@@ -636,7 +639,8 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
 INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_name`, `address`, `contact_number`, `gender`, `city`) VALUES
 (1, 1, 'super', 'admin', 'STC lahore', '03336566326', '', ''),
 (2, 2, 'sub', 'admin', 'abc', '', '', ''),
-(3, 3, 'Richard', 'Arnold', 'abc', '', '', '');
+(3, 3, 'Richard', 'Arnold', 'abc', '', '', ''),
+(4, 4, 'Zahid', 'Nadeem', 'Bahawalpur', '', 'male', '');
 
 -- --------------------------------------------------------
 

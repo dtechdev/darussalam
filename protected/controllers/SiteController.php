@@ -30,26 +30,13 @@ class SiteController extends Controller {
     }
 
     public function actionStoreHome() {
-   
-        $city = City::model()->findByPk($_REQUEST['city_id']);
-        $layout_id = $city['layout_id'];
-        $layout = Layout::model()->findByPk($layout_id);
-        $layout_name = $layout['layout_name'];
 
-        Yii::app()->session['layout'] = $layout_name;
-        Yii::app()->session['country_short_name'] = $_REQUEST['country'];
-        Yii::app()->session['city_short_name'] = $_REQUEST['city'];
-        Yii::app()->session['city_id'] = $_REQUEST['city_id'];
-        Yii::app()->theme = Yii::app()->session['layout'];
-
+        Yii::app()->user->SiteSessions;
         $order_detail = new OrderDetail;
-
         $limit = 3;
         $featured_products = $order_detail->featuredBooks($limit);
         $bestSellings = $order_detail->bestSellings($limit);
-
-        $this->render('storehome', array('product' => $featured_products, 'best_sellings' => $bestSellings)
-        );
+        $this->render('storehome', array('product' => $featured_products, 'best_sellings' => $bestSellings));
     }
 
     
@@ -70,6 +57,7 @@ class SiteController extends Controller {
      * Displays the contact page
      */
     public function actionContact() {
+        Yii::app()->user->SiteSessions;
         Yii::app()->controller->layout = '//layouts/slider';
         //Yii::app()->theme='admin';
         $model = new ContactForm;
@@ -106,6 +94,7 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
+        Yii::app()->user->SiteSessions;
         $model = new LoginForm;
         $ip = getenv("REMOTE_ADDR");
         // if it is ajax validation request

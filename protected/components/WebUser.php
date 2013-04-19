@@ -48,12 +48,26 @@ class WebUser extends CWebUser{
                     function getSiteSessions(){
                         
                         $siteUrl = $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-                        $site_id = SelfSite::model()->getSiteId($siteUrl);
-                        Yii::app()->session['site_id'] = $site_id;
+                        $site_info = SelfSite::model()->getSiteInfo($siteUrl);
+                        Yii::app()->session['site_id'] = $site_info['site_id'];
+                        Yii::app()->session['site_headoffice'] = $site_info['site_headoffice'];
+                         
                         
                         if(isset($_REQUEST['city_id']) && $_REQUEST['city_id']!='')
                         {
                             $city_id=$_REQUEST['city_id'];
+                            $criteria = new CDbCriteria(array(
+                                'select' => "*",
+                                 'condition'=>"t.city_id=".$city_id,
+                            ));
+                            $cityfind = City::model()->with(array(
+                                                'country' => array('select' => '*',
+                                                    'joinType' => 'INNER JOIN',
+                                                'condition'=>'country.site_id= "'.Yii::app()->session['site_id'].'"' ),))->findAll($criteria);
+                            if($cityfind==null)
+                            {
+                                $city_id=Yii::app()->session['site_headoffice'];
+                            }
                         }
                         else if(isset(Yii::app()->session['city_id']) && Yii::app()->session['city_id']!='')
                         {
@@ -65,15 +79,24 @@ class WebUser extends CWebUser{
                             $city_auto=  strtolower($locationArray['citystate']);
                             $country_auto=  strtolower($locationArray['country']);
                             $short_country_auto=  strtolower($locationArray['short_country']);
-
-                            $cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
+                            $criteria = new CDbCriteria(array(
+                                'select' => "*",
+                                 'condition'=>"LOWER(t.city_name)='".$city_auto."'",
+                            ));
+                            
+                            
+                            $cityfind = City::model()->with(array(
+                                                'country' => array('select' => '*',
+                                                    'joinType' => 'INNER JOIN',
+                                                'condition'=>'country.site_id= "'.Yii::app()->session['site_id'].'"' ),))->findAll($criteria);
+                            //$cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
                             if($cityfind!=null)
                             {
-                                $city_id=$cityfind->city_id;
+                                $city_id=$cityfind[0]->city_id;
                             }
                             else
                             {
-                                $countryfind = Country::model()->find('LOWER(country_name)=?',array($country_auto));
+                                $countryfind = Country::model()->find('LOWER(country_name)="'.$country_auto.'" AND site_id='.Yii::app()->session['site_id']);
                                 if($countryfind!=null)
                                 {
                                     $city_find = City::model()->find('country_id=?',array($countryfind->country_id));
@@ -81,13 +104,12 @@ class WebUser extends CWebUser{
                                 }
                                 else
                                 {
-                                    $city_auto=Yii::app()->params->head_office_city;
-                                    $cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
-                                    $city_id=$cityfind->city_id;
+                                    $city_id=Yii::app()->session['site_headoffice'];
                                 }
                             }
 
                         }
+                        
                         $city = City::model()->findByPk($city_id);
                         $countries = Country::model()->findByPk($city['country_id']);
                         $country_short_name=$countries['short_name'];
