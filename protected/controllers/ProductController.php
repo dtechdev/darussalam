@@ -244,13 +244,13 @@ class ProductController extends Controller {
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')
-                    ->where('user_id=' . Yii::app()->user->id)
+                    ->where('city_id='.Yii::app()->session['city_id'].' AND user_id=' . Yii::app()->user->id)
                     ->queryRow();
         } else {
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')
-                    ->where('session_id="' . $ip . '"')
+                    ->where('city_id='.Yii::app()->session['city_id'].' AND session_id="' . $ip . '"')
                     ->queryRow();
         }
 
@@ -265,9 +265,9 @@ class ProductController extends Controller {
         
                 $cart_model = new Cart();
         if (isset(Yii::app()->user->id)) {
-            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '"');
+            $cart = $cart_model->findAll('city_id='.Yii::app()->session['city_id'].' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
         } else {
-            $cart = $cart_model->findAll('session_id="' . $ip . '"');
+            $cart = $cart_model->findAll('city_id='.Yii::app()->session['city_id'].' AND session_id="' . $ip . '"');
         }
         
         
@@ -356,9 +356,9 @@ class ProductController extends Controller {
         
                 $cart_model = new Cart();
         if (isset(Yii::app()->user->id)) {
-            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '"');
+            $cart = $cart_model->findAll('city_id='.Yii::app()->session['city_id'].' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
         } else {
-            $cart = $cart_model->findAll('session_id="' . $ip . '"');
+            $cart = $cart_model->findAll('city_id='.Yii::app()->session['city_id'].' AND session_id="' . $ip . '"');
         }
         
         

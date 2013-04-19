@@ -83,13 +83,13 @@
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')
-                    ->where('user_id=' . Yii::app()->user->id)
+                    ->where('city_id='.Yii::app()->session['city_id'].' AND user_id=' . Yii::app()->user->id)
                     ->queryRow();
         } else {
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')
-                    ->where('session_id="' . $ip . '"')
+                    ->where('city_id='.Yii::app()->session['city_id'].' AND session_id="' . $ip . '"')
                     ->queryRow();
         }
         echo $tot['cart_total'];
