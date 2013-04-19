@@ -116,13 +116,13 @@ class PaypalController extends Controller
 				'billing_address'=>'132kv grid station US ', 
 				'billing_address2'=>'uk street', 
 				'billing_country'=>'US', 
-				'billing_city'=>'bahawalpur', 
-				'billing_state'=>'punjab', 
-				'billing_zip'=>'63100' 
+				'billing_city'=>'Brooklyn', 
+				'billing_state'=>'NY', 
+				'billing_zip'=>'11218' 
 			), 
 			'CreditCard'=> 
 			array( 
-				'card_number'=>'4329098833756315', 
+				'card_number'=>'4167201658741074', 
 				'expiration_month'=>'4', 
 				'expiration_year'=>'2018', 
 				'cv_code'=>'123', 

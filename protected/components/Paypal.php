@@ -135,13 +135,14 @@ class Paypal extends CComponent{
         /* Construct the request string that will be sent to PayPal. 
            The variable $nvpstr contains all the variables and is a 
            name value pair string with & as a delimiter */ 
-        $nvpstr="&PAYMENTACTION=Sale&IPADDRESS=$ip&AMT=$amount&CREDITCARDTYPE=$creditCardType&ACCT=$creditCardNumber&EXPDATE=".$padDateMonth.$expDateYear."&CVV2=$cvv2Number&FIRSTNAME=$firstName&LASTNAME=$lastName&STREET=$address1&STREET2=$address2&CITYNAME=$city&STATEORPROVINCE=$state".
-        "&POSTALCODE=$zip&COUNTRY=$country&CURRENCYCODE=$currencyCode"; 
+        $nvpstr="&PAYMENTACTION=Sale&IPADDRESS=$ip&AMT=$amount&CREDITCARDTYPE=$creditCardType&ACCT=$creditCardNumber&EXPDATE=".$padDateMonth.$expDateYear."&CVV2=$cvv2Number&FIRSTNAME=$firstName&LASTNAME=$lastName&STREET=$address1&STREET2=$address2&CITY=$city&STATE=$state".
+        "&ZIP=$zip&COUNTRYCODE=$country&CURRENCYCODE=$currencyCode"; 
          
         /* Make the API call to PayPal, using API signature. 
            The API response is stored in an associative array called $resArray */ 
         $resArray=$this->hash_call("doDirectPayment",$nvpstr); 
-         
+        print "<pre>"; 
+        print_r($resArray);
         /* Display the API response back to the browser. 
            If the response from PayPal was a success, display the response parameters' 
            If the response was an error, display the errors received using APIError.php. 
