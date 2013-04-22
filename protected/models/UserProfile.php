@@ -44,11 +44,12 @@ class UserProfile extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, first_name, last_name', 'required'),
-			array('user_id', 'numerical', 'integerOnly'=>true),
+			//array('user_id', 'numerical', 'integerOnly'=>true),
 			array('first_name, last_name, address,  contact_number', 'length', 'max'=>255),
+                        array('user_profile_id, user_id, first_name, last_name, address, gender, contact_number,city', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('user_profile_id, user_id, first_name, last_name, address, email, contact_number', 'safe', 'on'=>'search'),
+			array('user_profile_id, user_id, first_name, last_name, address, gender, contact_number,city', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,6 +76,8 @@ class UserProfile extends CActiveRecord
 			'first_name' => 'First Name',
 			'last_name' => 'Last Name',
 			'address' => 'Address',
+			'city' => 'City',
+			'gender' => 'Gender',
 			
 			'contact_number' => 'Contact Number',
 		);
@@ -97,6 +100,8 @@ class UserProfile extends CActiveRecord
 		$criteria->compare('last_name',$this->last_name,true);
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('contact_number',$this->contact_number,true);
+		$criteria->compare('city',$this->city,true);
+		$criteria->compare('gender',$this->gender,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

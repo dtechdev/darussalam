@@ -15,11 +15,11 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->textField($model,'user_id'); ?>
-		<?php echo $form->error($model,'user_id'); ?>
-	</div>
+<!--	<div class="row">
+		<?php //echo $form->labelEx($model,'user_id'); ?>
+		<?php //echo $form->textField($model,'user_id'); ?>
+		<?php //echo $form->error($model,'user_id'); ?>
+	</div>-->
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'first_name'); ?>
@@ -45,6 +45,16 @@
 		<?php echo $form->labelEx($model,'contact_number'); ?>
 		<?php echo $form->textField($model,'contact_number',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'contact_number'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'gender'); ?>
+		<?php echo $form->textField($model,'gender',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'gender'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'city'); ?>
+		<?php echo $form->textField($model,'city',array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'city'); ?>
 	</div>
 
 	<div class="row buttons">

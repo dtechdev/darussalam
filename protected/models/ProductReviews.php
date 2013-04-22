@@ -18,7 +18,8 @@
  */
 class ProductReviews extends CActiveRecord
 {
-	/**
+public  $avgRate;
+/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return ProductReviews the static model class
@@ -50,7 +51,7 @@ class ProductReviews extends CActiveRecord
 			//array('is_approved', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('reviews_id, product_id, user_id, reviews, added_date, is_approved, is_email', 'safe', 'on'=>'search'),
+			array('reviews_id, product_id, user_id, reviews, added_date, is_approved, is_email,rating', 'safe', 'on'=>'search'),
 		);
 	}
 

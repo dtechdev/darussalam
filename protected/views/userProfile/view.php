@@ -27,5 +27,7 @@ $this->menu=array(
 		'last_name',
 		'address',
 		'contact_number',
+		'city',
+		'gender',
 	),
 )); ?>

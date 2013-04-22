@@ -106,18 +106,33 @@
                         </tr>
                         <tr class="product_tr">
                             <td class="left_td">Product Rating</td>
-                            <td class="right_td"><?php 
-                            $rate= $product->product_rating;
+                            <td class="right_td"><?php
+			    //$ratings=array();
+			  
+			    $criteriaCRating=new CDbCriteria;
+                            $criteriaCRating->select='avg(rating) as avgRate,rating';
+                            $criteriaCRating->condition='product_id='.$product->product_id;
+                            $ratings=  ProductReviews::model()->findAll($criteriaCRating);
+			    if(empty($ratings[0]->avgRate))
+			    {
+				$ratings[0]->avgRate=5;
+			       $valu=$ratings[0]->avgRate;
+			    }
+			    else
+			    {
+				$valu=$ratings[0]->avgRate;
+                            }
                             $this->widget('CStarRating',array(
-                                            'name'=>'rating3',
+                                            'name'=>'ratings',
                                             'minRating'=>1,
                                             'maxRating'=>5,
                                             'starCount'=>5,
-                                            'value'=>$rate,
+                                            'value'=>round($valu),
                                             'readOnly'=>true,
                                   //'cssFile'=>'css/style.css',
                                       ));
-
+			
+			    
                             ?></td>
                         </tr>
                         <tr class="product_tr">
@@ -214,6 +229,21 @@
 
                             ?> ago <a href="#">- Report as inappropriate</a></h4>
                             <div class="bottom_border">
+                                <?php
+                                $ratePerUser= $rev->rating;
+                              
+                                 $this->widget('CStarRating',array(
+                                            'name'=>'rating'.$rev->reviews_id,
+                                            'minRating'=>1,
+                                            'maxRating'=>5,
+                                            'starCount'=>5,
+                                            'value'=>$ratePerUser,
+                                            'readOnly'=>TRUE,
+                                  //'cssFile'=>'/css/rating.css',
+                                      ));
+                                            
+                                
+                                ?>
                             </div>
                         </div>
                                 </div><?php } ?>
@@ -247,7 +277,17 @@
                                   echo $form->textArea($modelC, 'reviews', $htmlOptions=array('maxlength' => 300, 'rows'=>'2', 'cols'=>'59','readonly'=>'readonly'));
                                   
                                 }
+                                $this->widget('CStarRating',array(
+						'name'=>'ratingUser',
+                                            'minRating'=>1,
+                                            'maxRating'=>5,
+                                            'starCount'=>5,
+                                             'value'=> 3,
+                                            'readOnly'=>false,
+                                  //'cssFile'=>'/css/rating.css',
+                                      ));
                                    echo $form->hiddenField($modelC,'product_id',array('value'=>$pid)); 
+                                   
                                    ?>
 
                                <?php echo $form->checkBox($modelC,'is_email',$htmlOptions=array('class'=>'comments_checkbox')); ?>

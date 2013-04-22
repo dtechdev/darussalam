@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2013 at 01:57 PM
+-- Generation Time: Apr 22, 2013 at 03:02 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -63,14 +63,13 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `cart_id` (`cart_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`cart_id`, `product_id`, `user_id`, `city_id`, `quantity`, `added_date`, `session_id`) VALUES
-(1, 2, 3, 1, 3, '1366347443', ''),
 (2, 3, 3, 1, 1, '1366347453', ''),
 (3, 5, 3, 2, 10, '1366347462', '');
 
@@ -343,7 +342,6 @@ CREATE TABLE IF NOT EXISTS `product` (
   `added_date` varchar(255) NOT NULL,
   `is_featured` enum('0','1') NOT NULL,
   `product_price` decimal(10,4) NOT NULL,
-  `product_rating` int(11) NOT NULL,
   PRIMARY KEY (`product_id`),
   KEY `user_id` (`city_id`),
   KEY `user_id_2` (`city_id`),
@@ -360,13 +358,13 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`, `product_rating`) VALUES
-(1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000, 4),
-(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000, 0),
-(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000, 0),
-(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000, 0),
-(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000, 0),
-(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000, 0);
+INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`) VALUES
+(1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000),
+(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000),
+(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000),
+(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000),
+(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000),
+(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000);
 
 -- --------------------------------------------------------
 
@@ -510,12 +508,24 @@ CREATE TABLE IF NOT EXISTS `product_reviews` (
   `added_date` varchar(255) NOT NULL,
   `is_approved` enum('yes','no') NOT NULL,
   `is_email` tinyint(1) NOT NULL,
+  `rating` int(11) NOT NULL,
   PRIMARY KEY (`reviews_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id_2` (`product_id`),
   KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `product_reviews`
+--
+
+INSERT INTO `product_reviews` (`reviews_id`, `product_id`, `user_id`, `reviews`, `added_date`, `is_approved`, `is_email`, `rating`) VALUES
+(1, 1, 3, 'dfdf', '1366632961', 'yes', 0, 5),
+(2, 1, 3, 'asdf', '1366632966', 'yes', 0, 2),
+(3, 2, 3, 'dfdf', '1366632978', 'yes', 0, 3),
+(4, 1, 3, 'dd', '1366633056', 'yes', 0, 3),
+(5, 2, 3, 'dd', '1366633171', 'yes', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -630,7 +640,7 @@ CREATE TABLE IF NOT EXISTS `user_profile` (
   KEY `customer_id` (`user_profile_id`),
   KEY `user_id` (`user_id`),
   KEY `user_profile_id` (`user_profile_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `user_profile`
@@ -640,7 +650,8 @@ INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_na
 (1, 1, 'super', 'admin', 'STC lahore', '03336566326', '', ''),
 (2, 2, 'sub', 'admin', 'abc', '', '', ''),
 (3, 3, 'Richard', 'Arnold', 'abc', '', '', ''),
-(4, 4, 'Zahid', 'Nadeem', 'Bahawalpur', '', 'male', '');
+(4, 4, 'Zahid', 'Nadeem', 'Bahawalpur', '', 'male', ''),
+(27, 3, 'dd', 'sdf', 'df', '3333333333', '', '');
 
 -- --------------------------------------------------------
 

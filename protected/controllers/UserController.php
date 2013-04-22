@@ -357,7 +357,15 @@ class UserController extends Controller {
             $modelComment->user_id=Yii::app()->user->id;
              $modelComment->added_date=time();
             $modelComment->is_approved='1';
-            
+	    if(!isset($_POST['ratingUser']))
+	    {
+		$modelComment->rating=5;
+	    }
+	    else
+	    {
+		$modelComment->rating=$_POST['ratingUser'];
+	    }
+	    
            $product_id=$modelComment->attributes['product_id'];
 
             if ($modelComment->validate()) {

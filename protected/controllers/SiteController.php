@@ -138,9 +138,16 @@ class SiteController extends Controller {
                         $cart_model2->session_id='';
                         $cart_model2->save();
                     }
-                    
+                    $user_profile=new UserProfile();
+                    $u_id=  $user_profile->findAll('user_id='.Yii::app()->user->id);
+                   if($u_id)
                     $this->redirect(array('/product/allproducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
-                }
+                 else
+                 {
+                  $this->redirect(array('/userProfile/create')) ;  
+                 }
+                   
+                        }
             }
         }
         // display the login form
