@@ -6,10 +6,14 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'user-profile-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+
+    <?php $form = $this->beginWidget(
+    'CActiveForm',
+    array( 'id' => 'upload-form',
+        'enableAjaxValidation' => false,
+        'htmlOptions' => array('enctype' => 'multipart/form-data'),
+    )
+);?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
@@ -55,6 +59,11 @@
 		<?php echo $form->labelEx($model,'city'); ?>
 		<?php echo $form->textField($model,'city',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'city'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'avatar '); ?>
+		<?php echo $form->fileField($model, 'avatar'); ?>
+		<?php echo $form->error($model,'avatar'); ?>
 	</div>
 
 	<div class="row buttons">

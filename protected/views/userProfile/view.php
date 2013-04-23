@@ -29,5 +29,6 @@ $this->menu=array(
 		'contact_number',
 		'city',
 		'gender',
+		'avatar',
 	),
 )); ?>

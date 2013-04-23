@@ -72,16 +72,21 @@ class UserProfileController extends Controller
 	$modelU->user_id = Yii::app()->user->id;
 	if (isset($_POST['UserProfile']))
 	{
-	    $_POST['UserProfile']['city'];
-	    //$modelU->city=$_POST['UserProfile']['city'];
-	    //$modelU->gender=$_POST['UserProfile']['gender'];
+	    
 	    $modelU->attributes = $_POST['UserProfile'];
+            echo '<pre>';
+            print_r($modelU->attributes);
+             $user_file = DTUploadedFile::getInstance($modelU,'avatar');
 
 	    if ($modelU->validate())
 	    {
+                $upload_path = DTUploadedFile::creeatRecurSiveDirectories(array("user_profile",Yii::app()->user->id));
+                $modelU->avatar=$upload_path;
 		if ($modelU->save())
 		{
-		    $this->redirect(array('view', 'id' => $modelU->user_profile_id));
+                   
+                    $user_file->saveAs($upload_path.$user_file->name);
+		   $this->redirect(array('/product/allproducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
 		}
 	    }
 	    else
