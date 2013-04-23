@@ -1,7 +1,7 @@
 <?php
 
 class UserProfileController extends Controller
-    {
+{
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,10 +14,10 @@ class UserProfileController extends Controller
      */
     public function filters()
     {
-	return array(
-	    'accessControl', // perform access control for CRUD operations
-	    'postOnly + delete', // we only allow deletion via POST request
-	);
+        return array(
+            'accessControl', // perform access control for CRUD operations
+            'postOnly + delete', // we only allow deletion via POST request
+        );
     }
 
     /**
@@ -27,23 +27,23 @@ class UserProfileController extends Controller
      */
     public function accessRules()
     {
-	return array(
-	    array('allow', // allow all users to perform 'index' and 'view' actions
-		'actions' => array('index', 'view'),
-		'users' => array('*'),
-	    ),
-	    array('allow', // allow authenticated user to perform 'create' and 'update' actions
-		'actions' => array('create', 'update'),
-		'users' => array('@'),
-	    ),
-	    array('allow', // allow admin user to perform 'admin' and 'delete' actions
-		'actions' => array('admin', 'delete'),
-		'users' => array('admin'),
-	    ),
-	    array('deny', // deny all users
-		'users' => array('*'),
-	    ),
-	);
+        return array(
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('index', 'view'),
+                'users' => array('*'),
+            ),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions' => array('create', 'update'),
+                'users' => array('@'),
+            ),
+            array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                'actions' => array('admin', 'delete'),
+                'users' => array('admin'),
+            ),
+            array('deny', // deny all users
+                'users' => array('*'),
+            ),
+        );
     }
 
     /**
@@ -52,52 +52,45 @@ class UserProfileController extends Controller
      */
     public function actionView($id)
     {
-	$this->render('view', array(
-	    'model' => $this->loadModel($id),
-	));
+        $this->render('view', array(
+            'model' => $this->loadModel($id),
+        ));
     }
 
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * 
+     * For profile creation and upload file image
      */
     public function actionCreate()
     {
-	Yii::app()->user->SiteSessions;
-	Yii::app()->controller->layout = '//layouts/slider';
-	$modelU = new UserProfile;
+        Yii::app()->user->SiteSessions;
+        Yii::app()->controller->layout = '//layouts/slider';
+        $modelU = new UserProfile;
 
-	// Uncomment the following line if AJAX validation is needed
-	// $this->performAjaxValidation($model);
-	$modelU->user_id = Yii::app()->user->id;
-	if (isset($_POST['UserProfile']))
-	{
-	    
-	    $modelU->attributes = $_POST['UserProfile'];
-            echo '<pre>';
-            print_r($modelU->attributes);
-             $user_file = DTUploadedFile::getInstance($modelU,'avatar');
+   
+        $modelU->user_id = Yii::app()->user->id;
+        if (isset($_POST['UserProfile']))
+        {
 
-	    if ($modelU->validate())
-	    {
-                $upload_path = DTUploadedFile::creeatRecurSiveDirectories(array("user_profile",Yii::app()->user->id));
-                $modelU->avatar=$upload_path;
-		if ($modelU->save())
-		{
-                   
-                    $user_file->saveAs($upload_path.$user_file->name);
-		   $this->redirect(array('/product/allproducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
-		}
-	    }
-	    else
-	    {
-		echo CHtml::errorSummary($modelU);
-	    }
-	}
+            $modelU->attributes = $_POST['UserProfile'];
 
-	$this->render('create', array(
-	    'model' => $modelU,
-	));
+            $user_file = DTUploadedFile::getInstance($modelU, 'avatar');
+            $modelU->avatar = $user_file;
+            if ($modelU->save())
+            {
+                /*                 * * creatign directory structure for picture * */
+                $upload_path = DTUploadedFile::creeatRecurSiveDirectories(array("user_profile", Yii::app()->user->id)) . $user_file;
+
+                $user_file->saveAs($upload_path . $user_file->name);
+                $this->redirect(array('/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+            }
+        }
+
+        $this->render('create', array(
+            'model' => $modelU,
+        ));
     }
 
     /**
@@ -107,21 +100,21 @@ class UserProfileController extends Controller
      */
     public function actionUpdate($id)
     {
-	$model = $this->loadModel($id);
+        $model = $this->loadModel($id);
 
-	// Uncomment the following line if AJAX validation is needed
-	// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-	if (isset($_POST['UserProfile']))
-	{
-	    $model->attributes = $_POST['UserProfile'];
-	    if ($model->save())
-		$this->redirect(array('view', 'id' => $model->user_profile_id));
-	}
+        if (isset($_POST['UserProfile']))
+        {
+            $model->attributes = $_POST['UserProfile'];
+            if ($model->save())
+                $this->redirect(array('view', 'id' => $model->user_profile_id));
+        }
 
-	$this->render('update', array(
-	    'model' => $model,
-	));
+        $this->render('update', array(
+            'model' => $model,
+        ));
     }
 
     /**
@@ -131,11 +124,11 @@ class UserProfileController extends Controller
      */
     public function actionDelete($id)
     {
-	$this->loadModel($id)->delete();
+        $this->loadModel($id)->delete();
 
-	// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-	if (!isset($_GET['ajax']))
-	    $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
     /**
@@ -144,10 +137,10 @@ class UserProfileController extends Controller
      */
     public function actionIndex()
     {
-	$dataProvider = new CActiveDataProvider('UserProfile');
-	$this->render('index', array(
-	    'dataProvider' => $dataProvider,
-	));
+        $dataProvider = new CActiveDataProvider('UserProfile');
+        $this->render('index', array(
+            'dataProvider' => $dataProvider,
+        ));
     }
 
     /**
@@ -155,14 +148,14 @@ class UserProfileController extends Controller
      */
     public function actionAdmin()
     {
-	$model = new UserProfile('search');
-	$model->unsetAttributes();  // clear any default values
-	if (isset($_GET['UserProfile']))
-	    $model->attributes = $_GET['UserProfile'];
+        $model = new UserProfile('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['UserProfile']))
+            $model->attributes = $_GET['UserProfile'];
 
-	$this->render('admin', array(
-	    'model' => $model,
-	));
+        $this->render('admin', array(
+            'model' => $model,
+        ));
     }
 
     /**
@@ -174,10 +167,10 @@ class UserProfileController extends Controller
      */
     public function loadModel($id)
     {
-	$model = UserProfile::model()->findByPk($id);
-	if ($model === null)
-	    throw new CHttpException(404, 'The requested page does not exist.');
-	return $model;
+        $model = UserProfile::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
     }
 
     /**
@@ -186,11 +179,11 @@ class UserProfileController extends Controller
      */
     protected function performAjaxValidation($model)
     {
-	if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-profile-form')
-	{
-	    echo CActiveForm::validate($model);
-	    Yii::app()->end();
-	}
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-profile-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
     }
 
-    }
+}
