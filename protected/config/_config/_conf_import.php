@@ -13,5 +13,5 @@ $import = array(
     'application.extensions.email.debug.*',
     'application.extensions.KEmail.KEmail',
     'application.modules.yiiauth.components.*',
-);
+); 
 ?>
