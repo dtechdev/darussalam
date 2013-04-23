@@ -4,7 +4,6 @@ class m130422_133105_product_rev_rating extends CDbMigration {
 
     public function up() {
         $table = "product_reviews";
-        return true;
         $this->addColumn($table, "rating", "int(11) DEFAULT NULL");
     }
 
