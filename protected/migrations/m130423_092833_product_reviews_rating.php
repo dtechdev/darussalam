@@ -11,17 +11,7 @@ class m130423_092833_product_reviews_rating extends CDbMigration
 	public function down()
 	{
 		$table = "product_reviews";
-              $this->dropColumn($table, "rating");
+              $this->dropColumn($table, "avatar");
 	}
 
-	/*
-	// Use safeUp/safeDown to do migration with transaction
-	public function safeUp()
-	{
-	}
-
-	public function safeDown()
-	{
-	}
-	*/
 }
