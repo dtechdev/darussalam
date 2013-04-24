@@ -34,7 +34,7 @@ class DTWebUser extends CWebUser{
         }
 
         function getIpInfo(){
-            $ip = getenv("REMOTE_ADDR");
+            $ip = Yii::app()->request->getUserHostAddress();
             $content = @file_get_contents('http://api.hostip.info/?ip='.$ip);
             if ($content != FALSE) {
                     $xml = new SimpleXmlElement($content);
@@ -49,6 +49,8 @@ class DTWebUser extends CWebUser{
 
             $siteUrl = $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
             $site_info = SelfSite::model()->getSiteInfo($siteUrl);
+            
+            
             Yii::app()->session['site_id'] = $site_info['site_id'];
             Yii::app()->session['site_headoffice'] = $site_info['site_headoffice'];
 
@@ -58,7 +60,7 @@ class DTWebUser extends CWebUser{
                 $city_id=$_REQUEST['city_id'];
                 $criteria = new CDbCriteria(array(
                     'select' => "*",
-                     'condition'=>"t.city_id=".$city_id,
+                     'condition'=>"t.city_id='".$city_id."'"
                 ));
                 $cityfind = City::model()->with(array(
                                     'country' => array('select' => '*',

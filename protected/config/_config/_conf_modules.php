@@ -10,6 +10,7 @@ $modules = array(
     // uncomment the following to enable the Gii tool
     // uncomment the following to enable the Gii tool
 
+    'web',
     'gii' => array(
         'class' => 'system.gii.GiiModule',
         'password' => '123',
@@ -33,12 +34,12 @@ $modules = array(
                 ),
                 "Google" => array(
                     "enabled" => true,
-                    "keys" => array("id" => "490729776041.apps.googleusercontent.com", "secret" => "61wpdtJXbQisF4LVctPyK8X6"),
+                    "keys" => array("id" => "602525919522-btoe9e878to546igevhc2p2o6qqc0b0f.apps.googleusercontent.com", "secret" => "BZfzZrphAzCOrXH4Cl_g-PdX"),
                     "scope" => ""
                 ),
                 "Facebook" => array(
                     "enabled" => true,
-                    "keys" => array("id" => "178484488967761", "secret" => "97d522f1d2b6fc768256a4118404bb44"),
+                    "keys" => array("id" => "439038352850451", "secret" => "5363cb1657c7e19ac493d64e58995f71"),
                     // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
                     "scope" => "",
                     // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
@@ -59,7 +60,7 @@ $modules = array(
                 ),
                 "LinkedIn" => array(
                     "enabled" => true,
-                    "keys" => array("key" => "n8ahle5m4q6h", "secret" => "Ss2iigpBpYyvsg0A")
+                    "keys" => array("key" => "sb3sap31ifdx", "secret" => "B3F5WucKGrkfxgnK")
                 ),
                 "Foursquare" => array(
                     "enabled" => false,

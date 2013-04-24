@@ -1,6 +1,7 @@
 <?php
 
-class UserController extends Controller {
+class UserController extends Controller
+{
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -9,7 +10,8 @@ class UserController extends Controller {
     /**
      * @return array action filters
      */
-    public function filters() {
+    public function filters()
+    {
         return array(
             'accessControl', // perform access control for CRUD operations
             'postOnly + delete', // we only allow deletion via POST request
@@ -21,10 +23,11 @@ class UserController extends Controller {
      * This method is used by the 'accessControl' filter.
      * @return array access control rules
      */
-    public function accessRules() {
+    public function accessRules()
+    {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'register', 'activate','ProductReview', 'forgot'),
+                'actions' => array('index', 'view', 'register', 'activate', 'ProductReview', 'forgot'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -51,7 +54,8 @@ class UserController extends Controller {
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
         $this->render('view', array(
             'model' => $this->loadModel($id),
         ));
@@ -61,7 +65,8 @@ class UserController extends Controller {
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new User;
         $user_profile = new UserProfile('create');
         $selfSite = new SelfSite();
@@ -69,14 +74,15 @@ class UserController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['User'])) {
+        if (isset($_POST['User']))
+        {
 
             $model->attributes = $_POST['User'];
             $user_profile->attributes = $_POST['UserProfile'];
-            $date = strtotime($model->join_date);
-            $model->join_date = $date;
+        
             //$model->user_name = $user_profile->getFullName();
-            if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL) {
+            if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL)
+            {
                 $model->site_id = '1';
                 $model->role_id = '3';
                 $model->status_id = '2';
@@ -84,14 +90,18 @@ class UserController extends Controller {
                 $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
                 $model->user_password = md5($model->user_password);
             }
-            if ($model->save()) {
+            if ($model->save())
+            {
                 $user_profile->user_id = $model->user_id;
                 // $model->user_name=$user_profile->getFullName();
 
-                if ($user_profile->validate()) {
+                if ($user_profile->validate())
+                {
 
                     $user_profile->save();  //getFull name is a getter function in profile model merge 1st + last name
-                } else {
+                }
+                else
+                {
                     echo CHtml::errorSummary($user_profile);
                 }
                 $this->redirect(array('view', 'id' => $model->user_id));
@@ -103,18 +113,19 @@ class UserController extends Controller {
         ));
     }
 
-    public function actionRegister() {
+    public function actionRegister()
+    {
 
         Yii::app()->controller->layout = '//layouts/main';
         $model = new User;
 
-        if (isset($_POST['User'])) {
+        if (isset($_POST['User']))
+        {
 
             $model->attributes = $_POST['User'];
-            $date = strtotime($model->join_date);
-            $model->join_date = $date;
-
-            if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL) {
+      
+            if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL)
+            {
                 $model->site_id = Yii::app()->session['site_id'];
                 $model->role_id = '3';
                 $model->status_id = '0';
@@ -123,7 +134,8 @@ class UserController extends Controller {
             $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $model->user_email);
             $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
 
-            if ($model->save()) {
+            if ($model->save())
+            {
 
                 $model->user_password = md5($model->user_password);
                 $model->user_password2 = md5($model->user_password2);
@@ -140,8 +152,8 @@ class UserController extends Controller {
                 $message = "<html>
                                 <body>
                                     Please click this below to activate your account <br /><br />" .
-                                    Yii::app()->createAbsoluteUrl('user/activate', array('key' => $model->activation_key, 'user_id' => $model->user_id)) .
-                                    "<br /><br /> Thanks you 
+                        Yii::app()->createAbsoluteUrl('user/activate', array('key' => $model->activation_key, 'user_id' => $model->user_id)) .
+                        "<br /><br /> Thanks you 
                                 </body>
                             </html>";
 
@@ -156,10 +168,11 @@ class UserController extends Controller {
         ));
     }
 
-    public function actionActivate() {
+    public function actionActivate()
+    {
         $user_id = $_GET['user_id'];
         $activation_key = $_GET['key'];
-        
+
         $criteria = new CDbCriteria;
         $criteria->select = '*';
         $conditions = array();
@@ -169,17 +182,18 @@ class UserController extends Controller {
         $criteria->condition = implode(' AND ', $conditions);
 
         $obj = User::model()->findAll($criteria);
-       
-        if ($obj != NULL) {
-            if($obj[0]->status_id=='1')
+
+        if ($obj != NULL)
+        {
+            if ($obj[0]->status_id == '1')
             {
                 //already activated
                 Yii::app()->user->setFlash('login', 'Your account already activated. Please try login or if you miss your login information then go to forgot password section. Thank You');
                 $this->redirect(array('site/login'));
             }
-            else if($obj[0]->activation_key!=$activation_key)
+            else if ($obj[0]->activation_key != $activation_key)
             {
-                 Yii::app()->user->setFlash('login', 'Your activation key not registered. Please resend activation key and activate your account. Thank You');
+                Yii::app()->user->setFlash('login', 'Your activation key not registered. Please resend activation key and activate your account. Thank You');
                 $this->redirect(array('site/login'));
             }
             $modelUser = new User;
@@ -187,9 +201,11 @@ class UserController extends Controller {
 
             Yii::app()->user->setFlash('login', 'Thank You ! Login Please...Your account has been activated....Now Login');
             $this->redirect(array('site/login'));
-        } else {
-             Yii::app()->user->setFlash('login', 'User not exist. Please signup and get activation link again.');
-             $this->redirect(array('site/login'));
+        }
+        else
+        {
+            Yii::app()->user->setFlash('login', 'User not exist. Please signup and get activation link again.');
+            $this->redirect(array('site/login'));
         }
     }
 
@@ -198,13 +214,15 @@ class UserController extends Controller {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id)
+    {
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['User'])) {
+        if (isset($_POST['User']))
+        {
             $model->attributes = $_POST['User'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->user_id));
@@ -220,7 +238,8 @@ class UserController extends Controller {
      * If deletion is successful, the browser will be redirected to the 'admin' page.
      * @param integer $id the ID of the model to be deleted
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $this->loadModel($id)->delete();
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -231,7 +250,8 @@ class UserController extends Controller {
     /**
      * Lists all models.
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         Yii::app()->controller->layout = '//layouts/column2';
         Yii::app()->theme = 'admin';
         $dataProvider = new CActiveDataProvider('User');
@@ -243,7 +263,8 @@ class UserController extends Controller {
     /**
      * Manages all models.
      */
-    public function actionAdmin() {
+    public function actionAdmin()
+    {
         Yii::app()->controller->layout = '//layouts/column2';
         Yii::app()->theme = 'admin';
         $model = new User('search');
@@ -263,20 +284,23 @@ class UserController extends Controller {
      * @return User the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id) {
+    public function loadModel($id)
+    {
         $model = User::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
 
-    public function actionUpdateProfile($id) {
+    public function actionUpdateProfile($id)
+    {
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['User'])) {
+        if (isset($_POST['User']))
+        {
             $model->attributes = $_POST['User'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->user_id));
@@ -287,8 +311,10 @@ class UserController extends Controller {
         ));
     }
 
-    public function actionForgot() {
-        if (isset($_POST['email'])) {
+    public function actionForgot()
+    {
+        if (isset($_POST['email']))
+        {
             $email = $_POST['email'];
 
             $record = User::model()->find(array(
@@ -296,10 +322,13 @@ class UserController extends Controller {
                 'condition' => "user_email='" . $email . "'"
                     )
             );
-            if ($record === null) {
+            if ($record === null)
+            {
                 Yii::app()->user->setFlash('incorrect_email', 'Email does not exists...Please try correct email address');
-            } else {
-                
+            }
+            else
+            {
+
 
 
                 $pass_new = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 9);
@@ -318,24 +347,28 @@ class UserController extends Controller {
                     'MIME-Version: 1.0',
                     'Content-type: text/html; charset=iso-8859-1',
                 );
-                                
+
                 $subject = "Your New Password";
 
                 $message = "Your New Password : " . $pass_new;
 
-                $isSent = Yii::app()->email->send($from, $to, $subject, $message,$headers);
+                $isSent = Yii::app()->email->send($from, $to, $subject, $message, $headers);
 
                 $user_id = $record->user_id;
                 $role_id = $record->role_id;
-                if ($role_id != 1) {
+                if ($role_id != 1)
+                {
                     $modelUser = new User;
                     $pass_new = md5($pass_new);
-                    if ($modelUser->updateByPk($user_id, array('user_password' => "$pass_new"))) {
+                    if ($modelUser->updateByPk($user_id, array('user_password' => "$pass_new")))
+                    {
                         //User::updateAll(array('email=>'), $condition='', $params=array());
 
                         Yii::app()->user->setFlash('password_reset', 'Your passowrd has been sent to your Email.Please get your new password form your email account');
                     }
-                } else {
+                }
+                else
+                {
                     Yii::app()->user->setFlash('superAdmin', 'Sorry we can not change your password  ');
                 }
             }
@@ -343,54 +376,59 @@ class UserController extends Controller {
 
         $this->render('forgot_password', array('model' => UserProfile::model(),));
     }
-    
-    
+
     public function actionProductReview()
     {
-       // echo '<pre>';
-         //  print_r($_POST['ProductReviews']);
-           // exit;
-        $modelComment= new ProductReviews;
-           
-     if (isset($_POST['ProductReviews'])) {
+        // echo '<pre>';
+        //  print_r($_POST['ProductReviews']);
+        // exit;
+        $modelComment = new ProductReviews;
+
+        if (isset($_POST['ProductReviews']))
+        {
             $modelComment->attributes = $_POST['ProductReviews'];
-            $modelComment->user_id=Yii::app()->user->id;
-             $modelComment->added_date=time();
-            $modelComment->is_approved='1';
-	    if(!isset($_POST['ratingUser']))
-	    {
-		$modelComment->rating=5;
-	    }
-	    else
-	    {
-		$modelComment->rating=$_POST['ratingUser'];
-	    }
-	    
-           $product_id=$modelComment->attributes['product_id'];
+            $modelComment->user_id = Yii::app()->user->id;
+            $modelComment->added_date = time();
+            $modelComment->is_approved = '1';
+            if (!isset($_POST['ratingUser']))
+            {
+                $modelComment->rating = 5;
+            }
+            else
+            {
+                $modelComment->rating = $_POST['ratingUser'];
+            }
 
-            if ($modelComment->validate()) {
+            $product_id = $modelComment->attributes['product_id'];
 
-                    if ($modelComment->save()){
-               $this->redirect($this->createUrl('/product/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$product_id)));
-        } //getFull name is a getter function in profile model merge 1st + last name
-                } else {
-                    echo CHtml::errorSummary($modelComment);
-                     $this->redirect($this->createUrl('/product/productDetail',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'],'product_id'=>$product_id)));
-                }
-           
+            if ($modelComment->validate())
+            {
+
+                if ($modelComment->save())
+                {
+                    $this->redirect($this->createUrl('/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product_id)));
+                } //getFull name is a getter function in profile model merge 1st + last name
+            }
+            else
+            {
+                echo CHtml::errorSummary($modelComment);
+                $this->redirect($this->createUrl('/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product_id)));
+            }
+
 //        $this->render('update_profile', array(
 //            'model' => $modelComment,
 //        ));
-        
-    }
+        }
     }
 
     /**
      * Performs the AJAX validation.
      * @param User $model the model to be validated
      */
-    protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form') {
+    protected function performAjaxValidation($model)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form')
+        {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

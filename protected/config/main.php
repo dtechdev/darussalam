@@ -35,6 +35,14 @@ return array(
         'email' => $conf_email_user,
         'Paypal' => $conf_payPall_user,
     ),
+    /*
+    'behaviors' => array(
+        'onbeginRequest' => array(
+            'class' => 'application.components.DTURLBehaviour',
+        ),
+    ),
+     * */
+     
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
     'params' => $params,
