@@ -1,7 +1,7 @@
 <div id="book_content">
     <div id="book_main_content">
         <div class="left_book_main_content">
-            <a href="index.html"><?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/darussalam-inner-logo.png", '', array('alt' => 'logo')) ?></a>
+            <a href="<?php echo $this->createUrl('/site'); ?>"><?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/darussalam-inner-logo.png", '', array('alt' => 'logo')) ?></a>
         </div>
         <div class="search_box">
             <input type="text" placeholder="Search keywords or image ids..." value="" class="search_text" />
@@ -23,24 +23,24 @@
             <div class="tabs">
                 <div class="tab">
 
-                    
+
 
                     <input type="radio" id="tab-1" name="tab-group-1" checked>
                     <label for="tab-1" class="tab1">Profile</label>
                     <div class="conten">
-                        
+
                         <?php
-                    $form = $this->beginWidget(
-                            'CActiveForm', array('id' => 'upload-form',
-                        'enableAjaxValidation' => false,
-                        'htmlOptions' => array('enctype' => 'multipart/form-data'),
-                            )
-                    );
-                    ?>
+                        $form = $this->beginWidget(
+                                'CActiveForm', array('id' => 'upload-form',
+                            'enableAjaxValidation' => false,
+                            'htmlOptions' => array('enctype' => 'multipart/form-data'),
+                                )
+                        );
+                        ?>
 
 <!--                    <p class="note">Fields with <span class="required">*</span> are required.</p>-->
 
-                  <?php echo $form->errorSummary($model); ?>
+                        <?php //echo $form->errorSummary($model); ?>
                         <table width="100%">
                             <tr>
                                 <td>
@@ -49,7 +49,7 @@
                                             <td class="account_left">Email:</td>
                                             <td class="account_right"><span>zoomarts@gmail.com</span></td>
                                         </tr>
-                                        
+
                                         <tr class="account_row">
                                             <td class="account_left"></td>
                                             <td class="account_right"><a href="#">Change Password</a></td>
@@ -64,58 +64,76 @@
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Prefix</td>
-                                            <td class="account_right"><select class="account_prefix"><option>Mr.</option><option>Mrs.</option></select></td>
+                                            <td class="account_right"><?php echo $form->dropDownList($model, 'gender', array('male' => 'Mr', 'female' => 'Mrs'), $htmlOptions = array('class' => 'account_prefix', 'options' => array('1' => array('selected' => true)))); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">First Name</td>
-                                            <td class="account_right"><?php echo $form->textField($model,'first_name',array('class'=>'account_text')); ?></td>
+                                            <td class="account_right"><?php echo $form->textField($model, 'first_name', array('class' => 'account_text')); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Last Name</td>
-                                            <td class="account_right"><?php echo $form->textField($model,'last_name',array('class'=>'account_text')); ?></td>
+                                            <td class="account_right"><?php echo $form->textField($model, 'last_name', array('class' => 'account_text')); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Date Of Birth</td>
-                                            <td class="account_right"><?php echo $form->textField($model,'date_of_birth',array('class'=>'account_text')); ?></td>
+                                            <td class="account_right"><?php
+                                                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                                    'model' => $model,
+                                                    'attribute' => 'date_of_birth',
+                                                    'options' => array(
+                                                        'mode' => 'focus',
+                                                        'dateFormat' => Yii::app()->params['dateformat'],
+                                                        'showAnim' => 'slideDown',
+                                                    ),
+                                                    'htmlOptions' => array(
+                                                        'size' => '15', // textField size
+                                                        //'value' => date("d F, Y"),
+                                                        'maxlength' => '10', // textField maxlength
+                                                        'class' => 'account_text', // textField maxlength
+                                                    ),
+                                                ));
+                                                ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Address Line 1</td>
-                                            <td class="account_right"><?php echo $form->textField($model,'address',array('class'=>'account_text')); ?></td>
+                                            <td class="account_right"><?php echo $form->textField($model, 'address', array('class' => 'account_text')); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Address Line 2</td>
-                                            <td class="account_right"><?php echo $form->textField($model,'address2',array('class'=>'account_text')); ?></td>
+                                            <td class="account_right"><?php echo $form->textField($model, 'address_2', array('class' => 'account_text')); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Country</td>
-                                            <td class="account_right"><select class="account_country"><option>Pakistan</option><option>1</option><option>1</option></select></td>
+                                            <?php $lstData = CHtml::listData(Country::model()->findAll(), 'country_id', 'country_name') ?>
+                                            <td class="account_right"><?php echo $form->dropDownList($model, 'country', $lstData, $htmlOptions = array('class' => 'account_country')); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">City</td>
-                                            <td class="account_right"><?php echo $form->textField($model,'city',array('class'=>'account_text')); ?></td>
+                                            <td class="account_right"><?php echo $form->textField($model, 'city', array('class' => 'account_text')); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">State/Province</td>
-                                            <td class="account_right"><select class="account_country"><option>Pakistan</option><option>1</option><option>1</option></select></td>
+                                            <td class="account_right"><?php echo $form->textField($model, 'state_province', array('class' => 'account_text')); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Zip/Postal Code</td>
-                                            <td class="account_right"><?php echo $form->textField($model,'zip_code',array('class'=>'account_text')); ?></td>
+                                            <td class="account_right"><?php echo $form->textField($model, 'zip_code', array('class' => 'account_text')); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Telephone Number</td>
-                                            <td class="account_right"><?php echo $form->textField($model,'contact_number',array('class'=>'account_text')); ?></td>
+                                            <td class="account_right"><?php echo $form->textField($model, 'contact_number', array('class' => 'account_text')); ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left"></td>
-                                            <td class="account_right"><?php echo CHtml::submitButton($model->isNewRecord ? 'Save' : 'Save',$htmlOptions=array('class'=>'account_save')); ?></td>
+                                            <td class="account_right"><?php echo CHtml::submitButton($model->isNewRecord ? 'Save' : 'Save', $htmlOptions = array('class' => 'account_save')); ?></td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
-                       <?php $this->endWidget(); ?> </table>
+                            <?php $this->endWidget(); ?> </table>
                     </div>
-                    
+
                 </div>
                 <div class="tab">
                     <input type="radio" id="tab-2" name="tab-group-1">
