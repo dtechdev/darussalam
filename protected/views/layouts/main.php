@@ -154,7 +154,7 @@
                                     </div>
                                     <h3 class="dont">Don't have account?</h3>
                                     <div class="sign_up_button">
-                                        <a href="<?php echo $this->createUrl('/user/register') ?>"><input type="button" value="Sign In" class="btn" /></a>
+                                        <a href="<?php echo $this->createUrl('/user/register') ?>"><input type="button" value="Sign Up" class="btn" /></a>
                                     </div>
     <?php $this->endWidget(); ?>
                                 </div>

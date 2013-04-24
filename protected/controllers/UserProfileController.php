@@ -66,7 +66,7 @@ class UserProfileController extends Controller
     public function actionCreate()
     {
         Yii::app()->user->SiteSessions;
-        Yii::app()->controller->layout = '//layouts/slider';
+        Yii::app()->controller->layout = '//layouts/main';
         $modelU = new UserProfile;
 
    
