@@ -147,8 +147,8 @@ class User extends CActiveRecord
         $criteria->compare('site_id', $this->site_id);
 
         return new CActiveDataProvider($this, array(
-                    'criteria' => $criteria,
-                ));
+            'criteria' => $criteria,
+        ));
     }
 
     /**
@@ -165,9 +165,14 @@ class User extends CActiveRecord
             /** in case of form is filling this value * */
             $this->join_date = DTFunctions::dateFormatForSave($this->join_date);
         }
-        
+
         parent::beforeValidate();
         return true;
+    }
+
+    public function beforeSave()
+    {
+        parent::beforeSave();
     }
 
     /**
