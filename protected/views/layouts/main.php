@@ -18,7 +18,7 @@
                     <nav class="row">
                         <a class="toggle" gumby-trigger="#nav3 > .row > ul" href="#"><i class="icon-menu"></i></a>
                         <ul class="eight columns">
-                            <li><a href="<?php echo $this->createUrl('/product/allproducts',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])); ?>">BOOKS</a></li>
+                            <li><a href="<?php echo $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])); ?>">BOOKS</a></li>
                             <li><a href="#">QURAN</a></li>
                             <li><a href="#">EDUCATIONAL TOYS</a></li>
                             <li><a href="#">OTHERS</a></li>
@@ -33,12 +33,15 @@
                         $model = new Country();
                         $login_model = new LoginForm;
                         //print "<pre>";
-                        $countries = Country::model()->findAll('site_id='.Yii::app()->session['site_id']);
+                        $countries = Country::model()->findAll('site_id=' . Yii::app()->session['site_id']);
                         // print_r($countries);
                         // exit;
-                        if ($countries != null) {
-                            foreach ($countries as $country) {
-                                foreach ($country->cities as $city) {
+                        if ($countries != null)
+                        {
+                            foreach ($countries as $country)
+                            {
+                                foreach ($country->cities as $city)
+                                {
                                     $countryList[] = array('city_id' => $city->city_id, 'city_name' => $city->city_name, 'country_name' => $country->country_name);
                                 }
                             }
@@ -52,7 +55,7 @@
                                 'type' => 'POST',
                                 'dataType' => 'json',
                                 'data' => array('city_id' => 'js:$(\'#city_id\').val()'),
-                                'url' => CController::createUrl('/site/DdlAjax'),
+                                'url' => $this->createUrl('/site/storechange'),
                                 'success' => 'function(data) {
                                                             window.location.href=data.redirect
                                                            }',
@@ -62,7 +65,7 @@
                         echo CHtml::endForm();
                         ?>
 <!--            	<select name="countries" id="countries" style="width:200px;">
-  <option value='af' data-image="<?php //echo Yii::app()->theme->baseUrl; ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag af" data-title="Afghanistan" selected="selected">Afghanistan - Pashto</option>
+  <option value='af' data-image="<?php //echo Yii::app()->theme->baseUrl;  ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag af" data-title="Afghanistan" selected="selected">Afghanistan - Pashto</option>
    </select>-->
                         <script>
                             $(document).ready(function() {
@@ -74,66 +77,73 @@
                 <div class="right_middle">
                     <div id="right_header_part">
                         <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/heart_img_03.jpg" alt="heart img" class="heart_img" /></a>
-                        <a href="<?php echo $this->createUrl('/product/viewcart',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])) ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
+                        <a href="<?php echo $this->createUrl('/web/product/viewcart', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])) ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/simple_cart_img_03.jpg" alt="cart img" class="cart_img" /></a>
                         <p id="cart_counter">
-                            <?php 
-                            $ip = getenv("REMOTE_ADDR");
-                             //count total added products in cart
-        if (isset(Yii::app()->user->id)) {
-            $tot = Yii::app()->db->createCommand()
-                    ->select('sum(quantity) as cart_total')
-                    ->from('cart')
-                    ->where('city_id='.Yii::app()->session['city_id'].' AND user_id=' . Yii::app()->user->id)
-                    ->queryRow();
-        } else {
-            $tot = Yii::app()->db->createCommand()
-                    ->select('sum(quantity) as cart_total')
-                    ->from('cart')
-                    ->where('city_id='.Yii::app()->session['city_id'].' AND session_id="' . $ip . '"')
-                    ->queryRow();
-        }
-        echo $tot['cart_total'];
+                            <?php
+                            $ip = Yii::app()->request->getUserHostAddress();
+                            //count total added products in cart
+                            if (isset(Yii::app()->user->id))
+                            {
+                                $tot = Yii::app()->db->createCommand()
+                                        ->select('sum(quantity) as cart_total')
+                                        ->from('cart')
+                                        ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
+                                        ->queryRow();
+                            }
+                            else
+                            {
+                                $tot = Yii::app()->db->createCommand()
+                                        ->select('sum(quantity) as cart_total')
+                                        ->from('cart')
+                                        ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
+                                        ->queryRow();
+                            }
+                            echo $tot['cart_total'];
                             ?>
-                            
+
                         </p>
                     </div>
                     <div id="text">
-<?php if (!Yii::app()->user->isGuest) { ?>
+                                <?php if (!Yii::app()->user->isGuest)
+                                { ?>
                             <h1><a href="<?php echo $this->createUrl('/site/logout') ?>" class="button" style="margin-top: -7px;">Logout</a>
-<?php } else { ?>
+                                <?php }
+                                else
+                                { ?>
                                 <div class="example2">
-                            <?php
-                            /* @var $this SiteController */
-                            /* @var $model LoginForm */
-                            /* @var $form CActiveForm  */
+                                    <?php
+                                    /* @var $this SiteController */
+                                    /* @var $model LoginForm */
+                                    /* @var $form CActiveForm  */
 
-                            $this->pageTitle = Yii::app()->name . ' - Login';
-                            $this->breadcrumbs = array(
-                                'Login',
-                            );
-                            ?>
-                            <?php $form=$this->beginWidget('CActiveForm', array(
-                                    'id'=>'login-form',
-                                    'action' => Yii::app()->createUrl('/site/login'),
-                                    'enableClientValidation'=>true,
-                                    'clientOptions'=>array(
-                                            'validateOnSubmit'=>true,
-                                        
-                                    ),
-                            )); ?>
+                                    $this->pageTitle = Yii::app()->name . ' - Login';
+                                    $this->breadcrumbs = array(
+                                        'Login',
+                                    );
+                                    ?>
+    <?php
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'login-form',
+        'action' => Yii::app()->createUrl('/site/login'),
+        'enableClientValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+        ),
+            ));
+    ?>
 
 
                                     <h1>Sign In</h1>
                                     <p>EMAIL</p>
-                                    <?php echo $form->textField($login_model, 'username', $htmlOptions = array("class" => "second")); ?>
-                                    <?php //echo $form->error($login_model,'username'); ?>
+    <?php echo $form->textField($login_model, 'username', $htmlOptions = array("class" => "second")); ?>
+    <?php //echo $form->error($login_model,'username');  ?>
                                     <p>PASSWORD</p>
-                                    <?php echo $form->passwordField($login_model, 'password', $htmlOptions = array("class" => "second")); ?>
-                                    <?php //echo $form->error($login_model,'password'); ?>
-                                    <?php echo $form->checkBox($login_model, 'rememberMe', $htmlOptions = array("class" => "check")); ?><span> Stay Signed in</span>
+    <?php echo $form->passwordField($login_model, 'password', $htmlOptions = array("class" => "second")); ?>
+    <?php //echo $form->error($login_model,'password');  ?>
+    <?php echo $form->checkBox($login_model, 'rememberMe', $htmlOptions = array("class" => "check")); ?><span> Stay Signed in</span>
                                     <a href="<?php echo $this->createUrl('/user/forgot') ?>" class="forgot"> Forgot Password</a>
                                     <div class="sign_in_button">
-                                        <?php echo CHtml::submitButton("Sign In", array("class" => "btn")); ?>
+    <?php echo CHtml::submitButton("Sign In", array("class" => "btn")); ?>
                                     </div>
                                     <h2 class="signinp">Sign in with</h2>
                                     <div class="sign_in">
@@ -158,7 +168,7 @@
                                     </div>
     <?php $this->endWidget(); ?>
                                 </div>
-                                <?php } ?>
+                <?php } ?>
                     </div>
                 </div>
             </div>
