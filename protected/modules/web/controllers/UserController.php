@@ -65,10 +65,6 @@ class UserController extends Controller
             if ($model->save())
             {
 
-                $model->user_password = md5($model->user_password);
-                $model->user_password2 = md5($model->user_password2);
-                $model->save();
-
                 //Sending email part - For activation
                 $to = $model->user_email;
                 $from = Yii::app()->params->adminEmail;
