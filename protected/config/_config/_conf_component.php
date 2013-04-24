@@ -29,7 +29,7 @@ $conf_payPall_user = array(
     'apiPassword' => '1366199236',
     'apiSignature' => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS',
     'apiLive' => false,
-    'returnUrl' => 'paypal/confirm/', //regardless of url management component
-    'cancelUrl' => 'paypal/cancel/', //regardless of url management component
+    'returnUrl' => '/web/paypal/confirm/', //regardless of url management component
+    'cancelUrl' => '/web/paypal/cancel/', //regardless of url management component
 );
 ?>
