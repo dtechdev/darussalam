@@ -18,10 +18,10 @@
 class UserProfile extends CActiveRecord
 {
 
-    public $avatar;
-    public $date_of_birth;
-    public $address2;
-    public $zip_code;
+//    public $avatar;
+//    public $date_of_birth;
+//    public $address2;
+//    public $zip_code;
 
     /**
      *
@@ -60,7 +60,7 @@ class UserProfile extends CActiveRecord
             array('avatar', 'file', 'types' => 'jpg, gif, png'),
             //array('user_id', 'numerical', 'integerOnly'=>true),
             array('first_name, last_name, address,  contact_number', 'length', 'max' => 255),
-            array('user_profile_id, user_id, first_name, last_name, address, gender, contact_number,city,avatar,date_of_birth', 'safe'),
+            array('user_profile_id, user_id, first_name, last_name, address, gender, contact_number,city,avatar,date_of_birth,state_province,address_2,country,zip_code', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('user_profile_id, user_id, first_name, last_name, address, gender, contact_number,city', 'safe', 'on' => 'search'),
