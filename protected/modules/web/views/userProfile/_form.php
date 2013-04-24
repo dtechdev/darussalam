@@ -38,7 +38,7 @@
                     );
                     ?>
 
-                    <p class="note">Fields with <span class="required">*</span> are required.</p>
+<!--                    <p class="note">Fields with <span class="required">*</span> are required.</p>-->
 
                   <?php echo $form->errorSummary($model); ?>
                         <table width="100%">
@@ -56,7 +56,7 @@
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left" valign="top">Profile Picture</td>
-                                            <td class="account_right"><?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/searching_img_03.jpg", '', array('class' => 'searching_img')) ?><img src="talha_mujahid_img_03.png"></td>
+                                            <td class="account_right"><?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png") ?></td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Change Image:</td>
@@ -108,7 +108,7 @@
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left"></td>
-                                            <td class="account_right"><?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?><input type="button" value="Save" class="account_save"></td>
+                                            <td class="account_right"><?php echo CHtml::submitButton($model->isNewRecord ? 'Save' : 'Save',$htmlOptions=array('class'=>'account_save')); ?></td>
                                         </tr>
                                     </table>
                                 </td>
