@@ -23,7 +23,8 @@
  * 
  * 
  */
-class User extends CActiveRecord {
+class User extends CActiveRecord
+{
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -36,21 +37,24 @@ class User extends CActiveRecord {
 
     public $user_password2;
 
-    public static function model($className = __CLASS__) {
+    public static function model($className = __CLASS__)
+    {
         return parent::model($className);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName() {
+    public function tableName()
+    {
         return 'user';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules() {
+    public function rules()
+    {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
@@ -63,6 +67,7 @@ class User extends CActiveRecord {
             array('user_email', 'email'),
             array('user_email', 'unique', 'message' => 'email already exists.'),
             array('user_password', 'passwordStrength', 'strength' => self::STRONG),
+            array('join_date', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('user_id, user_password, role_id, status_id, city_id, activation_key, is_active, site_id', 'safe', 'on' => 'search'),
@@ -72,7 +77,8 @@ class User extends CActiveRecord {
     /**
      * @return array relational rules.
      */
-    public function relations() {
+    public function relations()
+    {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -87,7 +93,8 @@ class User extends CActiveRecord {
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return array(
             'user_id' => 'User',
             'user_name' => 'User Name',
@@ -104,7 +111,8 @@ class User extends CActiveRecord {
         );
     }
 
-    static function getAccessLevelList($level = null) {
+    static function getAccessLevelList($level = null)
+    {
         $levelList = array(
             self::LEVEL_CUSTOMER => 'Customer',
             self::LEVEL_ADMIN => 'Administrator',
@@ -120,7 +128,8 @@ class User extends CActiveRecord {
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search() {
+    public function search()
+    {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -142,13 +151,45 @@ class User extends CActiveRecord {
                 ));
     }
 
-    public function validatePassword($password, $saved_password) {
+    /**
+     *  used to set the value for validation
+     */
+    public function beforeValidate()
+    {
+        if (empty($this->join_date))
+        {
+            $this->join_date = date("Y-m-d");
+        }
+        else
+        {
+            /** in case of form is filling this value * */
+            $this->join_date = DTFunctions::dateFormatForSave($this->join_date);
+        }
+        
+        parent::beforeValidate();
+        return true;
+    }
+
+    /**
+     *  
+     *  set the site confugrations
+     *  like site id , city id
+     *  plust activation key
+     */
+    public function setSiteConfigurations()
+    {
+        
+    }
+
+    public function validatePassword($password, $saved_password)
+    {
 
         return md5($password) === $saved_password;
         //return $password;
     }
 
-    public function passwordStrength($attribute, $params) {
+    public function passwordStrength($attribute, $params)
+    {
         if ($params['strength'] === self::WEAK)
             $pattern = '/^(?=.*[a-zA-Z0-9]).{5,}$/';
         elseif ($params['strength'] === self::STRONG)
