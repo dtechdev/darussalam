@@ -172,7 +172,9 @@ class User extends CActiveRecord
 
     public function beforeSave()
     {
+        $this->user_password = md5($this->user_password);
         parent::beforeSave();
+        return true;
     }
 
     /**
