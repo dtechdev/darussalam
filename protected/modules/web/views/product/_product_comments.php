@@ -10,17 +10,19 @@ foreach ($product->product_reviews as $rev)
             <?php
             if (isset($rev->user->userProfiles))
             {
-                echo CHtml::image($rev->user->userProfiles->uploaded_img, "", array("class" => ""));
+                echo CHtml::image($rev->user->userProfiles->uploaded_img, "", 
+                        array("class" => "avtar_image_comment"));
             }
             else
             {
-                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png", "", array("class" => ""));
+                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png", "", 
+                        array("class" => "avtar_image_comment"));
             }
             ?>
 
             <h3>
                 <?php
-                echo!empty($rev->user->user_name) ? $rev->user->user_name : $rev->user->user_email;
+                echo !empty($rev->user->userProfiles->last_name) ? $rev->user->userProfiles->last_name : $rev->user->user_email;
                 ?>
             </h3>
         </div>
