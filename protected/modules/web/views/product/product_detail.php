@@ -73,7 +73,7 @@
                                     echo ' / ' . $lan->language->language_name;
                                 }
 
-                                $$lang_count++;
+                                $lang_count++;
                             }
                             ?>
                         </td>
