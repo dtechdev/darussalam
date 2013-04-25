@@ -59,18 +59,24 @@
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Language</td>
-                        <td class="right_td"><?php
-                            $i = 0;
+                        <td class="right_td">
+                            <?php
+                            $lang_count = 0;
                             foreach ($product->productLanguage as $lan)
                             {
-                                if ($i == 0)
+                                if ($lang_count == 0)
+                                {
                                     echo $lan->language->language_name;
+                                }
                                 else
+                                {
                                     echo ' / ' . $lan->language->language_name;
+                                }
 
-                                $i++;
+                                $$lang_count++;
                             }
-                            ?></td>
+                            ?>
+                        </td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">ISBN No</td>
@@ -79,7 +85,8 @@
                             {
                                 echo $isbn->isbn;
                             }
-                            ?></td>
+                            ?>
+                        </td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Category</td>
@@ -138,8 +145,8 @@
                                 'type' => 'POST',
                                 'dataType' => 'json',
                                 'success' => 'function(data){
-                                                                                $("#cart_counter").html(data.cart_counter);
-                                                                                }',
+                                                               $("#cart_counter").html(data.cart_counter);
+                                                            }',
                                     ), array('class' => 'add_to_cart')
                             );
                             ?>
@@ -156,7 +163,7 @@
 
 
             <?php
-            /*             * get comments here * */
+            /* get comments here * */
             $this->renderPartial("_product_comments", array("product" => $product));
             /**
              *  add product comments
