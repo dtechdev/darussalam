@@ -43,6 +43,9 @@ class CreditCardForm extends CFormModel
                             card_number3,card_number4,card_type,cvc,exp_month,exp_year,
                             shipping_first_name, shipping_last_name,shipping_address1,shipping_country,
                             shipping_city, shipping_state, shipping_zip, shipping_phone', 'required'),
+                        array('card_number1,card_number2,card_number3,card_number4', 'numerical', 'integerOnly'=>true),
+                        array('card_number1,card_number2,card_number3,card_number4', 'length', 'max'=>4),
+                        
 			// rememberMe needs to be a boolean
 			//array('rememberMe', 'boolean'),
 			// password needs to be authenticated
