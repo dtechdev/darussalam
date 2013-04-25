@@ -159,12 +159,12 @@ class SiteController extends Controller
                         $cart_model2->save();
                     }
                     $user_profile = new UserProfile();
-                    $user_profile_set = $user_profile->findAll('user_id=' . Yii::app()->user->id);
+                    $user_profile_set = $user_profile->findAll('id=' . Yii::app()->user->id);
                     if ($user_profile_set)
                         $this->redirect(array('/web/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
                     else
                     {
-                        $this->redirect(array('/web/userProfile/create'));
+                        $this->redirect(array('/web/userProfile/update'));
                     }
                 }
             }
