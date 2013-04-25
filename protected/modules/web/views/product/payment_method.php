@@ -42,20 +42,9 @@
                     <p><span>*</span> Last Name</p>
                     <?php echo $form->textField($model, 'last_name', array('class' => 'payment_text')); ?>
                     <?php echo $form->error($model, 'last_name'); ?>
-                    <p><span>*</span> Card Type</p>
-                    
-                    <select>
-                            <option>Visa</option>
-                            <option>Master</option>
-                            <option>Discover</option>
-                            <option>American Express</option>
-                        </select>
-
-                    <?php echo $form->textField($model, 'card_type', array('class' => 'small2_text')); ?>
-                    <?php echo $form->error($model, 'card_type'); ?>
-
+                   
                     <p><span>*</span>  Card Number <i>(the 16 digits on the front of the card)</i></p>
-                    <?php echo $form->textField($model, 'card_number1', array('class' => 'small_text')); ?>
+                    <?php echo $form->textField($model, 'card_number1', array('class' => 'small_text','max-length'=>'4')); ?>
                     <?php echo $form->error($model, 'card_number1'); ?>
                     <?php echo $form->textField($model, 'card_number2', array('class' => 'small_text')); ?>
                     <?php echo $form->error($model, 'card_number2'); ?>
@@ -81,38 +70,36 @@
                     <p><span>*</span> Expiration Date</p>
                     <div class="payment_option">
                         <p class="monthnyear"> Month </p>
-                        <select name="exp_month">
-                            <option> - </option>
-                            <option> 01 </option>
-                            <option> 02 </option>
-                            <option> 03 </option>
-                            <option> 04 </option>
-                            <option> 05 </option>
-                            <option> 06 </option>
-                            <option> 07 </option>
-                            <option> 08 </option>
-                            <option> 09 </option>
-                            <option> 10 </option>
-                            <option> 11 </option>
-                            <option> 12 </option>
-                        </select>
+                        <?php 
+                        $exp_months=array(
+                            '01'=>'01',
+                            '02'=>'02',
+                            '03'=>'03',
+                            '04'=>'04',
+                            '05'=>'05',
+                            '06'=>'06',
+                            '07'=>'07',
+                            '08'=>'08',
+                            '09'=>'09',
+                            '10'=>'10',
+                            '11'=>'11',
+                            '12'=>'12',
+                        );
+                        echo $form->dropDownList($model, 'exp_month', $exp_months); ?>
                         <span> Year </span>
-                        <select name="exp_year">
-                            <option> - </option>
-                            <option> 2013 </option>
-                            <option> 2014 </option>
-                            <option> 2015 </option>
-                            <option> 2016 </option>
-                            <option> 2017 </option>
-                            <option> 2018 </option>
-                            <option> 2019 </option>
-                            <option> 2020 </option>
-                            <option> 2021 </option>
-                            <option> 2022 </option>
-                            <option> 2023 </option>
-                            <option> 2024 </option>
-                            <option> 2025 </option>
-                        </select>
+                        
+                        <?php 
+                        $exp_years=array(
+                            '13'=>'2013',
+                            '14'=>'2014',
+                            '15'=>'2015',
+                            '16'=>'2016',
+                            '17'=>'2017',
+                            '18'=>'2018',
+                            '19'=>'2019',
+                            '20'=>'2020',
+                        );
+                        echo $form->dropDownList($model, 'exp_year', $exp_years); ?>
                     </div>
                 </div>
                 <div class="paypal">
