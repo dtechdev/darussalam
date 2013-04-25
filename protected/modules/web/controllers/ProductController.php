@@ -171,7 +171,7 @@ class ProductController extends Controller
                 "x_method"=> "CC",
 
                 "x_tran_key"=> $auth_net_tran_key, "x_relay_response"=> "FALSE",
-                "x_card_num"=> "4111111111111111",
+                "x_card_num"=> $model->card_number1.$model->card_number2.$model->card_number3.$model->card_number4,
                 "x_exp_date"=> $model->exp_month.$model->exp_year,
                 "x_description"=> Yii::app()->session['description'],
                 "x_amount"=> Yii::app()->session['total_price'],
