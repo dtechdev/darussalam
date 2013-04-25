@@ -86,7 +86,7 @@ class User extends CActiveRecord
             'status' => array(self::BELONGS_TO, 'UserStatus', 'status_id'),
             'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
             'role' => array(self::BELONGS_TO, 'UserRole', 'role_id'),
-            'userProfiles' => array(self::HAS_MANY, 'UserProfile', 'user_id'),
+            'userProfiles' => array(self::HAS_ONE, 'UserProfile', 'id'),
         );
     }
 
