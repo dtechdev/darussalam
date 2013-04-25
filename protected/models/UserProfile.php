@@ -28,6 +28,7 @@ class UserProfile extends CActiveRecord {
      * uploaded path for image
      */
     public $uploaded_img = "";
+    public $oldImg = "";
 
     /**
      * Returns the static model of the specified AR class.
@@ -138,7 +139,29 @@ class UserProfile extends CActiveRecord {
             $this->date_of_birth = DTFunctions::dateFormatForView($this->date_of_birth);
         }
 
+        $this->oldImg = $this->avatar;
+
         parent::afterFind();
+    }
+
+    public function afterSave() {
+
+        $this->deleteldImage();
+        parent::afterSave();
+    }
+
+    /**
+     * to delete old image in case of not empty
+     * not equal new image
+     */
+    public function deleteldImage() {
+
+        if (!empty($this->oldImg) && $this->oldImg != $this->avatar) {
+            $file = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR;
+            $file.= "uploads" . DIRECTORY_SEPARATOR . "user_profile" . DIRECTORY_SEPARATOR . $this->user->primaryKey . DIRECTORY_SEPARATOR . $this->oldImg;
+
+            DTUploadedFile::deleteExistingFile($file);
+        }
     }
 
 }
