@@ -11,13 +11,13 @@
  * @property string $address
  * @property string $email
  * @property string $contact_number
+ * @property string $date_of_birth
  *
  * The followings are the available model relations:
  * @property User $user
  */
 class UserProfile extends CActiveRecord
 {
-
 //    public $avatar;
 //    public $date_of_birth;
 //    public $address2;
@@ -60,10 +60,11 @@ class UserProfile extends CActiveRecord
             array('avatar', 'file', 'types' => 'jpg, gif, png'),
             //array('user_id', 'numerical', 'integerOnly'=>true),
             array('first_name, last_name, address,  contact_number', 'length', 'max' => 255),
-            array('id, first_name, last_name, address, gender, contact_number,city,avatar,date_of_birth,state_province,address_2,country,zip_code', 'safe'),
+            array('id, first_name, last_name, address, gender, contact_number,city', 'safe'),
+            array('avatar,date_of_birth,state_province,address_2,country,zip_code', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('user_profile_id, user_id, first_name, last_name, address, gender, contact_number,city', 'safe', 'on' => 'search'),
+            array('id, first_name, last_name, address, gender, contact_number,city', 'safe', 'on' => 'search'),
         );
     }
 
@@ -129,13 +130,19 @@ class UserProfile extends CActiveRecord
 
     public function afterFind()
     {
+
         if (!empty($this->avatar))
         {
             $this->uploaded_img = Yii::app()->baseUrl . "/uploads/user_profile/" . $this->user->primaryKey . "/" . $this->avatar;
         }
         else
         {
-            $this->uploaded_img =  Yii::app()->theme->baseUrl."/images/talha_mujahid_img_03.png";
+            $this->uploaded_img = Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png";
+        }
+
+        if (!empty($this->date_of_birth))
+        {
+            $this->date_of_birth = DTFunctions::dateFormatForView($this->date_of_birth);
         }
 
         parent::afterFind();
