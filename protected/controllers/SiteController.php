@@ -164,7 +164,7 @@ class SiteController extends Controller
                         $this->redirect(array('/web/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
                     else
                     {
-                        $this->redirect(array('/web/userProfile/update'));
+                        $this->redirect(array('/web/userProfile/index'));
                     }
                 }
             }
