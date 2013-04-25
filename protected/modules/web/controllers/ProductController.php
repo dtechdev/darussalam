@@ -146,7 +146,70 @@ class ProductController extends Controller
     {
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
-        $this->render('payment_method');
+        
+        $model = new CreditCardForm();
+        if (isset($_POST['CreditCardForm']))
+        {
+            $model->attributes = $_POST['CreditCardForm'];
+            $this->CreditCardPayment($model);
+        }
+        
+        $this->render('payment_method', array('model' => $model));
+    }
+    public function CreditCardPayment($model){
+        
+       // print_r($model);
+        $model->first_name;
+        $model->first_name;
+        $model->first_name;
+                $auth_net_login_id='6VxKcg8mb9hx';
+                $auth_net_tran_key='7VB59273qGmv6u2B';
+                $authnet_values= array(
+                "x_login"=> $auth_net_login_id,
+                "x_version"=> "3.1",
+                "x_delim_char"=> "|",
+                "x_delim_data"=> "TRUE",
+                "x_url"=> "FALSE",
+                "x_type"=> "AUTH_CAPTURE",
+                "x_method"=> "CC",
+
+                "x_tran_key"=> $auth_net_tran_key, "x_relay_response"=> "FALSE",
+                "x_card_num"=> "4111111111111111",
+                "x_exp_date"=> "0314",
+                "x_description"=> "Recycled Toner Cartridges",
+                "x_amount"=> "12.20",
+                "x_first_name"=> $model->first_name,
+                "x_last_name"=> $model->last_name,
+                "x_address"=> $model->first_name,
+                "x_city"=> $model->first_name,
+                "x_state"=> $model->first_name,
+                "x_zip"=> "12345",
+                );
+
+                $fields = "";
+                foreach( $authnet_values as $key => $value ) $fields .= "$key=" . urlencode( $value ) . "&";
+
+                $ch = curl_init("https://certification.authorize.net/gateway/transact.dll");
+                curl_setopt($ch, CURLOPT_HEADER, 0); // removes HTTP headers from response
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Returns response data
+                curl_setopt($ch, CURLOPT_POSTFIELDS, rtrim( $fields, "& " )); // use HTTP POST to send form data
+                $authorize_response = curl_exec($ch); //execute post and get results
+                curl_close ($ch);
+
+                //print "<pre>";
+                //print_r($authorize_response);
+                
+                // This line takes the response and breaks it into an array using the specified delimiting character
+                $response_array = explode($authnet_values["x_delim_char"],$authorize_response);
+
+                // The results are output to the screen in the form of an html numbered list.
+                echo "<OL>\n";
+                foreach ($response_array as $value)
+                {
+                        echo "<LI>" . $value . "&nbsp;</LI>\n";
+                }
+                echo "</OL>\n";
+        
     }
 
     public function actionconfirmOrder()
