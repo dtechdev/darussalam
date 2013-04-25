@@ -139,9 +139,16 @@ class ProductController extends Controller
         $product = $product_obj->find($condition = 'product_id=' . $_REQUEST['product_id']);
 
         Yii::app()->controller->layout = '//layouts/main';
-        $this->render('product_detail', array('product' => $product));
+        /**
+         *  getting value of poduct rating
+         */
+        $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
+        
+        $this->render('product_detail', 
+                array('product' => $product,"rating_value"=>$rating_value));
     }
-
+    
+  
     public function actionpaymentMethod()
     {
         Yii::app()->theme = Yii::app()->session['layout'];

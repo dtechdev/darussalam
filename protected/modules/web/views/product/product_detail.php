@@ -6,15 +6,17 @@
 <div id="descritpion">
     <div id="booked_content">
         <div class="left_book">
-            <img src="<?php echo Yii::app()->baseUrl . '/images/product_images/' . $product->productImages[0]->image_large; ?>" class="small_product_first">
+
+            <?php
+            echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $product->productImages[0]->image_large, '', array("class" => "small_product_first"));
+            ?>
             <div class="small_product">
                 <?php
                 foreach ($product->productImages as $img)
                 {
-                    ?>
-                    <img src="<?php echo Yii::app()->baseUrl . '/images/product_images/' . $img->image_small; ?>" width="66px" height="95px">
-
-<?php } ?>
+                    echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $img->image_small, '', array("width" => "66px", "height" => "95px"));
+                }
+                ?>
             </div>
         </div>
         <div class="right_book">
@@ -57,18 +59,24 @@
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Language</td>
-                        <td class="right_td"><?php
-                            $i = 0;
+                        <td class="right_td">
+                            <?php
+                            $lang_count = 0;
                             foreach ($product->productLanguage as $lan)
                             {
-                                if ($i == 0)
+                                if ($lang_count == 0)
+                                {
                                     echo $lan->language->language_name;
+                                }
                                 else
+                                {
                                     echo ' / ' . $lan->language->language_name;
+                                }
 
-                                $i++;
+                                $lang_count++;
                             }
-                            ?></td>
+                            ?>
+                        </td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">ISBN No</td>
@@ -77,19 +85,22 @@
                             {
                                 echo $isbn->isbn;
                             }
-                            ?></td>
+                            ?>
+                        </td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Category</td>
                         <td class="right_td"><?php
-                            $i = 0;
+                            $cat_count = 0;
                             foreach ($product->productCategories as $cat)
                             {
-                                if ($i == 0)
+                                if ($cat_count == 0){
                                     echo $cat->category->category_name;
-                                else
+                                }
+                                else{
                                     echo ' / ' . $cat->category->category_name;
-                                $i++;
+                                }
+                                $cat_count++;
                             }
                             ?></td>
                     </tr>
@@ -99,30 +110,16 @@
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Product Rating</td>
-                        <td class="right_td"><?php
-                            //$ratings=array();
-
-                            $criteriaCRating = new CDbCriteria;
-                            $criteriaCRating->select = 'avg(rating) as avgRate,rating';
-                            $criteriaCRating->condition = 'product_id=' . $product->product_id;
-                            $ratings = ProductReviews::model()->findAll($criteriaCRating);
-                            if (empty($ratings[0]->avgRate))
-                            {
-                                $ratings[0]->avgRate = 5;
-                                $valu = $ratings[0]->avgRate;
-                            }
-                            else
-                            {
-                                $valu = $ratings[0]->avgRate;
-                            }
+                        <td class="right_td">
+                            <?php
+                            /** rating value is comming from controller * */
                             $this->widget('CStarRating', array(
                                 'name' => 'ratings',
                                 'minRating' => 1,
                                 'maxRating' => 5,
                                 'starCount' => 5,
-                                'value' => round($valu),
+                                'value' => round($rating_value),
                                 'readOnly' => true,
-                                    //'cssFile'=>'css/style.css',
                             ));
                             ?></td>
                     </tr>
@@ -150,8 +147,8 @@
                                 'type' => 'POST',
                                 'dataType' => 'json',
                                 'success' => 'function(data){
-                                                                                $("#cart_counter").html(data.cart_counter);
-                                                                                }',
+                                           $("#cart_counter").html(data.cart_counter);
+                                      }',
                                     ), array('class' => 'add_to_cart')
                             );
                             ?>
@@ -166,146 +163,15 @@
         </div>
         <div id="product_comments">
 
-                    <?php
-                    foreach ($product->product_reviews as $rev)
-                    {
-                        ?>
-                <div class="comments">
-                    <div class="left_comments">
-                        <?php
-                        if (isset($rev->user->userProfiles))
-                        {
-                            echo CHtml::image($rev->user->userProfiles->uploaded_img, "", array("class" => ""));
-                        }
-                        else
-                        {
-                            echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png", "", array("class" => ""));
-                        }
-                        ?>
 
-                        <h3><?php
-                        if ($rev->user->user_name != NULL)
-                        {
-                            echo $rev->user->user_name;
-                        }
-                        else
-                        {
-                            echo $rev->user->user_email;
-                        }
-                        ?></h3>
-                    </div>
-
-                    <div class="right_comments">
-                        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />
-                        <p>
-                            <?php echo $rev->reviews; ?>
-                        </p>
-                        <h4><?php
-                            //echo time()-$rev->added_date;
-                            $numDays = round(abs(time() - $rev->added_date) / 86400 % 7);
-                            $numHours = round(abs(time() - $rev->added_date) / 3600 % 24);
-                            $numMinutes = round(abs(time() - $rev->added_date) / 60 % 60);
-                            $numSeconds = round(abs(time() - $rev->added_date) % 60);
-                            $remainingtime = '';
-                            if ($numDays != 0 AND $numDays == 1)
-                            {
-                                $remainingtime.=$numDays . ' Day ';
-                            }
-                            if ($numDays != 0 AND $numDays > 1)
-                            {
-                                $remainingtime.=$numDays . ' Days ';
-                            }
-                            if ($numHours != 0)
-                            {
-                                $remainingtime.=$numHours . ' Hours ';
-                            }
-                            if ($numMinutes != 0)
-                            {
-                                $remainingtime.=$numMinutes . ' Minutes ';
-                            }
-                            if ($numSeconds != 0)
-                            {
-                                $remainingtime.=$numSeconds . ' Seconds ';
-                            }
-
-                            echo $remainingtime;
-                            ?> ago <a href="#">- Report as inappropriate</a></h4>
-                        <div class="bottom_border">
-                <?php
-                $ratePerUser = $rev->rating;
-
-                $this->widget('CStarRating', array(
-                    'name' => 'rating' . $rev->reviews_id,
-                    'minRating' => 1,
-                    'maxRating' => 5,
-                    'starCount' => 5,
-                    'value' => $ratePerUser,
-                    'readOnly' => TRUE,
-                        //'cssFile'=>'/css/rating.css',
-                ));
-                ?>
-                        </div>
-                    </div>
-                </div><?php } ?>
-
-<?php
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'login-form',
-    'action' => $this->createUrl('/web/user/ProductReview'),
-    'enableClientValidation' => true,
-    'clientOptions' => array(
-        'validateOnSubmit' => true,
-    ),
-        ));
-?>
-            <div class="comments">
-                <div class="left_comments">
-                    <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/talha_mujahid_img_03.png">
-                </div>
-                <div class="right_comments">
-                    <div>
-                        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />
-                    </div>
-
-
-                    <?php
-                    $modelC = new ProductReviews;
-                    $pid = $product->product_id;
-                    if (Yii::app()->user->id != NUll)
-                    {
-                        echo $form->textArea($modelC, 'reviews', $htmlOptions = array('maxlength' => 300, 'rows' => '2', 'cols' => '59'));
-                    }
-                    else
-                    {
-                        echo $form->textArea($modelC, 'reviews', $htmlOptions = array('maxlength' => 300, 'rows' => '2', 'cols' => '59', 'readonly' => 'readonly'));
-                    }
-                    $this->widget('CStarRating', array(
-                        'name' => 'ratingUser',
-                        'minRating' => 1,
-                        'maxRating' => 5,
-                        'starCount' => 5,
-                        'value' => 3,
-                        'readOnly' => false,
-                            //'cssFile'=>'/css/rating.css',
-                    ));
-                    echo $form->hiddenField($modelC, 'product_id', array('value' => $pid));
-                    ?>
-
-<?php echo $form->checkBox($modelC, 'is_email', $htmlOptions = array('class' => 'comments_checkbox')); ?>
-                    <span>Send me an email for each new comment.</span>
-<?php
-if (Yii::app()->user->id != NUll)
-{
-    echo CHtml::submitButton('Add Comments', array('class' => 'add_comment'));
-}
-else
-{
-    echo CHtml::submitButton('Add Comments', $htmlOptions = array('class' => 'add_comment', 'disabled' => 'disabled'));
-}
-?>
-                </div>
-            </div>
-<?php $this->endWidget(); ?>
+            <?php
+            /* get comments here * */
+            $this->renderPartial("_product_comments", array("product" => $product));
+            /**
+             *  add product comments
+             */
+            $this->renderPartial("_product_add_comments", array("product" => $product));
+            ?>
         </div>
     </div>
 </div>
