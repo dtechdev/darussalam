@@ -17,6 +17,16 @@
                 <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/norton_secured_img_03.png" alt="norton_secured" /></a>
             </div>
         </div>
+        <?php 
+        if($error['status'])
+        {
+        ?>
+        <div class="middle_payment_method">
+            <div class="left_middle_payment_method">
+                <?php echo $error['message'];?>
+            </div>
+        </div>
+        <?}?>
         <div class="bottom_payment_method">
 <!--                <form method="POST" action="<?php echo $this->createUrl('/web/Paypal/directpayment'); ?>">-->
             <?php
@@ -44,15 +54,15 @@
                     <?php echo $form->error($model, 'last_name'); ?>
                    
                     <p><span>*</span>  Card Number <i>(the 16 digits on the front of the card)</i></p>
-                    <?php echo $form->textField($model, 'card_number1', array('class' => 'small_text','max-length'=>'4')); ?>
-                    <?php echo $form->error($model, 'card_number1'); ?>
+                    <?php echo $form->textField($model, 'card_number1', array('class' => 'small_text','max-length'=>'4','error'=>"Box one can't be blank")); ?>
                     <?php echo $form->textField($model, 'card_number2', array('class' => 'small_text')); ?>
-                    <?php echo $form->error($model, 'card_number2'); ?>
                     <?php echo $form->textField($model, 'card_number3', array('class' => 'small_text')); ?>
-                    <?php echo $form->error($model, 'card_number3'); ?>
                     <?php echo $form->textField($model, 'card_number4', array('class' => 'small_text')); ?>
+                    
+                    <?php echo $form->error($model, 'card_number1'); ?>
+                    <?php echo $form->error($model, 'card_number2'); ?>
+                    <?php echo $form->error($model, 'card_number3'); ?>
                     <?php echo $form->error($model, 'card_number4'); ?>
-
 
                     <div class="payment_small_img">
                         <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/visa_big_img_03.png" alt="Visa" class="visa_img" /></a>
