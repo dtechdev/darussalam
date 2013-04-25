@@ -73,7 +73,7 @@ class UserProfileController extends Controller
         $modelU->user_id = Yii::app()->user->id;
         if (isset($_POST['UserProfile']))
         {
-
+           
             $modelU->attributes = $_POST['UserProfile'];
 
             $user_file = DTUploadedFile::getInstance($modelU, 'avatar');
@@ -84,7 +84,7 @@ class UserProfileController extends Controller
                 $upload_path = DTUploadedFile::creeatRecurSiveDirectories(array("user_profile", Yii::app()->user->id)) . $user_file;
 
                 $user_file->saveAs($upload_path . $user_file->name);
-                $this->redirect(array('/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+                $this->redirect(array('/web/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
             }
         }
 
@@ -101,6 +101,8 @@ class UserProfileController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
+        Yii::app()->user->SiteSessions;
+        Yii::app()->controller->layout = '//layouts/main';
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);

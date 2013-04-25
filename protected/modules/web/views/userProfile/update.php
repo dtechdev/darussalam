@@ -15,7 +15,4 @@ $this->menu=array(
 	array('label'=>'Manage UserProfile', 'url'=>array('admin')),
 );
 ?>
-
-<h1>Update UserProfile <?php echo $model->user_profile_id; ?></h1>
-
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
