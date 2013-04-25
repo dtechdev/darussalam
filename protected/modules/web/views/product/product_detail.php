@@ -177,9 +177,9 @@
                 <div class="comments">
                     <div class="left_comments">
                         <?php
-                        if(isset($rev->user->userProfiles[0]))
+                        if(isset($rev->user->userProfiles))
                         {
-                            echo CHtml::image($rev->user->userProfiles[0]->uploaded_img, "", array("class" => ""));
+                            echo CHtml::image($rev->user->userProfiles->uploaded_img, "", array("class" => ""));
                         }
                         else 
                         {
