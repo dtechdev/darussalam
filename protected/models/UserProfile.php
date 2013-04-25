@@ -56,11 +56,11 @@ class UserProfile extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, first_name, last_name', 'required'),
+            array('id, first_name, last_name', 'required'),
             array('avatar', 'file', 'types' => 'jpg, gif, png'),
             //array('user_id', 'numerical', 'integerOnly'=>true),
             array('first_name, last_name, address,  contact_number', 'length', 'max' => 255),
-            array('user_profile_id, user_id, first_name, last_name, address, gender, contact_number,city,avatar,date_of_birth,state_province,address_2,country,zip_code', 'safe'),
+            array('id, first_name, last_name, address, gender, contact_number,city,avatar,date_of_birth,state_province,address_2,country,zip_code', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('user_profile_id, user_id, first_name, last_name, address, gender, contact_number,city', 'safe', 'on' => 'search'),
@@ -75,7 +75,7 @@ class UserProfile extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'id'),
         );
     }
 
@@ -85,8 +85,7 @@ class UserProfile extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'user_profile_id' => 'User Profile',
-            'user_id' => 'User',
+            'id' => 'User Profile',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'address' => 'Address',
@@ -107,8 +106,7 @@ class UserProfile extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('user_profile_id', $this->user_profile_id);
-        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('id', $this->id);
         $criteria->compare('first_name', $this->first_name, true);
         $criteria->compare('last_name', $this->last_name, true);
         $criteria->compare('address', $this->address, true);
