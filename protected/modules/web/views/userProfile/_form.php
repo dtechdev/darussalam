@@ -56,9 +56,18 @@
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left" valign="top">Profile Picture</td>
-                                            <td class="account_right"><?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png") ?></td>
+                                            <td class="account_right">
+                                                <?php echo CHtml::image($model->uploaded_img,'',
+                                                        array(
+                                                            "width"=>"80",
+                                                            "height"=>"80",
+                                                            "style"=>"cursor:pointer",
+                                                            "onclick"=>"$('#UserProfile_avatar').trigger('click')",
+                                                            ));
+                                                ?>
+                                            </td>
                                         </tr>
-                                        <tr class="account_row">
+                                        <tr class="account_row" style="display:none">
                                             <td class="account_left">Change Image:</td>
                                             <td class="account_right"><?php echo $form->fileField($model, 'avatar'); ?></td>
                                         </tr>
@@ -105,7 +114,7 @@
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">Country</td>
-                                            <?php $lstData = CHtml::listData(Country::model()->findAll(), 'country_id', 'country_name') ?>
+                                            <?php $lstData = CHtml::listData(Country::model()->findAll(), 'country_name', 'country_name') ?>
                                             <td class="account_right"><?php echo $form->dropDownList($model, 'country', $lstData, $htmlOptions = array('class' => 'account_country')); ?></td>
                                         </tr>
                                         <tr class="account_row">
