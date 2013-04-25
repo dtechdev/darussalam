@@ -91,14 +91,16 @@
                     <tr class="product_tr">
                         <td class="left_td">Category</td>
                         <td class="right_td"><?php
-                            $i = 0;
+                            $cat_count = 0;
                             foreach ($product->productCategories as $cat)
                             {
-                                if ($i == 0)
+                                if ($cat_count == 0){
                                     echo $cat->category->category_name;
-                                else
+                                }
+                                else{
                                     echo ' / ' . $cat->category->category_name;
-                                $i++;
+                                }
+                                $cat_count++;
                             }
                             ?></td>
                     </tr>
@@ -145,8 +147,8 @@
                                 'type' => 'POST',
                                 'dataType' => 'json',
                                 'success' => 'function(data){
-                                                               $("#cart_counter").html(data.cart_counter);
-                                                            }',
+                                           $("#cart_counter").html(data.cart_counter);
+                                      }',
                                     ), array('class' => 'add_to_cart')
                             );
                             ?>
