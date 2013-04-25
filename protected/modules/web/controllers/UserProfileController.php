@@ -1,7 +1,6 @@
 <?php
 
-class UserProfileController extends Controller
-{
+class UserProfileController extends Controller {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -12,8 +11,7 @@ class UserProfileController extends Controller
     /**
      * @return array action filters
      */
-    public function filters()
-    {
+    public function filters() {
         return array(
             'accessControl', // perform access control for CRUD operations
             'postOnly + delete', // we only allow deletion via POST request
@@ -25,20 +23,11 @@ class UserProfileController extends Controller
      * This method is used by the 'accessControl' filter.
      * @return array access control rules
      */
-    public function accessRules()
-    {
+    public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
-                'users' => array('*'),
-            ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
+                'actions' => array('index', 'view'),
                 'users' => array('@'),
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
-                'users' => array('admin'),
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -50,46 +39,9 @@ class UserProfileController extends Controller
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         $this->render('view', array(
             'model' => $this->loadModel($id),
-        ));
-    }
-
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * 
-     * For profile creation and upload file image
-     */
-    public function actionCreate()
-    {
-        Yii::app()->user->SiteSessions;
-        Yii::app()->controller->layout = '//layouts/main';
-        $modelU = new UserProfile;
-
-   
-        $modelU->user_id = Yii::app()->user->id;
-        if (isset($_POST['UserProfile']))
-        {
-           
-            $modelU->attributes = $_POST['UserProfile'];
-
-            $user_file = DTUploadedFile::getInstance($modelU, 'avatar');
-            $modelU->avatar = $user_file;
-            if ($modelU->save())
-            {
-                /*                 * * creatign directory structure for picture * */
-                $upload_path = DTUploadedFile::creeatRecurSiveDirectories(array("user_profile", Yii::app()->user->id)) . $user_file;
-
-                $user_file->saveAs($upload_path . $user_file->name);
-                $this->redirect(array('/web/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
-            }
-        }
-
-        $this->render('create', array(
-            'model' => $modelU,
         ));
     }
 
@@ -98,64 +50,35 @@ class UserProfileController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->loadModel($id);
+    public function actionIndex() {
+
+        
         Yii::app()->user->SiteSessions;
         Yii::app()->controller->layout = '//layouts/main';
+        $model = UserProfile::model()->findByPk(Yii::app()->user->id);
+
+        if (empty($model)) {
+            $model = new UserProfile;
+        }
+
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['UserProfile']))
-        {
+        if (isset($_POST['UserProfile'])) {
+            $model->id = Yii::app()->user->id;
             $model->attributes = $_POST['UserProfile'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->user_profile_id));
+            $user_file = DTUploadedFile::getInstance($model, 'avatar');
+            $model->avatar = $user_file;
+            if ($model->save()) {
+                $upload_path = DTUploadedFile::creeatRecurSiveDirectories(array("user_profile", Yii::app()->user->id));
+
+                $user_file->saveAs($upload_path . $user_file->name);
+                $this->redirect(array('index'));
+            }
         }
 
         $this->render('update', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
-     */
-    public function actionDelete($id)
-    {
-        $this->loadModel($id)->delete();
-
-        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if (!isset($_GET['ajax']))
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-    }
-
-    /**
-
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new CActiveDataProvider('UserProfile');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
-        $model = new UserProfile('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['UserProfile']))
-            $model->attributes = $_GET['UserProfile'];
-
-        $this->render('admin', array(
             'model' => $model,
         ));
     }
@@ -167,8 +90,7 @@ class UserProfileController extends Controller
      * @return UserProfile the loaded model
      * @throws CHttpException
      */
-    public function loadModel($id)
-    {
+    public function loadModel($id) {
         $model = UserProfile::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
@@ -179,10 +101,8 @@ class UserProfileController extends Controller
      * Performs the AJAX validation.
      * @param UserProfile $model the model to be validated
      */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-profile-form')
-        {
+    protected function performAjaxValidation($model) {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-profile-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

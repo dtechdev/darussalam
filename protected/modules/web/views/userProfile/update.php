@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
+
 $this->menu=array(
 
 	array('label'=>'View UserProfile', 'url'=>array('view', 'id'=>$model->id)),
