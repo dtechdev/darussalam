@@ -6,15 +6,16 @@
 <div id="descritpion">
     <div id="booked_content">
         <div class="left_book">
-            <img src="<?php echo Yii::app()->baseUrl . '/images/product_images/' . $product->productImages[0]->image_large; ?>" class="small_product_first">
+
+            <?php
+            echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $product->productImages[0]->image_large, '', array("class" => "small_product_first"));
+            ?>
             <div class="small_product">
                 <?php
-                foreach ($product->productImages as $img)
-                {
-                    ?>
-                    <img src="<?php echo Yii::app()->baseUrl . '/images/product_images/' . $img->image_small; ?>" width="66px" height="95px">
-
-<?php } ?>
+                foreach ($product->productImages as $img) {
+                    echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $img->image_small, '', array("width" => "66px", "height" => "95px"));
+                } 
+                ?>
             </div>
         </div>
         <div class="right_book">
@@ -49,8 +50,7 @@
                     <tr class="product_tr">
                         <td class="left_td">Author</td>
                         <td class="right_td"><?php
-                            foreach ($product->productProfile as $pp)
-                            {
+                            foreach ($product->productProfile as $pp) {
                                 echo $pp->author->author_name;
                             }
                             ?></td>
@@ -59,8 +59,7 @@
                         <td class="left_td">Language</td>
                         <td class="right_td"><?php
                             $i = 0;
-                            foreach ($product->productLanguage as $lan)
-                            {
+                            foreach ($product->productLanguage as $lan) {
                                 if ($i == 0)
                                     echo $lan->language->language_name;
                                 else
@@ -73,8 +72,7 @@
                     <tr class="product_tr">
                         <td class="left_td">ISBN No</td>
                         <td class="right_td"><?php
-                            foreach ($product->productProfile as $isbn)
-                            {
+                            foreach ($product->productProfile as $isbn) {
                                 echo $isbn->isbn;
                             }
                             ?></td>
@@ -83,8 +81,7 @@
                         <td class="left_td">Category</td>
                         <td class="right_td"><?php
                             $i = 0;
-                            foreach ($product->productCategories as $cat)
-                            {
+                            foreach ($product->productCategories as $cat) {
                                 if ($i == 0)
                                     echo $cat->category->category_name;
                                 else
@@ -106,13 +103,10 @@
                             $criteriaCRating->select = 'avg(rating) as avgRate,rating';
                             $criteriaCRating->condition = 'product_id=' . $product->product_id;
                             $ratings = ProductReviews::model()->findAll($criteriaCRating);
-                            if (empty($ratings[0]->avgRate))
-                            {
+                            if (empty($ratings[0]->avgRate)) {
                                 $ratings[0]->avgRate = 5;
                                 $valu = $ratings[0]->avgRate;
-                            }
-                            else
-                            {
+                            } else {
                                 $valu = $ratings[0]->avgRate;
                             }
                             $this->widget('CStarRating', array(
@@ -166,33 +160,26 @@
         </div>
         <div id="product_comments">
 
-                    <?php
-                    foreach ($product->product_reviews as $rev)
-                    {
-                        ?>
+            <?php
+            foreach ($product->product_reviews as $rev) {
+                ?>
                 <div class="comments">
                     <div class="left_comments">
                         <?php
-                        if (isset($rev->user->userProfiles))
-                        {
+                        if (isset($rev->user->userProfiles)) {
                             echo CHtml::image($rev->user->userProfiles->uploaded_img, "", array("class" => ""));
-                        }
-                        else
-                        {
+                        } else {
                             echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png", "", array("class" => ""));
                         }
                         ?>
 
                         <h3><?php
-                        if ($rev->user->user_name != NULL)
-                        {
-                            echo $rev->user->user_name;
-                        }
-                        else
-                        {
-                            echo $rev->user->user_email;
-                        }
-                        ?></h3>
+                            if ($rev->user->user_name != NULL) {
+                                echo $rev->user->user_name;
+                            } else {
+                                echo $rev->user->user_email;
+                            }
+                            ?></h3>
                     </div>
 
                     <div class="right_comments">
@@ -207,57 +194,52 @@
                             $numMinutes = round(abs(time() - $rev->added_date) / 60 % 60);
                             $numSeconds = round(abs(time() - $rev->added_date) % 60);
                             $remainingtime = '';
-                            if ($numDays != 0 AND $numDays == 1)
-                            {
+                            if ($numDays != 0 AND $numDays == 1) {
                                 $remainingtime.=$numDays . ' Day ';
                             }
-                            if ($numDays != 0 AND $numDays > 1)
-                            {
+                            if ($numDays != 0 AND $numDays > 1) {
                                 $remainingtime.=$numDays . ' Days ';
                             }
-                            if ($numHours != 0)
-                            {
+                            if ($numHours != 0) {
                                 $remainingtime.=$numHours . ' Hours ';
                             }
-                            if ($numMinutes != 0)
-                            {
+                            if ($numMinutes != 0) {
                                 $remainingtime.=$numMinutes . ' Minutes ';
                             }
-                            if ($numSeconds != 0)
-                            {
+                            if ($numSeconds != 0) {
                                 $remainingtime.=$numSeconds . ' Seconds ';
                             }
 
                             echo $remainingtime;
                             ?> ago <a href="#">- Report as inappropriate</a></h4>
                         <div class="bottom_border">
-                <?php
-                $ratePerUser = $rev->rating;
+                            <?php
+                            $ratePerUser = $rev->rating;
 
-                $this->widget('CStarRating', array(
-                    'name' => 'rating' . $rev->reviews_id,
-                    'minRating' => 1,
-                    'maxRating' => 5,
-                    'starCount' => 5,
-                    'value' => $ratePerUser,
-                    'readOnly' => TRUE,
-                        //'cssFile'=>'/css/rating.css',
-                ));
-                ?>
+                            $this->widget('CStarRating', array(
+                                'name' => 'rating' . $rev->reviews_id,
+                                'minRating' => 1,
+                                'maxRating' => 5,
+                                'starCount' => 5,
+                                'value' => $ratePerUser,
+                                'readOnly' => TRUE,
+                                    //'cssFile'=>'/css/rating.css',
+                            ));
+                            ?>
                         </div>
                     </div>
                 </div><?php } ?>
 
-<?php
-$form = $this->beginWidget('CActiveForm', array(
-    'id' => 'login-form',
-    'action' => $this->createUrl('/web/user/ProductReview'),
-    'enableClientValidation' => true,
-    'clientOptions' => array(
-        'validateOnSubmit' => true,
-    ),
-        ));
-?>
+            <?php
+            $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'login-form',
+                'action' => $this->createUrl('/web/user/ProductReview'),
+                'enableClientValidation' => true,
+                'clientOptions' => array(
+                    'validateOnSubmit' => true,
+                ),
+            ));
+            ?>
             <div class="comments">
                 <div class="left_comments">
                     <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/talha_mujahid_img_03.png">
@@ -271,12 +253,9 @@ $form = $this->beginWidget('CActiveForm', array(
                     <?php
                     $modelC = new ProductReviews;
                     $pid = $product->product_id;
-                    if (Yii::app()->user->id != NUll)
-                    {
+                    if (Yii::app()->user->id != NUll) {
                         echo $form->textArea($modelC, 'reviews', $htmlOptions = array('maxlength' => 300, 'rows' => '2', 'cols' => '59'));
-                    }
-                    else
-                    {
+                    } else {
                         echo $form->textArea($modelC, 'reviews', $htmlOptions = array('maxlength' => 300, 'rows' => '2', 'cols' => '59', 'readonly' => 'readonly'));
                     }
                     $this->widget('CStarRating', array(
@@ -291,21 +270,18 @@ $form = $this->beginWidget('CActiveForm', array(
                     echo $form->hiddenField($modelC, 'product_id', array('value' => $pid));
                     ?>
 
-<?php echo $form->checkBox($modelC, 'is_email', $htmlOptions = array('class' => 'comments_checkbox')); ?>
+                    <?php echo $form->checkBox($modelC, 'is_email', $htmlOptions = array('class' => 'comments_checkbox')); ?>
                     <span>Send me an email for each new comment.</span>
-<?php
-if (Yii::app()->user->id != NUll)
-{
-    echo CHtml::submitButton('Add Comments', array('class' => 'add_comment'));
-}
-else
-{
-    echo CHtml::submitButton('Add Comments', $htmlOptions = array('class' => 'add_comment', 'disabled' => 'disabled'));
-}
-?>
+                    <?php
+                    if (Yii::app()->user->id != NUll) {
+                        echo CHtml::submitButton('Add Comments', array('class' => 'add_comment'));
+                    } else {
+                        echo CHtml::submitButton('Add Comments', $htmlOptions = array('class' => 'add_comment', 'disabled' => 'disabled'));
+                    }
+                    ?>
                 </div>
             </div>
-<?php $this->endWidget(); ?>
+            <?php $this->endWidget(); ?>
         </div>
     </div>
 </div>
