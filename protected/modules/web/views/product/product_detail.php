@@ -14,7 +14,7 @@
                 <?php
                 foreach ($product->productImages as $img) {
                     echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $img->image_small, '', array("width" => "66px", "height" => "95px"));
-                }
+                } 
                 ?>
             </div>
         </div>
