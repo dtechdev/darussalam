@@ -154,18 +154,31 @@ class ProductController extends Controller
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
         
+        $error=array('status'=>false);
         $model = new CreditCardForm();
         if (isset($_POST['CreditCardForm']))
         {
             $model->attributes = $_POST['CreditCardForm'];
-            $this->CreditCardPayment($model);
-            exit;
+            $error=$this->CreditCardPayment($model);
+            if($error)
+            {
+                if(!$error['status'])
+                {
+                    $this->redirect(array('/web/product/confirmOrder'));
+                }
+            }
         }
-        
-        $this->render('payment_method', array('model' => $model));
+        $this->render('payment_method', array('model' => $model,'error'=>$error));
     }
+    
+    /**
+     * Function for credit card payment using authorize.net api
+     * @param type $model
+     * @return type
+     */
     public function CreditCardPayment($model){
         
+                $error=array();
                 $auth_net_login_id='6VxKcg8mb9hx';
                 $auth_net_tran_key='7VB59273qGmv6u2B';
                 $authnet_values= array(
@@ -200,51 +213,60 @@ class ProductController extends Controller
                 $authorize_response = curl_exec($ch); //execute post and get results
                 curl_close ($ch);
 
-                //print "<pre>";
-                //print_r($authorize_response);
-                
                 // This line takes the response and breaks it into an array using the specified delimiting character
                 $response_array = explode($authnet_values["x_delim_char"],$authorize_response);
 
-                if($response_array[1]=='1')
+                if($response_array[0]=='1')
                 {
+                    $error['status']=false;
+                    $error['message']='Payment successfully';
+                    
+                    //payment was completed successfully
+                    $order = new Order;
+                    $order->user_id = Yii::app()->user->id;
+                    $order->total_price = Yii::app()->session['total_price'];
+                    $order->order_date = date('Y-m-d');
+
+                    $ordetail = array();
+                    $cart_model = new Cart();
+                    $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id);
+
+                    foreach ($cart as $pro)
+                    {
+                        $ordetail['OrderDetail'][] = array(
+                            'product_id' => $pro->product_id,
+                            'quantity' => $pro->quantity,
+                            'cart_id' =>$pro->cart_id,
+                            'product_price' => round($pro->product->product_price, 2),
+                            'total_price' => round($pro->product->product_price * $pro->quantity, 2),
+                        );
+                    }
+
+                    $order->setRelationRecords('orderDetails', is_array($ordetail['OrderDetail']) ? $ordetail['OrderDetail'] : array());
+
+                    $order->save();
                     //approved- Your order completed successfully
                 }
-                elseif($response_array[1]=='2'){
+                elseif($response_array[0]=='2'){
+                    $error['status']=true;
+                    $error['message']=$response_array[3];
                     //Declined
                 }else
                 {
+                    $error['status']=true;
+                    $error['message']=$response_array[3];
                     //error
                 }
-                // The results are output to the screen in the form of an html numbered list.
-                echo "<OL>\n";
-                foreach ($response_array as $value)
-                {
-                        echo "<LI>" . $value . "&nbsp;</LI>\n";
-                }
-                echo "</OL>\n";
+                return $error;
         
     }
 
     public function actionconfirmOrder()
     {
         Yii::app()->user->SiteSessions;
-        $ip = getenv("REMOTE_ADDR");
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
-
-        $cart_model = new Cart();
-        if (isset(Yii::app()->user->id))
-        {
-            $cart = $cart_model->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
-        }
-        else
-        {
-            $cart = $cart_model->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"');
-        }
-
-
-        $this->render('confirm_order', array('cart' => $cart));
+        $this->render('confirm_order');
     }
 
     /**
