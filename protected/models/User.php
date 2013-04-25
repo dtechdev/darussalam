@@ -83,7 +83,7 @@ class User extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'orders' => array(self::HAS_MANY, 'Order', 'user_id'),
-            'status' => array(self::BELONGS_TO, 'UserStatus', 'status_id'),
+            'status' => array(self::BELONGS_TO, 'Statous', 'status_id','condition'=>'module="User"'),
             'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
             'role' => array(self::BELONGS_TO, 'UserRole', 'role_id'),
             'userProfiles' => array(self::HAS_MANY, 'UserProfile', 'user_id'),
