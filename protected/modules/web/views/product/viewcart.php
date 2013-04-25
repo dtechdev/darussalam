@@ -1,19 +1,6 @@
 <div id="book_content">
     <div id="book_main_content">
-        <div class="left_book_main_content">
-            <a href="<?php echo $this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])); ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
-        </div>
-        <div class="search_box">
-            <input type="text" placeholder="Search keywords or image ids..." value="" class="search_text" />
-            <input type="button" name="" value="" class="search_btn" /><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/searching_img_03.jpg" class="searching_img" />
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Help</a></li>
-            </ul>
-        </nav>
+        <?php $this->renderPartial("_subheader"); ?>
     </div>
 </div>
 <?php
@@ -85,26 +72,26 @@ else
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Author</td>
                                         <td class="cart_right_td"><?php
-                        foreach ($pro->product->productProfile as $pp)
-                        {
-                            echo $pp->author->author_name;
-                        }
-                                ?></td>
+                                            foreach ($pro->product->productProfile as $pp)
+                                            {
+                                                echo $pp->author->author_name;
+                                            }
+                                            ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Language</td>
                                         <td class="cart_right_td"><?php
-                                    $i = 0;
-                                    foreach ($pro->product->productLanguage as $lan)
-                                    {
-                                        if ($i == 0)
-                                            echo $lan->language->language_name;
-                                        else
-                                            echo ' / ' . $lan->language->language_name;
+                                            $i = 0;
+                                            foreach ($pro->product->productLanguage as $lan)
+                                            {
+                                                if ($i == 0)
+                                                    echo $lan->language->language_name;
+                                                else
+                                                    echo ' / ' . $lan->language->language_name;
 
-                                        $i++;
-                                    }
-                                ?></td>
+                                                $i++;
+                                            }
+                                            ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                     </tr>
@@ -124,7 +111,7 @@ else
                                             'success' => 'function(data) {
                                                             window.location.href=data.redirect
                                                            }',
-                                            ))
+                                        ))
                                     );
                                     ?>
                                     <h3>$<?php echo round($pro->quantity * $pro->product->product_price, 2); ?></h3>
@@ -157,13 +144,13 @@ else
                         {
                             ?>
                             <a href="<?php echo $this->createUrl('/web/product/paymentmethod'); ?>"><input type="button" value="Checkout" class="check_out" /></a>
-                        <?php
+                            <?php
                         }
                         else
                         {
                             ?>
                             <a href="<?php echo $this->createUrl('/web/site/login'); ?>"><input type="button" value="Checkout" class="check_out" /></a>
-    <?php } ?>
+                            <?php } ?>
                     </div>
                 </div>
             </div>
