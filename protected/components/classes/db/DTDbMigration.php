@@ -18,7 +18,7 @@
  * 
  */
 class DTDbMigration extends CDbMigration
-{
+{ 
 
     /**
      * This function used to get the tables array from
