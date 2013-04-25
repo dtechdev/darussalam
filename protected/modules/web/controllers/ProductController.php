@@ -152,16 +152,13 @@ class ProductController extends Controller
         {
             $model->attributes = $_POST['CreditCardForm'];
             $this->CreditCardPayment($model);
+            exit;
         }
         
         $this->render('payment_method', array('model' => $model));
     }
     public function CreditCardPayment($model){
         
-       // print_r($model);
-        $model->first_name;
-        $model->first_name;
-        $model->first_name;
                 $auth_net_login_id='6VxKcg8mb9hx';
                 $auth_net_tran_key='7VB59273qGmv6u2B';
                 $authnet_values= array(
@@ -175,15 +172,15 @@ class ProductController extends Controller
 
                 "x_tran_key"=> $auth_net_tran_key, "x_relay_response"=> "FALSE",
                 "x_card_num"=> "4111111111111111",
-                "x_exp_date"=> "0314",
-                "x_description"=> "Recycled Toner Cartridges",
-                "x_amount"=> "12.20",
+                "x_exp_date"=> $model->exp_month.$model->exp_year,
+                "x_description"=> Yii::app()->session['description'],
+                "x_amount"=> Yii::app()->session['total_price'],
                 "x_first_name"=> $model->first_name,
                 "x_last_name"=> $model->last_name,
-                "x_address"=> $model->first_name,
-                "x_city"=> $model->first_name,
-                "x_state"=> $model->first_name,
-                "x_zip"=> "12345",
+                "x_address"=> $model->shipping_address1,
+                "x_city"=> $model->shipping_city,
+                "x_state"=> $model->shipping_state,
+                "x_zip"=> $model->shipping_zip,
                 );
 
                 $fields = "";
@@ -202,6 +199,16 @@ class ProductController extends Controller
                 // This line takes the response and breaks it into an array using the specified delimiting character
                 $response_array = explode($authnet_values["x_delim_char"],$authorize_response);
 
+                if($response_array[1]=='1')
+                {
+                    //approved- Your order completed successfully
+                }
+                elseif($response_array[1]=='2'){
+                    //Declined
+                }else
+                {
+                    //error
+                }
                 // The results are output to the screen in the form of an html numbered list.
                 echo "<OL>\n";
                 foreach ($response_array as $value)

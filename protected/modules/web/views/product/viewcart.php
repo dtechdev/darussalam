@@ -30,10 +30,12 @@ else
                     <?php
                     $grand_total = 0;
                     $total_quantity = 0;
+                    $description = '';
                     foreach ($cart as $pro)
                     {
                         $grand_total = $grand_total + ($pro->quantity * $pro->product->product_price);
                         $total_quantity+=$pro->quantity;
+                        $description.=$pro->product->product_name . ' , ';
                         ?>
 
                         <div class="upper_cart">
@@ -142,6 +144,9 @@ else
                         <?php
                         if (Yii::app()->user->id)
                         {
+                            Yii::app()->session['total_price'] = round($grand_total, 2);
+                            Yii::app()->session['quantity'] = $total_quantity;
+                            Yii::app()->session['description'] = $description;
                             ?>
                             <a href="<?php echo $this->createUrl('/web/product/paymentmethod'); ?>"><input type="button" value="Checkout" class="check_out" /></a>
                             <?php
