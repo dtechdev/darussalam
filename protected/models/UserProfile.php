@@ -16,8 +16,7 @@
  * The followings are the available model relations:
  * @property User $user
  */
-class UserProfile extends CActiveRecord
-{
+class UserProfile extends CActiveRecord {
 //    public $avatar;
 //    public $date_of_birth;
 //    public $address2;
@@ -35,24 +34,27 @@ class UserProfile extends CActiveRecord
      * @param string $className active record class name.
      * @return UserProfile the static model class
      */
-    public static function model($className = __CLASS__)
-    {
+    public static function model($className = __CLASS__) {
+
         return parent::model($className);
+    }
+
+    public function __construct($scenario = 'insert') {
+        $this->uploaded_img = Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png";
+        parent::__construct($scenario);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName()
-    {
+    public function tableName() {
         return 'user_profile';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules()
-    {
+    public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
@@ -71,8 +73,7 @@ class UserProfile extends CActiveRecord
     /**
      * @return array relational rules.
      */
-    public function relations()
-    {
+    public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -83,8 +84,7 @@ class UserProfile extends CActiveRecord
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return array(
             'id' => 'User Profile',
             'first_name' => 'First Name',
@@ -100,8 +100,7 @@ class UserProfile extends CActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -120,28 +119,22 @@ class UserProfile extends CActiveRecord
         ));
     }
 
-    public function getFullName()
-    {
+    public function getFullName() {
 
         $firstN = $this->first_name;
         $lastN = $this->last_name;
         return $firstN . $lastN;
     }
 
-    public function afterFind()
-    {
+    public function afterFind() {
 
-        if (!empty($this->avatar))
-        {
+        if (!empty($this->avatar)) {
             $this->uploaded_img = Yii::app()->baseUrl . "/uploads/user_profile/" . $this->user->primaryKey . "/" . $this->avatar;
-        }
-        else
-        {
+        } else {
             $this->uploaded_img = Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png";
         }
 
-        if (!empty($this->date_of_birth))
-        {
+        if (!empty($this->date_of_birth)) {
             $this->date_of_birth = DTFunctions::dateFormatForView($this->date_of_birth);
         }
 
