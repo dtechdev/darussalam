@@ -10,6 +10,7 @@ $import = array(
     'application.models.*',
     'application.components.*',
     'application.components.classes.*',
+    'application.components.classes.db.*',
     'application.extensions.email.debug.*',
     'application.extensions.KEmail.KEmail',
     'application.modules.yiiauth.components.*',
