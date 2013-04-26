@@ -14,23 +14,20 @@ $form = $this->beginWidget('CActiveForm', array(
 ?>
 <div class="comments">
     <div class="left_comments">
-        <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/talha_mujahid_img_03.png">
+        <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png"); ?>
     </div>
     <div class="right_comments">
         <div>
-            <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/right_arrow_img_03.png" class="comment_arrow" />
+            <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/right_arrow_img_03.png", '', array("class" => "comment_arrow")); ?>
         </div>
 
 
         <?php
         $modelC = new ProductReviews;
         $pid = $product->product_id;
-        if (Yii::app()->user->id != NUll)
-        {
+        if (Yii::app()->user->id != NUll) {
             echo $form->textArea($modelC, 'reviews', $htmlOptions = array('maxlength' => 300, 'rows' => '2', 'cols' => '59'));
-        }
-        else
-        {
+        } else {
             echo $form->textArea($modelC, 'reviews', $htmlOptions = array('maxlength' => 300, 'rows' => '2', 'cols' => '59', 'readonly' => 'readonly'));
         }
         $this->widget('CStarRating', array(
@@ -47,12 +44,9 @@ $form = $this->beginWidget('CActiveForm', array(
         <?php echo $form->checkBox($modelC, 'is_email', $htmlOptions = array('class' => 'comments_checkbox')); ?>
         <span>Send me an email for each new comment.</span>
         <?php
-        if (Yii::app()->user->id != NUll)
-        {
+        if (Yii::app()->user->id != NUll) {
             echo CHtml::submitButton('Add Comments', array('class' => 'add_comment'));
-        }
-        else
-        {
+        } else {
             echo CHtml::submitButton('Add Comments', $htmlOptions = array('class' => 'add_comment', 'disabled' => 'disabled'));
         }
         ?>

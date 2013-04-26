@@ -63,16 +63,7 @@
                                                            }',)
                 ));
                 ?>
-<!--                    <select>
-                    <option value="Any Author" selected>Any Author</option>
-                    <option value="Abdul Aziz">Abdul Aziz</option>
-                    <option value="Abdul Aziz Shanwai">Abdul Aziz Shanwai</option>
-                    <option value="Abdul Malik">Abdul Malik</option>
-                    <option value="Abdul Sajid">Abdul Sajid</option>
-                    <option value="Abdul Ahad">Abdul Ahad</option>
-                    <option value="Abdul Qasim">Abdul Qasim</option>
-                    <option value="Abdul Mujahid">Abdul Mujahid</option>
-                </select>-->
+
             </div>
             <div id="category_list">
                 <h2>VIEW BY CATEGORY</h2>
@@ -101,11 +92,14 @@
         </div>
         <div id="right_main_content">
             <?php
-            foreach ($products as $product)
-            {
+            foreach ($products as $product) {
                 ?>
                 <div class="condition">
-                    <a href="<?php echo $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])); ?>"><img src="<?php echo Yii::app()->baseUrl . '/images/product_images/' . $product['image'][0]['image_large']; ?>" alt="condition"></a>
+                    <a href="<?php echo $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])); ?>">
+                        <?php
+                        echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $product['image'][0]['image_large'], 'condition')
+                        ?>
+                    </a>
                     <h3><a href="<?php echo $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])); ?>"><?php echo $product['product_name']; ?></a></h3>
                     <p>Muhammad Manzoor Elahi</p>
                     <article>&dollar;<?php echo round($product['product_price'], 2); ?></article>

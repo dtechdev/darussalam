@@ -12,8 +12,7 @@
             ?>
             <div class="small_product">
                 <?php
-                foreach ($product->productImages as $img)
-                {
+                foreach ($product->productImages as $img) {
                     echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $img->image_small, '', array("width" => "66px", "height" => "95px"));
                 }
                 ?>
@@ -51,8 +50,7 @@
                     <tr class="product_tr">
                         <td class="left_td">Author</td>
                         <td class="right_td"><?php
-                            foreach ($product->productProfile as $pp)
-                            {
+                            foreach ($product->productProfile as $pp) {
                                 echo $pp->author->author_name;
                             }
                             ?></td>
@@ -62,14 +60,10 @@
                         <td class="right_td">
                             <?php
                             $lang_count = 0;
-                            foreach ($product->productLanguage as $lan)
-                            {
-                                if ($lang_count == 0)
-                                {
+                            foreach ($product->productLanguage as $lan) {
+                                if ($lang_count == 0) {
                                     echo $lan->language->language_name;
-                                }
-                                else
-                                {
+                                } else {
                                     echo ' / ' . $lan->language->language_name;
                                 }
 
@@ -81,8 +75,7 @@
                     <tr class="product_tr">
                         <td class="left_td">ISBN No</td>
                         <td class="right_td"><?php
-                            foreach ($product->productProfile as $isbn)
-                            {
+                            foreach ($product->productProfile as $isbn) {
                                 echo $isbn->isbn;
                             }
                             ?>
@@ -92,12 +85,10 @@
                         <td class="left_td">Category</td>
                         <td class="right_td"><?php
                             $cat_count = 0;
-                            foreach ($product->productCategories as $cat)
-                            {
-                                if ($cat_count == 0){
+                            foreach ($product->productCategories as $cat) {
+                                if ($cat_count == 0) {
                                     echo $cat->category->category_name;
-                                }
-                                else{
+                                } else {
                                     echo ' / ' . $cat->category->category_name;
                                 }
                                 $cat_count++;
@@ -106,7 +97,12 @@
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Availability</td>
-                        <td class="right_td"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/yes_product_img_03.jpg">Yes</td>
+                        <td class="right_td">
+                            <?php
+                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/yes_product_img_03.jpg');
+                            ?>
+                            Yes
+                        </td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Product Rating</td>
@@ -135,7 +131,10 @@
                             echo CHtml::dropDownList('quantity', '', $quantities, array('onChange' => 'javascript:totalPrice(this.value,"' . $product->product_price . '")'), array());
                             ?>
                         </td>
-                        <td class="add_cart"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/add_to_cart_img.png" />
+                        <td class="add_cart">
+                            <?php
+                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/add_to_cart_img.png');
+                            ?>
 
                             <?php
                             echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart'), array('data' => array(
@@ -153,7 +152,11 @@
                             );
                             ?>
                         </td>
-                        <td class="wishlist"><a href="#"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/heart_img_03.jpg" /></a> Add to wishlist</td>
+                        <td class="wishlist"><a href="#">
+                                <?php
+                                echo CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg');
+                                ?>
+                            </a> Add to wishlist</td>
                     </tr>
                 </div>
         </div>
