@@ -16,7 +16,7 @@
  * @property Product $product
  * @property User $user
  */
-class ProductReviews extends CActiveRecord
+class ProductReviews extends DTActiveRecord
 {
 
     public $avgRate;
@@ -48,6 +48,8 @@ class ProductReviews extends CActiveRecord
         // will receive user inputs.
         return array(
             array('product_id, reviews', 'required'),
+            array('create_time,create_user_id,update_time,update_user_id', 'required'),
+            array('activity_log', 'safe'),
             array('product_id, user_id, is_email', 'numerical', 'integerOnly' => true),
             //array('added_date', 'length', 'max'=>255),
             //array('is_approved', 'length', 'max'=>3),

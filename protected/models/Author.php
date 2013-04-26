@@ -10,7 +10,7 @@
  * The followings are the available model relations:
  * @property ProductProfile $author
  */
-class Author extends CActiveRecord
+class Author extends DTActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -39,7 +39,10 @@ class Author extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('author_name', 'required'),
+                        array('create_time,create_user_id,update_time,update_user_id','required'),
+                        array('activity_log','safe'),
 			array('author_name', 'length', 'max'=>255),
+                    
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('author_id, author_name', 'safe', 'on'=>'search'),
