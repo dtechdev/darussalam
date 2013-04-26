@@ -1,11 +1,15 @@
 <div id="book_content">
     <div id="book_main_content">
         <div class="left_book_main_content">
-            <a href="<?php echo $this->createUrl('/site'); ?>"><?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/darussalam-inner-logo.png", '', array('alt' => 'logo')) ?></a>
+            <a href="<?php echo $this->createUrl('/site'); ?>">
+                <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/darussalam-inner-logo.png", '', array('alt' => 'logo')) ?>
+            </a>
         </div>
         <div class="search_box">
-            <input type="text" placeholder="Search keywords or image ids..." value="" class="search_text" />
-            <input type="button" name="" value="" class="search_btn" /><?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/searching_img_03.jpg", '', array('class' => 'searching_img')) ?>
+
+            <?php echo CHtml::textField('textsearch', '', array('placeholder' => 'Search keywords or image ids...', 'class' => 'search_text')); ?>
+            <?php echo CHtml::button('', array('class' => 'search_btn')); ?>
+            <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/searching_img_03.jpg", '', array('class' => 'searching_img')) ?>
         </div>
         <nav>
             <ul>
@@ -22,10 +26,7 @@
         <div id="page-wrap">
             <div class="tabs">
                 <div class="tab">
-
-
-
-                    <input type="radio" id="tab-1" name="tab-group-1" checked>
+                    <?php echo CHtml::radioButton('tab-group-1','checked',array('id'=>'tab-1'))?>
                     <label for="tab-1" class="tab1">Profile</label>
                     <div class="conten">
 
@@ -37,9 +38,7 @@
                                 )
                         );
                         ?>
-
 <!--                    <p class="note">Fields with <span class="required">*</span> are required.</p>-->
-
                         <?php //echo $form->errorSummary($model); ?>
                         <table width="100%">
                             <tr>
@@ -55,37 +54,68 @@
                                             <td class="account_right"><a href="#">Change Password</a></td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left" valign="top">Profile Picture</td>
+                                            <td class="account_left" valign="top">
+                                                Profile Picture
+                                            </td>
                                             <td class="account_right">
-                                                <?php echo CHtml::image($model->uploaded_img,'',
-                                                        array(
-                                                            "width"=>"80",
-                                                            "height"=>"80",
-                                                            "style"=>"cursor:pointer",
-                                                            "onclick"=>"$('#UserProfile_avatar').trigger('click')",
-                                                            ));
+                                                <?php
+                                                echo CHtml::image($model->uploaded_img, '', array(
+                                                    "width" => "80",
+                                                    "height" => "80",
+                                                    "style" => "cursor:pointer",
+                                                    "onclick" => "$('#UserProfile_avatar').trigger('click')",
+                                                ));
                                                 ?>
                                             </td>
                                         </tr>
                                         <tr class="account_row" style="display:none">
-                                            <td class="account_left">Change Image:</td>
-                                            <td class="account_right"><?php echo $form->fileField($model, 'avatar'); ?></td>
+                                            <td class="account_left">
+                                                Change Image:
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->fileField($model, 'avatar'); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">Prefix</td>
-                                            <td class="account_right"><?php echo $form->dropDownList($model, 'gender', array('male' => 'Mr', 'female' => 'Mrs'), $htmlOptions = array('class' => 'account_prefix', 'options' => array('1' => array('selected' => true)))); ?></td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('gender');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php
+                                                echo $form->dropDownList($model, 'gender', array('male' => 'Mr', 'female' => 'Mrs'), $htmlOptions = array('class' => 'account_prefix', 'options' => array('1' => array('selected' => true))));
+                                                ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">First Name</td>
-                                            <td class="account_right"><?php echo $form->textField($model, 'first_name', array('class' => 'account_text')); ?></td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('first_name');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->textField($model, 'first_name', array('class' => 'account_text')); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">Last Name</td>
-                                            <td class="account_right"><?php echo $form->textField($model, 'last_name', array('class' => 'account_text')); ?></td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('last_name');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->textField($model, 'last_name', array('class' => 'account_text')); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">Date Of Birth</td>
-                                            <td class="account_right"><?php
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('date_of_birth');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php
                                                 $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                                                     'model' => $model,
                                                     'attribute' => 'date_of_birth',
@@ -105,37 +135,83 @@
                                             </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">Address Line 1</td>
-                                            <td class="account_right"><?php echo $form->textField($model, 'address', array('class' => 'account_text')); ?></td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('address');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->textField($model, 'address', array('class' => 'account_text')); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">Address Line 2</td>
-                                            <td class="account_right"><?php echo $form->textField($model, 'address_2', array('class' => 'account_text')); ?></td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('address_2');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->textField($model, 'address_2', array('class' => 'account_text')); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">Country</td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('country');
+                                                ?>
+                                            </td>
                                             <?php $lstData = CHtml::listData(Country::model()->findAll(), 'country_name', 'country_name') ?>
-                                            <td class="account_right"><?php echo $form->dropDownList($model, 'country', $lstData, $htmlOptions = array('class' => 'account_country')); ?></td>
+                                            <td class="account_right">
+                                                <?php echo $form->dropDownList($model, 'country', $lstData, $htmlOptions = array('class' => 'account_country')); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">City</td>
-                                            <td class="account_right"><?php echo $form->textField($model, 'city', array('class' => 'account_text')); ?></td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('city');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->textField($model, 'city', array('class' => 'account_text')); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">State/Province</td>
-                                            <td class="account_right"><?php echo $form->textField($model, 'state_province', array('class' => 'account_text')); ?></td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('state_province');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->textField($model, 'state_province', array('class' => 'account_text')); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">Zip/Postal Code</td>
-                                            <td class="account_right"><?php echo $form->textField($model, 'zip_code', array('class' => 'account_text')); ?></td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('zip_code');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->textField($model, 'zip_code', array('class' => 'account_text')); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left">Telephone Number</td>
-                                            <td class="account_right"><?php echo $form->textField($model, 'contact_number', array('class' => 'account_text')); ?></td>
+                                            <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('contact_number');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->textField($model, 'contact_number', array('class' => 'account_text')); ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
-                                            <td class="account_left"></td>
-                                            <td class="account_right"><?php echo CHtml::submitButton($model->isNewRecord ? 'Save' : 'Save', $htmlOptions = array('class' => 'account_save')); ?></td>
+                                            <td class="account_left">
+
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo CHtml::submitButton($model->isNewRecord ? 'Save' : 'Save', $htmlOptions = array('class' => 'account_save')); ?>
+                                            </td>
                                         </tr>
                                     </table>
                                 </td>
