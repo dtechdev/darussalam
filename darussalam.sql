@@ -3,10 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 26, 2013 at 11:47 AM
+-- Generation Time: Apr 26, 2013 at 11:55 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.3.10-1ubuntu3.6
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -26,6 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `author`
 --
 
+DROP TABLE IF EXISTS `author`;
 CREATE TABLE IF NOT EXISTS `author` (
   `author_id` int(11) NOT NULL AUTO_INCREMENT,
   `author_name` varchar(255) NOT NULL,
@@ -48,6 +50,7 @@ INSERT INTO `author` (`author_id`, `author_name`) VALUES
 -- Table structure for table `cart`
 --
 
+DROP TABLE IF EXISTS `cart`;
 CREATE TABLE IF NOT EXISTS `cart` (
   `cart_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -78,6 +81,7 @@ INSERT INTO `cart` (`cart_id`, `product_id`, `user_id`, `city_id`, `quantity`, `
 -- Table structure for table `categories`
 --
 
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(255) NOT NULL,
@@ -110,6 +114,7 @@ INSERT INTO `categories` (`category_id`, `category_name`, `added_date`, `parent_
 -- Table structure for table `city`
 --
 
+DROP TABLE IF EXISTS `city`;
 CREATE TABLE IF NOT EXISTS `city` (
   `city_id` int(11) NOT NULL AUTO_INCREMENT,
   `country_id` int(11) NOT NULL,
@@ -153,6 +158,7 @@ INSERT INTO `city` (`city_id`, `country_id`, `city_name`, `short_name`, `address
 -- Table structure for table `conf_misc`
 --
 
+DROP TABLE IF EXISTS `conf_misc`;
 CREATE TABLE IF NOT EXISTS `conf_misc` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL,
@@ -171,6 +177,7 @@ CREATE TABLE IF NOT EXISTS `conf_misc` (
 -- Table structure for table `country`
 --
 
+DROP TABLE IF EXISTS `country`;
 CREATE TABLE IF NOT EXISTS `country` (
   `country_id` int(11) NOT NULL AUTO_INCREMENT,
   `country_name` varchar(255) NOT NULL,
@@ -199,6 +206,7 @@ INSERT INTO `country` (`country_id`, `country_name`, `short_name`, `site_id`) VA
 -- Table structure for table `kemail_queue`
 --
 
+DROP TABLE IF EXISTS `kemail_queue`;
 CREATE TABLE IF NOT EXISTS `kemail_queue` (
   `id` int(15) NOT NULL AUTO_INCREMENT,
   `priority` int(1) NOT NULL DEFAULT '5',
@@ -219,6 +227,7 @@ CREATE TABLE IF NOT EXISTS `kemail_queue` (
 -- Table structure for table `language`
 --
 
+DROP TABLE IF EXISTS `language`;
 CREATE TABLE IF NOT EXISTS `language` (
   `language_id` int(11) NOT NULL AUTO_INCREMENT,
   `language_name` varchar(255) NOT NULL,
@@ -242,6 +251,7 @@ INSERT INTO `language` (`language_id`, `language_name`) VALUES
 -- Table structure for table `layout`
 --
 
+DROP TABLE IF EXISTS `layout`;
 CREATE TABLE IF NOT EXISTS `layout` (
   `layout_id` int(11) NOT NULL AUTO_INCREMENT,
   `layout_name` varchar(255) NOT NULL,
@@ -273,6 +283,7 @@ INSERT INTO `layout` (`layout_id`, `layout_name`, `layout_description`, `layout_
 -- Table structure for table `log`
 --
 
+DROP TABLE IF EXISTS `log`;
 CREATE TABLE IF NOT EXISTS `log` (
   `log_id` int(11) NOT NULL AUTO_INCREMENT,
   `action` varchar(100) NOT NULL,
@@ -292,6 +303,7 @@ CREATE TABLE IF NOT EXISTS `log` (
 -- Table structure for table `order`
 --
 
+DROP TABLE IF EXISTS `order`;
 CREATE TABLE IF NOT EXISTS `order` (
   `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -327,6 +339,7 @@ INSERT INTO `order` (`order_id`, `user_id`, `total_price`, `order_date`) VALUES
 -- Table structure for table `order_detail`
 --
 
+DROP TABLE IF EXISTS `order_detail`;
 CREATE TABLE IF NOT EXISTS `order_detail` (
   `user_order_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
@@ -354,6 +367,7 @@ INSERT INTO `order_detail` (`user_order_id`, `order_id`, `product_id`, `quantity
 -- Table structure for table `product`
 --
 
+DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_name` varchar(255) NOT NULL,
@@ -393,6 +407,7 @@ INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `cit
 -- Table structure for table `product_categories`
 --
 
+DROP TABLE IF EXISTS `product_categories`;
 CREATE TABLE IF NOT EXISTS `product_categories` (
   `product_category_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -418,6 +433,7 @@ INSERT INTO `product_categories` (`product_category_id`, `product_id`, `category
 -- Table structure for table `product_discount`
 --
 
+DROP TABLE IF EXISTS `product_discount`;
 CREATE TABLE IF NOT EXISTS `product_discount` (
   `discount_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -435,6 +451,7 @@ CREATE TABLE IF NOT EXISTS `product_discount` (
 -- Table structure for table `product_image`
 --
 
+DROP TABLE IF EXISTS `product_image`;
 CREATE TABLE IF NOT EXISTS `product_image` (
   `product_image_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -462,6 +479,7 @@ INSERT INTO `product_image` (`product_image_id`, `product_id`, `image_small`, `i
 -- Table structure for table `product_language`
 --
 
+DROP TABLE IF EXISTS `product_language`;
 CREATE TABLE IF NOT EXISTS `product_language` (
   `product_language_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -489,6 +507,7 @@ INSERT INTO `product_language` (`product_language_id`, `product_id`, `language_i
 -- Table structure for table `product_profile`
 --
 
+DROP TABLE IF EXISTS `product_profile`;
 CREATE TABLE IF NOT EXISTS `product_profile` (
   `profile_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -515,6 +534,7 @@ INSERT INTO `product_profile` (`profile_id`, `product_id`, `author_id`, `isbn`) 
 -- Table structure for table `product_reviews`
 --
 
+DROP TABLE IF EXISTS `product_reviews`;
 CREATE TABLE IF NOT EXISTS `product_reviews` (
   `reviews_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -547,6 +567,7 @@ INSERT INTO `product_reviews` (`reviews_id`, `product_id`, `user_id`, `reviews`,
 -- Table structure for table `site`
 --
 
+DROP TABLE IF EXISTS `site`;
 CREATE TABLE IF NOT EXISTS `site` (
   `site_id` int(11) NOT NULL AUTO_INCREMENT,
   `site_name` varchar(255) NOT NULL,
@@ -571,6 +592,7 @@ INSERT INTO `site` (`site_id`, `site_name`, `site_descriptoin`, `site_headoffice
 -- Table structure for table `social`
 --
 
+DROP TABLE IF EXISTS `social`;
 CREATE TABLE IF NOT EXISTS `social` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `yiiuser` int(11) NOT NULL,
@@ -593,6 +615,7 @@ INSERT INTO `social` (`id`, `yiiuser`, `provider`, `provideruser`) VALUES
 -- Table structure for table `status`
 --
 
+DROP TABLE IF EXISTS `status`;
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
@@ -614,6 +637,7 @@ INSERT INTO `status` (`id`, `title`, `module`) VALUES
 -- Table structure for table `tbl_migration`
 --
 
+DROP TABLE IF EXISTS `tbl_migration`;
 CREATE TABLE IF NOT EXISTS `tbl_migration` (
   `version` varchar(255) NOT NULL,
   `apply_time` int(11) DEFAULT NULL,
@@ -648,6 +672,7 @@ INSERT INTO `tbl_migration` (`version`, `apply_time`) VALUES
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) NOT NULL,
@@ -694,6 +719,7 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role
 -- Table structure for table `user_profile`
 --
 
+DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE IF NOT EXISTS `user_profile` (
   `id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
@@ -729,6 +755,7 @@ INSERT INTO `user_profile` (`id`, `first_name`, `last_name`, `address`, `contact
 -- Table structure for table `user_role`
 --
 
+DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE IF NOT EXISTS `user_role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role_title` varchar(255) NOT NULL,
@@ -752,6 +779,7 @@ INSERT INTO `user_role` (`role_id`, `role_title`) VALUES
 -- Table structure for table `user_sessions`
 --
 
+DROP TABLE IF EXISTS `user_sessions`;
 CREATE TABLE IF NOT EXISTS `user_sessions` (
   `user_id` int(11) NOT NULL COMMENT 'refer to your user id on your application',
   `hybridauth_session` text NOT NULL COMMENT 'will contain the hybridauth session data',
@@ -859,6 +887,7 @@ ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
