@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 22, 2013 at 03:02 PM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Generation Time: Apr 26, 2013 at 11:55 AM
+-- Server version: 5.5.29
+-- PHP Version: 5.3.10-1ubuntu3.6
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -63,15 +63,17 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `cart_id` (`cart_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`cart_id`, `product_id`, `user_id`, `city_id`, `quantity`, `added_date`, `session_id`) VALUES
-(2, 3, 3, 1, 1, '1366347453', ''),
-(3, 5, 3, 2, 10, '1366347462', '');
+(4, 1, 5, 1, 52, '1366616248', ''),
+(5, 1, 7, 1, 10, '1366721999', ''),
+(6, 1, 3, 1, 24, '1366875256', ''),
+(8, 1, 0, 1, 9, '1366953111', '127.0.0.1');
 
 -- --------------------------------------------------------
 
@@ -92,18 +94,19 @@ CREATE TABLE IF NOT EXISTS `categories` (
   KEY `parent_id` (`parent_id`),
   KEY `city_id` (`city_id`),
   KEY `city_id_2` (`city_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`category_id`, `category_name`, `added_date`, `parent_id`, `city_id`) VALUES
-(1, 'Books', '25-03-2013', 0, 1),
-(2, 'Books', '25-03-2013', 0, 1),
-(3, 'Ahadees', '1364464356', 2, 1),
+(1, 'Books2', '25-03-2013', 0, 1),
+(2, 'Books', '25-03-2013', 5, 1),
+(3, 'Ahadees', '1364464356', 1, 1),
 (4, 'Madni', '28-03-2013', 3, 1),
-(5, 'Maki', '28-03-2013', 3, 1);
+(5, 'Maki', '28-03-2013', 3, 1),
+(6, 'dssdsd', '1366698906', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -148,6 +151,25 @@ INSERT INTO `city` (`city_id`, `country_id`, `city_name`, `short_name`, `address
 (13, 5, 'Medellin', 'mdl', 'Medell?n colombia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
 (14, 5, 'Cali', 'cali', 'Cali colombia', 1, 'zahid.nadeem-facilitator_api1.darussalampk.com', '1366199236', 'AFcWxV21C7fd0v3bYYYRCpSSRl31AsZ74UA0FGC.aXRCRZeTDD1bRWiS'),
 (15, 6, 'bejing', 'bej', 'abjd', 2, '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `conf_misc`
+--
+
+DROP TABLE IF EXISTS `conf_misc`;
+CREATE TABLE IF NOT EXISTS `conf_misc` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
+  `param` varchar(150) NOT NULL,
+  `value` varchar(150) NOT NULL,
+  `field_type` varchar(150) NOT NULL,
+  `activity_log` text,
+  `site_id` int(11) unsigned NOT NULL,
+  `city_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -294,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   KEY `customer_id_2` (`user_id`),
   KEY `user_id` (`user_id`),
   KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `order`
@@ -304,7 +326,12 @@ INSERT INTO `order` (`order_id`, `user_id`, `total_price`, `order_date`) VALUES
 (1, 3, 123.0000, '2013-04-18'),
 (2, 3, 123.0000, '2013-04-18'),
 (3, 3, 90.0000, '2013-04-18'),
-(4, 3, 90.0000, '2013-04-18');
+(4, 3, 90.0000, '2013-04-18'),
+(5, 3, 672.0000, '2013-04-24'),
+(6, 3, 55.0000, '2013-04-24'),
+(7, 3, 55.0000, '2013-04-24'),
+(8, 3, 123.0000, '2013-04-24'),
+(9, 3, 123.0000, '2013-04-24');
 
 -- --------------------------------------------------------
 
@@ -325,7 +352,14 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`),
   KEY `user_order_id` (`user_order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `order_detail`
+--
+
+INSERT INTO `order_detail` (`user_order_id`, `order_id`, `product_id`, `quantity`, `product_price`, `total_price`) VALUES
+(1, 9, 1, 1, 123, 123.0000);
 
 -- --------------------------------------------------------
 
@@ -342,6 +376,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `added_date` varchar(255) NOT NULL,
   `is_featured` enum('0','1') NOT NULL,
   `product_price` decimal(10,4) NOT NULL,
+  `product_rating` int(11) NOT NULL,
   PRIMARY KEY (`product_id`),
   KEY `user_id` (`city_id`),
   KEY `user_id_2` (`city_id`),
@@ -358,13 +393,13 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`) VALUES
-(1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000),
-(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000),
-(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000),
-(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000),
-(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000),
-(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000);
+INSERT INTO `product` (`product_id`, `product_name`, `product_description`, `city_id`, `added_date`, `is_featured`, `product_price`, `product_rating`) VALUES
+(1, 'Life Of Abu Baker Sidique (RA)', 'Life of abu baker sidique RA in Urdu', 1, '27-03-2013', '1', 123.0000, 4),
+(2, 'Golden Stories Of Abu Baker Sidique (RA)', 'Some Golden stories from life of Hazrat Abu Baker Siddique RA.', 1, '27-03-2013', '1', 90.0000, 0),
+(3, 'Ibn Ul Khitab (RA)', 'About life of Umer ibn ul khitab (RA)', 1, '27-03-2013', '1', 33.0000, 0),
+(4, 'Sayedana Umer''s Life', 'About life of umer farooq RA', 2, '27-03-2013', '1', 76.0000, 0),
+(5, 'The Sealed Necter', 'The sealed nector is islamic book', 2, '27-03-2013', '1', 123.0000, 0),
+(6, 'Golden Stories Of Abu Baker Sidique (RA)', 'Golden Stories Of Abu Baker Sidique (RA)', 2, '27-03-2013', '1', 100.0000, 0);
 
 -- --------------------------------------------------------
 
@@ -508,24 +543,23 @@ CREATE TABLE IF NOT EXISTS `product_reviews` (
   `added_date` varchar(255) NOT NULL,
   `is_approved` enum('yes','no') NOT NULL,
   `is_email` tinyint(1) NOT NULL,
-  `rating` int(11) NOT NULL,
+  `rating` int(11) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`reviews_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`),
   KEY `product_id_2` (`product_id`),
   KEY `user_id_2` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `product_reviews`
 --
 
-INSERT INTO `product_reviews` (`reviews_id`, `product_id`, `user_id`, `reviews`, `added_date`, `is_approved`, `is_email`, `rating`) VALUES
-(1, 1, 3, 'dfdf', '1366632961', 'yes', 0, 5),
-(2, 1, 3, 'asdf', '1366632966', 'yes', 0, 2),
-(3, 2, 3, 'dfdf', '1366632978', 'yes', 0, 3),
-(4, 1, 3, 'dd', '1366633056', 'yes', 0, 3),
-(5, 2, 3, 'dd', '1366633171', 'yes', 0, 3);
+INSERT INTO `product_reviews` (`reviews_id`, `product_id`, `user_id`, `reviews`, `added_date`, `is_approved`, `is_email`, `rating`, `avatar`) VALUES
+(1, 1, 5, 'test ', '1366635378', 'yes', 0, NULL, NULL),
+(2, 1, 3, 'ddssdtes', '1366889961', 'yes', 0, 4, NULL),
+(3, 1, 3, 'test', '1366894228', 'yes', 0, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -578,6 +612,63 @@ INSERT INTO `social` (`id`, `yiiuser`, `provider`, `provideruser`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `status`
+--
+
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE IF NOT EXISTS `status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `module` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `status`
+--
+
+INSERT INTO `status` (`id`, `title`, `module`) VALUES
+(1, 'active', 'User'),
+(2, 'inactive', 'User');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_migration`
+--
+
+DROP TABLE IF EXISTS `tbl_migration`;
+CREATE TABLE IF NOT EXISTS `tbl_migration` (
+  `version` varchar(255) NOT NULL,
+  `apply_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_migration`
+--
+
+INSERT INTO `tbl_migration` (`version`, `apply_time`) VALUES
+('m000000_000000_base', 1366639250),
+('m130129_155820_conf_mis', 1366721744),
+('m130422_133105_product_rev_rating', 1366697787),
+('m130423_092833_product_reviews_rating', 1366721745),
+('m130423_130450_add_column_in_conf_mis', 1366724467),
+('m130424_045257_alter_user_join_date', 1366800086),
+('m130424_121650_new_field_to_userPro_province', 1366883155),
+('m130424_124129_user_profile_new_fields', 1366883157),
+('m130424_132933_remove_profile_relationship', 1366883158),
+('m130425_044637_rname_user_statustabletoStatus', 1366865373),
+('m130425_045003_alter_table_status', 1366872423),
+('m130425_051028_drop_user_id_user_profile', 1366883158),
+('m130425_051736_alter_table_status_second', 1366872423),
+('m130425_051931_alter_user_profile_id_to_id', 1366883159),
+('m130425_065850_add_data_instatus', 1366873311),
+('m130425_124532_add_avtar_safe_column', 1366894167);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -593,7 +684,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `activation_key` varchar(255) DEFAULT NULL,
   `is_active` enum('active','inactive') NOT NULL DEFAULT 'inactive',
   `site_id` int(11) NOT NULL,
-  `join_date` varchar(222) NOT NULL,
+  `join_date` date NOT NULL,
   `social_id` varchar(255) NOT NULL,
   PRIMARY KEY (`user_id`),
   KEY `user_id` (`user_id`),
@@ -608,17 +699,19 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `status_id` (`status_id`),
   KEY `role_id_2` (`role_id`),
   KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role_id`, `status_id`, `city_id`, `activation_key`, `is_active`, `site_id`, `join_date`, `social_id`) VALUES
-(1, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '28 March, 2013', ''),
-(2, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '', ''),
-(3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '', ''),
-(4, '', '21232f297a57a5a743894a0e4a801fc3', 'zahidiubb@yahoo.com', 3, 1, NULL, 'd3c9aad03688a6f6e764cfad6ba538d24fc6bda7', 'inactive', 1, '', '100000456873660');
+(1, '', '1b3231655cebb7a1f783eddf27d254ca', 'super@yahoo.com', 1, 1, 1, '1', 'active', 1, '0000-00-00', ''),
+(2, '', '21232f297a57a5a743894a0e4a801fc3', 'admin@yahoo.com', 2, 1, 1, '', 'active', 1, '0000-00-00', ''),
+(3, '', '91ec1f9324753048c0096d036a694f86', 'customer@yahoo.com', 3, 1, 1, '1', 'active', 1, '0000-00-00', ''),
+(4, '', '21232f297a57a5a743894a0e4a801fc3', 'zahidiubb@yahoo.com', 3, 1, NULL, 'd3c9aad03688a6f6e764cfad6ba538d24fc6bda7', 'inactive', 1, '0000-00-00', '100000456873660'),
+(5, '', '276d81ecd7fca9df1cabd6f03b6f0f0e', 'ali.abbas@darussalampk.com', 3, 1, NULL, 'f5780dbc2bfda1ad2d08785908fb0286337df025', 'inactive', 1, '0000-00-00', ''),
+(7, '', 'e99a18c428cb38d5f260853678922e03', 'itsgeniusstar@gmail.com', 3, 1, NULL, '326499d49ce9a60caeb863452297437fc91706fc', 'inactive', 1, '2013-04-24', '');
 
 -- --------------------------------------------------------
 
@@ -628,30 +721,33 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_email`, `role
 
 DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE IF NOT EXISTS `user_profile` (
-  `user_profile_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `contact_number` varchar(255) NOT NULL,
   `gender` varchar(123) NOT NULL,
   `city` varchar(123) NOT NULL,
-  PRIMARY KEY (`user_profile_id`),
-  KEY `customer_id` (`user_profile_id`),
-  KEY `user_id` (`user_id`),
-  KEY `user_profile_id` (`user_profile_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+  `state_province` varchar(255) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `address_2` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `zip_code` int(11) DEFAULT NULL,
+  `avatar` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `customer_id` (`id`),
+  KEY `user_profile_id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_profile`
 --
 
-INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `first_name`, `last_name`, `address`, `contact_number`, `gender`, `city`) VALUES
-(1, 1, 'super', 'admin', 'STC lahore', '03336566326', '', ''),
-(2, 2, 'sub', 'admin', 'abc', '', '', ''),
-(3, 3, 'Richard', 'Arnold', 'abc', '', '', ''),
-(4, 4, 'Zahid', 'Nadeem', 'Bahawalpur', '', 'male', ''),
-(27, 3, 'dd', 'sdf', 'df', '3333333333', '', '');
+INSERT INTO `user_profile` (`id`, `first_name`, `last_name`, `address`, `contact_number`, `gender`, `city`, `state_province`, `date_of_birth`, `address_2`, `country`, `zip_code`, `avatar`) VALUES
+(1, 'super', 'admin', 'STC lahore', '03336566326', '', '', NULL, NULL, NULL, NULL, NULL, ''),
+(2, 'sub', 'admin', 'abc', '', '', '', NULL, NULL, NULL, NULL, NULL, ''),
+(3, 'Richard', 'Arnold', 'abc', '', 'male', 'test', '', '2013-04-23', '', 'Pakistan', NULL, 'G4iLq.png'),
+(4, 'Zahid', 'Nadeem', 'Bahawalpur', '', 'male', '', NULL, NULL, NULL, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -689,29 +785,6 @@ CREATE TABLE IF NOT EXISTS `user_sessions` (
   `hybridauth_session` text NOT NULL COMMENT 'will contain the hybridauth session data',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_status`
---
-
-DROP TABLE IF EXISTS `user_status`;
-CREATE TABLE IF NOT EXISTS `user_status` (
-  `status_id` int(11) NOT NULL AUTO_INCREMENT,
-  `status_title` varchar(255) NOT NULL,
-  PRIMARY KEY (`status_id`),
-  KEY `status_id` (`status_id`),
-  KEY `status_id_2` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `user_status`
---
-
-INSERT INTO `user_status` (`status_id`, `status_title`) VALUES
-(0, 'inactive'),
-(1, 'active');
 
 --
 -- Constraints for dumped tables
@@ -813,14 +886,7 @@ ALTER TABLE `product_reviews`
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `user_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `user_status` (`status_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user_profile`
---
-ALTER TABLE `user_profile`
-  ADD CONSTRAINT `user_profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
