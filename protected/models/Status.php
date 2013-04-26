@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property User[] $users
  */
-class Status extends CActiveRecord
+class Status extends DTActiveRecord
 {
 
     /**
@@ -41,6 +41,8 @@ class Status extends CActiveRecord
         // will receive user inputs.
         return array(
             array('title', 'required'),
+            array('create_time,create_user_id,update_time,update_user_id', 'required'),
+            array('activity_log', 'safe'),
             array('title,module', 'length', 'max' => 255),
             array("title,module,module_id", "safe"),
             // The following rule is used by search().
@@ -57,7 +59,6 @@ class Status extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-          
         );
     }
 

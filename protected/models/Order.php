@@ -13,7 +13,7 @@
  * @property User $user
  * @property OrderDetail[] $orderDetails
  */
-class Order extends CActiveRecord
+class Order extends DTActiveRecord
 {
 
     /**
@@ -44,6 +44,8 @@ class Order extends CActiveRecord
         return array(
             array('user_id, total_price, order_date', 'required'),
             array('user_id', 'numerical', 'integerOnly' => true),
+            array('create_time,create_user_id,update_time,update_user_id', 'required'),
+            array('activity_log', 'safe'),
             array('total_price', 'length', 'max' => 10),
             array('order_date', 'length', 'max' => 255),
             // The following rule is used by search().

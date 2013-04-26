@@ -11,6 +11,7 @@ $import = array(
     'application.components.*',
     'application.components.classes.*',
     'application.components.classes.db.*',
+    'application.components.dataProviders.*',
     'application.extensions.email.debug.*',
     'application.extensions.KEmail.KEmail',
     'application.modules.yiiauth.components.*',

@@ -45,7 +45,7 @@ class UserController extends Controller
 
         Yii::app()->controller->layout = '//layouts/main';
         $model = new User;
-   
+
 
         if (isset($_POST['User']))
         {
@@ -230,17 +230,16 @@ class UserController extends Controller
 
     public function actionProductReview()
     {
-        // echo '<pre>';
-        //  print_r($_POST['ProductReviews']);
-        // exit;
+
         $modelComment = new ProductReviews;
 
         if (isset($_POST['ProductReviews']))
         {
             $modelComment->attributes = $_POST['ProductReviews'];
-            $modelComment->user_id = Yii::app()->user->id;
             $modelComment->added_date = time();
             $modelComment->is_approved = '1';
+            $modelComment->user_id = Yii::app()->user->id;
+            
             if (!isset($_POST['ratingUser']))
             {
                 $modelComment->rating = 5;
@@ -249,21 +248,17 @@ class UserController extends Controller
             {
                 $modelComment->rating = $_POST['ratingUser'];
             }
+            
+            
 
-            $product_id = $modelComment->attributes['product_id'];
-
-            if ($modelComment->validate())
+            if ($modelComment->save())
             {
-
-                if ($modelComment->save())
-                {
-                    $this->redirect($this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product_id)));
-                } //getFull name is a getter function in profile model merge 1st + last name
+                $this->redirect($this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $modelComment->product_id)));
             }
             else
             {
                 echo CHtml::errorSummary($modelComment);
-                $this->redirect($this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product_id)));
+                $this->redirect($this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $modelComment->product_id)));
             }
 
 //        $this->render('update_profile', array(

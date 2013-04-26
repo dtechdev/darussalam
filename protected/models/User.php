@@ -23,7 +23,7 @@
  * 
  * 
  */
-class User extends CActiveRecord
+class User extends DTActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
@@ -59,6 +59,8 @@ class User extends CActiveRecord
         // will receive user inputs.
         return array(
             array('user_password,user_email', 'required'),
+            array('create_time,create_user_id,update_time,update_user_id', 'required'),
+            array('activity_log', 'safe'),
             array('role_id, status_id, city_id, site_id', 'numerical', 'integerOnly' => true),
             array('user_password, activation_key', 'length', 'max' => 255),
             array('is_active', 'length', 'max' => 8),
@@ -83,7 +85,7 @@ class User extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'orders' => array(self::HAS_MANY, 'Order', 'user_id'),
-            'status' => array(self::BELONGS_TO, 'Statous', 'status_id','condition'=>'module="User"'),
+            'status' => array(self::BELONGS_TO, 'Statous', 'status_id', 'condition' => 'module="User"'),
             'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
             'role' => array(self::BELONGS_TO, 'UserRole', 'role_id'),
             'userProfiles' => array(self::HAS_ONE, 'UserProfile', 'id'),

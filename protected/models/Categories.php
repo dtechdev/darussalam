@@ -14,91 +14,95 @@
  * @property City $city
  * @property ProductCategories[] $productCategories
  */
-class Categories extends CActiveRecord
+class Categories extends DTActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return Categories the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'categories';
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
+     * @return Categories the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('category_name, added_date, city_id', 'required'),
-			array('parent_id, city_id', 'numerical', 'integerOnly'=>true),
-			array('category_name, added_date', 'length', 'max'=>255),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('category_id, category_name, added_date, parent_id, city_id', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'categories';
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-                        'getparent' => array(self::BELONGS_TO, 'Categories', 'parent_id'),
-                        'childs' => array(self::HAS_MANY, 'Categories', 'parent_id', 'order' => 'categories_id ASC'),
-			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
-			'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'category_id'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('category_name, added_date, city_id', 'required'),
+            array('create_time,create_user_id,update_time,update_user_id', 'required'),
+            array('activity_log', 'safe'),
+            array('parent_id, city_id', 'numerical', 'integerOnly' => true),
+            array('category_name, added_date', 'length', 'max' => 255),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('category_id, category_name, added_date, parent_id, city_id', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'category_id' => 'Category',
-			'category_name' => 'Category Name',
-			'added_date' => 'Added Date',
-			'parent_id' => 'Parent',
-			'city_id' => 'City',
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'getparent' => array(self::BELONGS_TO, 'Categories', 'parent_id'),
+            'childs' => array(self::HAS_MANY, 'Categories', 'parent_id', 'order' => 'categories_id ASC'),
+            'city' => array(self::BELONGS_TO, 'City', 'city_id'),
+            'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'category_id'),
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'category_id' => 'Category',
+            'category_name' => 'Category Name',
+            'added_date' => 'Added Date',
+            'parent_id' => 'Parent',
+            'city_id' => 'City',
+        );
+    }
 
-		$criteria=new CDbCriteria;
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria->compare('category_id',$this->category_id);
-		$criteria->compare('category_name',$this->category_name,true);
-		$criteria->compare('added_date',$this->added_date,true);
-		$criteria->compare('parent_id',$this->parent_id);
-		$criteria->compare('city_id',$this->city_id);
+        $criteria = new CDbCriteria;
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        $criteria->compare('category_id', $this->category_id);
+        $criteria->compare('category_name', $this->category_name, true);
+        $criteria->compare('added_date', $this->added_date, true);
+        $criteria->compare('parent_id', $this->parent_id);
+        $criteria->compare('city_id', $this->city_id);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+
 }
