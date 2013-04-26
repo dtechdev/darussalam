@@ -96,18 +96,18 @@ class User extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'user_id' => 'User',
-            'user_name' => 'User Name',
-            'user_password' => 'User Password',
+            'user_id' => 'User:',
+            'user_name' => 'User Name:',
+            'user_password' => 'User Password:',
             'role_id' => 'Role',
-            'status_id' => 'Status',
-            'city_id' => 'City',
-            'activation_key' => 'Activation Key',
-            'is_active' => 'Is Active',
-            'site_id' => 'Site',
-            'user_email' => 'User Email',
-            'join_date' => 'Registration date',
-            'user_password2' => 'Repeated Password',
+            'status_id' => 'Status:',
+            'city_id' => 'City:',
+            'activation_key' => 'Activation Key:',
+            'is_active' => 'Is Active:',
+            'site_id' => 'Site:',
+            'user_email' => 'User Email:',
+            'join_date' => 'Registration date:',
+            'user_password2' => 'Repeated Password:',
         );
     }
 
