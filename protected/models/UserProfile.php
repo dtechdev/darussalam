@@ -90,10 +90,16 @@ class UserProfile extends CActiveRecord {
             'id' => 'User Profile',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
-            'address' => 'Address',
+            'address' => 'Address Line 1',
+            'address_2' => 'Address Line 2',
             'city' => 'City',
-            'gender' => 'Gender',
-            'contact_number' => 'Contact Number',
+            'country' => 'Country',
+            'state_province' => 'State/Province',
+            'gender' => 'Prefix	',
+            'zip_code' => 'Zip Code	',
+            'contact_number' => 'Telephone Number',
+            'avatar' => 'Profile Picture',
+            
         );
     }
 

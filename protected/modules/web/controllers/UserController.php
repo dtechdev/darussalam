@@ -87,7 +87,7 @@ class UserController extends Controller
             }
         }
 
-        $this->render('create', array(
+        $this->render('register', array(
             'model' => $model,
         ));
     }
