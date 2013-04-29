@@ -90,7 +90,7 @@ class Categories extends DTActiveRecord
             'select' => "COUNT(product_category_id ) as totalStock,*",
             'group' => 't.category_id',
             //'limit' => 14,
-            'condition' => "parent_id=0",  //parent id = 0 means category that is parent by itself.show only parent category in list
+            'condition' => "parent_id=0 AND city_id=".Yii::app()->session['city_id'] ,  //parent id = 0 means category that is parent by itself.show only parent category in list
             'order' => 'totalStock DESC',
         ));
         
