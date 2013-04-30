@@ -23,8 +23,7 @@
  * 
  * 
  */
-class User extends DTActiveRecord
-{
+class User extends DTActiveRecord {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -37,24 +36,21 @@ class User extends DTActiveRecord
 
     public $user_password2;
 
-    public static function model($className = __CLASS__)
-    {
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName()
-    {
+    public function tableName() {
         return 'user';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules()
-    {
+    public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
@@ -79,8 +75,7 @@ class User extends DTActiveRecord
     /**
      * @return array relational rules.
      */
-    public function relations()
-    {
+    public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -95,8 +90,7 @@ class User extends DTActiveRecord
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return array(
             'user_id' => 'User:',
             'user_name' => 'User Name:',
@@ -113,8 +107,7 @@ class User extends DTActiveRecord
         );
     }
 
-    static function getAccessLevelList($level = null)
-    {
+    static function getAccessLevelList($level = null) {
         $levelList = array(
             self::LEVEL_CUSTOMER => 'Customer',
             self::LEVEL_ADMIN => 'Administrator',
@@ -130,8 +123,7 @@ class User extends DTActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -156,24 +148,19 @@ class User extends DTActiveRecord
     /**
      *  used to set the value for validation
      */
-    public function beforeValidate()
-    {
-        if (empty($this->join_date))
-        {
-            $this->join_date = date("Y-m-d");
-        }
-        else
-        {
-            /** in case of form is filling this value * */
-            $this->join_date = DTFunctions::dateFormatForSave($this->join_date);
-        }
-
+    public function beforeValidate() {
+   
         parent::beforeValidate();
         return true;
     }
 
-    public function beforeSave()
-    {
+    public function beforeSave() {
+        if (empty($this->join_date)) {
+            $this->join_date = date("Y-m-d");
+        } else {
+            /** in case of form is filling this value * */
+            $this->join_date = DTFunctions::dateFormatForSave($this->join_date);
+        }
         $this->user_password = md5($this->user_password);
         parent::beforeSave();
         return true;
@@ -185,20 +172,17 @@ class User extends DTActiveRecord
      *  like site id , city id
      *  plust activation key
      */
-    public function setSiteConfigurations()
-    {
+    public function setSiteConfigurations() {
         
     }
 
-    public function validatePassword($password, $saved_password)
-    {
+    public function validatePassword($password, $saved_password) {
 
         return md5($password) === $saved_password;
         //return $password;
     }
 
-    public function passwordStrength($attribute, $params)
-    {
+    public function passwordStrength($attribute, $params) {
         if ($params['strength'] === self::WEAK)
             $pattern = '/^(?=.*[a-zA-Z0-9]).{5,}$/';
         elseif ($params['strength'] === self::STRONG)

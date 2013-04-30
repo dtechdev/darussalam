@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
+<div class="form wide">
 
     <?php
     $form = $this->beginWidget('CActiveForm', array(
@@ -62,11 +62,11 @@
 <?php echo $form->textField($mProductProfile, 'isbn', array('size' => 60, 'maxlength' => 255)); ?>
         <?php echo $form->error($mProductProfile, 'isbn'); ?>
     </div>
-    <div class="row">
-        <?php echo $form->labelEx($mProductProfile, 'language_id'); ?>
-        <?php echo $form->dropDownList($mProductProfile, 'language_id', $languageList, array('prompt' => 'Select Language')); ?>
-        <?php echo $form->error($mProductProfile, 'language_id'); ?>
-    </div>
+<!--    <div class="row">
+        <?php //echo $form->labelEx($mProductProfile, 'language_id'); ?>
+        <?php //echo $form->dropDownList($mProductProfile, 'language_id', $languageList, array('prompt' => 'Select Language')); ?>
+        <?php //echo $form->error($mProductProfile, 'language_id'); ?>
+    </div>-->
     <div class="row">
         <?php echo $form->labelEx($mProductProfile, 'author_id'); ?>
         <?php echo $form->dropDownList($mProductProfile, 'author_id', $authorList, array('prompt' => 'Select Author')); ?>
