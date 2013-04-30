@@ -1,6 +1,6 @@
 <?php
 
-class m130430_085005_add_conf_for_city extends DTDbMigration {
+class m130430_085006_add_conf_for_city extends DTDbMigration {
 
     public function up() {
         $table = "conf_misc";
