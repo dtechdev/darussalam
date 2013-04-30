@@ -14,32 +14,30 @@
  * @property City $city
  * @property ProductCategories[] $productCategories
  */
-class Categories extends DTActiveRecord
-{
-         public $totalStock;
+class Categories extends DTActiveRecord {
+
+    public $totalStock;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
      * @return Categories the static model class
      */
-    public static function model($className = __CLASS__)
-    {
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName()
-    {
+    public function tableName() {
         return 'categories';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules()
-    {
+    public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
@@ -57,8 +55,7 @@ class Categories extends DTActiveRecord
     /**
      * @return array relational rules.
      */
-    public function relations()
-    {
+    public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -72,8 +69,7 @@ class Categories extends DTActiveRecord
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return array(
             'category_id' => 'Category',
             'category_name' => 'Category Name',
@@ -82,28 +78,45 @@ class Categories extends DTActiveRecord
             'city_id' => 'City',
         );
     }
-    
-    public function allCategories()
-    {
-        
+
+    /**
+     * 
+     * @return type
+     */
+    public function allCategories() {
+
         $criteriaC = new CDbCriteria(array(
             'select' => "COUNT(product_category_id ) as totalStock,*",
             'group' => 't.category_id',
             //'limit' => 14,
-            'condition' => "city_id=".Yii::app()->session['city_id'] ,  //parent id = 0 means category that is parent by itself.show only parent category in list
+            'condition' => "city_id=" . Yii::app()->session['city_id'], //parent id = 0 means category that is parent by itself.show only parent category in list
             'order' => 'totalStock DESC',
         ));
-        
-        $cate= $this->with('productCategories')->findAll($criteriaC);
+
+        $cate = $this->with('productCategories')->findAll($criteriaC);
         return $cate;
+    }
+
+    /**
+     * get the array in keys segments
+     * for footer of pages
+     * @return type
+     */
+    public function getCategoriesInSegment($offset = 5) {
+        $cats_temp = $this->allCategories();
+        $cats = array();
+        foreach ($cats_temp as $keycat => $cat) {
+            $cats[$cat->category_id] = $cat->category_name;
+        }
+        $cats = array_chunk($cats, $offset, true);
+        return $cats;
     }
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
