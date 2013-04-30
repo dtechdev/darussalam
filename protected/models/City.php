@@ -111,5 +111,21 @@ class City extends DTActiveRecord
             'criteria' => $criteria,
         ));
     }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function afterSave() {
+        parent::afterSave();
+        return true;
+    }
+    /**
+     * 
+     */
+    public function installConfiguration(){
+       $model = new ConfMisc;
+       
+    }
 
 }
