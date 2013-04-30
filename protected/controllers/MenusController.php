@@ -257,9 +257,9 @@ class MenusController extends Controller {
 
         /* admin module for the User Status managment */
 
-//        $ary[] = array("id" => "8", "pid" => "0", "root_parent" => "8", "controller" => "userStatus", "action" => "index", "default_title" => "User Status", "user_title" => "User Status", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
-//        $ary[] = array("id" => "9", "pid" => "8", "root_parent" => "8", "controller" => "userStatus", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
-//        $ary[] = array("id" => "10", "pid" => "8", "root_parent" => "8", "controller" => "userStatus", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+        $ary[] = array("id" => "8", "pid" => "0", "root_parent" => "8", "controller" => "pages", "action" => "index", "default_title" => "Pages", "user_title" => "Pages", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "9", "pid" => "8", "root_parent" => "8", "controller" => "pages", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "10", "pid" => "8", "root_parent" => "8", "controller" => "pages", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
 
 
         /* admin module for the User Country managment */
