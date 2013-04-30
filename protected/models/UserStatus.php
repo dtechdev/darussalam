@@ -28,7 +28,7 @@ class UserStatus extends DTActiveRecord
      */
     public function tableName()
     {
-        return 'user_status';
+        return 'status';
     }
 
     /**
@@ -57,7 +57,7 @@ class UserStatus extends DTActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'users' => array(self::HAS_MANY, 'User', 'status_id'),
+            'users' => array(self::HAS_MANY, 'User', 'id'),
         );
     }
 

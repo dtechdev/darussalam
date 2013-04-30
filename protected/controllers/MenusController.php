@@ -243,13 +243,75 @@ class MenusController extends Controller {
         Menu::model()->deleteAll();
 
         $ary[] = array("id" => "1", "pid" => "0", "root_parent" => "1", "controller" => "site", "action" => "index", "default_title" => "Dashboard", "user_title" => "Dashboard", "is_assigned" => "Yes", "min_permission" => "Index", "weight" => "0");
-           
-        /** for user module **/
 
+        /** for user module * */
         $ary[] = array("id" => "2", "pid" => "0", "root_parent" => "2", "controller" => "user", "action" => "index", "default_title" => "User", "user_title" => "User", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
         $ary[] = array("id" => "3", "pid" => "2", "root_parent" => "2", "controller" => "user", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
         $ary[] = array("id" => "4", "pid" => "2", "root_parent" => "2", "controller" => "user", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
 
+        /* admin module for the User Role managment */
+
+        $ary[] = array("id" => "5", "pid" => "0", "root_parent" => "5", "controller" => "userRole", "action" => "index", "default_title" => "User Role", "user_title" => "User Role", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "6", "pid" => "5", "root_parent" => "5", "controller" => "userRole", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "7", "pid" => "5", "root_parent" => "5", "controller" => "userRole", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+        /* admin module for the User Status managment */
+
+//        $ary[] = array("id" => "8", "pid" => "0", "root_parent" => "8", "controller" => "userStatus", "action" => "index", "default_title" => "User Status", "user_title" => "User Status", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+//        $ary[] = array("id" => "9", "pid" => "8", "root_parent" => "8", "controller" => "userStatus", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+//        $ary[] = array("id" => "10", "pid" => "8", "root_parent" => "8", "controller" => "userStatus", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+
+        /* admin module for the User Country managment */
+
+        $ary[] = array("id" => "11", "pid" => "0", "root_parent" => "11", "controller" => "country", "action" => "index", "default_title" => "Country", "user_title" => "Country", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "12", "pid" => "11", "root_parent" => "11", "controller" => "country", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "13", "pid" => "11", "root_parent" => "11", "controller" => "country", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+
+        /* admin module for the User City managment */
+
+        $ary[] = array("id" => "14", "pid" => "0", "root_parent" => "14", "controller" => "city", "action" => "index", "default_title" => "City", "user_title" => "City", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "15", "pid" => "14", "root_parent" => "14", "controller" => "city", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "16", "pid" => "14", "root_parent" => "14", "controller" => "city", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+        /* admin module for the User Language managment */
+
+        $ary[] = array("id" => "17", "pid" => "0", "root_parent" => "17", "controller" => "language", "action" => "index", "default_title" => "Languages", "user_title" => "Languages", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "18", "pid" => "17", "root_parent" => "17", "controller" => "language", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "19", "pid" => "17", "root_parent" => "17", "controller" => "language", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+
+        /* admin module for the User Layouts managment */
+
+        $ary[] = array("id" => "20", "pid" => "0", "root_parent" => "20", "controller" => "layout", "action" => "index", "default_title" => "Layouts", "user_title" => "Layouts", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "21", "pid" => "20", "root_parent" => "20", "controller" => "layout", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "22", "pid" => "20", "root_parent" => "20", "controller" => "layout", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+
+        /* admin module for the site managment */
+
+        $ary[] = array("id" => "23", "pid" => "0", "root_parent" => "23", "controller" => "selfSite", "action" => "index", "default_title" => "Site", "user_title" => "Site", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "24", "pid" => "23", "root_parent" => "23", "controller" => "selfSite", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "25", "pid" => "23", "root_parent" => "23", "controller" => "selfSite", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+        /* admin module for the Products managment */
+
+        $ary[] = array("id" => "26", "pid" => "0", "root_parent" => "26", "controller" => "product", "action" => "index", "default_title" => "Products", "user_title" => "Products", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "27", "pid" => "26", "root_parent" => "26", "controller" => "product", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "28", "pid" => "26", "root_parent" => "26", "controller" => "product", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+        /* admin module for the Categories managment */
+
+        $ary[] = array("id" => "29", "pid" => "0", "root_parent" => "29", "controller" => "categories", "action" => "index", "default_title" => "Product Categories", "user_title" => "Product Categories", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "30", "pid" => "29", "root_parent" => "29", "controller" => "categories", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "31", "pid" => "29", "root_parent" => "29", "controller" => "categories", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+        /* admin module for the Author managment */
+
+        $ary[] = array("id" => "32", "pid" => "0", "root_parent" => "32", "controller" => "author", "action" => "index", "default_title" => "Author", "user_title" => "Author", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "33", "pid" => "32", "root_parent" => "32", "controller" => "author", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "34", "pid" => "32", "root_parent" => "32", "controller" => "author", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
 
 
 

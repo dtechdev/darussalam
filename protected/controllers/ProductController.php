@@ -18,6 +18,12 @@ class ProductController extends Controller {
         );
     }
 
+    public function beforeAction($action) {
+        Yii::app()->theme = "admin";
+        parent::beforeAction($action);
+        return true;
+    }
+
     /**
      * Specifies the access control rules.
      * This method is used by the 'accessControl' filter.
@@ -25,16 +31,12 @@ class ProductController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view','addtocart'),
-                'users' => array('*'),
-            ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update',),
+                'actions' => array('create', 'index', 'view',),
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('create'),
+                'actions' => array('create', 'update',),
                 'expression' => 'Yii::app()->user->isAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -52,10 +54,6 @@ class ProductController extends Controller {
             ),
         );
     }
-    
-    
-   
-
 
     /**
      * Displays a particular model.
@@ -195,32 +193,20 @@ class ProductController extends Controller {
     }
 
     /**
-     * Lists all models.
-     */
-    public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('Product');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
-    }
-
-    /**
      * Manages all models.
      */
-    public function actionAdmin() {
+    public function actionIndex() {
         $model = new Product('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Product']))
             $model->attributes = $_GET['Product'];
 
-        $this->render('admin', array(
+        $this->render('index', array(
             'model' => $model,
         ));
     }
 
-    
-
-        /**
+    /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
