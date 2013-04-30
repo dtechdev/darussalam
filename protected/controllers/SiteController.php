@@ -1,13 +1,11 @@
 <?php
 
-class SiteController extends Controller
-{
+class SiteController extends Controller {
 
     /**
      * Declares class-based actions.
      */
-    public function actions()
-    {
+    public function actions() {
         return array(
             // captcha action renders the CAPTCHA image displayed on the contact page
             'captcha' => array(
@@ -26,36 +24,37 @@ class SiteController extends Controller
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         Yii::app()->user->SiteSessions;
         $this->redirect(array('/site/storehome', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
     }
-    
+
     /**
      *  partucular store 
      *  here will be available
      *  from session
      *  
      */
-    public function actionStoreHome()
-    {
+    public function actionStoreHome() {
 
         Yii::app()->user->SiteSessions;
         $order_detail = new OrderDetail;
         $limit = 3;
         $featured_products = $order_detail->featuredBooks($limit);
         $bestSellings = $order_detail->bestSellings($limit);
-        $this->render('storehome', array('product' => $featured_products, 'best_sellings' => $bestSellings));
+        $segments_footer_cats = Categories::model()->getCategoriesInSegment(2);
+        $this->render('storehome', array(
+            'product' => $featured_products,
+            'best_sellings' => $bestSellings,
+            'segments_footer_cats' => $segments_footer_cats,
+        ));
     }
 
     /**
      * This is the action to handle external exceptions.
      */
-    public function actionError()
-    {
-        if ($error = Yii::app()->errorHandler->error)
-        {
+    public function actionError() {
+        if ($error = Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest)
                 echo $error['message'];
             else
@@ -66,17 +65,14 @@ class SiteController extends Controller
     /**
      * Displays the contact page
      */
-    public function actionContact()
-    {
+    public function actionContact() {
         Yii::app()->user->SiteSessions;
         Yii::app()->controller->layout = '//layouts/slider';
         //Yii::app()->theme='admin';
         $model = new ContactForm;
-        if (isset($_POST['ContactForm']))
-        {
+        if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
-            if ($model->validate())
-            {
+            if ($model->validate()) {
                 $to = Yii::app()->params->supportEmail;
                 $from = Yii::app()->params->adminEmail;
 
@@ -106,50 +102,39 @@ class SiteController extends Controller
     /**
      * Displays the login page
      */
-    public function actionLogin()
-    {
+    public function actionLogin() {
         Yii::app()->user->SiteSessions;
         $model = new LoginForm;
         $ip = getenv("REMOTE_ADDR");
         // if it is ajax validation request
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form')
-        {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
 
         // collect user input data
-        if (isset($_POST['LoginForm']))
-        {
+        if (isset($_POST['LoginForm'])) {
             $model->attributes = $_POST['LoginForm'];
             // validate user input and redirect to the previous page if valid
-            if ($model->validate() && $model->login())
-            {
+            if ($model->validate() && $model->login()) {
 
-                if (Yii::app()->user->isSuperAdmin)
-                {
+                if (Yii::app()->user->isSuperAdmin) {
                     $this->redirect(array('user/index'));
                 }
-                if (Yii::app()->user->isAdmin)
-                {
+                if (Yii::app()->user->isAdmin) {
                     $this->redirect(array('user/admin'));
                 }
-                if (Yii::app()->user->isCustomer)
-                {
+                if (Yii::app()->user->isCustomer) {
                     $cart_model = new Cart();
                     $cart = $cart_model->findAll('session_id="' . $ip . '"');
-                    foreach ($cart as $pro)
-                    {
+                    foreach ($cart as $pro) {
                         $cart_model2 = new Cart();
                         $exitstProduct = $cart_model2->find("user_id=" . Yii::app()->user->id . " AND product_id=" . $pro->product_id);
-                        if ($exitstProduct)
-                        {
+                        if ($exitstProduct) {
                             $exitstProduct->quantity = $exitstProduct->quantity + $pro->quantity;
                             $cart_model2 = $exitstProduct;
                             Cart::model()->findByPk($pro->cart_id)->delete();
-                        }
-                        else
-                        {
+                        } else {
                             $cart_model2 = $pro;
                         }
 
@@ -162,8 +147,7 @@ class SiteController extends Controller
                     $user_profile_set = $user_profile->findAll('id=' . Yii::app()->user->id);
                     if ($user_profile_set)
                         $this->redirect(array('/web/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
-                    else
-                    {
+                    else {
                         $this->redirect(array('/web/userProfile/index'));
                     }
                 }
@@ -176,8 +160,7 @@ class SiteController extends Controller
     /**
      * Logs out the current user and redirect to homepage.
      */
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
     }
@@ -186,8 +169,7 @@ class SiteController extends Controller
      * use to change the store and on ajax call
      * and redirect ot particular path
      */
-    public function actionStorechange()
-    {
+    public function actionStorechange() {
 
         $city_id = $_POST['city_id'];
         $city = City::model()->findByPk($city_id);
