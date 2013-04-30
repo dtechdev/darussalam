@@ -4,21 +4,13 @@
  * This is the model class for table "region".
  *
  * The followings are the available columns in table 'region':
- * @property string $id
- * @property string $iso
- * @property string $iso3
- * @property string $fips
- * @property string $country
- * @property string $continent
- * @property string $currency_code
- * @property string $currency_name
- * @property string $phone_prefix
- * @property string $postal_code
- * @property string $languages
- * @property string $geonameid
- *
- * The followings are the available model relations:
- * @property Subregion[] $subregions
+ * @property integer $id
+ * @property string $name
+ * @property string $iso_code_2
+ * @property string $iso_code_3
+ * @property string $address_format
+ * @property integer $postcode_required
+ * @property integer $status
  */
 class Region extends CActiveRecord
 {
@@ -48,10 +40,14 @@ class Region extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('iso, iso3, fips, country, continent, currency_code, currency_name, phone_prefix, postal_code, languages, geonameid', 'length', 'max'=>45),
+			array('name, iso_code_2, iso_code_3, address_format, postcode_required', 'required'),
+			array('postcode_required, status', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>128),
+			array('iso_code_2', 'length', 'max'=>2),
+			array('iso_code_3', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, iso, iso3, fips, country, continent, currency_code, currency_name, phone_prefix, postal_code, languages, geonameid', 'safe', 'on'=>'search'),
+			array('id, name, iso_code_2, iso_code_3, address_format, postcode_required, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,7 +59,6 @@ class Region extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'subregions' => array(self::HAS_MANY, 'Subregion', 'region_id'),
 		);
 	}
 
@@ -74,17 +69,12 @@ class Region extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'iso' => 'Iso',
-			'iso3' => 'Iso3',
-			'fips' => 'Fips',
-			'country' => 'Country',
-			'continent' => 'Continent',
-			'currency_code' => 'Currency Code',
-			'currency_name' => 'Currency Name',
-			'phone_prefix' => 'Phone Prefix',
-			'postal_code' => 'Postal Code',
-			'languages' => 'Languages',
-			'geonameid' => 'Geonameid',
+			'name' => 'Name',
+			'iso_code_2' => 'Iso Code 2',
+			'iso_code_3' => 'Iso Code 3',
+			'address_format' => 'Address Format',
+			'postcode_required' => 'Postcode Required',
+			'status' => 'Status',
 		);
 	}
 
@@ -99,18 +89,13 @@ class Region extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('iso',$this->iso,true);
-		$criteria->compare('iso3',$this->iso3,true);
-		$criteria->compare('fips',$this->fips,true);
-		$criteria->compare('country',$this->country,true);
-		$criteria->compare('continent',$this->continent,true);
-		$criteria->compare('currency_code',$this->currency_code,true);
-		$criteria->compare('currency_name',$this->currency_name,true);
-		$criteria->compare('phone_prefix',$this->phone_prefix,true);
-		$criteria->compare('postal_code',$this->postal_code,true);
-		$criteria->compare('languages',$this->languages,true);
-		$criteria->compare('geonameid',$this->geonameid,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('iso_code_2',$this->iso_code_2,true);
+		$criteria->compare('iso_code_3',$this->iso_code_3,true);
+		$criteria->compare('address_format',$this->address_format,true);
+		$criteria->compare('postcode_required',$this->postcode_required);
+		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

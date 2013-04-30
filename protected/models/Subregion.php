@@ -4,13 +4,11 @@
  * This is the model class for table "subregion".
  *
  * The followings are the available columns in table 'subregion':
- * @property string $id
- * @property string $region_id
+ * @property integer $id
+ * @property integer $region_id
  * @property string $name
- * @property string $timezone
- *
- * The followings are the available model relations:
- * @property Region $region
+ * @property string $code
+ * @property integer $status
  */
 class Subregion extends CActiveRecord
 {
@@ -40,11 +38,13 @@ class Subregion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('region_id', 'length', 'max'=>10),
-			array('name, timezone', 'length', 'max'=>45),
+			array('region_id, name, code', 'required'),
+			array('region_id, status', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>128),
+			array('code', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, region_id, name, timezone', 'safe', 'on'=>'search'),
+			array('id, region_id, name, code, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,7 +56,6 @@ class Subregion extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
 		);
 	}
 
@@ -69,7 +68,8 @@ class Subregion extends CActiveRecord
 			'id' => 'ID',
 			'region_id' => 'Region',
 			'name' => 'Name',
-			'timezone' => 'Timezone',
+			'code' => 'Code',
+			'status' => 'Status',
 		);
 	}
 
@@ -84,10 +84,11 @@ class Subregion extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('region_id',$this->region_id,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('region_id',$this->region_id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('timezone',$this->timezone,true);
+		$criteria->compare('code',$this->code,true);
+		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
