@@ -11,9 +11,11 @@ $import = array(
     'application.components.*',
     'application.components.classes.*',
     'application.components.classes.db.*',
+    'application.components.classes.widgets.*',
     'application.components.dataProviders.*',
     'application.extensions.email.debug.*',
     'application.extensions.KEmail.KEmail',
+    'application.extensions.ProDropDown.*',
     'application.modules.yiiauth.components.*',
 ); 
 ?>
