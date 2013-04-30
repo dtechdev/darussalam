@@ -26,21 +26,18 @@ class UserController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'register', 'activate', 'ProductReview', 'forgot'),
-                'users' => array('*'),
-            ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'updateprofile'),
+                'actions' => array('create','index', 'view',
+                ),
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('create', 'update', 'updateprofile'),
+                'actions' => array('create', 'update',),
                 'expression' => 'Yii::app()->user->isAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array('admin', 'delete', 'update', 'updateprofile'),
+                'actions' => array( 'delete', 'update',),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -147,29 +144,16 @@ class UserController extends Controller {
     }
 
     /**
-     * Lists all models.
-     */
-    public function actionIndex() {
-        Yii::app()->controller->layout = '//layouts/column2';
-        Yii::app()->theme = 'admin';
-        $dataProvider = new CActiveDataProvider('User');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
-    }
-
-    /**
      * Manages all models.
      */
-    public function actionAdmin() {
-        Yii::app()->controller->layout = '//layouts/column2';
-        Yii::app()->theme = 'admin';
+    public function actionIndex() {
+
         $model = new User('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['User']))
+        if (isset($_GET['User'])) {
             $model->attributes = $_GET['User'];
-
-        $this->render('admin', array(
+        }
+        $this->render('index', array(
             'model' => $model,
         ));
     }
@@ -186,23 +170,6 @@ class UserController extends Controller {
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
-    }
-
-    public function actionUpdateProfile($id) {
-        $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->user_id));
-        }
-
-        $this->render('update_profile', array(
-            'model' => $model,
-        ));
     }
 
     /**
