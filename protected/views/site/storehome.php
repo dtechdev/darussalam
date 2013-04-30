@@ -1,56 +1,28 @@
 <h1>BROWSE BY CATEGORY</h1>
-<div class="browse">
-    <div class="section_list">
-        <ul>
-            <li><a href="#">Aqeedah</a></li>
-            <li><a href="#">Biography</a></li>
-            <li><a href="#">Biography of the Prophet</a></li>
-            <li><a href="#">Children</a></li>
-            <li><a href="#">Fatawa</a></li>
-            <li><a href="#">Fiqh</a></li>
-        </ul>
-    </div>
 
+<div class="browse">
+    <?php
+      foreach($segments_footer_cats as $cats) :
+            
+    ?>
     <div class="section_list">
         <ul>
-            <li><a href="#">General</a></li>
-            <li><a href="#">Hadith</a></li>
-            <li><a href="#">History</a></li>
-            <li><a href="#">Islamic Culture</a></li>
-            <li><a href="#">Non-Muslim</a></li>
-            <li><a href="#">Worship</a></li>
+            <?php
+                foreach($cats as $cat_id=>$cat){
+                    echo CHtml::openTag("li");
+                        echo CHtml::link($cat, $this->createUrl('/web/product/allproducts'));
+                    echo CHtml::closeTag("li");
+                    
+                }
+            ?>
+  
         </ul>
     </div>
-    <div class="section_list">
-        <ul>
-            <li><a href="#">Packet or Set</a></li>
-            <li><a href="#">Qur'an</a></li>
-            <li><a href="#">Stories</a></li>
-            <li><a href="#">Supplication and Forgiveness</a></li>
-            <li><a href="#">Tafsir</a></li>
-            <li><a href="#">Women</a></li>
-        </ul>
-    </div>
-    <div class="section_list">
-        <ul>
-            <li><a href="#">Aqeedah</a></li>
-            <li><a href="#">Biography</a></li>
-            <li><a href="#">Biography of the Prophet</a></li>
-            <li><a href="#">Children</a></li>
-            <li><a href="#">Fatawa</a></li>
-            <li><a href="#">Fiqh</a></li>
-        </ul>
-    </div>
-    <div class="section_list">
-        <ul>
-            <li><a href="#">General</a></li>
-            <li><a href="#">Hadith</a></li>
-            <li><a href="#">History</a></li>
-            <li><a href="#">Islamic Culture</a></li>storehome
-            <li><a href="#">Non-Muslim</a></li>
-            <li><a href="#">Worship</a></li>
-        </ul>
-    </div>
+    <?php
+    endforeach;
+    ?>
+
+  
 </div>    
 <div id="left_books">
 
