@@ -17,6 +17,11 @@ class CityController extends Controller {
             'postOnly + delete', // we only allow deletion via POST request
         );
     }
+      public function beforeAction($action) {
+        Yii::app()->theme = "admin";
+        parent::beforeAction($action);
+        return true;
+    }
 
     /**
      * Specifies the access control rules.
@@ -25,21 +30,18 @@ class CityController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
-                'users' => array('*'),
-            ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update'),
+                'actions' => array('create','index', 'view',
+                ),
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('create'),
+                'actions' => array('create', 'update',),
                 'expression' => 'Yii::app()->user->isAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array('admin', 'delete'),
+                'actions' => array( 'delete', 'update',),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -115,26 +117,18 @@ class CityController extends Controller {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
-    /**
-     * Lists all models.
-     */
-    public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('City');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
-    }
+
 
     /**
      * Manages all models.
      */
-    public function actionAdmin() {
+    public function actionIndex() {
         $model = new City('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['City']))
             $model->attributes = $_GET['City'];
 
-        $this->render('admin', array(
+        $this->render('index', array(
             'model' => $model,
         ));
     }
