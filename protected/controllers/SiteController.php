@@ -42,7 +42,7 @@ class SiteController extends Controller {
         $limit = 3;
         $featured_products = $order_detail->featuredBooks($limit);
         $bestSellings = $order_detail->bestSellings($limit);
-        $segments_footer_cats = Categories::model()->getCategoriesInSegment(2);
+        $segments_footer_cats = Categories::model()->getCategoriesInSegment(5);
         $this->render('storehome', array(
             'product' => $featured_products,
             'best_sellings' => $bestSellings,
