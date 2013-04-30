@@ -64,12 +64,12 @@ class DefaultController extends Controller
 //              //  print_r($user_profile);
 //               print_r($user_profile);
 //               exit;
-                $pro=  UserProfile::model()->find('user_id='.$user->user_id);
+                $pro=  UserProfile::model()->find('id='.$user->user_id);
                 if(empty($pro))
                 {
             //echo $pro;exit;
                 $user_pro= new UserProfile;
-                $user_pro->user_id=$user->user_id;
+                $user_pro->id=$user->user_id;
                 $user_pro->first_name=$user_profile->firstName;
                 $user_pro->last_name=$user_profile->lastName;
                 $user_pro->address=$user_profile->region;
@@ -91,7 +91,7 @@ class DefaultController extends Controller
 //                exit;
 			if ( $this->autoLogin($user) ){
    			    //successfull login render default/profile.php
-                            $this->redirect(array('/product/allproducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+                            $this->redirect(array('/web/product/allproducts','country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
 //				$this->render('profile',
 //					array(
 //					'error'=>$error, //string
