@@ -1,4 +1,3 @@
-<?php /* @var $this Controller */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
@@ -6,7 +5,7 @@
         <meta name="language" content="en" />
 
         <!-- blueprint CSS framework -->
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen.css" media="screen, projection" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen-override.css" media="screen, projection" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/print.css" media="print" />
         <!--[if lt IE 8]>
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/ie.css" media="screen, projection" />
@@ -14,48 +13,247 @@
 
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/main.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/form.css" />
+        <script>
+            // defining js base path
+            var js_basePath = '<?php echo Yii::app()->baseUrl; ?>';
+        </script>
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+
     </head>
+    <!--  body {
+         behavior: url(csshover.htc); 
+        font-size: 100%;
+        }-->
     <body>
+        <!--[if IE]>
+    <style type="text/css" media="screen">
+    body {
+     
+    font-size: 100%;
+    }
+
+    #mainmenu ul li {float: left; width: 100%;}
+    #mainmenu ul li a {height: 1%;}
+
+
+    }
+    </style>
+    <![endif]-->
         <div class="container" id="page">
-            <div id="header">
-                <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-            </div><!-- header -->
+            <?php
+            /**
+             * Complete issue management in this div.
+             * Just hide it when you are loading detail view
+             */
+            ?>
+            <div id="loading" align="center">
+                Please Wait
 
-            <div id="mainmenu">
-                <?php
-                $this->widget('zii.widgets.CMenu', array(
-                    'items' => array(
-                        array('label' => 'Home', 'url' => array('/site/index')),
-                        array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
-                        array('label' => 'Contact', 'url' => array('/site/contact')),
-                        array('label' => 'Registration', 'url' => array('/user/register'), 'visible' => Yii::app()->user->isGuest),
-                        array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-                        array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
-                    ),
-                ));
-                ?>
-            </div><!-- mainmenu -->
-            <?php if (isset($this->breadcrumbs)): ?>
-                <?php
-                $this->widget('zii.widgets.CBreadcrumbs', array(
-                    'links' => $this->breadcrumbs,
-                ));
-                ?><!-- breadcrumbs -->
-            <?php endif ?>
+            </div>
 
-            <?php echo $content; ?>
+            <div id="header" class="menu">
+                <div id="logo">
 
+                </div>
+                <div id="afterLogo" class="menu">
+                    <!-- header -->
+                    <div id="profile_menu">
+                        <div class="left_float">
+                            <h1><?php echo CHtml::encode(Yii::app()->name); ?></h1>
+                        </div>
+                        <div>
+
+                        </div>
+                        <div class="header-top-login-details">
+                            <?php
+                            $this->widget('zii.widgets.CMenu', array(
+                                'items' => array(
+                                    // array('label' => "Change Password", 'url' => array('/users/changepass'),'visible'=>(Yii::app()->user->isGuest)?0:1),
+                                    //array('label' => (Yii::app()->user->theme == "Night" ? "Day" : "Night"), 'url' => array('/user/changeTheme')),
+                                    array('label' => 'Logout', 'url' => array('/site/logout'), 'visible' => (Yii::app()->user->isGuest) ? 0 : 1, 'itemOptions' => array('class' => 'logout border-none')),
+                                    array('label' => 'Login', 'url' => array('/site/login'), 'visible' => (Yii::app()->user->isGuest) ? 1 : 0, 'itemOptions' => array('class' => 'logout border-none')),
+                                ),
+                            ));
+                            ?>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <?php
+                    //&& Yii::app()->user->type=="admin"
+                    if (!empty(Yii::app()->user->id)):
+                        $m = new ProDropDown();
+                        $m->run();
+                        ?>
+                        <div style="float: left;margin: 5px 0 0px 0px; width: 100%;">
+                            <?php
+                            $me = Menu::model()->findAll();
+                            $pidArray = array();
+                            foreach ($me as $m) {
+                                $pidArray[] = $m->pid;
+                            }
+
+                            /* Get Active Menu */
+                            $root_parent = $this->getRootParent();
+                            $this->getNavigation(0, 0, $root_parent, $pidArray);
+                            echo $this->menuHtml;
+                        endif;
+//                        CVarDumper::dump(Yii::app()->params['project_report_types'], 10, true);
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="menu" id="submenu">
+                <div class="menu" id="submenu_hold">
+                </div>
+            </div>
+
+            <!-- mainmenu -->
             <div class="clear"></div>
-
+            <?php echo $content; ?>
+            <div class="clearbottom"></div>
             <div id="footer">
-                Copyright &copy; <?php echo date('Y'); ?> DTech<br/>
-                All Rights Reserved.<br/>
+                Copyright &copy; <?php echo date('Y'); ?> <a target="_blank" href="http://www.darussalam.com/">Darusslam.</a> All Rights Reserved. <br/>
+                Powered by Darusslam. 
 
+
+                <?php
+                /**
+                 * Display Seal
+                 */
+                ?>
             </div><!-- footer -->
 
         </div><!-- page -->
 
     </body>
+
+    <?php
+    Yii::app()->clientScript->registerScript('popupwindow', '
+          function printpdf(path)
+          {
+           var left = (screen.width/2)-(700/2);
+           var top = (screen.height/2)-(490/2);
+           var str="height=540,scrollbars=yes,width=700,status=yes,";
+           str+="toolbar=no,menubar=no,location=no,left="+left+",top="+top+"";
+
+           window.open(path,null,str);
+
+         }
+
+        ', CClientScript::POS_HEAD);
+    ?>
+    <?php
+    Yii::app()->clientScript->registerScript('leavePageFunction', "
+           function onLeavePage()
+            {
+                
+                    
+                    var warning = true;
+                    window.onbeforeunload = function(e) {
+                        if(submitbutton==false)
+                        {
+                            if (warning)
+                            {
+                                return 'This page is asking you to confirm that you want to leave - data you have entered may not be saved.';
+                            }
+                        }
+                    }
+              
+            }
+    ", CClientScript::POS_HEAD);
+
+    //do for plus minus image on click on child containers
+    Yii::app()->clientScript->registerScript('plus_minus_image', "
+               $('.plus').parent().parent().bind('click',function()
+                {
+                   var minus_img='" . Yii::app()->baseUrl . "/images/icons/minus.gif'; 
+                   var plus_img='" . Yii::app()->baseUrl . "/images/icons/plus.gif'; 
+                    
+                   if(typeof $($(this).children().children().get(0)).attr('class')!='undefined')
+                   {    
+                         
+                        if($($(this).children().children().get(0)).attr('class').search('plus_rotate')!=-1)
+                        {
+                           
+                            $($(this).children().children().get(0)).attr('src',minus_img)
+                        }
+                        else
+                       {
+                            $($(this).children().children().get(0)).attr('src',plus_img)
+                       }
+                   }
+                   
+                   
+                })", CClientScript::POS_READY);
+
+    Yii::app()->clientScript->registerScript('plus_minus_image_function', "
+               function changePlusMinuImage(obj)
+                {
+                   //console.log(obj);
+                   var minus_img='" . Yii::app()->baseUrl . "/images/minus.png'; 
+                   var plus_img='" . Yii::app()->baseUrl . "/images/plus.png'; 
+                   if(document.URL.search('create')==-1)
+                   {
+                         if($(obj).attr('class').search('plus_rotate')!=-1)
+                           {
+                                $(obj).attr('src',minus_img)
+                           }
+                       else
+                           {
+                                $(obj).attr('src',plus_img)
+                           }
+                   }
+                  
+                }", CClientScript::POS_HEAD);
+    ?>
+    <script type="text/javascript">
+        //used for save and send to prevent reloading message
+        var color_box_open = false;
+        var submitbutton = false;
+
+
+        function getquerystring()
+        {
+            var urlParams = {};
+            var e,
+                    a = /\+/g, // Regex for replacing addition symbol with a space
+                    r = /([^&=]+)=?([^&]*)/g,
+                    d = function(s) {
+                return decodeURIComponent(s.replace(a, " "));
+            },
+                    q = window.location.search.substring(1);
+
+            while (e = r.exec(q))
+            {
+                urlParams[d(e[1])] = d(e[2]);
+            }
+
+            return urlParams;
+        }
+
+        /**
+         *  finding length of object of js
+         */
+        function objectlength(obj)
+        {
+            var count = 0;
+            for (var prop in obj)
+            {
+                count++;
+            }
+            return count;
+
+        }
+
+        $(function() {
+            $("input[type=submit]").click(function()
+            {
+                window.onbeforeunload = null;
+            }
+            )
+        });
+
+    </script>
+
 </html>
