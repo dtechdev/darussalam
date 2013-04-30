@@ -4,7 +4,9 @@ class m130430_124739_insert_data_into_category extends CDbMigration {
 
     public function up() {
         $table = "categories";
-
+     /*
+      first delete data form category and product category table manually then run the migration
+      */
 
         $columns = array(
             "category_name" => "Aqeedah",
