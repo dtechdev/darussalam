@@ -13,6 +13,6 @@ if(!(Yii::app()->user->isGuest)) {
         );
 }
 ?>
-<h1>User Registration</h1>
+<h1>User Creation</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
