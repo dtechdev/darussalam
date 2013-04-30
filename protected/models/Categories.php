@@ -16,7 +16,7 @@
  */
 class Categories extends DTActiveRecord
 {
-
+         public $totalStock;
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -81,6 +81,21 @@ class Categories extends DTActiveRecord
             'parent_id' => 'Parent',
             'city_id' => 'City',
         );
+    }
+    
+    public function allCategories()
+    {
+        
+        $criteriaC = new CDbCriteria(array(
+            'select' => "COUNT(product_category_id ) as totalStock,*",
+            'group' => 't.category_id',
+            //'limit' => 14,
+            'condition' => "parent_id=0 AND city_id=".Yii::app()->session['city_id'] ,  //parent id = 0 means category that is parent by itself.show only parent category in list
+            'order' => 'totalStock DESC',
+        ));
+        
+        $cate= $this->with('productCategories')->findAll($criteriaC);
+        return $cate;
     }
 
     /**

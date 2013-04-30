@@ -1,1 +1,1 @@
-<?php echo $this->renderPartial('product_listing',array('products'=>$products)); ?>
+<?php echo $this->renderPartial('product_listing',array('products'=>$products,'allCate'=>$allCate)); ?>
