@@ -65,7 +65,7 @@ class User extends DTActiveRecord {
             array('user_email', 'email'),
             array('user_email', 'unique', 'message' => 'email already exists.'),
             array('user_password', 'passwordStrength', 'strength' => self::STRONG),
-            array('join_date', 'safe'),
+            array('join_date,social_id', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('user_id, user_password, role_id, status_id, city_id, activation_key, is_active, site_id', 'safe', 'on' => 'search'),

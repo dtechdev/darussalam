@@ -17,6 +17,13 @@ class Yiiauth extends CController {
         // ----------------------------------------------------------------------------------------
         return Yii::app()->controller->module->config;
     }
+    
+    public function beforeAction($action) {
+        $this->initConfigurations();
+        parent::beforeAction($action);
+        
+        return true;
+    }
 
     /* this method take a provider and the unique provideruser id
       if its the first time this provideruser logs in:
@@ -54,14 +61,12 @@ class Yiiauth extends CController {
                 $user->is_active = 'active';
                 $user->status_id = '1';
                 $user->role_id = '3';
-                if($provideruser->email!=null && isset($provideruser->email))
-                {
+                if ($provideruser->email != null && isset($provideruser->email)) {
                     $user->user_email = $provideruser->email; // the unique user
+                } else {
+                    $user->user_email = $provideruser->displayName;
                 }
-                else{
-                    $user->user_email =$provideruser->displayName;
-                }
-                
+
                 //$user->emailVerified = $provideruser->emailVerified; // the unique user
                 //$user->first_name = $provideruser->firstName; // the unique user
                 //$user->last_name = $provideruser->lastName; // the unique user
@@ -69,16 +74,15 @@ class Yiiauth extends CController {
                 if ($user->save()) { //we get an user id
                     $social->yiiuser = $user->user_id;
 
-                    if($provideruser->email)
-                    {
+                    if ($provideruser->email) {
                         $to = $user->user_email;
                         $from = Yii::app()->params->adminEmail;
-                        
+
                         $headers = array(
                             'MIME-Version: 1.0',
                             'Content-type: text/html; charset=iso-8859-1',
                         );
-                        
+
 
                         $subject = "Your Login Info";
 
@@ -86,7 +90,7 @@ class Yiiauth extends CController {
                                 Yii::app()->createAbsoluteUrl('site/login') .
                                 "<br>User Name : $user->user_email<br>Password : $pass_new<br> Login and Update your Profile.<br>Thanks you. </body></html>";
 
-                        Yii::app()->email->send($from, $to, $subject, $message,$headers);
+                        Yii::app()->email->send($from, $to, $subject, $message, $headers);
                     }
                 }
             }
@@ -198,8 +202,8 @@ class Yiiauth extends CController {
             }
         }
     }
-    
-            /**
+
+    /**
      * 
      * @param type $route
      * @param type $params
@@ -207,11 +211,26 @@ class Yiiauth extends CController {
      * @return boolean
      */
     public function createUrl($route, $params = array(), $ampersand = '&') {
-        
+
         $conCate = array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']);
-        $params = array_merge($params,$conCate);
+        $params = array_merge($params, $conCate);
         return parent::createUrl($route, $params, $ampersand);
-        
+    }
+
+    /**
+     *  for installing init configurations
+     */
+    public function initConfigurations() {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("city_id='" . Yii::app()->session['city_id'] . "'");
+        $selected = array("dateformat", "smtp");
+        $conf = ConfMisc::model()->findAll($criteria);
+        if (!empty($conf)) {
+            foreach ($conf as $data) {
+               Yii::app()->params[$data->param] = $data->value;
+            }
+            
+        }
     }
 
 }

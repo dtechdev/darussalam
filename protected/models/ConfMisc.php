@@ -45,7 +45,6 @@ class ConfMisc extends DTActiveRecord {
         // will receive user inputs.
         return array(
             array('title, param, value, create_time, create_user_id, update_time, update_user_id', 'required'),
-            array('title, param', 'unique'),
             array('title, param', 'length', 'max' => 255),
             array('create_user_id, update_user_id', 'length', 'max' => 11),
             array('field_type', 'safe'),
