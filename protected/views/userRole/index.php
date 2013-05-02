@@ -45,8 +45,14 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'role_id',
-		'role_title',
+		array(
+            'name' => 'role_title',
+            'type' => 'Raw',
+            'value' => '$data->role_title',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )),
+		
 		array(
 			'class'=>'CButtonColumn',
 		),
