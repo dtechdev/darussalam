@@ -46,9 +46,9 @@ class Product extends DTActiveRecord {
         return array(
             array('product_name, city_id, is_featured, product_price,product_description', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('isbn','required'),
+            array('isbn', 'required'),
             array('activity_log', 'safe'),
-            array('authors,isbn,discount_type,discount_value,languages','safe'),
+            array('authors,isbn,discount_type,discount_value,languages', 'safe'),
             array('authors,isbn,discount_type,discount_value', 'safe'),
             array('city_id', 'numerical', 'integerOnly' => true),
             array('product_name', 'length', 'max' => 255),
@@ -93,7 +93,7 @@ class Product extends DTActiveRecord {
             'product_price' => 'Product Price',
         );
     }
-    
+
     /**
      *  get relavent product info
      * @param type $limit
@@ -101,19 +101,22 @@ class Product extends DTActiveRecord {
      */
     public function allProducts($limit = 30) {
 
-        //return $criteriaAll=  OrderDetail::model()->findAll();
+
 
         $all_pro = array();
         $city_id = Yii::app()->session['city_id'];
 
         $criteria = new CDbCriteria(array(
             'select' => '*',
-            'condition' => "city_id='" . $city_id . "'",
+            'condition' => "t.city_id='" . $city_id . "' ",
             'limit' => $limit,
-            'order' => 'product_id ASC',
+            'order' => 't.product_id ASC',
                 //'with'=>'commentCount' 
         ));
 
+        if (isset($_POST['ajax'])) {
+            $criteria->join = 'INNER JOIN product_categories  on t.id=product_categories.product_id';
+        }
         $data = Product::model()->findAll($criteria);
 
 
