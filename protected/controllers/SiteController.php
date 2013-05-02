@@ -103,6 +103,7 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
+         Yii::app()->controller->layout = '//layouts/main';
         Yii::app()->user->SiteSessions;
         $model = new LoginForm;
         $ip = getenv("REMOTE_ADDR");

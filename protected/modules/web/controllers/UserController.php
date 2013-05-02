@@ -28,7 +28,7 @@ class UserController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('updateprofile','CustomerHistory'),
+                'actions' => array('updateprofile', 'CustomerHistory'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -76,7 +76,7 @@ class UserController extends Controller {
 
                 Yii::app()->email->send($from, $to, $subject, $message, $headers);
                 Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by vising your email account.');
-                $this->redirect(array('/user/register'));  ///take him to login page....
+                $this->redirect(array('site/login'));  ///take him to login page....
             }
         }
 
