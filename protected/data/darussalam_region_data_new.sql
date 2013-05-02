@@ -1798,7 +1798,7 @@ INSERT INTO `subregion` (`id`, `region_id`, `name`, `code`, `status`) VALUES
 (1556, 101, 'Fars', 'FAR', 1),
 (1557, 101, 'Hormozgan', 'HRM', 1),
 (1558, 101, 'Sistan and Baluchistan', 'SBL', 1);
-INSERT INTO `zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
+INSERT INTO `subregion` (`id`, `region_id`, `name`, `code`, `status`) VALUES
 (1559, 101, 'Kerman', 'KRB', 1),
 (1560, 101, 'Yazd', 'YZD', 1),
 (1561, 101, 'Esfahan', 'EFH', 1),
@@ -3298,7 +3298,7 @@ INSERT INTO `zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3056, 199, 'Shamal Kurdufan', 'SKU', 1),
 (3057, 199, 'Sharq al Istiwa''iyah', 'SIS', 1),
 (3058, 199, 'Sinnar', 'SNR', 1);
-INSERT INTO `zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
+INSERT INTO `subregion` (`id`, `region_id`, `name`, `code`, `status`) VALUES
 (3059, 199, 'Warab', 'WRB', 1),
 (3060, 200, 'Brokopondo', 'BR', 1),
 (3061, 200, 'Commewijne', 'CM', 1),
