@@ -3,62 +3,43 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
+$this->pageTitle = Yii::app()->name . ' - Login';
+$this->breadcrumbs = array(
+    'Login',
 );
 ?>
-<?php if(Yii::app()->user->hasFlash('registration') || Yii::app()->user->hasFlash('login')){ ?>
 
-<div class="flash-success">
-	<?php echo Yii::app()->user->getFlash('registration'); ?><?php echo Yii::app()->user->getFlash('login'); ?>
-</div>
-
-<?php } ?>
-
-<h1>Login</h1>
-
-<p>Please fill out the following form with your login credentials:</p>
-
-<div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'login-form',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
-
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username'); ?>
-		<?php echo $form->error($model,'username'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
-			Hint: Type your username and password.
-		</p>
-	</div>
-
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
-	</div>
-        <div class="row">
-            <?php //echo  $form->labelEx($model,'Forgot Password...');?>
-            <?php echo CHtml::link('Forgot Your Password...?',Yii::app()->createUrl('user/forgot'));?>
+<div id="book_content">
+    <div id="book_main_content">
+        <div class="left_book_main_content">
+            <?php
+            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/darussalam-inner-logo.png"), $this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+            ?>
         </div>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
-	</div>
+        <div class="search_box">
+            <input type="text" placeholder="Search keywords or image ids..." value="" class="search_text" />
+            <input type="button" name="" value="" class="search_btn" />
+            <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/searching_img_03.jpg", '', array('class' => 'searching_img')) ?>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div id="user_login">
+    <div id="main_user_login">
+        <?php if (Yii::app()->user->hasFlash('registration') || Yii::app()->user->hasFlash('login')) { ?>
 
-<?php $this->endWidget();?>
-        <?php $this->widget('LoginWidget');?>
-</div><!-- form -->
+            <div id="flash" style="text-align: center; color: red" >
+                <?php echo Yii::app()->user->getFlash('registration'); ?><?php echo Yii::app()->user->getFlash('login'); ?>
+            </div>
+
+        <?php } ?>
+        <?php //echo $this->renderPartial('_sign_up', array('model'=>$model)); ?>
+        <?php echo $this->renderPartial('_login', array('model' => $model)); ?>
+    </div>
+</div>
