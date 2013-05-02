@@ -10,28 +10,34 @@
                 foreach ($allLanguages as $language) {
                     ?>
                     <div class="chek">
-                        <?php echo CHtml::checkBox('checkbox') ?>
+                        <?php
+                        echo CHtml::checkBox('checkbox', '', array(
+                            "class" => "filter_checkbox", "value" => $language->language_id))
+                        ?>
                         <span>
                             <?php echo $language->language_name ?>
                         </span>
                     </div>
-                <?php } ?>
+                    <?php } ?>
 
                 <h1>Author</h1>
                 <?php
                 $models = Author::model()->findAll();
                 $lstdata = CHtml::listData($models, 'author_id', 'author_name');
                 echo CHtml::dropDownList('author_id', '', $lstdata, //not in action.....
-                        array( 'options' => array('author_name' => array('selected' => true)),
-                                'ajax' => array(
-                                'type' => 'POST',
-                                'url' => $this->createUrl('/web/product/editcart'),
-                                'data' => array('quantity' => 'js:jQuery(this).val()', 'type' => 'update_quantity'),
-                                'dataType' => 'json',
-                                'success' => 'function(data) {
+                        array('options' => array('author_name' => array('selected' => true)),
+                    'ajax' => array(
+                        'type' => 'POST',
+                        'url' => $this->createUrl('/web/product/editcart'),
+                        'data' => array(
+                            'quantity' => 'js:jQuery(this).val()',
+                            'type' => 'update_quantity'
+                        ),
+                        'dataType' => 'json',
+                        'success' => 'function(data) {
                                                       window.location.href=data.redirect
                                                      }',)
-                          ));
+                ));
                 ?>
 
             </div>
@@ -40,35 +46,36 @@
                 <ul>
                     <?php
                     foreach ($allCate as $allCatego) {
-                        //CVarDumper::dump($allCate);die();
                         ?>
                         <li>
                             <?php
-                            echo CHtml::link($allCatego->category_name, $this->createUrl('/web/product/allproducts'));
+                            echo CHtml::link($allCatego->category_name, $this->createUrl('/web/product/allproducts'), array('onclick' => '
+                                            
+                                                  $.ajax({
+                                                    type: "POST",
+                                                    url: "' . $this->createUrl("/web/product/productfilter") . '",
+                                                    data: 
+                                                    { 
+                                                        cat_id: $(this).attr("id"),
+                                                        ajax : 1,
+                                                        author: $("#author_id").val(),
+                                                        langs : dtech.getmultiplechecboxValue("filter_checkbox"),
+                                                        
+                                                    }
+                                                    }).done(function( msg ) {
+                                                    alert( "Data Saved: " + msg );
+                                                });   
+                                                return false;
+                                        ', "id" => $allCatego->category_id));
                             echo ' (' . $allCatego->totalStock . ')';
                             ?>
                         </li>
-                    <?php } ?>
+<?php } ?>
                 </ul>
             </div>
         </div>
         <div id="right_main_content">
-            <?php
-            foreach ($products as $product) {
-                ?>
-                <div class="condition">
-                    <?php
-                    echo CHtml::link(CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $product['image'][0]['image_large'], 'condition'), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])));
-                    ?>
-                    <h3>
-                        <?php
-                        echo CHtml::link($product['product_name'], $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])));
-                        ?>
-                    </h3>
-                    <p>Muhammad Manzoor Elahii</p>
-                    <article>&dollar;<?php echo round($product['product_price'], 2); ?></article>
-                </div>
-            <?php } ?>
+<?php $this->renderPartial("_product_list", array("products" => $products)) ?>
         </div>
     </div>
 </div>
