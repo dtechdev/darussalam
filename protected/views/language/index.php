@@ -45,8 +45,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'language_id',
-		'language_name',
+            array(
+            'name' => 'language_name',
+            'type' => 'Raw',
+            'value' => '$data->language_name',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+		
 		array(
 			'class'=>'CButtonColumn',
 		),

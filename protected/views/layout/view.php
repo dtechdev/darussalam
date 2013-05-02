@@ -21,10 +21,8 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'layout_id',
 		'layout_name',
 		'layout_description',
 		'layout_color',
-		'site_id',
 	),
 )); ?>
