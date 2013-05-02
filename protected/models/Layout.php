@@ -65,7 +65,7 @@ class Layout extends DTActiveRecord
         return array(
             'cities' => array(self::HAS_MANY, 'City', 'layout_id'),
             'layout' => array(self::BELONGS_TO, 'City', 'layout_id'),
-            'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
+            'site' => array(self::BELONGS_TO, 'SelfSite', 'site_id'),
         );
     }
 

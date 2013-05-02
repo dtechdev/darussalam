@@ -84,6 +84,7 @@ class User extends DTActiveRecord {
             'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
             'role' => array(self::BELONGS_TO, 'UserRole', 'role_id'),
             'userProfiles' => array(self::HAS_ONE, 'UserProfile', 'id'),
+            'city' => array(self::BELONGS_TO, 'City', 'city_id'),
         );
     }
 
