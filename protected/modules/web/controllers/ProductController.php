@@ -97,7 +97,8 @@ class ProductController extends Controller {
      *  for filter of category
      */
     public function actionProductfilter(){
-        
+        $all_products = Product::model()->allProducts();
+        $this->renderPartial("_product_list",array('products' => $all_products,));
         
     }
 
