@@ -7,13 +7,7 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Product', 'url'=>array('index')),
-	array('label'=>'Manage Product', 'url'=>array('admin')),
-);
-//print "<pre>";
-//print_r($mProductDiscount);
-//exit;
+$this->renderPartial("/common/_left_menu");
 ?>
 
 <h1>Create Product</h1>

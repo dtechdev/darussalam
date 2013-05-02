@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Pages', 'url'=>array('index')),
-	array('label'=>'Create Pages', 'url'=>array('create')),
-);
+$this->renderPartial("/common/_left_menu");
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -45,17 +42,28 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'city_id',
-		'title',
-		'content',
-		'create_time',
-		'create_user_id',
-		/*
-		'update_time',
-		'update_user_id',
-		'activity_log',
-		*/
+            array(
+            'name' => 'city_id',
+            'type' => 'Raw',
+            'value' => '!empty($data->city)?$data->city->city_name:"Not Defined"',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )),
+            array(
+            'name' => 'title',
+            'type' => 'Raw',
+            'value' => '$data->title',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )),
+            array(
+            'name' => 'content',
+            'type' => 'Raw',
+            'value' => '$data->content',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )),
+
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -45,12 +45,49 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'city_id',
-		'country_id',
-		'city_name',
-		'short_name',
-		'address',
-		'layout_id',
+            
+            array(
+            'name' => 'country_id',
+            'type' => 'Raw',
+            'value' => '!empty($data->country)?$data->country->country_name:""',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+            array(
+            'name' => 'city_name',
+            'type' => 'Raw',
+            'value' => '$data->city_name',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+            array(
+            'name' => 'short_name',
+            'type' => 'Raw',
+            'value' => '$data->short_name',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+            array(
+            'name' => 'address',
+            'type' => 'Raw',
+            'value' => '$data->address',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+            array(
+            'name' => 'layout_id',
+            'type' => 'Raw',
+            'value' => '!empty($data->layout)?$data->layout->layout_name:""',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+            
+
 		array(
 			'class'=>'CButtonColumn',
 		),

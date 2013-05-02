@@ -8,12 +8,7 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List UserRole', 'url'=>array('index')),
-	array('label'=>'Create UserRole', 'url'=>array('create')),
-	array('label'=>'View UserRole', 'url'=>array('view', 'id'=>$model->role_id)),
-	array('label'=>'Manage UserRole', 'url'=>array('admin')),
-);
+$this->renderPartial("/common/_left_menu");
 ?>
 
 <h1>Update UserRole <?php echo $model->role_id; ?></h1>
