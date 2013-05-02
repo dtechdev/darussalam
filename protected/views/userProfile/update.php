@@ -8,12 +8,7 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List UserProfile', 'url'=>array('index')),
-	array('label'=>'Create UserProfile', 'url'=>array('create')),
-	array('label'=>'View UserProfile', 'url'=>array('view', 'id'=>$model->user_profile_id)),
-	array('label'=>'Manage UserProfile', 'url'=>array('admin')),
-);
+$this->renderPartial("/common/_left_menu");
 ?>
 
 <h1>Update UserProfile <?php echo $model->user_profile_id; ?></h1>

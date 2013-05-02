@@ -8,12 +8,7 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List Product', 'url'=>array('index')),
-	array('label'=>'Create Product', 'url'=>array('create')),
-	array('label'=>'View Product', 'url'=>array('view', 'id'=>$model->product_id)),
-	array('label'=>'Manage Product', 'url'=>array('admin')),
-);
+$this->renderPartial("/common/_left_menu");
 ?>
 
 <h1>Update Product <?php echo $model->product_id; ?></h1>

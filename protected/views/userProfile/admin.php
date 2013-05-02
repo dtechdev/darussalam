@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List UserProfile', 'url'=>array('index')),
-	array('label'=>'Create UserProfile', 'url'=>array('create')),
-);
+$this->renderPartial("/common/_left_menu");
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

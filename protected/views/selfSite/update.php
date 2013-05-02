@@ -8,12 +8,7 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List SelfSite', 'url'=>array('index')),
-	array('label'=>'Create SelfSite', 'url'=>array('create')),
-	array('label'=>'View SelfSite', 'url'=>array('view', 'id'=>$model->site_id)),
-	array('label'=>'Manage SelfSite', 'url'=>array('admin')),
-);
+$this->renderPartial("/common/_left_menu");
 ?>
 
 <h1>Update SelfSite <?php echo $model->site_id; ?></h1>

@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	'Create',
 );
 if(!(Yii::app()->user->isGuest)) {
-        $this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
-        );
+        $this->renderPartial("/common/_left_menu");
 }
 ?>
 <h1>User Creation</h1>

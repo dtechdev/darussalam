@@ -7,10 +7,7 @@ $this->breadcrumbs = array(
     'Manage',
 );
 
-$this->menu = array(
-    array('label' => 'List SelfSite', 'url' => array('index')),
-    array('label' => 'Create SelfSite', 'url' => array('create')),
-);
+$this->renderPartial("/common/_left_menu");
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

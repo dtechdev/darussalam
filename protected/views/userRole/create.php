@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List UserRole', 'url'=>array('index')),
-	array('label'=>'Manage UserRole', 'url'=>array('admin')),
-);
+$this->renderPartial("/common/_left_menu");
 ?>
 
 <h1>Create UserRole</h1>

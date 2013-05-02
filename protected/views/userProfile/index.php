@@ -6,10 +6,7 @@ $this->breadcrumbs=array(
 	'User Profiles',
 );
 
-$this->menu=array(
-	array('label'=>'Create UserProfile', 'url'=>array('create')),
-	array('label'=>'Manage UserProfile', 'url'=>array('admin')),
-);
+$this->renderPartial("/common/_left_menu");
 ?>
 
 <h1>User Profiles</h1>

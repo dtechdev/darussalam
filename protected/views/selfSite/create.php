@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List SelfSite', 'url'=>array('index')),
-	array('label'=>'Manage SelfSite', 'url'=>array('admin')),
-);
+$this->renderPartial("/common/_left_menu");
 ?>
 
 <h1>Create SelfSite</h1>
