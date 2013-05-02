@@ -13,6 +13,7 @@
         <title>Darussalam</title>
     </head>
     <body>
+        <div id="loading" align="center" style="display: none;"> Please Wait </div>
         <header>
             <div id="main_header">
                 <div class="pretty navbar" gumby-fixed="top" id="nav3">
