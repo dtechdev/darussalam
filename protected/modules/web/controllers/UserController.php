@@ -76,7 +76,7 @@ class UserController extends Controller {
 
                 Yii::app()->email->send($from, $to, $subject, $message, $headers);
                 Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by vising your email account.');
-                $this->redirect(array('site/login'));  ///take him to login page....
+                $this->redirect(array('/user/register'));  ///take him to login page....
             }
         }
 
