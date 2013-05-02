@@ -63,7 +63,10 @@ if (!$model->isNewRecord) {
 ?>
 <?php
 $config = array(
-    'pagination' => array('pageSize' => 30)
+    'pagination' => array('pageSize' => 30),
+    'sort' => array(
+        'defaultOrder' => 'id,city_id ASC',
+    )
 );
 $provider = new CActiveDataProvider("ConfMisc", $config);
 /* Show Grid */
@@ -105,7 +108,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'update' => array
                     (
                     'label' => 'update',
-                    'url' => 'Yii::app()->controller->createUrl("load", array("m" => "' . $m . '", "confid"=> $data->id))',
+                    'url' => 'Yii::app()->controller->createUrl("load", array("m" => "' . $m . '", "id"=> $data->id))',
                 ),
             ),
         ),
