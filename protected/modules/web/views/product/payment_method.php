@@ -161,22 +161,25 @@
                     <?php echo $form->error($model, 'shipping_address2'); ?>
                     <p><span>*</span> Country</i></p>
                     <div class="country_option">
-                        <select>
-                            <option></option>
-                            <option></option>
-                            <option></option>
-                        </select>
+                        <?php echo $form->dropDownList($model, 'shipping_country', $regionList, array('prompt' => 'Select city')); ?>
+                        <?php echo $form->error($model, 'shipping_country'); ?>
                     </div>
-                    <p><span>*</span> City</p>
-                    <?php echo $form->textField($model, 'shipping_city', array('class' => 'payment_text')); ?>
-                    <?php echo $form->error($model, 'shipping_city'); ?>
+                    
+                    <p><span>*</span> State / Province</i></p>
+                    <div class="country_option">
+                        <?php echo $form->dropDownList($model, 'shipping_state', $regionList, array('prompt' => 'Select state')); ?>
+                        <?php echo $form->error($model, 'shipping_state'); ?>
+                    </div>
                     <table width="100%" class="state_table">
                         <tr>
-                            <td class="left_state"><span>*</span> State / Province</td>
+                            <td class="left_state"><span>*</span> City</td>
                             <td class="right_state"><span>*</span> Zip / Postal Code</td>
                         </tr>
                         <tr>
-                            <td class="left_state"><select><option>Select State</option><option>Select State</option><option>Select State</option></select></td>
+                            <td class="left_state">
+                                <?php echo $form->textField($model, 'shipping_city', array('class' => 'zip_text')); ?>
+                                <?php echo $form->error($model, 'shipping_city'); ?>
+                            </td>
                             <td class="right_state">
                                 <?php echo $form->textField($model, 'shipping_zip', array('class' => 'zip_text')); ?>
                                 <?php echo $form->error($model, 'shipping_zip'); ?>

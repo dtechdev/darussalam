@@ -159,7 +159,8 @@ class ProductController extends Controller {
                 }
             }
         }
-        $this->render('payment_method', array('model' => $model, 'error' => $error));
+        $regionList = CHtml::listData(Region::model()->findAll(), 'id', 'name');
+        $this->render('payment_method', array('model' => $model,'regionList'=>$regionList, 'error' => $error));
     }
 
     /**
