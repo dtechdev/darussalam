@@ -582,3 +582,105 @@ table tr td { width:200px; padding: 10px 0 0 0; margin: 0 0 0 0; }
 .zip_text { width:140px; padding: 0; margin: 5px 0 0 10px; border:none; border: 1px solid #a0a0a0; height:25px; padding: 3px; }
 
 .continue { border:none; background:#008dde; padding: 0px 0 2px 0; margin: 10px 0 0 420px; color:#FFF; font-weight:bold; font-size:13px; width:125px; height:35px; border-radius:3px; }
+
+#accounts { float:left; width:100%; padding: 0; margin: 0; }
+
+#account_detail { width:960px; padding: 0; margin: 0 auto; }
+
+#account_detail h5 { text-align:center; color:#606060; font-size:21px; padding: 0; margin: 15px 0 18px 0; }
+
+.tabs { position: relative; min-height: 660px; margin: 0 0 0 0px; padding: 0 0 0 330px; width:500px; }
+
+.tab { float: left; padding: 0; margin:0 0 0 0px; }
+
+.tab1 { padding: 0; margin: 0 0 0 0px; background:#fafafa; }
+
+.tab label { font-size:13px; color:#2e3192; font-weight:bold; background:#fafafa; padding: 5px 20px 5px 20px; margin: 0 10px 0 0; border-radius: 5px 5px 0 0; border-top: 1px solid #ccc; border-left: 1px solid #ccc; border-right: 1px solid #ccc; margin-left: -1px; position: relative; left: 1px; top: 7px; }
+
+.tab [type=radio] { display: none; }
+
+.conten { width:920px; margin: 0 0 0 0; position: absolute; top: 28px; left: 0; background: white; right: 0; bottom: 0; padding: 0 20px 20px 20px; border-top: 1px solid #ccc; }
+
+[type=radio]:checked ~ label { background: white; z-index: 2; }
+
+[type=radio]:checked ~ label ~ .conten { z-index: 1; }
+
+.conten table { padding: 0; margin: 0; }
+
+.conten table table { padding: 0; margin: 10px 0 0 0; }
+
+.conten table table tbody { padding: 0; margin: 0; }
+
+.account_email { padding: 0 0 0 0; margin: 0 0 0 0px; }
+
+.account_save { border:none; width:95px; height:36px; border-radius:3px; background:#008dde; color:#FFF; font-size:13px; font-weight:bold; padding: 0; margin: 10px 0 0 0px; }
+
+.account_left { text-align:right; padding: 0; margin: 0; color:#3f3f3f; }
+
+.account_right { padding: 0 0 0 10px; margin: 0 0 0 0px; color:#3f3f3f; }
+
+.account_right span { font-weight:bold; font-size:13px; }
+
+.account_right a { color:#2e3192; padding: 0; margin: -5px 0 5px 0; float:left; }
+
+.account_right a:hover { text-decoration:underline; color:#2e3192; }
+
+.account_row { padding: 0; margin: 3px 0 3px 160px; float:left; font-size:12px; }
+
+.account_text { border: none; border: 1px solid #bbbbbb; width:236px; height:22px; }
+
+.account_prefix { border: none; border: 1px solid #bbbbbb; width:97px; padding: 3px; color:#3f3f3f; }
+
+.account_country { border: none; border: 1px solid #bbbbbb; width:97px; padding: 3px; color:#3f3f3f; width:239px; }
+
+.avtar_image_comment {
+    width: 80px;
+    height: 80px;
+}
+#user_login { float:left; width:100%; padding: 0; margin: 0; }
+
+#main_user_login { width:960px; padding: 0; margin: 0 auto; max-width:100%; }
+
+.left_user_login { width:400px; padding: 20px 20px 70px 50px; margin: 20px 0; float:left; border-right: 1px solid #d6d6d6; }
+
+.left_user_login h1 { color:#282828; font-size:30px; font-family:Arial, Helvetica, sans-serif; font-weight:bold; line-height:54px; }
+
+.login_text { padding: 0; margin: 0; height:25px; width:230px; border: none; border:1px solid #bbbbbb; }
+
+.left_login { text-align:right; padding: 7px 5px 0 0; margin: 0; color:#3f3f3f; font-size:12px; font-family:Arial, Helvetica, sans-serif; width:110px; float:left; }
+
+.middle_login { width:390px; padding: 0; margin: 20px 0 0 0; float:left; color:#3f3f3f; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
+
+.under_middle_login span, .middle_login span { padding: 0; margin: 0 0 0 5px; }
+
+.under_middle_login { width:390px; padding: 0; margin: 0 0; float:left; color:#3f3f3f; font-size:12px; font-family:Arial, Helvetica, sans-serif; }
+
+.right_login { padding: 0; margin: 0 0 0 5px; width:235px; float:left; }
+
+.right_login span { font-size:12px; color:#2f2f2f; }
+
+.right_login span a { color:#2e3192; padding: 0 0 0 10px; }
+
+.left_user_login table tr td table tr { width:390px; padding: 0; margin: 5px 0; float:left; }
+
+.create_account { padding: 0; margin: 20px 0 0 137px; width:100px; border: none; height:38px; color:#FFF; font-size:18px; font-weight:bold; font-family:Arial, Helvetica, sans-serif; background:#008dde; border-radius:3px; }
+
+.right_user_login { width:400px; padding: 40px 20px 111px 0px; margin: 20px 0; float:left; border-left: 1px solid #dbdbdb; }
+
+.right_user_login h2 { font-size:19px; color:#282828; font-family:Arial, Helvetica, sans-serif; padding: 0 0 0 50px; }
+
+.right_user_login table tr td table tr { width:390px; padding: 0; margin: 5px 0; float:left; }
+
+.right_user_login table { padding: 0; margin: 15px 0 0 0; }
+
+.already_account { width:90px; border: none; height:32px; color:#FFF; font-size:13px; font-weight:bold; font-family:Arial, Helvetica, sans-serif; background:#5c5c5c; border-radius:3px; }
+
+.login_img { float:left; width:130px; padding: 0; margin: 5px 0 5px 0; }
+
+.login_img a img { padding: 0; margin: 0; float:left;}
+
+.login_img span { font-size:13px; color:#2f2f2f; padding: 0; margin: 10px 0 0 5px; float:left; }
+
+#login_images { float:left; padding: 0; margin:5px 0 0 120px; }
+input.error{ border-color:red; border-width: 2}
+span.required{ color: red;}

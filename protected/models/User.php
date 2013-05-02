@@ -33,6 +33,7 @@ class User extends DTActiveRecord {
     const LEVEL_CUSTOMER = 3, LEVEL_ADMIN = 2, LEVEL_SUPERADMIN = 1, LEVEL_UNKNOWN = 0;
     const WEAK = 0;
     const STRONG = 1;
+    public $agreement_status;
 
     public $user_password2;
 
@@ -61,13 +62,15 @@ class User extends DTActiveRecord {
             array('user_password, activation_key', 'length', 'max' => 255),
             array('is_active', 'length', 'max' => 8),
             array('user_password2', 'compare', 'compareAttribute' => 'user_password'),
-            //array('user_name', 'unique', 'message' => 'User Name already exists.'),
             array('user_email', 'email'),
-            array('user_email', 'unique', 'message' => 'email already exists.'),
+            array('user_email', 'unique'),
+            array('user_name', 'unique'),
             array('user_password', 'passwordStrength', 'strength' => self::STRONG),
             array('join_date,social_id', 'safe'),
+            array('agreement_status','compare','compareValue'=>'1','message'=>"You must accept the Darusslam Terms and conditions"),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
+            array('special_offer,agreement_status','safe'),
             array('user_id, user_password, role_id, status_id, city_id, activation_key, is_active, site_id', 'safe', 'on' => 'search'),
         );
     }
@@ -93,18 +96,18 @@ class User extends DTActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'user_id' => 'User:',
-            'user_name' => 'User Name:',
-            'user_password' => 'User Password:',
+            'user_id' => 'User',
+            'user_name' => 'Name',
+            'user_password' => 'Password',
             'role_id' => 'Role',
-            'status_id' => 'Status:',
-            'city_id' => 'City:',
+            'status_id' => 'Status',
+            'city_id' => 'City',
             'activation_key' => 'Activation Key:',
             'is_active' => 'Is Active:',
-            'site_id' => 'Site:',
-            'user_email' => 'User Email:',
-            'join_date' => 'Registration date:',
-            'user_password2' => 'Repeated Password:',
+            'site_id' => 'Site',
+            'user_email' => 'Email',
+            'join_date' => 'Registration date',
+            'user_password2' => 'Confirm Password',
         );
     }
 
