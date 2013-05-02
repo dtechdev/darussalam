@@ -70,9 +70,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
             )
         ),
         array(
-            'name' => 'added_date',
+            'name' => 'create_time',
             'type' => 'Raw',
-            'value' => '$data->added_date',
+            'value' => '$data->create_time',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
