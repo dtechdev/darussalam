@@ -49,7 +49,7 @@ return array(
                     ),
                     "Facebook" => array(
                         "enabled" => true,
-                        "keys" => array("id" => "439038352850451", "secret" => "5363cb1657c7e19ac493d64e58995f71"),
+                        "keys" => array("id" => "439038352850451", "secret" => "4d34e1d86dadaff84100a391ed3b9694"),
                         // A comma-separated list of permissions you want to request from the user. See the Facebook docs for a full list of available permissions: http://developers.facebook.com/docs/reference/api/permissions.
                         "scope" => "",
                         // The display context to show the authentication page. Options are: page, popup, iframe, touch and wap. Read the Facebook docs for more details: http://developers.facebook.com/docs/reference/dialogs#display. Default: page
