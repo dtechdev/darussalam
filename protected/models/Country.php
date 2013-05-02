@@ -43,6 +43,7 @@ class Country extends DTActiveRecord
         // will receive user inputs.
         return array(
             array('country_name, short_name, site_id', 'required'),
+            array('country_name', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
             array('site_id', 'numerical', 'integerOnly' => true),
@@ -62,7 +63,7 @@ class Country extends DTActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'cities' => array(self::HAS_MANY, 'City', 'country_id'),
-            'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
+            'site' => array(self::BELONGS_TO, 'SelfSite', 'site_id'),
         );
     }
 
