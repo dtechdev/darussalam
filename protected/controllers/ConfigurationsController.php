@@ -61,15 +61,15 @@ class ConfigurationsController extends Controller {
      * @param <string> $m (Model name without Conf)
      * @param <int> $id
      */
-    public function actionLoad($m, $confid = 0, $module = '') {
+    public function actionLoad($m, $id = 0, $module = '') {
 
         /* Complete Model name */
         $model_name = 'Conf' . $m;
 
         $model = new $model_name;
 
-        if ($confid != 0) {
-            $model = $model->findByPk($confid);
+        if ($id != 0) {
+            $model = $model->findByPk($id);
         }
 
 
