@@ -27,11 +27,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'added_date'); ?>
-		<?php echo $form->textField($model,'added_date',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'is_featured'); ?>
 		<?php echo $form->textField($model,'is_featured',array('size'=>1,'maxlength'=>1)); ?>
 	</div>
