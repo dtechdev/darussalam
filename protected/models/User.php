@@ -55,7 +55,7 @@ class User extends DTActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_password,user_email,agreement_status', 'required'),
+            array('user_password,user_email', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
             array('role_id, status_id, city_id, site_id', 'numerical', 'integerOnly' => true),
@@ -67,6 +67,7 @@ class User extends DTActiveRecord {
             array('user_name', 'unique'),
             array('user_password', 'passwordStrength', 'strength' => self::STRONG),
             array('join_date,social_id', 'safe'),
+            array('agreement_status','compare','compareValue'=>'1','message'=>"You must accept the Darusslam Terms and conditions"),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('special_offer,agreement_status','safe'),
