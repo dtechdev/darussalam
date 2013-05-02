@@ -115,7 +115,21 @@ class Product extends DTActiveRecord {
         ));
 
         if (isset($_POST['ajax'])) {
-            $criteria->join = 'INNER JOIN product_categories  on t.id=product_categories.product_id';
+            $criteria->join = 'INNER JOIN product_categories  on t.product_id=product_categories.product_id';
+
+            if (!empty($_POST['author'])) {
+                $author = explode(",",$_POST['author']);
+                $criteria->addInCondition("authors", $author);
+            }
+            if (!empty($_POST['langs'])) {
+                $langs = explode(",",$_POST['langs']);
+                $criteria->addInCondition("languages", $langs);
+            }
+            if (!empty($_POST['cat_id'])) {
+
+                $criteria->addCondition("product_categories.category_id='".$_POST['cat_id']."'");
+            }
+            $criteria->distinct = "t.product_id";
         }
         $data = Product::model()->findAll($criteria);
 
@@ -145,6 +159,7 @@ class Product extends DTActiveRecord {
                 'image' => $images
             );
         }
+        
         return $all_pro;
     }
 
