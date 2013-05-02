@@ -21,11 +21,8 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'city_id',
-		'country_id',
 		'city_name',
 		'short_name',
 		'address',
-		'layout_id',
 	),
 )); ?>

@@ -15,7 +15,6 @@ $this->renderPartial("/common/_left_menu");
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'site_id',
 		'site_name',
 		'site_descriptoin',
 	),

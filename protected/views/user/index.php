@@ -82,6 +82,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'city_id',
             'type' => 'Raw',
             'value' => '!empty($data->city)?$data->city->city_name:""',
+            //'value' => '$data->city_id',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )

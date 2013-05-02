@@ -47,11 +47,20 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'columns' => array(
         array(
             'name' => 'site_name',
+            'type' => 'Raw',
             'value' => '$data->site_name',
-            'type' => 'raw',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
         ),
-
-        'site_descriptoin',
+        array(
+            'name' => 'site_descriptoin',
+            'type' => 'Raw',
+            'value' => '$data->site_descriptoin',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
         array(
             'class' => 'CButtonColumn',
         ),

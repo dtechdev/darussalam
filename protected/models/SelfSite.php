@@ -57,6 +57,7 @@ class SelfSite extends DTActiveRecord
         return array(
             
             'country' => array(self::HAS_MANY, 'country', 'site_id'),
+            'layout' => array(self::HAS_MANY, 'layout', 'site_id'),
         );
     }
 
