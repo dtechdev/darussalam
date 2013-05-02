@@ -161,13 +161,21 @@
                     <?php echo $form->error($model, 'shipping_address2'); ?>
                     <p><span>*</span> Country</i></p>
                     <div class="country_option">
-                        <?php echo $form->dropDownList($model, 'shipping_country', $regionList, array('prompt' => 'Select city')); ?>
+                        <?php echo $form->dropDownList($model, 'shipping_country', $regionList,
+                                array(
+                                    'empty'=>'Please Select Country',
+                                    'ajax'=>array(
+                                                        'type'=>'POST',
+                                                        'url'=>$this->createUrl('/web/product/statelist'),
+                                                        'update'=>'#CreditCardForm_shipping_state'
+                                                        )       
+                                                )); ?>
                         <?php echo $form->error($model, 'shipping_country'); ?>
                     </div>
                     
                     <p><span>*</span> State / Province</i></p>
                     <div class="country_option">
-                        <?php echo $form->dropDownList($model, 'shipping_state', $regionList, array('prompt' => 'Select state')); ?>
+                        <?php echo $form->dropDownList($model, 'shipping_state', array()); ?>
                         <?php echo $form->error($model, 'shipping_state'); ?>
                     </div>
                     <table width="100%" class="state_table">
@@ -177,7 +185,8 @@
                         </tr>
                         <tr>
                             <td class="left_state">
-                                <?php echo $form->textField($model, 'shipping_city', array('class' => 'zip_text')); ?>
+                                <?php 
+                                echo $form->textField($model, 'shipping_city', array('class' => 'zip_text')); ?>
                                 <?php echo $form->error($model, 'shipping_city'); ?>
                             </td>
                             <td class="right_state">
