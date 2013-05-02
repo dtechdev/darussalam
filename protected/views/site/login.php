@@ -34,7 +34,7 @@ $this->breadcrumbs = array(
     <div id="main_user_login">
         <?php if (Yii::app()->user->hasFlash('registration') || Yii::app()->user->hasFlash('login')) { ?>
 
-            <div id="flash" style="text-align: center; color: red" >
+            <div id="flash" style="text-align: center; color: green" >
                 <?php echo Yii::app()->user->getFlash('registration'); ?><?php echo Yii::app()->user->getFlash('login'); ?>
             </div>
 
