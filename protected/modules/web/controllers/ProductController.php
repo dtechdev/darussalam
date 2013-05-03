@@ -33,7 +33,7 @@ class ProductController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('confirmorder'),
+                'actions' => array('confirmorder', 'statelist'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -169,7 +169,19 @@ class ProductController extends Controller {
             }
         }
         $regionList = CHtml::listData(Region::model()->findAll(), 'id', 'name');
-        $this->render('payment_method', array('model' => $model,'regionList'=>$regionList, 'error' => $error));
+        $this->render('payment_method', array('model' => $model, 'regionList' => $regionList, 'error' => $error));
+    }
+
+    public function actionStatelist() {
+
+        $shipping_country = $_REQUEST['CreditCardForm']['shipping_country'];
+        $stateList = Subregion::model()->findAll('region_id=' . $shipping_country);
+
+        $stateList = CHtml::listData($stateList, 'code', 'name');
+        echo CHtml::tag('option', array('value' => ''), 'Select State', true);
+        foreach ($stateList as $value => $name) {
+            echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
+        }
     }
 
     /**
