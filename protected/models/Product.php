@@ -95,6 +95,7 @@ class Product extends DTActiveRecord
             'added_date' => 'Added Date',
             'is_featured' => 'Is Featured',
             'product_price' => 'Product Price',
+            'product_rating' => 'Product Rating',
         );
     }
 

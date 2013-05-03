@@ -54,9 +54,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
             )
         ),
         array(
-            'name' => 'product_name',
+            'name' => 'product_description',
             'type' => 'Raw',
-            'value' => '$data->product_name',
+            'value' => '$data->product_description',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
@@ -65,6 +65,30 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'city_id',
             'type' => 'Raw',
             'value' => '!empty($data->city)?$data->city->city_name:""',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'is_featured',
+            'type' => 'Raw',
+            'value' => '($data->is_featured==1)?"Yes":"No"',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'product_price',
+            'type' => 'Raw',
+            'value' => '"&dollar;".$data->product_price',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'product_rating',
+            'type' => 'Raw',
+            'value' => '$data->product_rating',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
@@ -83,3 +107,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
     ),
 ));
 ?>
+&dollar;
