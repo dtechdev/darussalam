@@ -110,15 +110,18 @@ class Controller extends Yiiauth
             /* create child object of above class */
 
             $cModel = new $className($scanario);
+            
+                        
+
 
             /*  */
-            $repRes = $cModel->saveMultiple($parent_relation_name, $model->id);
+            $repRes = $cModel->saveMultiple($parent_relation_name, $model->primaryKey);
 
             if ($repRes['result'] == false)
                 $model->$child_relation_name = $repRes['models'];
             else
             {
-                $id = ($redirect_id == 0 ? $model->id : $redirect_id);
+                $id = ($redirect_id == 0 ? $model->primaryKey : $redirect_id);
                 if (!empty($redirect_path))
                 {
                     $this->redirect($redirect_path);
