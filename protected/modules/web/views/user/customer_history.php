@@ -43,8 +43,8 @@ if (empty($cart)) {
                     $grand_total = 0;
                     $total_quantity = 0;
                     $description = '';
-                    foreach ($cart as $pro) {
-                        $grand_total = $grand_total + ($pro->quantity * $pro->product->product_price);
+                    foreach ($cart->orderDetails as $pro) {
+
                         $total_quantity+=$pro->quantity;
                         $description.=$pro->product->product_name . ' , ';
                         ?>
@@ -57,28 +57,7 @@ if (empty($cart)) {
                             </div>
                             <div class="left_right_cart">
                                 <h1><?php echo $pro->product->product_name; ?></h1>
-                                <?php
-//                                /*
-//                                  ajax link for for delete cart data / cart management /card edit
-//                                 */
-//                                echo CHtml::ajaxLink(
-//                                        CHtml::image(
-//                                                Yii::app()->theme->baseUrl . "/images/close_img_03.png", "Publish", array("title" => "Delete",
-//                                            "class" => "close_img",
-//                                                )
-//                                        ), $this->createUrl("/web/product/editcart"), array("type" => "POST",
-//                                    "dataType" => "json",
-//                                    "data" => array(
-//                                        "type" => 'delete_cart',
-//                                        "cart_id" => $pro->cart_id,
-//                                    ),
-//                                    "success" => "function(data) {
-//                                                             window.location.href=data.redirect
-//                                                                          }",
-//                                        )
-//                                );
-//                                
-                                ?>
+
                                 <h2><?php echo $pro->product->product_description; ?></h2>
                                 <table width="100%">
                                     <tr class="cart_tr">
@@ -106,7 +85,7 @@ if (empty($cart)) {
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Order Date :</td>
                                         <td class="cart_right_td"><?php
-                                            echo $pro->added_date;
+                                            echo $cart->order_date;
                                             ?></td>
                                     </tr>
                                     <tr class="cart_tr">
@@ -121,9 +100,9 @@ if (empty($cart)) {
                                     <p><span>Unit Price :</span>
                                         $<?php echo round($pro->product->product_price, 2); ?>
                                     </p>
-                                    
+
                                     <p><span>Sub Total :</span>
-                                    $<?php echo round($pro->quantity * $pro->product->product_price, 2); ?>
+                                        $<?php echo round($pro->quantity * $pro->product->product_price, 2); ?>
                                     </p>
                                 </div>
                             </div>
@@ -132,25 +111,7 @@ if (empty($cart)) {
 
 
                 </div>
-                <div class="right_right_cart">
-                    <div class="right_top_cart">
-                        <h1>Your Order</h1>
-                        <table width="100%">
-                            <tr class="right_cart_tr">
-                                <td class="left_cart_td">Order Subtotal</td>
-                                <td class="right_cart_td">$<?php echo $grand_total; ?></td>
-                            </tr>
-                            <tr class="right_cart_tr">
-                                <td class="left_cart_td">Shipping</td>
-                                <td class="right_cart_td">FREE</td>
-                            </tr>
-                            <tr class="right_cart_tr">
-                                <td class="left_left_cart_td">Total</td>
-                                <td class="right_right_cart_td">$<?php echo $grand_total; ?></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div><?php
