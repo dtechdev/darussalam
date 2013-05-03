@@ -189,7 +189,7 @@ class Controller extends Yiiauth
                     $url = "#";
                     if ($menu->controller != "")
                     {
-                        $url = Yii::app()->createUrl($menu->controller . "/" . $menu->action);
+                        $url = $this->createUrl($menu->controller . "/" . $menu->action);
                     }
                     $this->menuHtml .='<a href="' . $url . '" class="' . ($pid == 0 ? "top_link " . ($menu->id == $root_parent ? "active " : "") . $menu->root_class : ($childCount > 0 ? "fly" : "")) . '">';
                     if ($pid == 0)
