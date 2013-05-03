@@ -207,54 +207,7 @@ class OrderDetail extends DTActiveRecord
         return $best_products;
     }
 
-    public function allProducts($limit = 30)
-    {
-
-        //return $criteriaAll=  OrderDetail::model()->findAll();
-
-        $all_pro = array();
-        $city_id = Yii::app()->session['city_id'];
-
-        $criteria = new CDbCriteria(array(
-            'select' => '*',
-            'condition' => "city_id='" . $city_id . "'",
-            'limit' => $limit,
-            'order' => 'product_id ASC',
-                //'with'=>'commentCount' 
-        ));
-
-        $data = Product::model()->findAll($criteria);
-
-
-        $featured_products = array();
-        $product = array();
-        $images = array();
-        foreach ($data as $products)
-        {
-            $product_id = $products->product_id;
-            $criteria2 = new CDbCriteria;
-            $criteria2->select = '*';  // only select the 'title' column
-            $criteria2->condition = "product_id='" . $product_id . "'";
-            $imagedata = ProductImage::model()->findAll($criteria2);
-            $images = array();
-            foreach ($imagedata as $img)
-            {
-                $images[] = array('product_image_id' => $img->product_image_id,
-                    'image_large' => $img->image_large,
-                    'image_small' => $img->image_small,
-                );
-            }
-
-            $all_pro[] = array(
-                'product_id' => $products->product_id,
-                'product_name' => $products->product_name,
-                'product_description' => $products->product_description,
-                'product_price' => $products->product_price,
-                'image' => $images
-            );
-        }
-        return $all_pro;
-    }
+   
 
     /**
      *  performing operation on after save

@@ -41,7 +41,7 @@ class ProductController extends Controller {
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array('admin', 'delete'),
+                'actions' => array('admin', 'delete','update'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -71,10 +71,7 @@ class ProductController extends Controller {
      */
     public function actionCreate() {
         $model = new Product;
-        $mProductProfile = new ProductProfile;
-        $mProductDiscount = new ProductDiscount;
-        $mProductImage = new ProductImage;
-        $mProductCategories = new ProductCategories;
+
         $cityList = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name');
         $languageList = CHtml::listData(Language::model()->findAll(), 'language_id', 'language_name');
         $authorList = CHtml::listData(Author::model()->findAll(), 'author_id', 'author_name');
@@ -85,27 +82,14 @@ class ProductController extends Controller {
 
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
-            $model->added_date = time();
             if ($model->save()) {
-                $product_id = $model->product_id;
-                $mProductProfile->attributes = $_POST['ProductProfile'];
-                $mProductProfile->product_id = $product_id;
-                $mProductProfile->save();
-
-                $mProductDiscount->attributes = $_POST['ProductDiscount'];
-                $mProductDiscount->product_id = $product_id;
-                $mProductDiscount->save();
-
                 $this->redirect(array('view', 'id' => $model->product_id));
             }
         }
 
         $this->render('create', array(
             'model' => $model,
-            'mProductProfile' => $mProductProfile,
-            'mProductDiscount' => $mProductDiscount,
-            'mProductImage' => $mProductImage,
-            'mProductCategories' => $mProductCategories,
+  
             'cityList' => $cityList,
             'languageList' => $languageList,
             'authorList' => $authorList
