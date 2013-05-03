@@ -195,5 +195,12 @@ class User extends DTActiveRecord {
         if (!preg_match($pattern, $this->$attribute))
             $this->addError($attribute, 'Weak Password ! At least 5 characters.Passowrd can contain both letters and numbers!');
     }
+    public function customerHistory()
+    {
+        $id=  Yii::app()->user->id;
+        $model=new Order;
+        $data=$model->with('orderDetails')->find('user_id='.$id);
+        return $data;
+    }
 
 }
