@@ -152,12 +152,11 @@ class UserController extends Controller {
     }
 
     public function actionForgot() {
-        if (isset($_POST['email'])) {
-            $email = $_POST['email'];
-
+        Yii::app()->controller->layout = '//layouts/main';
+        if (isset($_POST['User'])) {
             $record = User::model()->find(array(
                 'select' => '*',
-                'condition' => "user_email='" . $email . "'"
+                'condition' => "user_email='" . $_POST['User']['user_email'] . "'"
                     )
             );
             if ($record === null) {
@@ -199,7 +198,7 @@ class UserController extends Controller {
             }
         }
 
-        $this->render('forgot_password', array('model' => UserProfile::model(),));
+        $this->render('forgot_password', array('model' => User::model()));
     }
 
     public function actionProductReview() {
