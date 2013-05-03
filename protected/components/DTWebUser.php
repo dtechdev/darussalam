@@ -122,6 +122,7 @@ class DTWebUser extends CWebUser{
             $layout_name = $layout['layout_name'];
 
             Yii::app()->session['layout'] = $layout_name;
+            
             Yii::app()->session['country_short_name'] = $country_short_name;
             Yii::app()->session['city_short_name'] = $city_short_name;
             Yii::app()->session['city_id'] = $city['city_id'];
