@@ -35,7 +35,11 @@ var dtech = {
      * @returns {undefined} 
      */
     detailImagechange : function(obj){
-        $("#large_image").attr("src",$(obj).attr("large_image"));
+        jQuery("#large_image").attr("src",jQuery(obj).attr("large_image"));
+        jQuery("#large_image").parent().attr("href",jQuery(obj).attr("large_image"));
     },
+    showdetailLightbox : function (){
+        jQuery("#dummy_link").trigger("click");
+    }        
 
 }
