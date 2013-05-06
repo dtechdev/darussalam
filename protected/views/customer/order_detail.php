@@ -2,7 +2,6 @@
 /* @var $this UserController */
 /* @var $model User */
 
-
 $user_id = Yii::app()->user->id;
 //$this->layout='column2';
 if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
@@ -23,70 +22,54 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Customers</h1>
+<h1>Orders List of selected User</h1>
 
 <p>
     You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button')); ?>
-<div class="search-form" style="display:none">
-    <?php
-    $this->renderPartial('_search', array(
-        'model' => $model
-    ));
-    ?>
-</div><!-- search-form -->
-
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'user-grid',
-    'dataProvider' => $model->searchCustomer(),
-    'filter' => $model,
+    'id' => 'order-grid',
+    'dataProvider' => $model->search(),
+    //'filter' => $model,
     'columns' => array(
         array(
-            'name' => 'user_email',
+            'name' => 'order_id',
             'type' => 'Raw',
-            'value' => '$data->user_email',
+            'value' => '$data->order_id',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
         ),
         array(
-            'name' => 'status_id',
+            'name' => 'user_name',
+            'type' => 'Raw',
+            'value' => '!empty($data->user_id)?$data->user->userProfiles->first_name." ".$data->user->userProfiles->last_name:""',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'order_date',
             'type' => 'Raw',
             //'value' => 'if($data->status_id="1")?Active:"Inactive"',
-            'value' => '$data->status_id',
+            'value' => '$data->order_date',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
         ),
         array(
-            'name' => 'city_id',
+            'name' => 'order_price',
             'type' => 'Raw',
-            'value' => '!empty($data->city)?$data->city->city_name:""',
-            //'value' => '$data->city_id',
+            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
+            'value' => '"&dollar;".$data->total_price',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
         ),
-        
-     
-        /*
-          'activation_key',
-          'is_active',
-          'site_id',
-         */
-        array(
-            'class' => 'CLinkColumn',
-            'label' => 'view',
-            'urlExpression' =>'Yii::app()->createUrl("/customer/ordersList",array("id"=>$data->user_id,"country" => Yii::app()->session["country_short_name"], "city" => Yii::app()->session["city_short_name"], "city_id" => Yii::app()->session["city_id"]))',
-            'header' => 'Purchase History',
-        ),
-        array(
-            'class' => 'CButtonColumn',
-        ),
+
     ),
 ));
 ?>
