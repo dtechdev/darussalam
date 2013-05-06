@@ -33,7 +33,7 @@ $plusImage = "<div class='left_float' style='padding-top:2px'>" .
                    
                     
                     add_new_child_row(u, '" . $dir . "', '" . $fields_div_id . "', 'grid_fields', true);
-                    $('#" . $relationName . "-plus').attr('class', 'plus_rotate');
+                    jQuery('#" . $relationName . "-plus').attr('class', 'plus_rotate');
               
                      
                     " . $relationName . "_index_sc++;
@@ -105,9 +105,9 @@ $plusImage = "<div class='left_float' style='padding-top:2px'>" .
                         or
                         <?php
                         echo CHtml::link('Cancel', '#', array('onClick' => "
-                                $(this).parent().parent().parent().parent().parent().animate({opacity: 1, left: '+=50', height: 'toggle'}, 500,
+                                jQuery(this).parent().parent().parent().parent().parent().animate({opacity: 1, left: '+=50', height: 'toggle'}, 500,
                                     function() {
-                                        $('#" . $fields_div_id . "').html('');
+                                        jQuery('#" . $fields_div_id . "').html('');
                                     });
 
                                         return false;"));
@@ -132,10 +132,10 @@ $plusImage = "<div class='left_float' style='padding-top:2px'>" .
                 add_mode = true;", CClientScript::POS_HEAD
     );
     Yii::app()->clientScript->registerScript($relationName . '_sc_script', "
-            $('.$relationName-buttonsc').click(function(){
+            jQuery('.$relationName-buttonsc').click(function(){
                
-                $('#" . $relationName . "-plus').toggleClass('plus_rotate');
-                $('.$relationName').animate(
+                jQuery('#" . $relationName . "-plus').toggleClass('plus_rotate');
+                jQuery('.$relationName').animate(
                         {opacity: 'toggle', left: '+=50', height: 'toggle'}, 500, 
                         function(){}
                     );

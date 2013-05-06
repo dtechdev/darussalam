@@ -18,10 +18,46 @@ $this->renderPartial("/common/_left_menu");
 $this->widget('zii.widgets.CDetailView', array(
     'data' => $model,
     'attributes' => array(
-        'product_name',
-        'added_date',
-        'is_featured',
-        'product_price',
+        array(
+            'name' => 'product_name',
+            'value' => $model->product_name,
+        ),
+        array(
+            'name' => 'product_description',
+            'value' => $model->product_description,
+        ),
+        array(
+            'name' => 'authors',
+            'value' => implode("/",$model->getAuthors()),
+        ),
+        array(
+            'name' => 'isbn',
+            'value' => $model->isbn,
+        ),
+        array(
+            'name' => 'languages',
+            'value' => implode("/",$model->getBookLanguages()),
+        ),
+        array(
+            'name' => 'discount_type',
+            'value' => $model->discount_type,
+        ),
+        array(
+            'name' => 'discount_value',
+            'value' => $model->discount_value,
+        ),
+        array(
+            'name' => 'create_time',
+            'value' => $model->create_time,
+        ),
+        array(
+            'name' => 'is_featured',
+            'value' => $model->is_featured,
+        ),
+        array(
+            'name' => 'product_price',
+            'value' => $model->product_price,
+        ),
     ),
 ));
 

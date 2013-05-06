@@ -1,0 +1,30 @@
+/**
+* to extend css file for some reason
+* for devloper only 
+* not for designer
+*/
+input.error{ border-color:red; border-width: 4}
+span.required{ color: red;}
+
+#loading {
+    background: url("../images/loading.gif") no-repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-radius: 0 0 5px 5px;
+    border-right: 1px solid black;
+    box-shadow: 0 0 5px #000000;
+    display: none;
+    font-weight: bold;
+    left: 50%;
+    padding: 5px 5px 5px 25px;
+    position: fixed;
+    top: 0;
+    z-index: 100000 !important;
+}
+
+.small_product img,.left_book img {
+    cursor: pointer;
+}
+.small_product img:hover {
+    border-color : #000000;
+}

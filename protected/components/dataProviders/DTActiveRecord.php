@@ -139,7 +139,7 @@ class DTActiveRecord extends CActiveRecord {
         if (is_object($condition)) {
             $condition = $this->makeCriteriaCityAdmin($condition);
         } else if (is_string($condition)) {
-            $condition.= $this->makeCityAdminCondition();
+            $condition.= $this->makeCityAdminCondition($condition);
         }
         return parent::find($condition, $params);
     }
@@ -148,7 +148,7 @@ class DTActiveRecord extends CActiveRecord {
         if (is_object($condition)) {
             $condition = $this->makeCriteriaCityAdmin($condition);
         } else if (is_string($condition)) {
-            $condition.= $this->makeCityAdminCondition();
+            $condition.= $this->makeCityAdminCondition($condition);
         }
         return parent::findByPk($pk, $condition, $params);
     }
@@ -157,7 +157,7 @@ class DTActiveRecord extends CActiveRecord {
         if (is_object($condition)) {
             $condition = $this->makeCriteriaCityAdmin($condition);
         } else if (is_string($condition)) {
-            $condition.= $this->makeCityAdminCondition();
+            $condition.= $this->makeCityAdminCondition($condition);
         }
         
         return parent::findAll($condition, $params);
@@ -167,7 +167,7 @@ class DTActiveRecord extends CActiveRecord {
         if (is_object($condition)) {
             $condition = $this->makeCriteriaCityAdmin($condition);
         } else if (is_string($condition)) {
-            $condition.= $this->makeCityAdminCondition();
+            $condition.= $this->makeCityAdminCondition($condition);
         }
         return parent::findByAttributes($attributes, $condition, $params);
     }
@@ -175,7 +175,7 @@ class DTActiveRecord extends CActiveRecord {
     /**
      *  for city admin we have to access only city base record
      */
-    public function makeCityAdminCondition() {
+    public function makeCityAdminCondition($condition) {
 
 
         $actions = array("login", "logout");
@@ -184,8 +184,10 @@ class DTActiveRecord extends CActiveRecord {
             $isSuper = Yii::app()->session['isSuper'];
 
             if ($isSuper != 1 &&  array_key_exists('city_id', $this->attributes)){
-
-                return "city_id ='" . Yii::app()->session['city_id'] . "'  ";
+                if(!empty($condition)){
+                    return " AND  city_id ='" . Yii::app()->session['city_id'] . "'  ";
+                }    
+                return "   city_id ='" . Yii::app()->session['city_id'] . "'  ";
             }
         }
         return "";

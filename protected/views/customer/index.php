@@ -1,13 +1,21 @@
 <?php
-/* @var $this ProductController */
-/* @var $model Product */
+/* @var $this UserController */
+/* @var $model User */
 
 $this->breadcrumbs = array(
-    'Products' => array('index'),
+    'Users' => array('index'),
     'Manage',
 );
 
-$this->renderPartial("/common/_left_menu");
+$user_id = Yii::app()->user->id;
+//$this->layout='column2';
+if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
+   $this->renderPartial("/common/_left_menu");
+}
+if (Yii::app()->user->isCustomer) {
+
+    $this->menu = array(array('label' => 'Update Profile', 'url' => array('/user/updateprofile/id/' . $user_id)));
+}
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -15,7 +23,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#product-grid').yiiGridView('update', {
+	$('#user-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,7 +31,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Add New Products</h1>
+<h1>Manage Users</h1>
 
 <p>
     You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -34,29 +42,38 @@ $('.search-form form').submit(function(){
 <div class="search-form" style="display:none">
     <?php
     $this->renderPartial('_search', array(
-        'model' => $model,
+        'model' => $model
     ));
     ?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'product-grid',
-    'dataProvider' => $model->search(),
+    'id' => 'user-grid',
+    'dataProvider' => $model->searchCustomer(),
     'filter' => $model,
     'columns' => array(
         array(
-            'name' => 'product_name',
+            'name' => 'user_email',
             'type' => 'Raw',
-            'value' => '$data->product_name',
+            'value' => '$data->user_email',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
         ),
         array(
-            'name' => 'product_description',
+            'name' => 'role_id',
             'type' => 'Raw',
-            'value' => '$data->product_description',
+            'value' => '!empty($data->role)?$data->role->role_title:""',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'status_id',
+            'type' => 'Raw',
+            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
+            'value' => '$data->status_id',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
@@ -65,41 +82,23 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'city_id',
             'type' => 'Raw',
             'value' => '!empty($data->city)?$data->city->city_name:""',
+            //'value' => '$data->city_id',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
         ),
+        
+     
+        /*
+          'activation_key',
+          'is_active',
+          'site_id',
+         */
         array(
-            'name' => 'is_featured',
-            'type' => 'Raw',
-            'value' => '($data->is_featured==1)?"Yes":"No"',
-            'headerHtmlOptions' => array(
-                'style' => "text-align:left"
-            )
-        ),
-        array(
-            'name' => 'product_price',
-            'type' => 'Raw',
-            'value' => '"&dollar;".$data->product_price',
-            'headerHtmlOptions' => array(
-                'style' => "text-align:left"
-            )
-        ),
-        array(
-            'name' => 'product_rating',
-            'type' => 'Raw',
-            'value' => '$data->product_rating',
-            'headerHtmlOptions' => array(
-                'style' => "text-align:left"
-            )
-        ),
-        array(
-            'name' => 'create_time',
-            'type' => 'Raw',
-            'value' => '$data->create_time',
-            'headerHtmlOptions' => array(
-                'style' => "text-align:left"
-            )
+            'class' => 'CLinkColumn',
+            'label' => 'view',
+            'url' => $this->createUrl('/customer/ordersList'),
+            'header' => 'Purchase History',
         ),
         array(
             'class' => 'CButtonColumn',

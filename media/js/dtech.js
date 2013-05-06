@@ -27,6 +27,19 @@ var dtech = {
              $("#loading").hide();
         });
         return false;
-    }
+    },
+    /**
+     *  detail image change on runtime
+     *  click
+     * @param {type} obj
+     * @returns {undefined} 
+     */
+    detailImagechange : function(obj){
+        jQuery("#large_image").attr("src",jQuery(obj).attr("large_image"));
+        jQuery("#large_image").parent().attr("href",jQuery(obj).attr("large_image"));
+    },
+    showdetailLightbox : function (){
+        jQuery("#dummy_link").trigger("click");
+    }        
 
 }

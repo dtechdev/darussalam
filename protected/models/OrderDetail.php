@@ -139,7 +139,7 @@ class OrderDetail extends DTActiveRecord
             $images = array();
             foreach ($imagedata as $img)
             {
-                $images[] = array('product_image_id' => $img->product_image_id,
+                $images[] = array('product_image_id' => $img->id,
                     'image_large' => $img->image_large,
                     'image_small' => $img->image_small,
                 );
@@ -190,7 +190,7 @@ class OrderDetail extends DTActiveRecord
             $imagesbestproducts = array();
             foreach ($imagebest as $img)
             {
-                $imagesbestproducts[] = array('product_image_id' => $img->product_image_id,
+                $imagesbestproducts[] = array('product_image_id' => $img->id,
                     'image_large' => $img->image_large,
                     'image_small' => $img->image_small,
                 );
