@@ -61,7 +61,7 @@ class CartController extends Controller
                     ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
                     ->queryRow();
         }
-        CVarDumper::dump($tot,10,true);
+       
         echo CJSON::encode(array('product_id' => '1', 'cart_counter' => $tot['cart_total']));
     }
 
