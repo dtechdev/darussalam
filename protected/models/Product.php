@@ -21,6 +21,13 @@
  */
 class Product extends DTActiveRecord {
 
+    public $no_image;
+
+    public function __construct($scenario = 'insert') {
+        $this->no_image = Yii::app()->baseUrl . "/images/product_images/noimages.jpeg";
+        parent::__construct($scenario);
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -49,7 +56,7 @@ class Product extends DTActiveRecord {
             array('isbn', 'required'),
             array('activity_log', 'safe'),
             array('authors,isbn,discount_type,discount_value,languages', 'safe'),
-            array('authors,isbn,discount_type,discount_value', 'safe'),
+            array('no_image,authors,isbn,discount_type,discount_value', 'safe'),
             array('city_id', 'numerical', 'integerOnly' => true),
             array('product_name', 'length', 'max' => 255),
             array('is_featured', 'length', 'max' => 1),
@@ -164,14 +171,24 @@ class Product extends DTActiveRecord {
             $imagedata = ProductImage::model()->findAll($criteria2);
             $images = array();
             foreach ($imagedata as $img) {
-                $images[] = array('id' => $img->id,
-                    'image_large' => $img->image_large,
-                    'image_small' => $img->image_small,
-                );
+                if ($img->is_default == 1) {
+                    $images[] = array('id' => $img->id,
+                        'image_large' => $img->image_url['image_large'],
+                        'image_small' => $img->image_url['image_small'],
+                    );
+                    break;
+                } else {
+                    $images[] = array('id' => $img->id,
+                        'image_large' => $img->image_url['image_large'],
+                        'image_small' => $img->image_url['image_small'],
+                    );
+                    break;
+                }
             }
 
             $all_pro[] = array(
                 'product_id' => $products->product_id,
+                'no_image' => $products->no_image,
                 'product_name' => $products->product_name,
                 'product_description' => $products->product_description,
                 'product_price' => $products->product_price,
@@ -202,6 +219,22 @@ class Product extends DTActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    /**
+     *  get author info against book
+     */
+    public function getAuthors() {
+        if(empty($this->authors)){
+            return array();
+        }
+        $authors = explode(",", $this->authors);
+
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition("author_id", $authors);
+        $criteria->select = "author_id,author_name";
+
+        return CHtml::listData(Author::model()->findAll($criteria), "author_id", "author_name");
     }
 
 }

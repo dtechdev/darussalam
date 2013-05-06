@@ -27,12 +27,14 @@
                         <div id="fb-root"></div>
                         <div id="fb-root"></div>
                         <script>(function(d, s, id) {
-                            var js, fjs = d.getElementsByTagName(s)[0];
-                            if (d.getElementById(id)) return;
-                            js = d.createElement(s); js.id = id;
-                            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=<?php echo Yii::app()->params['fb_key']; ?>";
-                            fjs.parentNode.insertBefore(js, fjs);
-                        }(document, 'script', 'facebook-jssdk'));</script>
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (d.getElementById(id))
+                                    return;
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=<?php echo Yii::app()->params['fb_key']; ?>";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk'));</script>
 
                         <div class="fly_product_hover">
                         </div>
@@ -42,7 +44,7 @@
                         </div>
                         <a href="#">
                             <div class="fb-like" data-href="<?php echo Yii::app()->request->hostInfo . Yii::app()->request->requestUri; ?>" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true"></div>
-                            <!--                            <div class="fb-like" data-href="http://darussalam.ilsainteractive.com"  data-layout="button_count" data-width="200" data-show-faces="true"></div>-->
+
                         </a>
                     </div>
                     <h2><?php echo $product->product_description; ?></h2>
@@ -50,11 +52,11 @@
                 <div class="prodcut_table">
                     <tr class="product_tr">
                         <td class="left_td">Author</td>
-                        <td class="right_td"><?php
-                foreach ($product->productProfile as $pp) {
-                    echo $pp->author->author_name;
-                }
-                ?></td>
+                        <td class="right_td">
+                            <?php
+                            $authors = $product->getAuthors();
+                            echo implode(",",$authors);
+                            ?></td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Language</td>
@@ -75,10 +77,9 @@
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">ISBN No</td>
-                        <td class="right_td"><?php
-                            foreach ($product->productProfile as $isbn) {
-                                echo $isbn->isbn;
-                            }
+                        <td class="right_td">
+                            <?php
+                            echo $product->isbn;
                             ?>
                         </td>
                     </tr>
@@ -181,9 +182,9 @@
 </div>
 </div>
 <script>
-function totalPrice(quantity, price)
-{
-    total_price = quantity * price;
-    $('#price').html('$' + total_price);
-}
+    function totalPrice(quantity, price)
+    {
+        total_price = quantity * price;
+        $('#price').html('$' + total_price);
+    }
 </script>
