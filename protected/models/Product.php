@@ -109,6 +109,7 @@ class Product extends DTActiveRecord {
             'authors' => 'Author',
             'is_featured' => 'Is Featured',
             'product_price' => 'Product Price',
+            'product_rating' => 'Product Rating',
         );
     }
 

@@ -286,7 +286,7 @@ class MenusController extends Controller {
 
         $ary[] = array("id" => "20", "pid" => "0", "root_parent" => "20", "controller" => "layout", "action" => "index", "default_title" => "Layouts", "user_title" => "Layouts", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
         $ary[] = array("id" => "21", "pid" => "20", "root_parent" => "20", "controller" => "layout", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
-        $ary[] = array("id" => "22", "pid" => "20", "root_parent" => "20", "controller" => "layout", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+        //$ary[] = array("id" => "22", "pid" => "20", "root_parent" => "20", "controller" => "layout", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
 
 
         /* admin module for the site managment */
