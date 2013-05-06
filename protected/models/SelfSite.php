@@ -100,6 +100,7 @@ class SelfSite extends DTActiveRecord
                 ->from($this->tableName())
                 ->where("LOCATE(site_name,'$url')")
                 ->queryAll();
+        
         if (isset($site[0]))
         {
             return $site[0];

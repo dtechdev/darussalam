@@ -26,7 +26,8 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
         Yii::app()->user->SiteSessions;
-        $this->redirect(array('/site/storehome', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+
+        $this->redirect($this->createUrl('/site/storehome'));
     }
 
     /**
@@ -36,7 +37,7 @@ class SiteController extends Controller {
      *  
      */
     public function actionStoreHome() {
-
+       
         Yii::app()->user->SiteSessions;
         $order_detail = new OrderDetail;
         $limit = 3;

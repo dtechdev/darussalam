@@ -143,12 +143,12 @@
                                     'product_id' => $product->product_id,
                                     'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                                     'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
-                                    'quantity' => 'js:$(\'#quantity\').val()'
+                                    'quantity' => 'js:jQuery(\'#quantity\').val()'
                                 ),
                                 'type' => 'POST',
                                 'dataType' => 'json',
                                 'success' => 'function(data){
-                                           $("#cart_counter").html(data.cart_counter);
+                                           jQuery("#cart_counter").html(data.cart_counter);
                                       }',
                                     ), array('class' => 'add_to_cart')
                             );
