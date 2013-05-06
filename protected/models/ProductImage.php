@@ -141,6 +141,8 @@ class ProductImage extends DTActiveRecord {
         $this->image_large = $large_img;
         $this->image_small = "small_" . $large_img;
 
+        $this->updateAllToUndefault();
+
 
         return parent::beforeSave();
     }
@@ -189,6 +191,19 @@ class ProductImage extends DTActiveRecord {
     public function beforeDelete() {
         $this->deleteldImage();
         parent::beforeDelete();
+    }
+
+    /**
+     *  before saving all the records needs
+     *  to be undefault
+     */
+    public function updateAllToUndefault() {
+        if (!empty($this->product_id)) {
+            $connection = Yii::app()->db;
+            $sql = "UPDATE " . $this->tableName() . " t SET t.is_default=0 WHERE t.product_id ='" . $this->product_id . "' ";
+            $command = $connection->createCommand($sql);
+            $command->execute();
+        }
     }
 
 }

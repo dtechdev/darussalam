@@ -79,7 +79,7 @@ class Product extends DTActiveRecord {
             'discount' => array(self::HAS_MANY, 'ProductDiscount', 'product_id'),
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
-            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id'),
+            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id','order'=>'is_default DESC'),
             'productLanguage' => array(self::HAS_MANY, 'ProductLanguage', 'product_id'),
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
             'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id'),
@@ -192,6 +192,7 @@ class Product extends DTActiveRecord {
                 'product_name' => $products->product_name,
                 'product_description' => $products->product_description,
                 'product_price' => $products->product_price,
+                'author' => $products->getAuthors(),
                 'image' => $images
             );
         }
@@ -225,7 +226,7 @@ class Product extends DTActiveRecord {
      *  get author info against book
      */
     public function getAuthors() {
-        if(empty($this->authors)){
+        if (empty($this->authors)) {
             return array();
         }
         $authors = explode(",", $this->authors);
@@ -235,6 +236,22 @@ class Product extends DTActiveRecord {
         $criteria->select = "author_id,author_name";
 
         return CHtml::listData(Author::model()->findAll($criteria), "author_id", "author_name");
+    }
+
+    /**
+     * get books languages
+     */
+    public function getBookLanguages() {
+        if (empty($this->languages)) {
+            return array();
+        }
+        $languages = explode(",", $this->languages);
+
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition("language_id", $languages);
+        $criteria->select = "language_id,language_name";
+
+        return CHtml::listData(Language::model()->findAll($criteria), "language_id", "language_name");
     }
 
 }
