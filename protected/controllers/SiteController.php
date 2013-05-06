@@ -103,7 +103,7 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
-         Yii::app()->controller->layout = '//layouts/main';
+        Yii::app()->controller->layout = '//layouts/main';
         Yii::app()->user->SiteSessions;
         $model = new LoginForm;
         $ip = getenv("REMOTE_ADDR");
@@ -119,7 +119,10 @@ class SiteController extends Controller {
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login()) {
 
+                 Yii::app()->session['isSuper'] = 0;
+
                 if (Yii::app()->user->isSuperAdmin) {
+                     Yii::app()->session['isSuper'] = 1;
                     $this->redirect(array('user/index'));
                 }
                 if (Yii::app()->user->isAdmin) {
@@ -162,7 +165,9 @@ class SiteController extends Controller {
      * Logs out the current user and redirect to homepage.
      */
     public function actionLogout() {
+        unset(Yii::app()->user->isSuper);
         Yii::app()->user->logout();
+        
         $this->redirect(Yii::app()->homeUrl);
     }
 

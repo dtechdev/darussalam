@@ -2,6 +2,9 @@
 /* @var $this ProductController */
 /* @var $model Product */
 /* @var $form CActiveForm */
+
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/gridform.css');
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/functions.js');
 ?>
 
 <div class="form wide">
@@ -10,6 +13,7 @@
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'product-form',
         'enableAjaxValidation' => false,
+        'htmlOptions' => array('enctype' => 'multipart/form-data'),
     ));
     ?>
 
@@ -68,6 +72,12 @@
         <?php echo $form->dropDownList($model, 'authors', $authorList, array('prompt' => 'Select Author')); ?>
         <?php echo $form->error($model, 'authors'); ?>
     </div>
+
+    <?php
+    if ($this->action->id != "update") {
+        $this->renderPartial('productImages/_container', array('model' => $model, "type" => "field"));
+    }
+    ?>
 
 
     <div class="row buttons">

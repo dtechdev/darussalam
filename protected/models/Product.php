@@ -80,6 +80,24 @@ class Product extends DTActiveRecord {
     }
 
     /**
+     * Behaviour
+     *
+     */
+    public function behaviors() {
+        return array(
+            'CSaveRelationsBehavior' => array(
+                'class' => 'CSaveRelationsBehavior',
+                'relations' => array(
+                    'basicFeatures' => array("message" => "Please, fill required fields"),
+                ),
+            ),
+            'CMultipleRecords' => array(
+                'class' => 'CMultipleRecords'
+            ),
+        );
+    }
+
+    /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels() {
@@ -118,16 +136,16 @@ class Product extends DTActiveRecord {
             $criteria->join = 'INNER JOIN product_categories  on t.product_id=product_categories.product_id';
 
             if (!empty($_POST['author'])) {
-                $author = explode(",",$_POST['author']);
+                $author = explode(",", $_POST['author']);
                 $criteria->addInCondition("authors", $author);
             }
             if (!empty($_POST['langs'])) {
-                $langs = explode(",",$_POST['langs']);
+                $langs = explode(",", $_POST['langs']);
                 $criteria->addInCondition("languages", $langs);
             }
             if (!empty($_POST['cat_id'])) {
 
-                $criteria->addCondition("product_categories.category_id='".$_POST['cat_id']."'");
+                $criteria->addCondition("product_categories.category_id='" . $_POST['cat_id'] . "'");
             }
             $criteria->distinct = "t.product_id";
         }
@@ -145,7 +163,7 @@ class Product extends DTActiveRecord {
             $imagedata = ProductImage::model()->findAll($criteria2);
             $images = array();
             foreach ($imagedata as $img) {
-                $images[] = array('product_image_id' => $img->product_image_id,
+                $images[] = array('id' => $img->id,
                     'image_large' => $img->image_large,
                     'image_small' => $img->image_small,
                 );
@@ -159,7 +177,7 @@ class Product extends DTActiveRecord {
                 'image' => $images
             );
         }
-        
+
         return $all_pro;
     }
 

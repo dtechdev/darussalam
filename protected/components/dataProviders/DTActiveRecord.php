@@ -22,6 +22,11 @@ class DTActiveRecord extends CActiveRecord {
      */
     public $_action;
 
+    public function __construct($scenario = 'insert') {
+        parent::__construct($scenario);
+        $this->_action = Yii::app()->controller->action->id;
+    }
+
     public function afterFind() {
         if (isset(Yii::app()->controller->action->id)) {
             $this->_action = Yii::app()->controller->action->id;
@@ -123,6 +128,87 @@ class DTActiveRecord extends CActiveRecord {
         $command = $connection->createCommand("SELECT SUBSTRING(UUID(),1,$length) as uuid");
         $row = $command->queryRow();
         return $row['uuid'];
+    }
+
+    /**
+     * 
+     * @param type $condition
+     * @param type $params
+     */
+    public function find($condition = '', $params = array()) {
+        if (is_object($condition)) {
+            $condition = $this->makeCriteriaCityAdmin($condition);
+        } else if (is_string($condition)) {
+            $condition.= $this->makeCityAdminCondition();
+        }
+        return parent::find($condition, $params);
+    }
+
+    public function findByPk($pk, $condition = '', $params = array()) {
+        if (is_object($condition)) {
+            $condition = $this->makeCriteriaCityAdmin($condition);
+        } else if (is_string($condition)) {
+            $condition.= $this->makeCityAdminCondition();
+        }
+        return parent::findByPk($pk, $condition, $params);
+    }
+
+    public function findAll($condition = '', $params = array()) {
+        if (is_object($condition)) {
+            $condition = $this->makeCriteriaCityAdmin($condition);
+        } else if (is_string($condition)) {
+            $condition.= $this->makeCityAdminCondition();
+        }
+        
+        return parent::findAll($condition, $params);
+    }
+
+    public function findByAttributes($attributes, $condition = '', $params = array()) {
+        if (is_object($condition)) {
+            $condition = $this->makeCriteriaCityAdmin($condition);
+        } else if (is_string($condition)) {
+            $condition.= $this->makeCityAdminCondition();
+        }
+        return parent::findByAttributes($attributes, $condition, $params);
+    }
+
+    /**
+     *  for city admin we have to access only city base record
+     */
+    public function makeCityAdminCondition() {
+
+
+        $actions = array("login", "logout");
+
+        if (!in_array($this->_action, $actions)) {
+            $isSuper = Yii::app()->session['isSuper'];
+
+            if ($isSuper != 1 &&  array_key_exists('city_id', $this->attributes)){
+
+                return "city_id ='" . Yii::app()->session['city_id'] . "'  ";
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Make criteria base condition
+     * @return string
+     */
+    public function makeCriteriaCityAdmin($criteria) {
+
+
+        $actions = array("login", "logout");
+
+        if (!in_array($this->_action, $actions)) {
+            $isSuper = Yii::app()->session['isSuper'];
+          
+            if ($isSuper != 1 && array_key_exists('city_id', $this->attributes)) {
+                $criteria->addCondition("city_id ='" . Yii::app()->session['city_id'] . "'");
+                
+            }
+        }
+        return $criteria;
     }
 
 }

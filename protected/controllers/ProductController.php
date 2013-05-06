@@ -32,7 +32,8 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'index', 'view',),
+                'actions' => array('create', 'index', 'view', 
+                    'loadChildByAjax','editChild','deleteChildByAjax'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -41,7 +42,7 @@ class ProductController extends Controller {
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array('admin', 'delete','update'),
+                'actions' => array('admin', 'delete', 'update'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -60,8 +61,10 @@ class ProductController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        $model = $this->loadModel($id);
+        $this->manageChildrens($model);
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
         ));
     }
 
@@ -82,6 +85,8 @@ class ProductController extends Controller {
 
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
+            $this->checkCilds($model);
+         
             if ($model->save()) {
                 $this->redirect(array('view', 'id' => $model->product_id));
             }
@@ -89,7 +94,6 @@ class ProductController extends Controller {
 
         $this->render('create', array(
             'model' => $model,
-  
             'cityList' => $cityList,
             'languageList' => $languageList,
             'authorList' => $authorList
@@ -104,29 +108,7 @@ class ProductController extends Controller {
     public function actionUpdate($id) {
 
         $model = $this->loadModel($id);
-        $mProductDiscount = new ProductDiscount;
-        $mProductImage = new ProductImage;
-        $mProductCategories = new ProductCategories;
-
-        $mProductProfileArray = ProductProfile::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
-        $mProductProfile = ProductProfile::model()->findByPk($mProductProfileArray[0]['profile_id']);
-
-
-        $mProductDiscountArray = ProductDiscount::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
-        if ($mProductDiscountArray != NULL) {
-            $mProductDiscount = ProductDiscount::model()->findByPk($mProductDiscountArray[0]['discount_id']);
-        }
-
-        $mProductImageArray = ProductImage::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
-        if ($mProductImageArray != NULL) {
-            $mProductImage = ProductImage::model()->findByPk($mProductImageArray[0]['product_image_id']);
-        }
-
-        $mProductCategoriesArray = ProductCategories::model()->findAll(array('condition' => 'product_id="' . $model->product_id . '"'));
-        if ($mProductCategoriesArray != NULL) {
-            $mProductCategories = ProductCategories::model()->findByPk($mProductCategoriesArray[0]['product_category_id']);
-        }
-
+   
 
 
         $cityList = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name');
@@ -139,24 +121,12 @@ class ProductController extends Controller {
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
             if ($model->save()) {
-                $product_id = $id;
-                $mProductProfile->attributes = $_POST['ProductProfile'];
-                $mProductProfile->product_id = $product_id;
-                $mProductProfile->save();
-
-                $mProductDiscount->attributes = $_POST['ProductDiscount'];
-                $mProductDiscount->product_id = $product_id;
-                $mProductDiscount->save();
-                $this->redirect(array('view', 'id' => $model->product_id));
+              $this->redirect(array('view', 'id' => $model->product_id));
             }
         }
 
         $this->render('update', array(
             'model' => $model,
-            'mProductProfile' => $mProductProfile,
-            'mProductDiscount' => $mProductDiscount,
-            'mProductImage' => $mProductImage,
-            'mProductCategories' => $mProductCategories,
             'cityList' => $cityList,
             'languageList' => $languageList,
             'authorList' => $authorList
@@ -213,6 +183,77 @@ class ProductController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    /**
+     *
+     * @param <type> $mName
+     * @param <type> $index
+     */
+    public function actionLoadChildByAjax($mName, $dir, $load_for, $index) {
+        /* Get regarding model */
+        $model = new $mName;
+
+        $this->renderPartial($dir . '/_fields_row', array('index' => $index, 'model' => $model, "load_for" => $load_for,
+            'dir' => $dir,
+            'fields_div_id' => $dir . '_fields'), false, true);
+    }
+
+    /**
+     *
+     * @param <type> $id
+     * @param <type> $mName
+     * @param <type> $dir 
+     */
+    public function actionEditChild($id, $mName, $dir) {
+        /* Get regarding model */
+        $model = new $mName;
+        $render_view = $dir . '/_fields_row';
+        $model = $model->findByPk($id);
+
+
+        $this->renderPartial($render_view, array('index' => 1, 'model' => $model,
+            "load_for" => "view", 'dir' => $dir, "displayd" => "block",
+            'fields_div_id' => $dir . '_fields',
+                ), false, true);
+    }
+
+    /**
+     * delete child by ajax
+     * @param type $id
+     * @param type $mName
+     * @throws CHttpException 
+     */
+    public function actionDeleteChildByAjax($id, $mName) {
+        if (Yii::app()->request->isPostRequest) {
+            /* Get regarding model */
+            $model = new $mName;
+
+            $model->findByPk($id)->delete();
+        }
+        else
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
+    }
+
+    /*
+     * managing recrods
+     * at create
+     */
+
+    private function checkCilds($model) {
+        if (isset($_POST['ProductImage'])) {
+            $model->setRelationRecords('productImages', is_array($_POST['ProductImage']) ? $_POST['ProductImage'] : array());
+        }
+        return true;
+    }
+
+    /**
+     * will be used to manage child at 
+     * view mode
+     * @param type $model 
+     */
+    private function manageChildrens($model) {
+        $this->manageChild($model, "productImages", "product");
     }
 
 }
