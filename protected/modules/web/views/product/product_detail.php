@@ -1,6 +1,10 @@
 <div id="book_content">
     <div id="book_main_content">
         <?php $this->renderPartial("_subheader"); ?>
+        <?php
+        $this->widget('ext.lyiightbox.LyiightBox2', array(
+        ));
+        ?>
     </div>
 </div>
 <div id="descritpion">
@@ -8,12 +12,14 @@
         <div class="left_book">
 
             <?php
-            echo CHtml::image($product->productImages[0]->image_url['image_large'], '', array("class" => "small_product_first"));
+            $detail_img = CHtml::image($product->productImages[0]->image_url['image_large'], '', array("class" => "small_product_first", "id" => "large_image",));
+            echo CHtml::link($detail_img, $product->productImages[0]->image_url['image_large'], array("rel" => 'lightbox[_default]'));
+           
             ?>
             <div class="small_product">
                 <?php
                 foreach ($product->productImages as $img) {
-                    echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px"));
+                    echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px", "large_image" => $img->image_url['image_large']));
                 }
                 ?>
             </div>
@@ -26,7 +32,8 @@
 
                         <div id="fb-root"></div>
                         <div id="fb-root"></div>
-                        <script>(function(d, s, id) {
+                        <script>
+                            (function(d, s, id) {
                                 var js, fjs = d.getElementsByTagName(s)[0];
                                 if (d.getElementById(id))
                                     return;
@@ -34,7 +41,8 @@
                                 js.id = id;
                                 js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=<?php echo Yii::app()->params['fb_key']; ?>";
                                 fjs.parentNode.insertBefore(js, fjs);
-                            }(document, 'script', 'facebook-jssdk'));</script>
+                            }(document, 'script', 'facebook-jssdk'));
+                        </script>
 
                         <div class="fly_product_hover">
                         </div>
@@ -55,7 +63,7 @@
                         <td class="right_td">
                             <?php
                             $authors = $product->getAuthors();
-                            echo implode("/",$authors);
+                            echo implode("/", $authors);
                             ?></td>
                     </tr>
                     <tr class="product_tr">
@@ -63,7 +71,7 @@
                         <td class="right_td">
                             <?php
                             $languages = $product->getBookLanguages();
-                            echo implode("/",$languages);
+                            echo implode("/", $languages);
                             ?>
                         </td>
                     </tr>
@@ -135,12 +143,12 @@
                                     'product_id' => $product->product_id,
                                     'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                                     'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
-                                    'quantity' => 'js:$(\'#quantity\').val()'
+                                    'quantity' => 'js:jQuery(\'#quantity\').val()'
                                 ),
                                 'type' => 'POST',
                                 'dataType' => 'json',
                                 'success' => 'function(data){
-                                           $("#cart_counter").html(data.cart_counter);
+                                           jQuery("#cart_counter").html(data.cart_counter);
                                       }',
                                     ), array('class' => 'add_to_cart')
                             );
@@ -173,10 +181,22 @@
     </div>
 </div>
 </div>
+<?php
+;
+
+Yii::app()->clientScript->registerScript('image_change_function', "
+                    jQuery('.small_product img').click(function(){
+                        dtech.detailImagechange(this)
+                    })
+                  
+                ", CClientScript::POS_READY);
+?>
 <script>
     function totalPrice(quantity, price)
     {
         total_price = quantity * price;
-        $('#price').html('$' + total_price);
+        jQuery('#price').html('$' + total_price);
     }
 </script>
+
+

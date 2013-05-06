@@ -19,7 +19,8 @@ $mName="ProductImage";
         'columns' => array(
             array(
                 'name' => 'image_small',
-                'value'=>'$data->image_small'
+                'value'=>'CHtml::link($data->image_small,$data->image_url["image_large"],array("rel" => "lightbox[_default]"))',
+                "type"=>"raw",
             ),
         
             array(
@@ -68,3 +69,7 @@ $mName="ProductImage";
     ));
     ?>
 </div>
+<?php
+$this->widget('ext.lyiightbox.LyiightBox2', array(
+));
+?>

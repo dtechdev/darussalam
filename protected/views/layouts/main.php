@@ -3,6 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style.css" />
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/custom-style.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/gumby.css" />
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/sign_in2.js"></script>
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/dd.css" />
@@ -68,7 +69,9 @@
                         ?>
                         <script>
                             $(document).ready(function() {
-                                $("#countries").msDropdown();
+                                if ($("#countries") != null) {
+                                    $("#countries").msDropdown();
+                                }
                             })
                         </script>
                     </div>
@@ -167,7 +170,7 @@
                                             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/facebook_img_03.jpg');
                                             ?>
                                         </a>
-                                        <?php echo CHtml::button('Facebook', array("class"=>"f_img")); ?>
+                                        <?php echo CHtml::button('Facebook', array("class" => "f_img")); ?>
                                     </div>
                                     <div class="sign_in">
                                         <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/linkedin'); ?>">
@@ -175,7 +178,7 @@
                                             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/linkedin_img_03.jpg');
                                             ?>
                                         </a>
-                                        <?php echo CHtml::button('Linkedin', array("class"=>"l_img")); ?>
+                                        <?php echo CHtml::button('Linkedin', array("class" => "l_img")); ?>
                                     </div>
                                     <div class="sign_in">
                                         <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/twitter'); ?>">
@@ -183,7 +186,7 @@
                                             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/twitter_img_03.jpg');
                                             ?>
                                         </a>
-                                        <?php echo CHtml::button('Twitter', array("class"=>"t_img")); ?>
+                                        <?php echo CHtml::button('Twitter', array("class" => "t_img")); ?>
                                     </div>
                                     <div class="sign_in">
                                         <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/google'); ?>">
@@ -191,12 +194,12 @@
                                             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/google_img_03.jpg');
                                             ?>
                                         </a>
-                                        <?php echo CHtml::button('Google', array("class"=>"g_img")); ?>
+                                        <?php echo CHtml::button('Google', array("class" => "g_img")); ?>
                                     </div>
                                     <h3 class="dont">Don't have account?</h3>
                                     <div class="sign_up_button">
                                         <a href="<?php echo $this->createUrl('/web/user/register') ?>">
-                                            <?php echo CHtml::button('Sign Up', array("class"=>"btn")); ?>
+                                            <?php echo CHtml::button('Sign Up', array("class" => "btn")); ?>
                                         </a>
                                     </div>
                                     <?php $this->endWidget(); ?>
@@ -215,15 +218,15 @@
                 <?php $this->widget('LoginWidget'); ?>
                 <div id="left_under_footer">
                     <li>
-                        <?php  echo CHtml::image(Yii::app()->theme->baseUrl . '/images/phone_img_03.jpg','phone'); ?>
+                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/phone_img_03.jpg', 'phone'); ?>
                         +(92) 42 35254654 - 54
                     </li>
                     <li>
-                        <?php echo CHtml::image(Yii::app()->theme->baseUrl.'/images/gmail_img_03.jpg','phone');?>
+                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/gmail_img_03.jpg', 'phone'); ?>
                         <a href="#"> support@darussalam.com</a>
                     </li>
                     <li>
-                        <?php echo CHtml::image(Yii::app()->theme->baseUrl.'/images/home_img_03.jpg','phone');?>
+                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/home_img_03.jpg', 'phone'); ?>
                         Darussalam Publishers
                     </li>
                 </div>
