@@ -32,12 +32,12 @@ class CustomerController extends Controller {
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('update','ordersList'),
+                'actions' => array('update','ordersList','orderDetail'),
                 'expression' => 'Yii::app()->user->isAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array( 'delete', 'update','ordersList'),
+                'actions' => array( 'delete', 'update','ordersList','orderDetail'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -157,16 +157,32 @@ class CustomerController extends Controller {
             'model' => $model,
         ));
     }
-    public function actionordersList() {
-
-        $model = new User('search');
+    public function actionOrdersList() {
+        $model= new Order('Search');
         $model->unsetAttributes();  // clear any default values
+        $model->user_id=$_REQUEST['id'];
         if (isset($_GET['User'])) {
-            $model->attributes = $_GET['User'];
+            $model->attributes = $_GET['Order'];
         }
         $this->render('orders_list', array(
             'model' => $model,
         ));
+    }
+
+    public function actionOrderDetail() {
+        echo 'zahid';
+        print_r($_REQUEST);
+        exit;
+        $model= new Order('Search');
+        $model->unsetAttributes();  // clear any default values
+        $model->user_id=$_REQUEST['id'];
+        if (isset($_GET['User'])) {
+            $model->attributes = $_GET['Order'];
+        }
+        $this->renderPartial('order_detail', array(
+            'model' => $model,
+        ));
+        Yii::app()->end();
     }
 
     /**
