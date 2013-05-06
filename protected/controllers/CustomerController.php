@@ -32,12 +32,12 @@ class CustomerController extends Controller {
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('update','ordersList'),
+                'actions' => array('update', 'ordersList', 'orderDetail'),
                 'expression' => 'Yii::app()->user->isAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array( 'delete', 'update','ordersList'),
+                'actions' => array('delete', 'update', 'ordersList', 'orderDetail'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -60,51 +60,6 @@ class CustomerController extends Controller {
     public function actionView($id) {
         $this->render('view', array(
             'model' => $this->loadModel($id),
-        ));
-    }
-
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
-    public function actionCreate() {
-        $model = new User;
-        $user_profile = new UserProfile('create');
-        $selfSite = new SelfSite();
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['User'])) {
-
-            $model->attributes = $_POST['User'];
-            $user_profile->attributes = $_POST['UserProfile'];
-
-            //$model->user_name = $user_profile->getFullName();
-            if ($model->site_id == NULL && $model->role_id == NULL && $model->status_id == NULL) {
-                $model->site_id = '1';
-                $model->role_id = '3';
-                $model->status_id = '2';
-                $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $model->user_email);
-                $activation_url = $this->createUrl('user/activate', array('key' => $model->activation_key));
-                $model->user_password = md5($model->user_password);
-            }
-            if ($model->save()) {
-                $user_profile->user_id = $model->user_id;
-                // $model->user_name=$user_profile->getFullName();
-
-                if ($user_profile->validate()) {
-
-                    $user_profile->save();  //getFull name is a getter function in profile model merge 1st + last name
-                } else {
-                    echo CHtml::errorSummary($user_profile);
-                }
-                $this->redirect(array('view', 'id' => $model->user_id));
-            }
-        }
-
-        $this->render('create', array(
-            'model' => $model,
         ));
     }
 
@@ -157,16 +112,32 @@ class CustomerController extends Controller {
             'model' => $model,
         ));
     }
-    public function actionordersList() {
 
-        $model = new User('search');
+    public function actionOrdersList() {
+        $model = new Order('Search');
         $model->unsetAttributes();  // clear any default values
+        $model->user_id = $_REQUEST['id'];
         if (isset($_GET['User'])) {
-            $model->attributes = $_GET['User'];
+            $model->attributes = $_GET['Order'];
         }
         $this->render('orders_list', array(
             'model' => $model,
         ));
+    }
+
+    public function actionOrderDetail($id) {
+
+        $model = new OrderDetail('Search');
+        $model->unsetAttributes();  // clear any default values
+        $model->order_id = $id;
+        if (isset($_GET['User'])) {
+            $model->attributes = $_GET['Order'];
+        }
+        $this->renderPartial('_order_detail', array(
+            'model' => $model,
+            'user_name' => $_POST['username'],
+        ));
+        Yii::app()->end();
     }
 
     /**

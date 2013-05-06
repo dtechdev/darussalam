@@ -2,19 +2,11 @@
 /* @var $this UserController */
 /* @var $model User */
 
-$this->breadcrumbs = array(
-    'Users' => array('index'),
-    'Manage',
-);
 
 $user_id = Yii::app()->user->id;
 //$this->layout='column2';
 if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
    $this->renderPartial("/common/_left_menu");
-}
-if (Yii::app()->user->isCustomer) {
-
-    $this->menu = array(array('label' => 'Update Profile', 'url' => array('/user/updateprofile/id/' . $user_id)));
 }
 
 Yii::app()->clientScript->registerScript('search', "
@@ -31,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Users</h1>
+<h1>Manage Customers</h1>
 
 <p>
     You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -57,14 +49,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'user_email',
             'type' => 'Raw',
             'value' => '$data->user_email',
-            'headerHtmlOptions' => array(
-                'style' => "text-align:left"
-            )
-        ),
-        array(
-            'name' => 'role_id',
-            'type' => 'Raw',
-            'value' => '!empty($data->role)?$data->role->role_title:""',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
@@ -97,7 +81,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'class' => 'CLinkColumn',
             'label' => 'view',
-            'url' => $this->createUrl('/customer/ordersList'),
+            'urlExpression' =>'Yii::app()->createUrl("/customer/ordersList",array("id"=>$data->user_id,"country" => Yii::app()->session["country_short_name"], "city" => Yii::app()->session["city_short_name"], "city_id" => Yii::app()->session["city_id"]))',
             'header' => 'Purchase History',
         ),
         array(

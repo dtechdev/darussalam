@@ -148,6 +148,28 @@ class User extends DTActiveRecord {
             'criteria' => $criteria,
         ));
     }
+    public function searchCustomer() {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria = new CDbCriteria;
+
+        $criteria->compare('user_id', $this->user_id);
+        $criteria->compare('user_name', $this->user_name, true);
+        $criteria->compare('user_password', $this->user_password, true);
+        $criteria->compare('role_id', '3');
+        $criteria->compare('status_id', $this->status_id);
+        $criteria->compare('user_email', $this->status_id);
+        $criteria->compare('city_id', $this->city_id);
+        $criteria->compare('activation_key', $this->activation_key, true);
+        $criteria->compare('is_active', $this->is_active, true);
+        $criteria->compare('site_id', $this->site_id);
+        $criteria->order='create_time desc';
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
 
     /**
      *  used to set the value for validation
