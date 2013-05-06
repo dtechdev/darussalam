@@ -34,6 +34,7 @@ $url_manager = array(
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/product/index' => '/product/index',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/categories/index' => '/categories/index',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/author/index' => '/author/index',
+        '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/author/index' => '/pages/index',
         
         /** admin url ** */
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/user/create' => '/user/create',
@@ -45,6 +46,8 @@ $url_manager = array(
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/product/create' => '/product/create',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/categories/create' => '/categories/create',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/author/create' => '/author/create',
+        '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/author/create' => '/pages/create',
+        
         
         /** index **/
         
@@ -57,6 +60,7 @@ $url_manager = array(
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/product/update/<id:[\w-\.]+>' => '/product/update',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/categories/update/<id:[\w-\.]+>' => '/categories/update',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/author/update/<id:[\w-\.]+>' => '/author/update',
+        '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/author/update/<id:[\w-\.]+>' => '/pages/update',
        
         /** view admin **/
         
@@ -69,6 +73,7 @@ $url_manager = array(
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/product/view/<id:[\w-\.]+>' => '/product/view',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/categories/view/<id:[\w-\.]+>' => '/categories/view',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/author/view/<id:[\w-\.]+>' => '/author/view',
+        '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/author/view/<id:[\w-\.]+>' => '/pages/view',
         
         
         /** New admin urls **/

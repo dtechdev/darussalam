@@ -16,7 +16,7 @@ $conf_component_db = array(
     'connectionString' => 'mysql:host=localhost;dbname=darussalam',
     'emulatePrepare' => true,
     'username' => 'root',
-    'password' => '',
+    'password' => 'admin',
     'charset' => 'utf8',
 );
 ?>
