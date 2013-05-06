@@ -120,12 +120,19 @@ class ProductImage extends DTActiveRecord {
         /**
          *  setting path  for front end images
          */
-        $this->image_url['image_large'] = Yii::app()->baseUrl . "/uploads/product/" . $this->product_id;
-        $this->image_url['image_large'].= "/product_images/" . $this->id . "/" . $this->image_large;
+        if (!empty($this->image_large)) {
+            $this->image_url['image_large'] = Yii::app()->baseUrl . "/uploads/product/" . $this->product_id;
+            $this->image_url['image_large'].= "/product_images/" . $this->id . "/" . $this->image_large;
+        }
+        else{
+            $this->image_url['image_large'] = Yii::app()->baseUrl."/images/product_images/noimages.jpeg";
+        }
 
-        $this->image_url['image_small'] = Yii::app()->baseUrl . "/uploads/product/" . $this->product_id;
-        $this->image_url['image_small'].= "/product_images/" . $this->id . "/" . $this->image_small;
+        if (!empty($this->image_small)) {
 
+            $this->image_url['image_small'] = Yii::app()->baseUrl . "/uploads/product/" . $this->product_id;
+            $this->image_url['image_small'].= "/product_images/" . $this->id . "/" . $this->image_small;
+        }
 
         parent::afterFind();
     }
