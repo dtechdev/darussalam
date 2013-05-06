@@ -10,38 +10,30 @@
  *
  * @author Brain
  */
-class DTUploadedFile extends CUploadedFile
-{
+class DTUploadedFile extends CUploadedFile {
     //put your code here
 
     /**
      *  to create recursive folder
      *  here images will be uploaded
      */
-    public static function creeatRecurSiveDirectories($array = array())
-    {
+    public static function creeatRecurSiveDirectories($array = array()) {
         $basePath = Yii::app()->basePath;
 
-        if (strstr($basePath, "protected"))
-        {
+        if (strstr($basePath, "protected")) {
             $basePath = realPath($basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR);
         }
-        if (is_array($array))
-        {
+        if (is_array($array)) {
             $newPath = $basePath;
             $array = array_merge(array("uploads"), $array);
 
-            foreach ($array as $folder)
-            {
+            foreach ($array as $folder) {
                 $newPath.=DIRECTORY_SEPARATOR . $folder;
-                if (!is_dir($newPath))
-                {
+                if (!is_dir($newPath)) {
                     mkdir($newPath, 0755);
                 }
             }
-        }
-        else
-        {
+        } else {
             return "error";
         }
         return $newPath . DIRECTORY_SEPARATOR;
@@ -56,51 +48,41 @@ class DTUploadedFile extends CUploadedFile
      *       folder is fullpath
      *       other wise on temp folder
      */
-    public static function deleteRecursively($folder, $is_actual_path = false)
-    {
+    public static function deleteRecursively($folder, $is_actual_path = false) {
         $basePath = Yii::app()->basePath;
 
-        if (strstr($basePath, "protected"))
-        {
+        if (strstr($basePath, "protected")) {
             $basePath = realPath($basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR);
         }
         $deleted_dir = $basePath . DIRECTORY_SEPARATOR . "temp" . DIRECTORY_SEPARATOR . $folder;
 
         $deleted_dir = ($is_actual_path == true) ? $folder : $deleted_dir;
 
-        if (is_dir($deleted_dir) && $handle = opendir($deleted_dir))
-        {
-           
+        if (is_dir($deleted_dir) && $handle = opendir($deleted_dir)) {
+
 
             /* This is the correct way to loop over the directory. */
-            while (($file = readdir($handle)) !== false)
-            {
+            while (($file = readdir($handle)) !== false) {
 
-                if ($file != "." || $file != "..")
-                {
-                  
+                if ($file != "." || $file != "..") {
+
                     /**
                      * In case of direcotries 
                      * These line will done
                      * 
                      */
-                    if (filetype($deleted_dir . DIRECTORY_SEPARATOR . $file) == "dir")
-                    {
+                    if (filetype($deleted_dir . DIRECTORY_SEPARATOR . $file) == "dir") {
                         $dirData = scandir($deleted_dir . DIRECTORY_SEPARATOR . $file);
-                     
-                        if (!empty($dirData))
-                        {
-                            
+
+                        if (!empty($dirData)) {
+
                             self::deleteRecursively($folder . DIRECTORY_SEPARATOR . $file);
-                            if (count($dirData) == 2 && in_array(".", $dirData) && in_array("..", $dirData))
-                            {
+                            if (count($dirData) == 2 && in_array(".", $dirData) && in_array("..", $dirData)) {
                                 rmdir($deleted_dir . DIRECTORY_SEPARATOR . $file);
                                 self::deleteRecursively($deleted_dir . DIRECTORY_SEPARATOR . $file);
                             }
                         }
-                    }
-                    else
-                    {
+                    } else {
                         unlink($deleted_dir . DIRECTORY_SEPARATOR . $file);
                     }
                 }
@@ -116,17 +98,44 @@ class DTUploadedFile extends CUploadedFile
      * @param type $file 
      * to detled file on particulr locaton
      */
-    public static function deleteExistingFile($file)
-    {
-        if (is_file($file))
-        {
+    public static function deleteExistingFile($file) {
+        if (is_file($file)) {
             unlink($file);
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
+    }
+
+    /**
+     * 
+     * @param type $pathToImages
+     * @param type $pathToThumbs
+     * @param type $thumbWidth
+     */
+    static function createThumbs($pathToImage, $pathToThumbs, $thumbWidth, $name) {
+        // open the directory
+        // parse path for the extension
+        $info = pathinfo($pathToImage);
+        // continue only if this is a JPEG image
+        //echo "Creating thumbnail for {$pathToImage} <br />";
+        // load image and get image size
+        $img = imagecreatefromjpeg("$pathToImage");
+        $width = imagesx($img);
+        $height = imagesy($img);
+
+        // calculate thumbnail size
+        $new_width = $thumbWidth;
+        $new_height = floor($height * ( $thumbWidth / $width ));
+
+        // create a new temporary image
+        $tmp_img = imagecreatetruecolor($new_width, $new_height);
+
+        // copy and resize old image into new image
+        imagecopyresized($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+
+        // save thumbnail into a file
+        imagejpeg($tmp_img, "$pathToThumbs" . DIRECTORY_SEPARATOR . $name);
     }
 
 }

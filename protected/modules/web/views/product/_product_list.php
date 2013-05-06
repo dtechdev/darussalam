@@ -7,7 +7,6 @@
 ?>
 
 <?php
-
 foreach ($products as $product) {
     ?>
     <div class="condition">
@@ -23,7 +22,11 @@ foreach ($products as $product) {
             echo CHtml::link($product['product_name'], $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])));
             ?>
         </h3>
-        <p>Muhammad Manzoor Elahii</p>
+        <p>
+            <?php
+            echo implode(",", $product['author']);
+            ?>
+        </p>
         <article>&dollar;<?php echo round($product['product_price'], 2); ?></article>
     </div>
 <?php } ?>

@@ -8,12 +8,12 @@
         <div class="left_book">
 
             <?php
-            echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $product->productImages[0]->image_large, '', array("class" => "small_product_first"));
+            echo CHtml::image($product->productImages[0]->image_url['image_large'], '', array("class" => "small_product_first"));
             ?>
             <div class="small_product">
                 <?php
                 foreach ($product->productImages as $img) {
-                    echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $img->image_small, '', array("width" => "66px", "height" => "95px"));
+                    echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px"));
                 }
                 ?>
             </div>
@@ -55,23 +55,15 @@
                         <td class="right_td">
                             <?php
                             $authors = $product->getAuthors();
-                            echo implode(",",$authors);
+                            echo implode("/",$authors);
                             ?></td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Language</td>
                         <td class="right_td">
                             <?php
-                            $lang_count = 0;
-                            foreach ($product->productLanguage as $lan) {
-                                if ($lang_count == 0) {
-                                    echo $lan->language->language_name;
-                                } else {
-                                    echo ' / ' . $lan->language->language_name;
-                                }
-
-                                $lang_count++;
-                            }
+                            $languages = $product->getBookLanguages();
+                            echo implode("/",$languages);
                             ?>
                         </td>
                     </tr>
