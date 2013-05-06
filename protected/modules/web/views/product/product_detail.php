@@ -8,12 +8,13 @@
         <div class="left_book">
 
             <?php
-            echo CHtml::image($product->productImages[0]->image_url['image_large'], '', array("class" => "small_product_first"));
+            echo CHtml::image($product->productImages[0]->image_url['image_large'], '', 
+                    array("class" => "small_product_first","id"=>"large_image"));
             ?>
             <div class="small_product">
                 <?php
                 foreach ($product->productImages as $img) {
-                    echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px"));
+                    echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px","large_image"=>$img->image_url['image_large']));
                 }
                 ?>
             </div>
@@ -55,7 +56,7 @@
                         <td class="right_td">
                             <?php
                             $authors = $product->getAuthors();
-                            echo implode("/",$authors);
+                            echo implode("/", $authors);
                             ?></td>
                     </tr>
                     <tr class="product_tr">
@@ -63,7 +64,7 @@
                         <td class="right_td">
                             <?php
                             $languages = $product->getBookLanguages();
-                            echo implode("/",$languages);
+                            echo implode("/", $languages);
                             ?>
                         </td>
                     </tr>
@@ -173,6 +174,16 @@
     </div>
 </div>
 </div>
+<?php
+;
+
+Yii::app()->clientScript->registerScript('image_change_function', "
+                    $('.small_product img').click(function(){
+                        dtech.detailImagechange(this)
+                    })
+                  
+                ", CClientScript::POS_READY);
+?>
 <script>
     function totalPrice(quantity, price)
     {
@@ -180,3 +191,5 @@
         $('#price').html('$' + total_price);
     }
 </script>
+
+
