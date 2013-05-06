@@ -24,10 +24,6 @@ $('.search-form form').submit(function(){
 
 <h1>Orders List of selected User</h1>
 
-<p>
-    You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-    or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
@@ -73,14 +69,20 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'class' => 'CLinkColumn',
             'label' => 'View Detail',
             'header' => 'Purchase History',
+            'urlExpression' =>'Yii::app()->controller->createUrl("/customer/orderDetail",array("id"=>$data->order_id))',
             'linkHtmlOptions'=>array(
-                "ajax"=>array(
-                    "type"=>"GET",
-                    "update"=>"#order_detail",
-                    "url"=>Yii::app()->controller->createUrl("/customer/orderDetail",array("country" => Yii::app()->session["country_short_name"], "city" => Yii::app()->session["city_short_name"], "city_id" => Yii::app()->session["city_id"])),
-                    "data"=>'array("id"=>$data->order_id)',
-                
-                )
+                "onclick"=>'
+                    ajax_url = $(this).attr("href");
+                    user_name = $(this).parent().prev().prev().prev().html();
+                    $.ajax({
+                        type: "POST",
+                        url: ajax_url,
+                        data: { username: user_name }
+                    }).done(function( msg ) {
+                        $("#order_detail").html(msg);
+                    });
+                    return false;
+                    '
             ),
         ),
     ),
