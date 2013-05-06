@@ -176,18 +176,20 @@ class DTActiveRecord extends CActiveRecord {
      *  for city admin we have to access only city base record
      */
     public function makeCityAdminCondition($condition) {
+       
+        $controller =  Yii::app()->controller->id;
+        
+        $actions = array("login", "logout","storehome");
 
-
-        $actions = array("login", "logout");
-
-        if (!in_array($this->_action, $actions)) {
+        if ($controller != "site" && !in_array($this->_action, $actions) 
+                && !empty(Yii::app()->session['city_id'])) {
             $isSuper = Yii::app()->session['isSuper'];
 
             if ($isSuper != 1 &&  array_key_exists('city_id', $this->attributes)){
                 if(!empty($condition)){
-                    return " AND  city_id ='" . Yii::app()->session['city_id'] . "'  ";
+                    return " AND  t.city_id ='" . Yii::app()->session['city_id'] . "'  ";
                 }    
-                return "   city_id ='" . Yii::app()->session['city_id'] . "'  ";
+                return "   t.city_id ='" . Yii::app()->session['city_id'] . "'  ";
             }
         }
         return "";
@@ -199,14 +201,15 @@ class DTActiveRecord extends CActiveRecord {
      */
     public function makeCriteriaCityAdmin($criteria) {
 
+        $controller =  Yii::app()->controller->id;
+        
+        $actions = array("login", "logout","storehome");
 
-        $actions = array("login", "logout");
-
-        if (!in_array($this->_action, $actions)) {
+        if ($controller != "site" && !in_array($this->_action, $actions) && !empty(Yii::app()->session['city_id'])) {
             $isSuper = Yii::app()->session['isSuper'];
           
             if ($isSuper != 1 && array_key_exists('city_id', $this->attributes)) {
-                $criteria->addCondition("city_id ='" . Yii::app()->session['city_id'] . "'");
+                $criteria->addCondition("t.city_id ='" . Yii::app()->session['city_id'] . "'");
                 
             }
         }
