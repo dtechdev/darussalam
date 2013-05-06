@@ -1,6 +1,10 @@
 <div id="book_content">
     <div id="book_main_content">
         <?php $this->renderPartial("_subheader"); ?>
+        <?php
+        $this->widget('ext.lyiightbox.LyiightBox2', array(
+        ));
+        ?>
     </div>
 </div>
 <div id="descritpion">
@@ -8,13 +12,14 @@
         <div class="left_book">
 
             <?php
-            echo CHtml::image($product->productImages[0]->image_url['image_large'], '', 
-                    array("class" => "small_product_first","id"=>"large_image"));
+            $detail_img = CHtml::image($product->productImages[0]->image_url['image_large'], '', array("class" => "small_product_first", "id" => "large_image",));
+            echo CHtml::link($detail_img, $product->productImages[0]->image_url['image_large'], array("rel" => 'lightbox[_default]'));
+           
             ?>
             <div class="small_product">
                 <?php
                 foreach ($product->productImages as $img) {
-                    echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px","large_image"=>$img->image_url['image_large']));
+                    echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px", "large_image" => $img->image_url['image_large']));
                 }
                 ?>
             </div>
@@ -27,7 +32,8 @@
 
                         <div id="fb-root"></div>
                         <div id="fb-root"></div>
-                        <script>(function(d, s, id) {
+                        <script>
+                            (function(d, s, id) {
                                 var js, fjs = d.getElementsByTagName(s)[0];
                                 if (d.getElementById(id))
                                     return;
@@ -35,7 +41,8 @@
                                 js.id = id;
                                 js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=<?php echo Yii::app()->params['fb_key']; ?>";
                                 fjs.parentNode.insertBefore(js, fjs);
-                            }(document, 'script', 'facebook-jssdk'));</script>
+                            }(document, 'script', 'facebook-jssdk'));
+                        </script>
 
                         <div class="fly_product_hover">
                         </div>
@@ -178,7 +185,7 @@
 ;
 
 Yii::app()->clientScript->registerScript('image_change_function', "
-                    $('.small_product img').click(function(){
+                    jQuery('.small_product img').click(function(){
                         dtech.detailImagechange(this)
                     })
                   
@@ -188,7 +195,7 @@ Yii::app()->clientScript->registerScript('image_change_function', "
     function totalPrice(quantity, price)
     {
         total_price = quantity * price;
-        $('#price').html('$' + total_price);
+        jQuery('#price').html('$' + total_price);
     }
 </script>
 
