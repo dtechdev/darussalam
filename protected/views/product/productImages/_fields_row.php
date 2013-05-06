@@ -13,7 +13,9 @@ $relationName = "productImages";
         <?php
         if ($load_for == "view") {
             echo CHtml::activeHiddenField($model, '[' . $index . ']id');
+           echo CHtml::link("View Image",$model->image_url["image_large"],array("rel" => "lightbox[_default]"));
         }
+        
         echo CHtml::activeHiddenField($model, '[' . $index . ']upload_key',array("value"=>$index));
         
         ?>

@@ -137,10 +137,8 @@ class ProductImage extends DTActiveRecord {
      */
     public function beforeSave() {
 
-        $large_img = DTUploadedFile::getInstance($this, '[' . $this->upload_key . ']image_large');
-        $this->image_large = $large_img;
-        $this->image_small = "small_" . $large_img;
 
+        $this->setUploadVars();
         $this->updateAllToUndefault();
 
 
@@ -149,19 +147,40 @@ class ProductImage extends DTActiveRecord {
 
     public function afterSave() {
 
-        $large_img = DTUploadedFile::getInstance($this, '[' . $this->upload_key . ']image_large');
-
-        $this->image_large = $large_img;
-        $folder_array = array("product", $this->product->primaryKey, "product_images", $this->id);
-
-        $upload_path = DTUploadedFile::creeatRecurSiveDirectories($folder_array);
-
-        $large_img->saveAs($upload_path . $large_img->name);
-
-        DTUploadedFile::createThumbs($upload_path . $this->image_large, $upload_path, 150, "small_" . $this->image_large);
-        $this->deleteldImage();
+        $this->uploadImages();
         parent::afterSave();
         return true;
+    }
+
+    /**
+     * set image variable before save
+     */
+    public function setUploadVars() {
+        $large_img = DTUploadedFile::getInstance($this, '[' . $this->upload_key . ']image_large');
+        if (!empty($large_img)) {
+            $this->image_large = $large_img;
+            $this->image_small = "small_" . $large_img;
+        }
+    }
+
+    /**
+     * upload images
+     */
+    public function uploadImages() {
+        $large_img = DTUploadedFile::getInstance($this, '[' . $this->upload_key . ']image_large');
+        if (!empty($large_img)) {
+
+
+            $this->image_large = $large_img;
+            $folder_array = array("product", $this->product->primaryKey, "product_images", $this->id);
+
+            $upload_path = DTUploadedFile::creeatRecurSiveDirectories($folder_array);
+
+            $large_img->saveAs($upload_path . $large_img->name);
+
+            DTUploadedFile::createThumbs($upload_path . $this->image_large, $upload_path, 150, "small_" . $this->image_large);
+            $this->deleteldImage();
+        }
     }
 
     /**
