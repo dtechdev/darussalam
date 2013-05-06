@@ -22,11 +22,11 @@
             }
             ?>
             <div class="small_product">
-            <?php
-            foreach ($product->productImages as $img) {
-                echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px", "large_image" => $img->image_url['image_large']));
-            }
-            ?>
+                <?php
+                foreach ($product->productImages as $img) {
+                    echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px", "large_image" => $img->image_url['image_large']));
+                }
+                ?>
             </div>
         </div>
         <div class="right_book">
@@ -66,26 +66,26 @@
                     <tr class="product_tr">
                         <td class="left_td">Author</td>
                         <td class="right_td">
-<?php
-$authors = $product->getAuthors();
-echo implode("/", $authors);
-?></td>
+                            <?php
+                            $authors = $product->getAuthors();
+                            echo implode("/", $authors);
+                            ?></td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Language</td>
                         <td class="right_td">
-<?php
-$languages = $product->getBookLanguages();
-echo implode("/", $languages);
-?>
+                            <?php
+                            $languages = $product->getBookLanguages();
+                            echo implode("/", $languages);
+                            ?>
                         </td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">ISBN No</td>
                         <td class="right_td">
-<?php
-echo $product->isbn;
-?>
+                            <?php
+                            echo $product->isbn;
+                            ?>
                         </td>
                     </tr>
                     <tr class="product_tr">
@@ -100,31 +100,31 @@ echo $product->isbn;
                                 }
                                 $cat_count++;
                             }
-?></td>
+                            ?></td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Availability</td>
                         <td class="right_td">
-<?php
-echo CHtml::image(Yii::app()->theme->baseUrl . '/images/yes_product_img_03.jpg');
-?>
+                            <?php
+                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/yes_product_img_03.jpg');
+                            ?>
                             Yes
                         </td>
                     </tr>
                     <tr class="product_tr">
                         <td class="left_td">Product Rating</td>
                         <td class="right_td">
-<?php
-/** rating value is comming from controller * */
-$this->widget('CStarRating', array(
-    'name' => 'ratings',
-    'minRating' => 1,
-    'maxRating' => 5,
-    'starCount' => 5,
-    'value' => round($rating_value),
-    'readOnly' => true,
-));
-?></td>
+                            <?php
+                            /** rating value is comming from controller * */
+                            $this->widget('CStarRating', array(
+                                'name' => 'ratings',
+                                'minRating' => 1,
+                                'maxRating' => 5,
+                                'starCount' => 5,
+                                'value' => round($rating_value),
+                                'readOnly' => true,
+                            ));
+                            ?></td>
                     </tr>
                     <tr class="product_tr">
                     </tr>
@@ -133,15 +133,15 @@ $this->widget('CStarRating', array(
                     <tr class="price_cart">
                         <td class="price"  id="price"><?php echo '$ ' . round($product->product_price, 2); ?></td>
                         <td class="quantity">Quantity 
-<?php
-$quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
-echo CHtml::dropDownList('quantity', '', $quantities, array('onChange' => 'javascript:totalPrice(this.value,"' . $product->product_price . '")'), array());
-?>
+                            <?php
+                            $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
+                            echo CHtml::dropDownList('quantity', '', $quantities, array('onChange' => 'javascript:totalPrice(this.value,"' . $product->product_price . '")'), array());
+                            ?>
                         </td>
                         <td class="add_cart">
-<?php
-echo CHtml::image(Yii::app()->theme->baseUrl . '/images/add_to_cart_img.png');
-?>
+                            <?php
+                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/add_to_cart_img.png');
+                            ?>
 
                             <?php
                             echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart'), array('data' => array(
@@ -160,9 +160,9 @@ echo CHtml::image(Yii::app()->theme->baseUrl . '/images/add_to_cart_img.png');
                             ?>
                         </td>
                         <td class="wishlist"><a href="#">
-<?php
-echo CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg');
-?>
+                                <?php
+                                echo CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg');
+                                ?>
                             </a> Add to wishlist</td>
                     </tr>
                 </div>
@@ -174,14 +174,14 @@ echo CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg');
         <div id="product_comments">
 
 
-<?php
-/* get comments here * */
-$this->renderPartial("_product_comments", array("product" => $product));
-/**
- *  add product comments
- */
-$this->renderPartial("_product_add_comments", array("product" => $product));
-?>
+            <?php
+            /* get comments here * */
+            $this->renderPartial("_product_comments", array("product" => $product));
+            /**
+             *  add product comments
+             */
+            $this->renderPartial("_product_add_comments", array("product" => $product));
+            ?>
         </div>
     </div>
 </div>
