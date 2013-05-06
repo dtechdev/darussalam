@@ -28,6 +28,7 @@ class ProductController extends Controller {
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('viewcart', 'editcart', 'allproducts',
                     'featuredproducts', 'bestsellings', 'productdetail', 'productlisting',
+                    'productfilter',
                     'paymentmethod'),
                 'users' => array('*'),
             ),
@@ -83,14 +84,22 @@ class ProductController extends Controller {
         Yii::app()->controller->layout = '//layouts/main';
         Yii::app()->user->SiteSessions;
 
-        $order_detail = new OrderDetail;
-        $all_products = $order_detail->allProducts();
+        $all_products = Product::model()->allProducts();
 
-        $categories = new Categories();
-        $allCategories = $categories->allCategories();
+        $allCategories = Categories::model()->allCategories();
 
 
         $this->render('all_products', array('products' => $all_products, 'allCate' => $allCategories));
+    }
+    
+    /**
+     *  to get product on ajax bases
+     *  for filter of category
+     */
+    public function actionProductfilter(){
+        $all_products = Product::model()->allProducts();
+        $this->renderPartial("_product_list",array('products' => $all_products,));
+        
     }
 
     public function actionfeaturedProducts() {

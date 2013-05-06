@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/form.css" />
         <script>
             // defining js base path
-            var js_basePath = '<?php echo Yii::app()->baseUrl; ?>';
+            var js_basePath = '<?php echo Yii::app()->theme->baseUrl; ?>';
         </script>
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -168,8 +168,8 @@
     Yii::app()->clientScript->registerScript('plus_minus_image', "
                $('.plus').parent().parent().bind('click',function()
                 {
-                   var minus_img='" . Yii::app()->baseUrl . "/images/icons/minus.gif'; 
-                   var plus_img='" . Yii::app()->baseUrl . "/images/icons/plus.gif'; 
+                   var minus_img='" . Yii::app()->theme->baseUrl . "/images/icons/minus.gif'; 
+                   var plus_img='" . Yii::app()->theme->baseUrl . "/images/icons/plus.gif'; 
                     
                    if(typeof $($(this).children().children().get(0)).attr('class')!='undefined')
                    {    
@@ -192,8 +192,8 @@
                function changePlusMinuImage(obj)
                 {
                    //console.log(obj);
-                   var minus_img='" . Yii::app()->baseUrl . "/images/minus.png'; 
-                   var plus_img='" . Yii::app()->baseUrl . "/images/plus.png'; 
+                   var minus_img='" . Yii::app()->theme->baseUrl . "/images/minus.png'; 
+                   var plus_img='" . Yii::app()->theme->baseUrl . "/images/plus.png'; 
                    if(document.URL.search('create')==-1)
                    {
                          if($(obj).attr('class').search('plus_rotate')!=-1)

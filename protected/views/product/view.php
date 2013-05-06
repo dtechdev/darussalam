@@ -1,6 +1,8 @@
 <?php
 /* @var $this ProductController */
 /* @var $model Product */
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/gridform.css');
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/functions.js');
 
 $this->breadcrumbs = array(
     'Products' => array('index'),
@@ -22,4 +24,6 @@ $this->widget('zii.widgets.CDetailView', array(
         'product_price',
     ),
 ));
+
+$this->renderPartial('productImages/_container', array('model' => $model, "type" => "form"));
 ?>

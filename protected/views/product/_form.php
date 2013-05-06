@@ -2,6 +2,9 @@
 /* @var $this ProductController */
 /* @var $model Product */
 /* @var $form CActiveForm */
+
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/gridform.css');
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/functions.js');
 ?>
 
 <div class="form wide">
@@ -10,6 +13,7 @@
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'product-form',
         'enableAjaxValidation' => false,
+        'htmlOptions' => array('enctype' => 'multipart/form-data'),
     ));
     ?>
 
@@ -47,36 +51,34 @@
         <?php echo $form->error($model, 'product_price'); ?>
     </div>
     <div class="row">
-        <?php echo $form->labelEx($mProductDiscount, 'discount_type'); ?>
-        <?php echo $form->dropDownList($mProductDiscount, 'discount_type', array('fixed' => 'Fixed', 'percentage' => 'Percentage'), array('prompt' => 'Select Discount Type', 'size' => 1, 'maxlength' => 1)); ?>
-        <?php echo $form->error($mProductDiscount, 'discount_type'); ?>
+        <?php echo $form->labelEx($model, 'discount_type'); ?>
+        <?php echo $form->dropDownList($model, 'discount_type', array('fixed' => 'Fixed', 'percentage' => 'Percentage'), array('prompt' => 'Select Discount Type', 'size' => 1, 'maxlength' => 1)); ?>
+        <?php echo $form->error($model, 'discount_type'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($mProductDiscount, 'discount_value'); ?>
-        <?php echo $form->textField($mProductDiscount, 'discount_value', array('size' => 10, 'maxlength' => 10)); ?>
-        <?php echo $form->error($mProductDiscount, 'discount_value'); ?>
+        <?php echo $form->labelEx($model, 'discount_value'); ?>
+        <?php echo $form->textField($model, 'discount_value', array('size' => 10, 'maxlength' => 10)); ?>
+        <?php echo $form->error($model, 'discount_value'); ?>
     </div>
     <div class="row">
-        <?php echo $form->labelEx($mProductProfile, 'isbn'); ?>
-        <?php echo $form->textField($mProductProfile, 'isbn', array('size' => 60, 'maxlength' => 255)); ?>
-        <?php echo $form->error($mProductProfile, 'isbn'); ?>
+        <?php echo $form->labelEx($model, 'isbn'); ?>
+        <?php echo $form->textField($model, 'isbn', array('size' => 60, 'maxlength' => 255)); ?>
+        <?php echo $form->error($model, 'isbn'); ?>
     </div>
-    <!--    <div class="row">
-    <?php //echo $form->labelEx($mProductProfile, 'language_id'); ?>
-    <?php //echo $form->dropDownList($mProductProfile, 'language_id', $languageList, array('prompt' => 'Select Language')); ?>
-    <?php //echo $form->error($mProductProfile, 'language_id'); ?>
-        </div>-->
+
     <div class="row">
-        <?php echo $form->labelEx($mProductProfile, 'author_id'); ?>
-        <?php echo $form->dropDownList($mProductProfile, 'author_id', $authorList, array('prompt' => 'Select Author')); ?>
-        <?php echo $form->error($mProductProfile, 'author_id'); ?>
+        <?php echo $form->labelEx($model, 'authors'); ?>
+        <?php echo $form->dropDownList($model, 'authors', $authorList, array('prompt' => 'Select Author')); ?>
+        <?php echo $form->error($model, 'authors'); ?>
     </div>
-    <div class="row">
-        <?php echo $form->labelEx($mProductImage, 'image'); ?>
-        <?php echo CHtml::activeFileField($mProductImage, 'image', array('size' => 60, 'maxlength' => 255)); ?>
-        <?php echo $form->error($mProductImage, 'image'); ?>
-    </div>
+
+    <?php
+    if ($this->action->id != "update") {
+        $this->renderPartial('productImages/_container', array('model' => $model, "type" => "field"));
+    }
+    ?>
+
 
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => "btn")); ?>
