@@ -44,10 +44,28 @@ $this->widget('zii.widgets.grid.CGridView', array(
             )
         ),
         array(
-            'name' => 'order_price',
+            'name' => 'product_name',
             'type' => 'Raw',
             //'value' => 'if($data->status_id="1")?Active:"Inactive"',
-            'value' => '"&dollar;".$data->order->total_price',
+            'value' => '$data->product->product_name',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'product_quantity',
+            'type' => 'Raw',
+            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
+            'value' => '$data->quantity',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'product_price',
+            'type' => 'Raw',
+            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
+            'value' => '"&dollar;".$data->product_price',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
