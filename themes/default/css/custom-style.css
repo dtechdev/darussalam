@@ -28,6 +28,6 @@ span.required{ color: red;}
 .small_product img:hover {
     border-color : #000000;
 }
-.txt_btn {
+.txt_btn,.search_btn,.searching_img {
     cursor: pointer;
 }
