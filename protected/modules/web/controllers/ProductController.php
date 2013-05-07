@@ -26,7 +26,7 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('viewcart', 'editcart', 'allproducts',
+                'actions' => array('viewcart', 'editcart', 'viewwishlist', 'editwishlist', 'allproducts',
                     'featuredproducts', 'bestsellings', 'productdetail', 'productlisting',
                     'productfilter',
                     'paymentmethod'),
@@ -78,6 +78,42 @@ class ProductController extends Controller {
         echo CJSON::encode(array('redirect' => $this->createUrl('/web/product/viewcart')));
     }
 
+    /**
+     * For viewing the list of product which add into wishlist
+     */
+    public function actionViewwishlist() {
+
+
+        Yii::app()->user->SiteSessions;
+        $ip = Yii::app()->request->getUserHostAddress();
+        Yii::app()->theme = Yii::app()->session['layout'];
+        Yii::app()->controller->layout = '//layouts/main';
+
+
+        $wishlist_model = new WishList();
+        if (isset(Yii::app()->user->id)) {
+            $wish = $wishlist_model->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
+        } else {
+            $wish = $wishlist_model->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"');
+        }
+
+
+        $this->render('viewwishlist', array('cart' => $wish));
+    }
+
+    /**
+     * For Edit or delete the wishlist product
+     */
+    public function actionEditwishlist() {
+
+        if ($_REQUEST['type'] == 'delete_wishlist') {
+            $wishlist_model = new WishList();
+            $wishlist_model->findByPk($_REQUEST['id'])->delete();
+            //$this->redirect('/product/viewcart');
+        }
+        echo CJSON::encode(array('redirect' => $this->createUrl('/web/product/viewwishlist')));
+    }
+
     //front site actions
     public function actionallProducts() {
         //queries 
@@ -91,15 +127,14 @@ class ProductController extends Controller {
 
         $this->render('all_products', array('products' => $all_products, 'allCate' => $allCategories));
     }
-    
+
     /**
      *  to get product on ajax bases
      *  for filter of category
      */
-    public function actionProductfilter(){
+    public function actionProductfilter() {
         $all_products = Product::model()->allProducts();
-        $this->renderPartial("_product_list",array('products' => $all_products,));
-        
+        $this->renderPartial("_product_list", array('products' => $all_products,));
     }
 
     public function actionfeaturedProducts() {
