@@ -116,8 +116,12 @@ class Pages extends DTActiveRecord {
     /**
      * 
      */
-    public function installConfiguration() {
-        $model = new ConfMisc;
+    public function getPages() {
+        $criteria = new CDbCriteria();
+        $criteria->select  = "id,title";
+        $criteria->condition  = "city_id=".Yii::app()->session['city_id'];
+        $pages = $this->findAll($criteria);
+        return $pages;
     }
 
 }
