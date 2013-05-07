@@ -164,8 +164,21 @@
                         <td class="wishlist"><a href="#">
                                 <?php
                                 echo CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg');
-                                ?>
-                            </a> Add to wishlist</td>
+
+                                echo CHtml::ajaxLink('Add to wishlist', $this->createUrl('/cart/addtowishlist'), array('data' => array(
+                                    'product_id' => $product->product_id,
+                                    'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
+                                    'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
+                                ),
+                                'type' => 'POST',
+                                'dataType' => 'json',
+                                'success' => 'function(data){
+                                           jQuery("#wishlist_counter").html(data.wishlist_counter);
+                                      }',
+                                    )
+                            );
+                            ?>
+                            </a> </td>
                     </tr>
                 </div>
         </div>
