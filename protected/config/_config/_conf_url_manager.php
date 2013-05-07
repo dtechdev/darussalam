@@ -45,6 +45,7 @@ $url_manager = array(
         
         /** admin url ** */
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/user/create' => '/user/create',
+        '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/user/toggleEnabled/<id:[\w-\.]+>' => '/user/toggleEnabled',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/userRole/create' => '/userRole/create',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/country/create' => '/country/create',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/city/create' => '/city/create',
