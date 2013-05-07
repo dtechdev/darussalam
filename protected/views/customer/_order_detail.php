@@ -5,7 +5,7 @@
 $user_id = Yii::app()->user->id;
 //$this->layout='column2';
 if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
-   $this->renderPartial("/common/_left_menu");
+    $this->renderPartial("/common/_left_menu");
 }
 
 Yii::app()->clientScript->registerScript('search', "
@@ -32,8 +32,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $model->search(),
     //'filter' => $model,
     'columns' => array(
-
-
         array(
             'name' => 'order_date',
             'type' => 'Raw',
@@ -48,6 +46,24 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'type' => 'Raw',
             //'value' => 'if($data->status_id="1")?Active:"Inactive"',
             'value' => '$data->product->product_name',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'book_language',
+            'type' => 'Raw',
+            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
+            'value' => '$data->product->language->language_name',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'book_author',
+            'type' => 'Raw',
+            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
+            'value' => '$data->product->author->author_name',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
@@ -79,7 +95,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'style' => "text-align:left"
             )
         ),
-
     ),
 ));
 ?>
