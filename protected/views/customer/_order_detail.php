@@ -62,10 +62,19 @@ $this->widget('zii.widgets.grid.CGridView', array(
             )
         ),
         array(
-            'name' => 'product_price',
+            'name' => 'unit_price',
             'type' => 'Raw',
             //'value' => 'if($data->status_id="1")?Active:"Inactive"',
             'value' => '"&dollar;".$data->product_price',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'total_price',
+            'type' => 'Raw',
+            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
+            'value' => '"&dollar;".$data->product_price*$data->quantity',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )

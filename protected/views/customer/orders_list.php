@@ -5,7 +5,7 @@
 $user_id = Yii::app()->user->id;
 //$this->layout='column2';
 if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
-   $this->renderPartial("/common/_left_menu");
+    $this->renderPartial("/common/_left_menu");
 }
 
 Yii::app()->clientScript->registerScript('search', "
@@ -32,9 +32,19 @@ $this->widget('zii.widgets.grid.CGridView', array(
     //'filter' => $model,
     'columns' => array(
         array(
-            'name' => 'order_id',
+            'name' => 'order_date',
             'type' => 'Raw',
-            'value' => '$data->order_id',
+            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
+            'value' => '$data->order_date',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'city_name',
+            'type' => 'Raw',
+            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
+            'value' => '$data->user->city->city_name',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
@@ -43,15 +53,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'user_name',
             'type' => 'Raw',
             'value' => '!empty($data->user_id)?$data->user->userProfiles->first_name." ".$data->user->userProfiles->last_name:""',
-            'headerHtmlOptions' => array(
-                'style' => "text-align:left"
-            )
-        ),
-        array(
-            'name' => 'order_date',
-            'type' => 'Raw',
-            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
-            'value' => '$data->order_date',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
@@ -69,11 +70,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'class' => 'CLinkColumn',
             'label' => 'View Detail',
             'header' => 'Purchase History',
-            'urlExpression' =>'Yii::app()->controller->createUrl("/customer/orderDetail",array("id"=>$data->order_id))',
-            'linkHtmlOptions'=>array(
-                "onclick"=>'
+            'urlExpression' => 'Yii::app()->controller->createUrl("/customer/orderDetail",array("id"=>$data->order_id))',
+            'linkHtmlOptions' => array(
+                "onclick" => '
                     ajax_url = $(this).attr("href");
-                    user_name = $(this).parent().prev().prev().prev().html();
+                    user_name = $(this).parent().prev().prev().html();
                     $.ajax({
                         type: "POST",
                         url: ajax_url,
