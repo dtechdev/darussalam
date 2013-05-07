@@ -65,6 +65,53 @@ class CartController extends Controller
         echo CJSON::encode(array('product_id' => '1', 'cart_counter' => $tot['cart_total']));
     }
 
+    public function actionAddtowishlist()
+    {
+
+        $ip = Yii::app()->request->getUserHostAddress();
+        $wishlist_model = new WishList();
+        if (isset(Yii::app()->user->id))
+        {
+            $wishlist = $wishlist_model->find('product_id=' . $_REQUEST['product_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
+            $ip = '';
+        }
+        else
+        {
+            $wishlist = $wishlist_model->find('product_id=' . $_REQUEST['product_id'] . ' AND session_id="' . $ip . '"');
+        }
+        if ($wishlist == null)
+        {
+            $wishlist_model = new WishList();
+            $wishlist_model->product_id = $_REQUEST['product_id'];
+            $wishlist_model->user_id = Yii::app()->user->id;
+            $wishlist_model->city_id = Yii::app()->session['city_id'];
+            $wishlist_model->added_date = date(Yii::app()->params['dateformat']);
+            $wishlist_model->session_id = $ip;
+            $wishlist_model->save();
+        }
+       
+        
+
+        //count total added products in cart
+        if (isset(Yii::app()->user->id))
+        {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('count(*) as total_pro')
+                    ->from('wish_list')
+                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
+                    ->queryRow();
+        }
+        else
+        {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('count(*) as total_pro')
+                    ->from('wish_list')
+                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
+                    ->queryRow();
+        }
+        echo CJSON::encode(array('product_id' => '1', 'wishlist_counter' => $tot['total_pro']));
+    }
+
 }
 
 ?>
