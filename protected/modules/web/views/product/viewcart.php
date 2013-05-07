@@ -37,7 +37,14 @@ if (empty($cart)) {
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $pro->product->productImages[0]->image_small);
+                                if(empty($pro->product->productImages[0]))
+                                {
+                                    echo CHtml::image($pro->product->no_image);
+                                }
+                                else
+                                {
+                                    echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $pro->product->productImages[0]->image_small);
+                                }
                                 ?>
                             </div>
                             <div class="left_right_cart">
