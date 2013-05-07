@@ -73,6 +73,12 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/f
         <?php echo $form->error($model, 'authors'); ?>
     </div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model, 'languages'); ?>
+        <?php echo $form->dropDownList($model, 'languages', $languageList, array('prompt' => 'Select Language')); ?>
+        <?php echo $form->error($model, 'languages'); ?>
+    </div>
+
     <?php
     if ($this->action->id != "update") {
         $this->renderPartial('productImages/_container', array('model' => $model, "type" => "field"));
