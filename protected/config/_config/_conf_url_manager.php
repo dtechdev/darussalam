@@ -25,6 +25,7 @@ $url_manager = array(
        
         /** Search **/
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/dosearch' =>'/web/search/dosearch',
+        '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/getSearch' =>'/web/search/getSearch',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/viewPage/<id:[\w-\.]+>' =>'/web/page/viewPage',
         
         
