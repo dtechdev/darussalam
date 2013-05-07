@@ -234,12 +234,14 @@
             </div>
             <div id="middle_footer">
                 <h1>Navigation</h1>
-                <article><a href="#">About Us</a></article>
-                <article><a href="#">Contact Us</a></article>
-                <article><a href="#">Careers</a></article>
-                <article><a href="#">FAQ's</a></article>
-                <article><a href="#">Terms &amp; Conditions</a></article>
-                <article><a href="#">Shipping Rates & Policies</a></article>
+                <?php
+                $pages = Pages::model()->getPages();
+                foreach ($pages as $page) {
+                    echo CHtml::openTag("article");
+                    echo CHtml::link($page->title, Yii::app()->createUrl('/web/page/viewPage/',array("id"=>$page->id)));
+                    echo CHtml::closeTag("article");
+                }
+                ?>
             </div>
             <div id="right_footer">
                 <h1>What's New?</h1>

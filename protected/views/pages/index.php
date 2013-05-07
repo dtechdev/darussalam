@@ -56,14 +56,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )),
-            array(
-            'name' => 'content',
-            'type' => 'Raw',
-            'value' => '$data->content',
-            'headerHtmlOptions' => array(
-                'style' => "text-align:left"
-            )),
-
+            
 		array(
 			'class'=>'CButtonColumn',
 		),
