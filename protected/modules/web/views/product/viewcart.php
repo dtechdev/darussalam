@@ -37,41 +37,35 @@ if (empty($cart)) {
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                if(empty($pro->product->productImages[0]))
-                                {
+                                if (empty($pro->product->productImages[0])) {
                                     echo CHtml::image($pro->product->no_image);
-                                }
-                                else
-                                {
+                                } else {
                                     echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $pro->product->productImages[0]->image_small);
                                 }
                                 ?>
                             </div>
                             <div class="left_right_cart">
                                 <h1><?php echo $pro->product->product_name; ?></h1>
-                                
+
                                 <?php
-                                 /*
-                                ajax link for for delete cart data / cart management /card edit
-                                */
+                                /*
+                                  ajax link for for delete cart data / cart management /card edit
+                                 */
                                 echo CHtml::ajaxLink(
-                                 CHtml::image(
-                                 Yii::app()->theme->baseUrl . "/images/close_img_03.png", "Publish",
-                                           array("title" => "Delete",
-                                               "class" => "close_img",
+                                        CHtml::image(
+                                                Yii::app()->theme->baseUrl . "/images/close_img_03.png", "Publish", array("title" => "Delete",
+                                            "class" => "close_img",
                                                 )
-                                             ), 
-                                         $this->createUrl("/web/product/editcart"), 
-                                         array("type" => "POST",
-                                              "dataType" => "json",
-                                              "data" => array(
-                                              "type" => 'delete_cart',
-                                              "cart_id" => $pro->cart_id,
-                                                              ),
-                                             "success" => "function(data) {
+                                        ), $this->createUrl("/web/product/editcart"), array("type" => "POST",
+                                    "dataType" => "json",
+                                    "data" => array(
+                                        "type" => 'delete_cart',
+                                        "cart_id" => $pro->cart_id,
+                                    ),
+                                    "success" => "function(data) {
                                                              window.location.href=data.redirect
                                                                           }",
-                                              )
+                                        )
                                 );
                                 ?>
                                 <h2><?php echo $pro->product->product_description; ?></h2>
@@ -79,24 +73,26 @@ if (empty($cart)) {
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Author</td>
                                         <td class="cart_right_td"><?php
-                                            foreach ($pro->product->productProfile as $pp) {
-                                                echo $pp->author->author_name;
-                                            }
-                                            ?></td>
+                                            echo isset($pro->product->author->author_name) ? $pro->product->author->author_name : "";
+//                                            foreach ($pro->product->productProfile as $pp) {
+//                                                echo $pp->author->author_name;
+//                                            }
+                                ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Language</td>
                                         <td class="cart_right_td"><?php
-                                            $i = 0;
-                                            foreach ($pro->product->productLanguage as $lan) {
-                                                if ($i == 0)
-                                                    echo $lan->language->language_name;
-                                                else
-                                                    echo ' / ' . $lan->language->language_name;
-
-                                                $i++;
-                                            }
-                                            ?></td>
+                                    echo isset($pro->product->language->language_name) ? $pro->product->language->language_name : "";
+//                                            $i = 0;
+//                                            foreach ($pro->product->productLanguage as $lan) {
+//                                                if ($i == 0)
+//                                                    echo $lan->language->language_name;
+//                                                else
+//                                                    echo ' / ' . $lan->language->language_name;
+//
+//                                                $i++;
+//                                            }
+                                ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                     </tr>
@@ -116,7 +112,7 @@ if (empty($cart)) {
                                             'success' => 'function(data) {
                                                             window.location.href=data.redirect
                                                            }',
-                                        ))
+                                            ))
                                     );
                                     ?>
                                     <h3>$<?php echo round($pro->quantity * $pro->product->product_price, 2); ?></h3>
@@ -159,10 +155,10 @@ if (empty($cart)) {
                             <a href="<?php echo $this->createUrl('/web/site/login'); ?>">
                                 <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
                             </a>
-                            <?php } ?>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
         </div>
     </div><?php
-}?>
+                }?>
