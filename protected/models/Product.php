@@ -83,6 +83,8 @@ class Product extends DTActiveRecord {
             'productLanguage' => array(self::HAS_MANY, 'ProductLanguage', 'product_id'),
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
             'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id'),
+            'author' => array(self::BELONGS_TO, 'Author', 'authors'),
+            'language' => array(self::BELONGS_TO, 'Language', 'languages'),
         );
     }
 
