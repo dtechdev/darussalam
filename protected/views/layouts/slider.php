@@ -14,7 +14,7 @@
             </nav>
             <div class="txt">
                 <form id="search_form" method="post" 
-                      action="<?php echo $this->createUrl("/web/search/getSearch") ?>"
+                      action="<?php echo $this->createUrl("/web/search/getSearch") ?>" >
                       <div class="txt2">
                         <div class="search_img">
                             <a href="javascript:void(0)" onclick="dtech.doGloblSearch()"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/search_img_03.jpg" alt="search img" /></a>
