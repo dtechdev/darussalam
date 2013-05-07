@@ -27,7 +27,7 @@ class UserController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create','index', 'view',
+                'actions' => array('create', 'index', 'view',
                 ),
                 'users' => array('@'),
             ),
@@ -37,7 +37,7 @@ class UserController extends Controller {
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array( 'delete', 'update',),
+                'actions' => array('delete', 'update','toggleEnabled'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -156,6 +156,18 @@ class UserController extends Controller {
         $this->render('index', array(
             'model' => $model,
         ));
+    }
+
+    public function actionToggleEnabled($id) {
+        $model = $this->loadModel($id);
+        $this->layout = "";
+        if ($model->status_id == 1) {
+            $model->status_id = 0;
+        } else {
+            $model->status_id = 1;
+        }
+        echo $id;
+        User::model()->updateByPk($id,array("status_id"=>$model->status_id));
     }
 
     /**
