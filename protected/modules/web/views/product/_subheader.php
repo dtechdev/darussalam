@@ -10,8 +10,26 @@
     </a>
 </div>
 <div class="search_box">
-    <?php echo CHtml::textField('textsearch', '', array("class" => "search_text", "placeholder" => "Search keywords or image by keywords...")) ?>
-    <?php echo CHtml::button('', array("class" => "search_btn")) ?>
+    <form id="search_form" method="post" 
+          action="<?php echo $this->createUrl("/web/search/getSearch") ?>" >
+              <?php
+              $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                  'name' => 'serach_field',
+                  'source' => $this->createUrl("/web/search/dosearch"),
+                  // additional javascript options for the autocomplete plugin
+                  'options' => array(
+                      'minLength' => '1',
+                  ),
+                  'htmlOptions' => array(
+                      'class' => 'search_text',
+                      "placeholder" => "Search keywords or image by keywords..."
+                  ),
+              ));
+              ?>
+    </form>
+    <?php
+    echo CHtml::button('', array("class" => "search_btn", "onclick" => "dtech.doGloblSearch()"));
+    ?>
     <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/searching_img_03.jpg", '', array("class" => "searching_img")) ?>
 </div>
 <nav>
