@@ -178,10 +178,11 @@ class DTActiveRecord extends CActiveRecord {
     public function makeCityAdminCondition($condition) {
        
         $controller =  Yii::app()->controller->id;
+        $controllers = array("search","site");
         
         $actions = array("login", "logout","storehome");
 
-        if ($controller != "site" && !in_array($this->_action, $actions) 
+        if (!in_array($controller,$controllers) && !in_array($this->_action, $actions) 
                 && !empty(Yii::app()->session['city_id'])) {
             $isSuper = Yii::app()->session['isSuper'];
 
@@ -202,10 +203,10 @@ class DTActiveRecord extends CActiveRecord {
     public function makeCriteriaCityAdmin($criteria) {
 
         $controller =  Yii::app()->controller->id;
-        
+        $controllers = array("search","site");
         $actions = array("login", "logout","storehome");
 
-        if ($controller != "site" && !in_array($this->_action, $actions) && !empty(Yii::app()->session['city_id'])) {
+        if (!in_array($controller,$controllers)  && !in_array($this->_action, $actions) && !empty(Yii::app()->session['city_id'])) {
             $isSuper = Yii::app()->session['isSuper'];
           
             if ($isSuper != 1 && array_key_exists('city_id', $this->attributes)) {

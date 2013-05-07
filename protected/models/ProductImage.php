@@ -133,6 +133,9 @@ class ProductImage extends DTActiveRecord {
             $this->image_url['image_small'] = Yii::app()->baseUrl . "/uploads/product/" . $this->product_id;
             $this->image_url['image_small'].= "/product_images/" . $this->id . "/" . $this->image_small;
         }
+        else {
+            $this->image_url['image_small'] = Yii::app()->baseUrl."/images/product_images/noimages.jpeg";
+        }
 
         parent::afterFind();
     }
