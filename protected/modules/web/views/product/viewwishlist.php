@@ -9,7 +9,7 @@ if (empty($cart)) {
     <div id="shopping_cart" style="height:308px;text-align:center;  ">
         <div id="main_shopping_cart">
             <div class="left_right_cart">
-                Your Wish List IS empty
+                Your Wishlist IS empty
             </div>
         </div>                                        
     </div>
@@ -20,7 +20,7 @@ if (empty($cart)) {
     <div id="shopping_cart">
         <div id="main_shopping_cart">
             <div class="top_cart">
-                <h1>Wish List</h1>
+                <h1>Wishlist</h1>
                 <?php //echo CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_img_03.png") ?>
             </div>
             <div id="cart">
@@ -72,7 +72,7 @@ if (empty($cart)) {
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Author</td>
                                         <td class="cart_right_td"><?php
-                                            echo isset($pro->product->author->author_name) ? $pro->product->author->author_name : "";
+                        echo isset($pro->product->author->author_name) ? $pro->product->author->author_name : "";
 //                                            foreach ($pro->product->productProfile as $pp) {
 //                                                echo $pp->author->author_name;
 //                                            }
@@ -94,6 +94,34 @@ if (empty($cart)) {
                                 ?></td>
                                     </tr>
                                     <tr class="cart_tr">
+                                        <td class="cart_left_td">Price</td>
+                                        <td class="cart_right_td">
+                                            $<?php echo round($pro->product->product_price, 2); ?>
+                                        </td>
+                                    </tr>
+                                    <tr class="cart_tr">
+                                        <td></td>
+                                        <td class="add_cart">
+                                            <?php
+                                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/add_to_cart_img.png');
+                                            ?>
+
+                                            <?php
+                                            echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart'), array('data' => array(
+                                                    'product_id' => $pro->product->product_id,
+                                                    'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
+                                                    'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
+                                                    'quantity' => '1'
+                                                ),
+                                                'type' => 'POST',
+                                                'dataType' => 'json',
+                                                'success' => 'function(data){
+                                           jQuery("#cart_counter").html(data.cart_counter);
+                                      }',
+                                                    ), array('class' => 'add_to_cart')
+                                            );
+                                            ?>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -103,4 +131,4 @@ if (empty($cart)) {
             </div>
         </div>
     </div><?php
-                }?>
+            }?>
