@@ -79,7 +79,7 @@ class Product extends DTActiveRecord {
             'discount' => array(self::HAS_MANY, 'ProductDiscount', 'product_id'),
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
-            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id','order'=>'is_default DESC'),
+            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'order' => 'is_default DESC'),
             'productLanguage' => array(self::HAS_MANY, 'ProductLanguage', 'product_id'),
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
             'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id'),
@@ -252,6 +252,31 @@ class Product extends DTActiveRecord {
         $criteria->select = "language_id,language_name";
 
         return CHtml::listData(Language::model()->findAll($criteria), "language_id", "language_name");
+    }
+
+    /**
+     *  get product images for some code
+     * @return type 
+     */
+    public function getImage() {
+        $images = array();
+        foreach ($this->productImages as $img) {
+            if ($img->is_default == 1) {
+                $images[] = array('id' => $img->id,
+                    'image_large' => $img->image_url['image_large'],
+                    'image_small' => $img->image_url['image_small'],
+                );
+                break;
+            } else {
+                $images[] = array('id' => $img->id,
+                    'image_large' => $img->image_url['image_large'],
+                    'image_small' => $img->image_url['image_small'],
+                );
+                break;
+            }
+        }
+
+        return $images;
     }
 
 }
