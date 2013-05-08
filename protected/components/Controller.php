@@ -56,7 +56,7 @@ class Controller extends Yiiauth {
      */
     public function setPages() {
 
-        if ($this->id == "site" || $this->module->id == "web") {
+        if ($this->id == "site" || $this->getModule() == "web") {
 
             $this->webPages = Pages::model()->getPages();
         }
