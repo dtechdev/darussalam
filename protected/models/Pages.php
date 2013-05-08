@@ -125,7 +125,8 @@ class Pages extends DTActiveRecord {
         $criteria->select  = "id,title";
         $criteria->condition  = "city_id=".Yii::app()->session['city_id'];
         $pages = $this->findAll($criteria);
-        return $pages;
-    }
+        return $pages; 
+        
+    } 
 
 }
