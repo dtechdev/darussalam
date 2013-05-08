@@ -100,8 +100,8 @@ class Pages extends DTActiveRecord {
         $criteria->compare('activity_log', $this->activity_log, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
+                    'criteria' => $criteria,
+                ));
     }
 
     /**
@@ -117,12 +117,16 @@ class Pages extends DTActiveRecord {
      * 
      */
     public function getPages() {
+
+        if (!isset(Yii::app()->session['city_id'])) {
+            return array();
+        }
         $criteria = new CDbCriteria();
         $criteria->select  = "id,title";
-        $criteria->condition  = "city_id=".Yii::app()->session['city_id'];
+        $criteria->condition  = "city_id=" . Yii::app()->session['city_id'];
         $pages = $this->findAll($criteria);
-        return $pages; 
+        return $pages;
         
-    } 
+    }
 
 }
