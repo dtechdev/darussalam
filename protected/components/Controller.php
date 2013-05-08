@@ -4,8 +4,7 @@
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class Controller extends Yiiauth
-{
+class Controller extends Yiiauth {
 
     /**
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',
@@ -37,28 +36,37 @@ class Controller extends Yiiauth
      * @var type 
      */
     public $PcmWidget;
+    public $webPages = array();
 
-    public function beforeAction($action)
-    {
+    public function beforeAction($action) {
 
         parent::beforeAction($action);
 
-
+        $this->setPages();
         $this->registerWidget();
         $this->basePath = Yii::app()->basePath;
-        if (strstr($this->basePath, "protected"))
-        {
+        if (strstr($this->basePath, "protected")) {
             $this->basePath = realPath($this->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR);
         }
         return true;
     }
 
     /**
+     *  set pages for system
+     */
+    public function setPages() {
+
+        if ($this->id == "site" || $this->module->id == "web") {
+
+            $this->webPages = Pages::model()->getPages();
+        }
+    }
+
+    /**
      * register widget
      * e.g gridview 
      */
-    public function registerWidget()
-    {
+    public function registerWidget() {
         Yii::app()->widgetFactory->widgets = array(
             'ItstGridView' => array(
                 'cssFile' => Yii::app()->baseURL . '/css/gridview.css',
@@ -66,15 +74,14 @@ class Controller extends Yiiauth
                 'pager' => array('cssFile' => Yii::app()->baseURL . '/css/pager.css'),
                 'emptyText' => "No Record Found",
                 'showTableOnEmpty' => false,
-                ));
+        ));
     }
 
     /**
      * handle client script to see 
      * no script will be loaded again 
      */
-    public function handleClientScript()
-    {
+    public function handleClientScript() {
         Yii::app()->clientScript->scriptMap = array(
             (YII_DEBUG ? 'jquery.js' : 'jquery.min.js') => false,
             'jquery-ui.min.js' => false,
@@ -98,20 +105,18 @@ class Controller extends Yiiauth
      * @param INT $redirect_to_parent_id 
      *  In-case to redirect to specific id, or saving some child's child data and have to show view of parent
      */
-    public function manageChild($model, $child_relation_name, $parent_relation_name, $scanario = "", $redirect_id = 0, $redirect_path = "")
-    {
+    public function manageChild($model, $child_relation_name, $parent_relation_name, $scanario = "", $redirect_id = 0, $redirect_path = "") {
         /* Get exact classs name */
         $activeRelation = $model->getActiveRelation($child_relation_name);
         $className = $activeRelation->className;
 
         /* if that child is posted */
-        if (isset($_POST[$className]))
-        {
+        if (isset($_POST[$className])) {
             /* create child object of above class */
 
             $cModel = new $className($scanario);
-            
-                        
+
+
 
 
             /*  */
@@ -119,15 +124,11 @@ class Controller extends Yiiauth
 
             if ($repRes['result'] == false)
                 $model->$child_relation_name = $repRes['models'];
-            else
-            {
+            else {
                 $id = ($redirect_id == 0 ? $model->primaryKey : $redirect_id);
-                if (!empty($redirect_path))
-                {
+                if (!empty($redirect_path)) {
                     $this->redirect($redirect_path);
-                }
-                else
-                {
+                } else {
                     $this->redirect(array('view', 'id' => $id, '#' => $child_relation_name));
                 }
             }
@@ -140,15 +141,11 @@ class Controller extends Yiiauth
      *  in controller
      * @return int 
      */
-    public function getRootParent()
-    {
+    public function getRootParent() {
         $model = Menu::model()->findByAttributes(array("controller" => $this->id, "is_assigned" => "Yes"));
-        if (count($model) == 1)
-        {
+        if (count($model) == 1) {
             return $model->root_parent;
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
@@ -161,56 +158,47 @@ class Controller extends Yiiauth
      * @param type $root_parent
      * @param type $pidArray 
      */
-    public function getNavigation($pid = 0, $level = 0, $root_parent = 0, $pidArray = array())
-    {
+    public function getNavigation($pid = 0, $level = 0, $root_parent = 0, $pidArray = array()) {
 
         $model = Menu::model()->findAllByAttributes(array("pid" => $pid, "is_assigned" => "Yes"));
         $l = $level;
 
-        if (count($model) > 0)
-        {
-            if ($pid == 0)
-            {
+        if (count($model) > 0) {
+            if ($pid == 0) {
                 $this->menuHtml .= '<ul id="nav">';
                 $l = 1;
-            }
-            else
-            {
+            } else {
                 $this->menuHtml .='<ul class="' . ($level == 1 ? 'sub' : '') . '">';
                 $l = 2;
             }
             $foundAny = false;
 
-            foreach ($model as $menu)
-            {
+            foreach ($model as $menu) {
                 $childCount = Menu::model()->count("pid = $menu->id");
-                //if ($menu->min_permission == "" || ($menu->min_permission != "" && $this->getPermission(ucfirst($menu->controller) . "." . ucfirst($menu->min_permission))))
-                {
-                    $foundAny = true;
+                //if ($menu->min_permission == "" || ($menu->min_permission != "" && $this->getPermission(ucfirst($menu->controller) . "." . ucfirst($menu->min_permission)))) {
+                $foundAny = true;
 
-                    $this->menuHtml .='<li ' . ($pid == 0 ? "class='top'" : "") . '>';
-                    $url = "#";
-                    if ($menu->controller != "")
-                    {
-                        $url = $this->createUrl($menu->controller . "/" . $menu->action);
-                    }
-                    $this->menuHtml .='<a href="' . $url . '" class="' . ($pid == 0 ? "top_link " . ($menu->id == $root_parent ? "active " : "") . $menu->root_class : ($childCount > 0 ? "fly" : "")) . '">';
-                    if ($pid == 0)
-                        $this->menuHtml .='<span class="down">';
-                    $this->menuHtml .=$menu->user_title;
-                    if ($pid == 0)
-                        $this->menuHtml .='</span>';
-                    $this->menuHtml .='</a>';
-
-                    if (in_array($menu->id, $pidArray))
-                        $this->getNavigation($menu->id, $l, 0, $pidArray);
-                    $this->menuHtml .='</li>';
+                $this->menuHtml .='<li ' . ($pid == 0 ? "class='top'" : "") . '>';
+                $url = "#";
+                if ($menu->controller != "") {
+                    $url = $this->createUrl($menu->controller . "/" . $menu->action);
                 }
+                $this->menuHtml .='<a href="' . $url . '" class="' . ($pid == 0 ? "top_link " . ($menu->id == $root_parent ? "active " : "") . $menu->root_class : ($childCount > 0 ? "fly" : "")) . '">';
+                if ($pid == 0)
+                    $this->menuHtml .='<span class="down">';
+                $this->menuHtml .=$menu->user_title;
+                if ($pid == 0)
+                    $this->menuHtml .='</span>';
+                $this->menuHtml .='</a>';
+
+                if (in_array($menu->id, $pidArray))
+                    $this->getNavigation($menu->id, $l, 0, $pidArray);
+                $this->menuHtml .='</li>';
             }
-            if ($foundAny == false)
-                $this->menuHtml .='<span class="noItemFound"></span>';
-            $this->menuHtml .='</ul>';
         }
+        if ($foundAny == false)
+            $this->menuHtml .='<span class="noItemFound"></span>';
+        $this->menuHtml .='</ul>';
     }
 
     /**
@@ -219,10 +207,8 @@ class Controller extends Yiiauth
      * @param type $email
      * @return boolean 
      */
-    public function sendEmail2($email = array())
-    {
-        if (isset($email['To']))
-        {
+    public function sendEmail2($email = array()) {
+        if (isset($email['To'])) {
 
             $mailer = Yii::createComponent('application.extensions.mailer.EMailer');
 
@@ -255,3 +241,4 @@ class Controller extends Yiiauth
     }
 
 }
+

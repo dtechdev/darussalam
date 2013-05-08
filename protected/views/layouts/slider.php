@@ -7,15 +7,24 @@
             <a href="<?php echo $this->createUrl('/site/index') ?>"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/darussalam-inner-logo.png" alt="logo" /></a>
             <nav>
                 <ul>
-                    <li><a href="<?php echo $this->createUrl('/site/page', array('view' => 'about')) ?>" >About Us</a></li>
-                    <li><a href="<?php echo $this->createUrl('/site/contact') ?>">Contact us</a></li>
-                    <li><a href="#">Help</a></li>
+                    <?php
+                    echo CHtml::openTag("li");
+                    $require_pages = array("About Us", "Help");
+                    foreach ($this->webPages as $page) {
+                        if (in_array($page->title, $require_pages)) {
+
+                            echo CHtml::link($page->title, Yii::app()->createUrl('/web/page/viewPage/', array("id" => $page->id)));
+                        }
+                    }
+                    echo CHtml::link('Contact Us', $this->createUrl('/site/contact'));
+                    echo CHtml::closeTag("li");
+                    ?>
                 </ul>
             </nav>
             <div class="txt">
                 <form id="search_form" method="post" 
                       action="<?php echo $this->createUrl("/web/search/getSearch") ?>" >
-                      <div class="txt2">
+                    <div class="txt2">
                         <div class="search_img">
                             <a href="javascript:void(0)" onclick="dtech.doGloblSearch()"><img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/search_img_03.jpg" alt="search img" /></a>
                         </div>
