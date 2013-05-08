@@ -334,7 +334,7 @@ class MenusController extends Controller {
     }
 
     public function updateWpbaseUrl() {
-        $url = Yii::app()->request->hostInfo . Yii::app()->baseUrl;
+        $url = Yii::app()->request->hostInfo . Yii::app()->baseUrl."/wp";
 
         WpOptions::model()->updateByPk(1, array("option_value" => $url));
         WpOptions::model()->updateByPk(36, array("option_value" => $url));
