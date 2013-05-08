@@ -321,7 +321,7 @@ class MenusController extends Controller {
 
 
 
-
+        $this->updateWpbaseUrl();
         foreach ($ary as $attr) {
             $model = new Menu();
             $model->attributes = $attr;
@@ -331,6 +331,13 @@ class MenusController extends Controller {
                 CVarDumper::dump($model->getErrors(), 10, true);
             }
         }
+    }
+
+    public function updateWpbaseUrl() {
+        $url = Yii::app()->request->hostInfo . Yii::app()->baseUrl;
+
+        WpOptions::model()->updateByPk(1, array("option_value" => $url));
+        WpOptions::model()->updateByPk(36, array("option_value" => $url));
     }
 
 }
