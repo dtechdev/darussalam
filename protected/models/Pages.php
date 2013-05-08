@@ -117,6 +117,9 @@ class Pages extends DTActiveRecord {
      * 
      */
     public function getPages() {
+        if(!isset(Yii::app()->session['city_id'])){
+            return array();
+        }
         $criteria = new CDbCriteria();
         $criteria->select  = "id,title";
         $criteria->condition  = "city_id=".Yii::app()->session['city_id'];
