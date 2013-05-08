@@ -12,6 +12,9 @@
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/sign_in.js"></script>
         <script src="<?php echo Yii::app()->baseUrl; ?>/media/js/dtech.js"></script>
         <title>Darussalam</title>
+        <script>
+         var yii_base_url = "<?php echo Yii::app()->baseUrl; ?>";
+        </script>
     </head>
     <body>
         <div id="loading" align="center" style="display: none;"> Please Wait </div>
