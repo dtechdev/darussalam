@@ -701,7 +701,7 @@ class ETinyMce extends CInputWidget
       $options['theme'] = 'advanced';
       $options['theme_advanced_toolbar_location'] = 'top';
       $options['theme_advanced_toolbar_align'] = 'left';
-      $options['theme_advanced_path_location'] = 'bottom';
+      $options['theme_advanced_path_location'] = 'top';
 		$options['theme_advanced_buttons1'] = "save,newdocument,print,|,cut,copy,paste,pastetext,pasteword,|,search,replace,|,undo,redo,|,removeformat,cleanup,|,spellchecker,|,visualaid,visualchars,|,ltr,rtl,|,code,preview,fullscreen,|,help";
 		$options['theme_advanced_buttons2'] = "{$sc}formatselect,fontselect,fontsizeselect,|,forecolor,backcolor,|,bold,italic,underline,strikethrough,|,sub,sup{$c1}";
 		$options['theme_advanced_buttons3'] = "justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,hr,advhr,nonbreaking,pagebreak,blockquote,|,charmap,emotions,media,image,|,link,unlink,anchor,|,insertdate,inserttime";
@@ -711,7 +711,7 @@ class ETinyMce extends CInputWidget
 		$options['theme_advanced_statusbar_location'] = "bottom";
       $options['theme_advanced_toolbar_location'] = 'top';
       $options['theme_advanced_toolbar_align'] = 'left';
-      $options['theme_advanced_path_location'] = 'bottom';
+      $options['theme_advanced_path_location'] = 'top';
       $options['theme_advanced_resize_horizontal'] = true;
       $options['theme_advanced_resizing'] = true;
       $options['spellchecker_languages'] = '+English=en,Danish=da,Dutch=nl,Finnish=fi,French=fr,German=de,Italian=it,Polish=pl,Portuguese=pt,Spanish=es,Swedish=sv';

@@ -143,6 +143,9 @@ class User extends DTActiveRecord {
         $criteria->compare('activation_key', $this->activation_key, true);
         $criteria->compare('is_active', $this->is_active, true);
         $criteria->compare('site_id', $this->site_id);
+        
+         $criteria->addCondition("user_id<>".Yii::app()->user->id);
+        
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

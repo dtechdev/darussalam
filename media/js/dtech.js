@@ -40,6 +40,11 @@ var dtech = {
     },
     showdetailLightbox : function (){
         jQuery("#dummy_link").trigger("click");
+    },
+    doGloblSearch : function (){
+        if(jQuery.trim(jQuery("#serach_field").val())!=""){
+            jQuery("#search_form").submit();
+        }
     }        
 
 }

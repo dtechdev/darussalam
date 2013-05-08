@@ -12,6 +12,9 @@
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/sign_in.js"></script>
         <script src="<?php echo Yii::app()->baseUrl; ?>/media/js/dtech.js"></script>
         <title>Darussalam</title>
+        <script>
+            var yii_base_url = "<?php echo Yii::app()->baseUrl; ?>";
+        </script>
     </head>
     <body>
         <div id="loading" align="center" style="display: none;"> Please Wait </div>
@@ -21,13 +24,20 @@
                     <nav class="row">
                         <a class="toggle" gumby-trigger="#nav3 > .row > ul" href="#"><i class="icon-menu"></i></a>
                         <ul class="eight columns">
-                            <li><a href="<?php echo $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])); ?>">
-                                    BOOKS
-                                </a>
-                            </li>
-                            <li><a href="#">QURAN</a></li>
-                            <li><a href="#">EDUCATIONAL TOYS</a></li>
-                            <li><a href="#">OTHERS</a></li>
+                            <?php
+                            echo CHtml::openTag('li');
+                            echo CHtml::link('BOOKS', $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                            echo CHtml::closeTag('li');
+                            echo CHtml::openTag('li');
+                            echo CHtml::link('QURAN', $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                            echo CHtml::closeTag('li');
+                            echo CHtml::openTag('li');
+                            echo CHtml::link('EDUCATIONAL TOYS', $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                            echo CHtml::closeTag('li');
+                            echo CHtml::openTag('li');
+                            echo CHtml::link('OTHERS', $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                            echo CHtml::openTag('li');
+                            ?>
                         </ul>
                     </nav>
                 </div>
@@ -242,7 +252,7 @@
                     </li>
                     <li>
                         <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/gmail_img_03.jpg', 'phone'); ?>
-                        <a href="#"> support@darussalam.com</a>
+                        support@darussalam.com
                     </li>
                     <li>
                         <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/home_img_03.jpg', 'phone'); ?>
@@ -264,9 +274,9 @@
             </div>
             <div id="right_footer">
                 <h1>What's New?</h1>
-                <p><a href="#">D-Tech - Working on technologies</a></p>
+                <p><article>D-Tech - Working on technologies</article></p>
                 <article><i>iPhone, Android & iPad Islamic apps</i></article>
-                <p><a href="#">D-Tech - Working on technologies</a></p>
+                <p><article>D-Tech - Working on technologies</article></p>
                 <article><i>iPhone, Android & iPad Islamic apps</i></article>
                 <section>&copy; 2013 Darussalam, Inc. All Rights Reserved.</section>
             </div>

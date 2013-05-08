@@ -58,7 +58,7 @@ class DTWebUser extends CWebUser {
         Yii::app()->session['site_id'] = $site_info['site_id'];
         Yii::app()->session['site_headoffice'] = $site_info['site_headoffice'];
 
-
+        
 
         if (isset($_REQUEST['city_id']) && $_REQUEST['city_id'] != '') {
             $city_id = $_REQUEST['city_id'];
@@ -66,6 +66,7 @@ class DTWebUser extends CWebUser {
                 'select' => "*",
                 'condition' => "t.city_id='" . $city_id . "'"
             ));
+     
             $cityfind = City::model()->with(array(
                         'country' => array('select' => '*',
                             'joinType' => 'INNER JOIN',
@@ -73,6 +74,9 @@ class DTWebUser extends CWebUser {
             if ($cityfind == null) {
                 $city_id = Yii::app()->session['site_headoffice'];
             }
+         
+                   
+                    
         } else if (isset(Yii::app()->session['city_id']) && Yii::app()->session['city_id'] != '') {
             $city_id = Yii::app()->session['city_id'];
         } else {

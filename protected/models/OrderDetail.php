@@ -137,12 +137,20 @@ class OrderDetail extends DTActiveRecord
             $criteria2->condition = "product_id='" . $product_id . "'";
             $imagedata = ProductImage::model()->findAll($criteria2);
             $images = array();
-            foreach ($imagedata as $img)
-            {
-                $images[] = array('product_image_id' => $img->id,
-                    'image_large' => $img->image_large,
-                    'image_small' => $img->image_small,
-                );
+            foreach ($imagedata as $img) {
+                if ($img->is_default == 1) {
+                    $images[] = array('id' => $img->id,
+                        'image_large' => $img->image_url['image_large'],
+                        'image_small' => $img->image_url['image_small'],
+                    );
+                    break;
+                } else {
+                    $images[] = array('id' => $img->id,
+                        'image_large' => $img->image_url['image_large'],
+                        'image_small' => $img->image_url['image_small'],
+                    );
+                    break;
+                }
             }
 
             $featured_products[] = array(
@@ -150,6 +158,7 @@ class OrderDetail extends DTActiveRecord
                 'product_name' => $products->product_name,
                 'product_description' => $products->product_description,
                 'product_price' => $products->product_price,
+                'no_image' => $products->no_image,
                 'image' => $images
             );
         }
@@ -188,19 +197,27 @@ class OrderDetail extends DTActiveRecord
             $criteria6->condition = 'product_id="' . $product_id . '"';
             $imagebest = ProductImage::model()->findAll($criteria6);
             $imagesbestproducts = array();
-            foreach ($imagebest as $img)
-            {
-                $imagesbestproducts[] = array('product_image_id' => $img->id,
-                    'image_large' => $img->image_large,
-                    'image_small' => $img->image_small,
-                );
+           foreach ($imagebest as $img) {
+                if ($img->is_default == 1) {
+                    $images[] = array('id' => $img->id,
+                        'image_large' => $img->image_url['image_large'],
+                        'image_small' => $img->image_url['image_small'],
+                    );
+                    break;
+                } else {
+                    $images[] = array('id' => $img->id,
+                        'image_large' => $img->image_url['image_large'],
+                        'image_small' => $img->image_url['image_small'],
+                    );
+                    break;
+                }
             }
-
             $best_products[] = array('product_id' => $product_id,
                 'product_name' => $product_name,
                 'product_description' => $product_description,
                 'product_price' => $product_price,
                 'totalOrder' => $product_totalOrder,
+                'no_image' => $best_join[$i]->product->no_image,
                 'image' => $imagesbestproducts);
         }
 

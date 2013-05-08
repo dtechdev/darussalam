@@ -16,6 +16,9 @@
         <script>
             // defining js base path
             var js_basePath = '<?php echo Yii::app()->theme->baseUrl; ?>';
+
+            var yii_base_url = "<?php echo Yii::app()->baseUrl; ?>";
+
         </script>
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -71,7 +74,7 @@
                                 'items' => array(
                                     // array('label' => "Change Password", 'url' => array('/users/changepass'),'visible'=>(Yii::app()->user->isGuest)?0:1),
                                     //array('label' => (Yii::app()->user->theme == "Night" ? "Day" : "Night"), 'url' => array('/user/changeTheme')),
-                                    array('label' => 'Configuration', 'url' => array('/configurations/load','m'=>'Misc'), 'visible' => (Yii::app()->user->isGuest) ? 0 : 1, 'itemOptions' => array('class' => '')),
+                                    array('label' => 'Configuration', 'url' => array('/configurations/load', 'm' => 'Misc'), 'visible' => (Yii::app()->user->isGuest) ? 0 : 1, 'itemOptions' => array('class' => '')),
                                     array('label' => 'Logout', 'url' => array('/site/logout'), 'visible' => (Yii::app()->user->isGuest) ? 0 : 1, 'itemOptions' => array('class' => 'logout border-none')),
                                     array('label' => 'Login', 'url' => array('/site/login'), 'visible' => (Yii::app()->user->isGuest) ? 1 : 0, 'itemOptions' => array('class' => 'logout border-none')),
                                 ),

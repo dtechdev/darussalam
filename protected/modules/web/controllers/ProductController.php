@@ -175,11 +175,12 @@ class ProductController extends Controller {
     public function actionproductDetail() {
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = Yii::app()->session['layout'];
+        
 
-        $product_obj = new Product();
-        $product = $product_obj->find($condition = 'product_id=' . $_REQUEST['product_id']);
+        $product = Product::model()->findByPk($_REQUEST['product_id']);
 
         Yii::app()->controller->layout = '//layouts/main';
+     
         /**
          *  getting value of poduct rating
          */
