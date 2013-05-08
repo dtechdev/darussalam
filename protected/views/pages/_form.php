@@ -32,15 +32,13 @@
     <div class="row">
         <?php
         echo $form->labelEx($model, 'content');
-//        Yii::import('ext.krichtexteditor.KRichTextEditor');
-//        $this->widget('KRichTextEditor', array(
-//            'model' => $model,
-//            'value' => $model->isNewRecord ? $model->content : '',
-//            'attribute' => 'content',
-//            
-//        ));
+
         ?>
-        <?php $this->widget('application.extensions.tinymce.ETinyMce', array('model' => $model, 'attribute' => 'content', 
+        <?php $this->widget('application.extensions.tinymce.ETinyMce', 
+                array(
+                    'editorTemplate'=>'full',
+                    'model' => $model, 
+                    'attribute' => 'content', 
             'options' => array('theme' => 'advanced'))); ?>
     </div>
 
