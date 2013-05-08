@@ -34,8 +34,18 @@
 </div>
 <nav>
     <ul>
-        <li><a href="<?php echo $this->createUrl('/site/page', array('view' => 'about')) ?>">About Us</a></li>
-        <li><a href="<?php echo $this->createUrl('/site/contact') ?>">Contact Us</a></li>
-        <li><a href="#">Help</a></li>
+        <?php
+        echo CHtml::openTag("li");
+        $require_pages = array("About Us", "Help");
+
+        foreach ($this->webPages as $page) {
+            if (in_array($page->title, $require_pages)) {
+
+                echo CHtml::link($page->title, Yii::app()->createUrl('/web/page/viewPage/', array("id" => $page->id)));
+            }
+        }
+        echo CHtml::link('Contact Us', $this->createUrl('/site/contact'));
+        echo CHtml::closeTag("li");
+        ?>
     </ul>
 </nav>
