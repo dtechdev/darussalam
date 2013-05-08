@@ -73,6 +73,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'urlExpression' => 'Yii::app()->controller->createUrl("/customer/orderDetail",array("id"=>$data->order_id))',
             'linkHtmlOptions' => array(
                 "onclick" => '
+                    $("#loading").show();
                     ajax_url = $(this).attr("href");
                     user_name = $(this).parent().prev().prev().html();
                     $.ajax({
@@ -81,6 +82,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                         data: { username: user_name }
                     }).done(function( msg ) {
                         $("#order_detail").html(msg);
+                        $("#loading").hide();
                     });
                     return false;
                     '
