@@ -117,6 +117,7 @@ class Pages extends DTActiveRecord {
      * 
      */
     public function getPages() {
+        
         if(!isset(Yii::app()->session['city_id'])){
             return array();
         }
