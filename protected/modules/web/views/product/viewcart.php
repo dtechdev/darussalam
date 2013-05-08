@@ -37,11 +37,13 @@ if (empty($cart)) {
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                if (empty($pro->product->productImages[0])) {
-                                    echo CHtml::image($pro->product->no_image);
-                                } else {
-                                    echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $pro->product->productImages[0]->image_small);
+                                $images = $pro->product->getImage();
+                                $image = $pro->product['no_image'];
+                                if (isset($images[0]['image_small'])) {
+                                    $image = $images[0]['image_small'];
                                 }
+                              
+                                echo CHtml::image($image);
                                 ?>
                             </div>
                             <div class="left_right_cart">
@@ -100,16 +102,16 @@ if (empty($cart)) {
                                 <div class="quantity_cart">
                                     <p>$<?php echo round($pro->product->product_price, 2); ?></p>
                                     <span>Quantity</span> 
-                                    <?php
-                                    $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
-                                    echo CHtml::dropDownList('quantity' . $pro->cart_id, '', $quantities, array(
-                                        'options' => array($pro->quantity => array('selected' => true)),
-                                        'ajax' => array(
-                                            'type' => 'POST',
-                                            'url' => $this->createUrl('/web/product/editcart'),
-                                            'data' => array('quantity' => 'js:jQuery(this).val()', 'type' => 'update_quantity', 'cart_id' => $pro->cart_id),
-                                            'dataType' => 'json',
-                                            'success' => 'function(data) {
+        <?php
+        $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
+        echo CHtml::dropDownList('quantity' . $pro->cart_id, '', $quantities, array(
+            'options' => array($pro->quantity => array('selected' => true)),
+            'ajax' => array(
+                'type' => 'POST',
+                'url' => $this->createUrl('/web/product/editcart'),
+                'data' => array('quantity' => 'js:jQuery(this).val()', 'type' => 'update_quantity', 'cart_id' => $pro->cart_id),
+                'dataType' => 'json',
+                'success' => 'function(data) {
                                                             window.location.href=data.redirect
                                                            }',
                                             ))
@@ -119,7 +121,7 @@ if (empty($cart)) {
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
+    <?php } ?>
 
 
                 </div>
@@ -140,20 +142,20 @@ if (empty($cart)) {
                                 <td class="right_right_cart_td">$<?php echo $grand_total; ?></td>
                             </tr>
                         </table>
-                        <?php
-                        if (Yii::app()->user->id) {
-                            Yii::app()->session['total_price'] = round($grand_total, 2);
-                            Yii::app()->session['quantity'] = $total_quantity;
-                            Yii::app()->session['description'] = $description;
-                            ?>
+    <?php
+    if (Yii::app()->user->id) {
+        Yii::app()->session['total_price'] = round($grand_total, 2);
+        Yii::app()->session['quantity'] = $total_quantity;
+        Yii::app()->session['description'] = $description;
+        ?>
                             <a href="<?php echo $this->createUrl('/web/product/paymentmethod'); ?>">
-                                <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
+                            <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
                             </a>
-                            <?php
-                        } else {
-                            ?>
+                                <?php
+                            } else {
+                                ?>
                             <a href="<?php echo $this->createUrl('/web/site/login'); ?>">
-                                <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
+                            <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
                             </a>
                         <?php } ?>
                     </div>

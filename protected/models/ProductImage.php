@@ -234,5 +234,7 @@ class ProductImage extends DTActiveRecord {
             $command->execute();
         }
     }
+    
+  
 
 }
