@@ -16,6 +16,8 @@ class Controller extends Yiiauth {
      * @var array context menu items. This property will be assigned to {@link CMenu::items}.
      */
     public $menu = array();
+    
+    public $_module;
 
     /**
      * @var array the breadcrumbs of the current page. The value of this property will
@@ -55,8 +57,9 @@ class Controller extends Yiiauth {
      *  set pages for system
      */
     public function setPages() {
-
-        if ($this->id == "site" || $this->getModule() == "web") {
+        $module =  $this->getModule();
+        
+        if ($this->id == "site" || get_class($module) == "WebModule") {
 
             $this->webPages = Pages::model()->getPages();
         }
