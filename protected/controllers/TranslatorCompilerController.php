@@ -46,6 +46,10 @@ class TranslatorCompilerController extends Controller {
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
+            array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                'actions' => array('admin', 'delete'),
+                'users' => array('admin'),
+            ),
             array('deny', // deny all users
                 'users' => array('*'),
             ),
@@ -122,9 +126,13 @@ class TranslatorCompilerController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('TranslatorCompiler');
+        $model = new TranslatorCompiler('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['TranslatorCompiler']))
+            $model->attributes = $_GET['TranslatorCompiler'];
+
         $this->render('index', array(
-            'dataProvider' => $dataProvider,
+            'model' => $model,
         ));
     }
 
