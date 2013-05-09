@@ -4,9 +4,12 @@
  * This is the model class for table "product_profile".
  *
  * The followings are the available columns in table 'product_profile':
- * @property integer $profile_id
+ * @property integer $id
  * @property integer $product_id
- * @property integer $author_id
+ * @property integer $item_code
+ * @property integer $language_id
+ * @property integer $discount_type
+ * @property integer $discount_value
  * @property integer $language_id
  * @property string $isbn
  *
@@ -44,10 +47,12 @@ class ProductProfile extends DTActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('product_id', 'required'),
+            array('size,language_id,item_code,product_id', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
-            array('author_id', 'numerical', 'integerOnly' => true),
+            array('id,size,no_of_pages,binding,printing,paper,edition','safe'),
+            array('discount_type,discount_type','safe'),
+            
             array('isbn', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -63,8 +68,8 @@ class ProductProfile extends DTActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'author' => array(self::BELONGS_TO, 'Author', 'author_id'),
             'profile' => array(self::BELONGS_TO, 'Product', 'product_id'),
+            'productLanguage' => array(self::BELONGS_TO, 'Language', 'language_id'),
         );
     }
 
@@ -76,8 +81,12 @@ class ProductProfile extends DTActiveRecord
         return array(
             'profile_id' => 'Profile',
             'product_id' => 'Product',
-            'author_id' => 'Author',
             'isbn' => 'Isbn',
+            'no_of_pages' => 'No of Pages',
+            'binding' => 'Binding',
+            'printing' => 'Printing',
+            'paper' => 'Paper',
+            'edition'=>'Edition'
         );
     }
 
@@ -93,8 +102,12 @@ class ProductProfile extends DTActiveRecord
         $criteria = new CDbCriteria;
 
         $criteria->compare('profile_id', $this->profile_id);
-        $criteria->compare('author_id', $this->author_id);
         $criteria->compare('isbn', $this->isbn, true);
+        $criteria->compare('no_of_pages', $this->no_of_pages, true);
+        $criteria->compare('binding', $this->binding, true);
+        $criteria->compare('printing', $this->printing, true);
+        $criteria->compare('paper', $this->paper, true);
+        $criteria->compare('edition', $this->edition, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

@@ -244,6 +244,9 @@ class ProductController extends Controller {
         if (isset($_POST['ProductImage'])) {
             $model->setRelationRecords('productImages', is_array($_POST['ProductImage']) ? $_POST['ProductImage'] : array());
         }
+        if (isset($_POST['ProductCategories'])) {
+            $model->setRelationRecords('productCategories', is_array($_POST['ProductCategories']) ? $_POST['ProductCategories'] : array());
+        }
         return true;
     }
 

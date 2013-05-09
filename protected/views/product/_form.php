@@ -46,42 +46,15 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/f
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'product_price'); ?>
-        <?php echo $form->textField($model, 'product_price', array('size' => 10, 'maxlength' => 10)); ?>
-        <?php echo $form->error($model, 'product_price'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($model, 'discount_type'); ?>
-        <?php echo $form->dropDownList($model, 'discount_type', array('fixed' => 'Fixed', 'percentage' => 'Percentage'), array('prompt' => 'Select Discount Type', 'size' => 1, 'maxlength' => 1)); ?>
-        <?php echo $form->error($model, 'discount_type'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'discount_value'); ?>
-        <?php echo $form->textField($model, 'discount_value', array('size' => 10, 'maxlength' => 10)); ?>
-        <?php echo $form->error($model, 'discount_value'); ?>
-    </div>
-    <div class="row">
-        <?php echo $form->labelEx($model, 'isbn'); ?>
-        <?php echo $form->textField($model, 'isbn', array('size' => 60, 'maxlength' => 255)); ?>
-        <?php echo $form->error($model, 'isbn'); ?>
-    </div>
-
-    <div class="row">
         <?php echo $form->labelEx($model, 'authors'); ?>
         <?php echo $form->dropDownList($model, 'authors', $authorList, array('prompt' => 'Select Author')); ?>
         <?php echo $form->error($model, 'authors'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'languages'); ?>
-        <?php echo $form->dropDownList($model, 'languages', $languageList, array('prompt' => 'Select Language')); ?>
-        <?php echo $form->error($model, 'languages'); ?>
-    </div>
-
     <?php
     if ($this->action->id != "update") {
-        $this->renderPartial('productImages/_container', array('model' => $model, "type" => "field"));
+        $this->renderPartial('productCategories/_container', array('model' => $model, "type" => "field"));
+        //$this->renderPartial('productImages/_container', array('model' => $model, "type" => "field"));
     }
     ?>
 

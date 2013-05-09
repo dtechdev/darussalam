@@ -25,8 +25,5 @@
 	<?php echo CHtml::encode($data->is_featured); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('product_price')); ?>:</b>
-	<?php echo CHtml::encode($data->product_price); ?>
-	<br />
 
 </div>

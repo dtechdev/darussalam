@@ -41,7 +41,7 @@ class ProductCategories extends DTActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('product_id, category_id', 'required'),
+            array('category_id', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
             array('product_id, category_id', 'numerical', 'integerOnly' => true),
