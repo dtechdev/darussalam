@@ -37,7 +37,7 @@ class SiteController extends Controller {
      *  
      */
     public function actionStoreHome() {
-       
+
         Yii::app()->user->SiteSessions;
         $order_detail = new OrderDetail;
         $limit = 3;
@@ -61,6 +61,24 @@ class SiteController extends Controller {
             else
                 $this->render('error', $error);
         }
+    }
+
+    /**
+     * genreate email message
+     * for registration 
+     */
+    public function actionMailer() {
+        $email['From'] = Yii::app()->params['adminEmail'];
+        $email['To'] = 'ubaidullah@darussalampk.com';
+        $email['Subject'] = "Congratz! You are now registered on " . Yii::app()->name;
+        $body = "You are now registered on " . Yii::app()->name . ", please validate your email";
+       // $body.=" going to this url: <br /> \n" . $model->getActivationUrl();
+        $email['Body'] = $body;
+            $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email, "heading" => "Dear " ), true, false);
+        echo  $email['Body'];
+        die;
+       // $email['Body'] = $this->renderPartial('/common/_email_template');
+        $this->sendEmail2($email);
     }
 
     /**
@@ -120,10 +138,10 @@ class SiteController extends Controller {
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login()) {
 
-                 Yii::app()->session['isSuper'] = 0;
+                Yii::app()->session['isSuper'] = 0;
 
                 if (Yii::app()->user->isSuperAdmin) {
-                     Yii::app()->session['isSuper'] = 1;
+                    Yii::app()->session['isSuper'] = 1;
                     $this->redirect(array('user/index'));
                 }
                 if (Yii::app()->user->isAdmin) {
@@ -168,7 +186,7 @@ class SiteController extends Controller {
     public function actionLogout() {
         unset(Yii::app()->user->isSuper);
         Yii::app()->user->logout();
-        
+
         $this->redirect(Yii::app()->homeUrl);
     }
 
