@@ -2,19 +2,65 @@
 /* @var $this TranslatorCompilerController */
 /* @var $dataProvider CActiveDataProvider */
 
-$this->breadcrumbs=array(
-	'Translator Compilers',
+$this->breadcrumbs = array(
+    'Translator Compilers',
 );
 
-$this->menu=array(
-	array('label'=>'Create TranslatorCompiler', 'url'=>array('create')),
-	array('label'=>'Manage TranslatorCompiler', 'url'=>array('admin')),
+$this->menu = array(
+    array('label' => 'List TranslatorCompiler', 'url' => array('index')),
+    array('label' => 'Create TranslatorCompiler', 'url' => array('create')),
 );
+
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form form').submit(function(){
+	$('#translator-compiler-grid').yiiGridView('update', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
 ?>
 
 <h1>Translator Compilers</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button')); ?>
+<div class="search-form" style="display:none">
+    <?php
+    $this->renderPartial('_search', array(
+        'model' => $model,
+    ));
+    ?>
+</div><!-- search-form -->
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
+    'dataProvider' => $model->search(),
+    'id' => 'translator-compiler-grid',
+    'filter' => $model,
+    'columns' => array(
+        array(
+            'name' => 'name',
+            'type' => 'Raw',
+            'value' => '$data->name',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'name' => 'type',
+            'type' => 'Raw',
+            'value' => '$data->type',
+            'headerHtmlOptions' => array(
+                'style' => "text-align:left"
+            )
+        ),
+        array(
+            'class' => 'CButtonColumn',
+        ),
+    )
+));
+?>

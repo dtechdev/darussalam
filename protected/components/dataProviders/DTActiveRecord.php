@@ -180,7 +180,7 @@ class DTActiveRecord extends CActiveRecord {
         $controller =  Yii::app()->controller->id;
         $controllers = array("search","site");
         
-        $actions = array("login", "logout","storehome");
+        $actions = array("login", "logout","storehome","activate");
 
         if (!in_array($controller,$controllers) && !in_array($this->_action, $actions) 
                 && !empty(Yii::app()->session['city_id'])) {
@@ -204,7 +204,7 @@ class DTActiveRecord extends CActiveRecord {
 
         $controller =  Yii::app()->controller->id;
         $controllers = array("search","site");
-        $actions = array("login", "logout","storehome");
+        $actions = array("login", "logout","storehome","activate"); // apply the criteria to all dtActiveRec execpt these methods..Ub
 
         if (!in_array($controller,$controllers)  && !in_array($this->_action, $actions) && !empty(Yii::app()->session['city_id'])) {
             $isSuper = Yii::app()->session['isSuper'];

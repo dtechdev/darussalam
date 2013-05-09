@@ -255,10 +255,6 @@ class MenusController extends Controller {
         $ary[] = array("id" => "6", "pid" => "5", "root_parent" => "5", "controller" => "userRole", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
         $ary[] = array("id" => "7", "pid" => "5", "root_parent" => "5", "controller" => "userRole", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
 
-        /* admin module for the Customer managment */
-
-        $ary[] = array("id" => "35", "pid" => "0", "root_parent" => "35", "controller" => "customer", "action" => "index", "default_title" => "Customer Role", "user_title" => "Customer Role", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
-        $ary[] = array("id" => "36", "pid" => "35", "root_parent" => "35", "controller" => "customer", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
 
         /* admin module for the User Status managment */
 
@@ -317,6 +313,18 @@ class MenusController extends Controller {
         $ary[] = array("id" => "32", "pid" => "0", "root_parent" => "32", "controller" => "author", "action" => "index", "default_title" => "Author", "user_title" => "Author", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
         $ary[] = array("id" => "33", "pid" => "32", "root_parent" => "32", "controller" => "author", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
         $ary[] = array("id" => "34", "pid" => "32", "root_parent" => "32", "controller" => "author", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
+
+        /* admin module for the Customer managment */
+
+        $ary[] = array("id" => "35", "pid" => "0", "root_parent" => "35", "controller" => "customer", "action" => "index", "default_title" => "Customer Role", "user_title" => "Customer Role", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "36", "pid" => "35", "root_parent" => "35", "controller" => "customer", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+
+        
+        /* admin module for the Translator Compiler managment */
+
+        $ary[] = array("id" => "37", "pid" => "0", "root_parent" => "37", "controller" => "translatorCompiler", "action" => "index", "default_title" => "Author", "user_title" => "TranslatorCompiler", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "38", "pid" => "37", "root_parent" => "37", "controller" => "translatorCompiler", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
+        $ary[] = array("id" => "39", "pid" => "37", "root_parent" => "37", "controller" => "translatorCompiler", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
 
 
 
