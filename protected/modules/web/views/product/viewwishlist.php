@@ -36,11 +36,13 @@ if (empty($cart)) {
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                if (empty($pro->product->productImages[0])) {
-                                    echo CHtml::image($pro->product->no_image);
-                                } else {
-                                    echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $pro->product->productImages[0]->image_small);
+                                $images = $pro->product->getImage();
+                                $image = $pro->product['no_image'];
+                                if (isset($images[0]['image_small'])) {
+                                    $image = $images[0]['image_small'];
                                 }
+
+                                echo CHtml::image($image);
                                 ?>
                             </div>
                             <div class="left_right_cart">
@@ -72,16 +74,16 @@ if (empty($cart)) {
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Author</td>
                                         <td class="cart_right_td"><?php
-                        echo isset($pro->product->author->author_name) ? $pro->product->author->author_name : "";
+                                            echo isset($pro->product->author->author_name) ? $pro->product->author->author_name : "";
 //                                            foreach ($pro->product->productProfile as $pp) {
 //                                                echo $pp->author->author_name;
 //                                            }
-                                ?></td>
+                                            ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Language</td>
                                         <td class="cart_right_td"><?php
-                                    echo isset($pro->product->language->language_name) ? $pro->product->language->language_name : "";
+                                            echo isset($pro->product->language->language_name) ? $pro->product->language->language_name : "";
 //                                            $i = 0;
 //                                            foreach ($pro->product->productLanguage as $lan) {
 //                                                if ($i == 0)
@@ -91,7 +93,7 @@ if (empty($cart)) {
 //
 //                                                $i++;
 //                                            }
-                                ?></td>
+                                            ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Price</td>
@@ -131,4 +133,4 @@ if (empty($cart)) {
             </div>
         </div>
     </div><?php
-            }?>
+}?>
