@@ -41,7 +41,7 @@ class UserController extends Controller {
 
         Yii::app()->controller->layout = '//layouts/main';
         $model = new User;
-
+        
 
         if (isset($_POST['User'])) {
 
@@ -51,31 +51,34 @@ class UserController extends Controller {
                 $model->site_id = Yii::app()->session['site_id'];
                 $model->role_id = '3';
                 $model->status_id = '0';
+                $model->city_id = Yii::app()->session['city_id'];
             }
 
             $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $model->user_email);
             $activation_url = $this->createUrl('web/user/activate', array('key' => $model->activation_key));
-
+           
             if ($model->save()) {
 
                 //Sending email part - For activation
-                $to = $model->user_email;
-                $from = Yii::app()->params->adminEmail;
-                $headers = array(
-                    'MIME-Version: 1.0',
-                    'Content-type: text/html; charset=iso-8859-1',
-                );
-                $subject = "Your Activation Link";
-                $message = "<html>
-                                <body>
-                                    Please click this below to activate your account <br /><br />" .
-                        Yii::app()->createAbsoluteUrl('user/activate', array('key' => $model->activation_key, 'user_id' => $model->user_id)) .
-                        "<br /><br /> Thanks you 
-                                </body>
-                            </html>";
 
-                Yii::app()->email->send($from, $to, $subject, $message, $headers);
-                Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by vising your email account.');
+
+                $subject = "Your Activation Link";
+                $message = "
+                                    Please click this below to activate your account <br /><br />" .
+                        Yii::app()->createAbsoluteUrl('web/user/activate', array('key' => $model->activation_key, 'user_id' => $model->user_id, 'city_id' => $model->city_id)) .
+                        "<br /><br /> Thanks you 
+                                ";
+               
+                $email['From'] = Yii::app()->params['adminEmail'];
+                $email['To'] = $model->user_email;
+                $email['Subject'] = "Your Activation Link";
+                $body = "You are now registered on " . Yii::app()->name . ", please validate your email <br/>" . $message;
+                // $body.=" going to this url: <br /> \n" . $model->getActivationUrl();
+                $email['Body'] = $body;
+                $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
+             
+                $this->sendEmail2($email);
+                Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by visiting your email account.');
                 $this->redirect(array('site/login'));  ///take him to login page....
             }
         }
@@ -88,17 +91,11 @@ class UserController extends Controller {
     public function actionActivate() {
         $user_id = $_GET['user_id'];
         $activation_key = $_GET['key'];
-
+        $city_id = $_GET['city_id'];
         $criteria = new CDbCriteria;
         $criteria->select = '*';
-        $conditions = array();
-        $conditions[] = 't.user_id=' . $user_id;
-        //$conditions[] = "activation_key='" . $activation_key . "'";
-        //$conditions[] = "status_id=0";
-        $criteria->condition = implode(' AND ', $conditions);
-
+        $criteria->condition = "user_id='" . $user_id . "' AND city_id='" . $city_id . "'";
         $obj = User::model()->findAll($criteria);
-
         if ($obj != NULL) {
             if ($obj[0]->status_id == '1') {
                 //already activated
@@ -245,9 +242,9 @@ class UserController extends Controller {
 //        } else {
 //            $cart = $cart_model->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"');
 //        }
-        $model=new User;
-        $history = $model->customerHistory(); 
-      
+        $model = new User;
+        $history = $model->customerHistory();
+
         //CVarDumper::dump($history,10,true);die;
 
 
