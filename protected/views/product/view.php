@@ -30,22 +30,7 @@ $this->widget('zii.widgets.CDetailView', array(
             'name' => 'authors',
             'value' => implode("/",$model->getAuthors()),
         ),
-        array(
-            'name' => 'isbn',
-            'value' => $model->isbn,
-        ),
-        array(
-            'name' => 'languages',
-            'value' => implode("/",$model->getBookLanguages()),
-        ),
-        array(
-            'name' => 'discount_type',
-            'value' => $model->discount_type,
-        ),
-        array(
-            'name' => 'discount_value',
-            'value' => $model->discount_value,
-        ),
+
         array(
             'name' => 'create_time',
             'value' => $model->create_time,
@@ -54,12 +39,10 @@ $this->widget('zii.widgets.CDetailView', array(
             'name' => 'is_featured',
             'value' => $model->is_featured,
         ),
-        array(
-            'name' => 'product_price',
-            'value' => $model->product_price,
-        ),
+
     ),
 ));
 
-$this->renderPartial('productImages/_container', array('model' => $model, "type" => "form"));
+$this->renderPartial('productCategories/_container', array('model' => $model, "type" => "form"));
+//$this->renderPartial('productImages/_container', array('model' => $model, "type" => "form"));
 ?>

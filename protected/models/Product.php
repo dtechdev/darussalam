@@ -51,19 +51,18 @@ class Product extends DTActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('product_name, city_id, is_featured, product_price,product_description', 'required'),
+            array('product_name, city_id, is_featured,product_description', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('isbn', 'required'),
             array('activity_log', 'safe'),
-            array('authors,isbn,discount_type,discount_value,languages', 'safe'),
-            array('no_image,authors,isbn,discount_type,discount_value', 'safe'),
+            array('authors', 'safe'),
+            array('no_image,authors', 'safe'),
             array('city_id', 'numerical', 'integerOnly' => true),
             array('product_name', 'length', 'max' => 255),
             array('is_featured', 'length', 'max' => 1),
-            array('product_price', 'length', 'max' => 10),
+            
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('product_id, product_name,product_description, city_id, is_featured, product_price', 'safe', 'on' => 'search'),
+            array('product_id, product_name,product_description, city_id, is_featured', 'safe', 'on' => 'search'),
         );
     }
 
@@ -79,6 +78,7 @@ class Product extends DTActiveRecord {
             'discount' => array(self::HAS_MANY, 'ProductDiscount', 'product_id'),
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
+            'categories' => array(self::MANY_MANY, 'Categories', 'product_categories(product_id, product_category_id)'),
             'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'order' => 'is_default DESC'),
             'productLanguage' => array(self::HAS_MANY, 'ProductLanguage', 'product_id'),
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
@@ -117,7 +117,6 @@ class Product extends DTActiveRecord {
             'city_id' => 'City',
             'authors' => 'Author',
             'is_featured' => 'Is Featured',
-            'product_price' => 'Product Price',
             'product_rating' => 'Product Rating',
         );
     }
@@ -217,7 +216,6 @@ class Product extends DTActiveRecord {
         $criteria->compare('product_description', $this->product_description, true);
         $criteria->compare('city_id', $this->city_id);
         $criteria->compare('is_featured', $this->is_featured, true);
-        $criteria->compare('product_price', $this->product_price, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
