@@ -12,25 +12,25 @@ $relationName = "productImages";
     <div class="field" style="width:500px">
         <?php
         if ($load_for == "view") {
-            echo CHtml::activeHiddenField($model, '[' . $index . ']id');
+            echo CHtml::activeHiddenField($model, '[' . $upload_index . '][' . $index . ']id');
         }
         
-        echo CHtml::activeHiddenField($model, '[' . $index . ']upload_index', array("value" => $upload_index));
+        echo CHtml::activeHiddenField($model, '[' . $upload_index . '][' . $index . ']upload_index', array("value" => $upload_index));
 
         if (!empty($model->id)) {
             echo CHtml::link("View Image", $model->image_url["image_large"], array("rel" => "lightbox[_default]"));
         }
-        echo CHtml::activeHiddenField($model, '[' . $index . ']upload_key', array("value" => $index));
+        echo CHtml::activeHiddenField($model, '[' . $upload_index . '][' . $index . ']upload_key', array("value" => $index));
         ?>
 
         <?php
-        echo CHtml::activeFileField($model, '[' . $index . ']image_large');
+        echo CHtml::activeFileField($model, '[' . $upload_index . '][' . $index . ']image_large');
         ?>
     </div>
 
     <div class="field" style="width:50px">
         <?php
-        echo CHtml::activeCheckBox($model, '[' . $index . ']is_default', array(
+        echo CHtml::activeCheckBox($model, '[' . $upload_index . '][' . $index . ']is_default', array(
             "class" => "default_checkbox", "onclick" => "
                                  cobj = this;
                                  $('.default_checkbox').each(function()

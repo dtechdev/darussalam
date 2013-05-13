@@ -32,8 +32,12 @@ class ProductController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'index', 'view', 
-                    'loadChildByAjax','editChild','deleteChildByAjax'),
+                'actions' => array('create', 'index', 'view',
+                    'loadChildByAjax',
+                    'editChild',
+                    'deleteChildByAjax',
+                    'viewImage'
+                ),
                 'users' => array('@'),
             ),
             array('allow',
@@ -86,7 +90,7 @@ class ProductController extends Controller {
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
             $this->checkCilds($model);
-         
+
             if ($model->save()) {
                 $this->redirect(array('view', 'id' => $model->product_id));
             }
@@ -108,7 +112,7 @@ class ProductController extends Controller {
     public function actionUpdate($id) {
 
         $model = $this->loadModel($id);
-   
+
 
 
         $cityList = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name');
@@ -121,7 +125,7 @@ class ProductController extends Controller {
         if (isset($_POST['Product'])) {
             $model->attributes = $_POST['Product'];
             if ($model->save()) {
-              $this->redirect(array('view', 'id' => $model->product_id));
+                $this->redirect(array('view', 'id' => $model->product_id));
             }
         }
 
@@ -190,12 +194,16 @@ class ProductController extends Controller {
      * @param <type> $mName
      * @param <type> $index
      */
-    public function actionLoadChildByAjax($mName, $dir, $load_for, $index) {
+    public function actionLoadChildByAjax($mName, $dir, $load_for, $index, $upload_index = "") {
         /* Get regarding model */
         $model = new $mName;
 
-        $this->renderPartial($dir . '/_fields_row', array('index' => $index, 'model' => $model, "load_for" => $load_for,
+        $this->renderPartial($dir . '/_fields_row', array(
+            'index' => $index,
+            'model' => $model,
+            "load_for" => $load_for,
             'dir' => $dir,
+            'upload_index' => isset($_REQUEST['upload_index']) ? $_REQUEST['upload_index'] : "",
             'fields_div_id' => $dir . '_fields'), false, true);
     }
 
@@ -235,6 +243,15 @@ class ProductController extends Controller {
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
+    /**
+     * view image by
+     * @param type $id
+     * @param type $mName
+     */
+    public function actionViewImage($id, $mName) {
+        $this->renderPartial("productImages/_grid", array("id" => $id, "dir" => "productImages"));
+    }
+
     /*
      * managing recrods
      * at create
@@ -242,10 +259,10 @@ class ProductController extends Controller {
 
     private function checkCilds($model) {
         /*
-        if (isset($_POST['ProductImage'])) {
-            $model->setRelationRecords('productImages', is_array($_POST['ProductImage']) ? $_POST['ProductImage'] : array());
-        }
-        */
+          if (isset($_POST['ProductImage'])) {
+          $model->setRelationRecords('productImages', is_array($_POST['ProductImage']) ? $_POST['ProductImage'] : array());
+          }
+         */
         if (isset($_POST['ProductCategories'])) {
             $model->setRelationRecords('productCategories', is_array($_POST['ProductCategories']) ? $_POST['ProductCategories'] : array());
         }

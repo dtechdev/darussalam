@@ -69,7 +69,7 @@ $mName = "ProductProfile";
             array
                 (
                 'class' => 'CButtonColumn',
-                'template' => '{update} {delete}',
+                'template' => '{update} {delete} {viewimage}',
                 'buttons' => array
                     (
                     'update' => array
@@ -97,13 +97,34 @@ $mName = "ProductProfile";
                         'label' => 'Delete',
                         'url' => 'Yii::app()->controller->createUrl("deleteChildByAjax",array("id" => $data->primaryKey, "mName" => "' . $mName . '"))',
                     ),
+                    'viewimage' => array(
+                        'label' => 'View Image',
+                        'url' => 'Yii::app()->controller->createUrl("viewImage",array("id" => $data->id, "mName" => "' . $mName . '"))',
+                        'imageUrl' => Yii::app()->theme->baseUrl."/images/icons/viewimage.jpeg",
+                        'click' => "js:function() {
+                                            $('#loading').toggle();
+                                            $.ajax({
+                                                url: $(this).attr('href'),
+                                                success: function(response)
+                                                {
+                                                    $('#image_area').css('display', 'block');
+                                                    $('#image_area').html(response);
+                                                     $('#loading').hide();
+                                                }
+                                            }); return false; }",
+                    ),
                 ),
             ),
         ),
     ));
     ?>
 </div>
-    <?php
-    $this->widget('ext.lyiightbox.LyiightBox2', array(
-    ));
-    ?>
+<div class="clear"></div>
+<div id="image_area">
+
+</div>
+
+<?php
+//$this->widget('ext.lyiightbox.LyiightBox2', array(
+//));
+?>

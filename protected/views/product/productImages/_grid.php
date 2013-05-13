@@ -1,37 +1,34 @@
 <?php
 $relationName = "productImages";
-$mName="ProductImage";
+$mName = "ProductImage";
 ?>
 
-<div class="<?php echo $relationName; ?> child" style="<?php echo 'display:' . (isset($_POST[$mName]) ? 'block' : 'none'); ?>">
+<div class="<?php echo $relationName; ?> child" style="<?php echo 'display:block'; ?>">
     <?php
-    
     $config = array(
         'criteria' => array(
-           'condition' => 'product_id=' . $model->primaryKey,
+            'condition' => 'product_profile_id=' . $id,
         )
     );
     $mNameobj = new $mName;
     $mName_provider = new CActiveDataProvider($mName, $config);
     $this->widget('zii.widgets.grid.CGridView', array(
-        'id' => $mName.'-grid',
+        'id' => $mName . '-grid',
         'dataProvider' => $mName_provider,
         'columns' => array(
             array(
                 'name' => 'image_small',
-                'value'=>'CHtml::link($data->image_small,$data->image_url["image_large"],array("rel" => "lightbox[_default]"))',
-                "type"=>"raw",
+                'value' => 'CHtml::link($data->image_small,$data->image_url["image_large"],array("rel" => "lightbox[_default]"))',
+                "type" => "raw",
             ),
-        
             array(
                 'name' => 'image_large',
-                'value'=>'$data->image_large'
+                'value' => '$data->image_large'
             ),
             array(
                 'name' => 'is_default',
-                'value'=>'($data->is_default==1)?"Yes":"No"'
+                'value' => '($data->is_default==1)?"Yes":"No"'
             ),
-           
             array
                 (
                 'class' => 'CButtonColumn',
@@ -61,15 +58,12 @@ $mName="ProductImage";
                     ),
                     'delete' => array(
                         'label' => 'Delete',
-                        'url' => 'Yii::app()->controller->createUrl("deleteChildByAjax",array("id" => $data->id, "mName" => "'.$mName.'"))',
+                        'url' => 'Yii::app()->controller->createUrl("deleteChildByAjax",array("id" => $data->id, "mName" => "' . $mName . '"))',
                     ),
+                
                 ),
             ),
         ),
     ));
     ?>
 </div>
-<?php
-$this->widget('ext.lyiightbox.LyiightBox2', array(
-));
-?>

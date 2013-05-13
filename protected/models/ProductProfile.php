@@ -153,11 +153,14 @@ class ProductProfile extends DTActiveRecord {
      * for making every profile childs
      */
     public function makePosthildsProfile() {
-        CVarDumper::dump($_POST['ProductImage'],10,true);
-        die;
+
         if (isset($_POST['ProductImage'])) {
-            $this->setRelationRecords('productImages', is_array($_POST['ProductImage']) ? $_POST['ProductImage'] : array());
+
+            
+            
+            $this->setRelationRecords('productImages', is_array($_POST['ProductImage'][$this->upload_index]) ? $_POST['ProductImage'][$this->upload_index] : array());
         }
+        //die;
     }
 
     /**
