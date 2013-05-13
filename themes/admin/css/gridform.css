@@ -76,6 +76,7 @@ div.grid_title .title label {
     position: inherit;
     right: 0px;
     padding-top: 2px;
+    float: right;
 }
 
 .grid_fields .field input {

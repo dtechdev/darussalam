@@ -10,13 +10,14 @@ add_mode = true;
  */
 function add_new_child_row(u, module_name, field_container, field_row, show_grid)
 {
-    $('#loading').toggle();
+ 
+    jQuery('#loading').toggle();
     //    alert(field_container);
-    $.ajax({
+    jQuery.ajax({
         url: u,
         success: function(response)
         {
-            $('#'+module_name+' .subform').css('display', 'block');
+            jQuery('#'+module_name+' .subform').css('display', 'block');
                
             /* 
              * Normally when page is loaded add_mode is true. 
@@ -28,47 +29,47 @@ function add_new_child_row(u, module_name, field_container, field_row, show_grid
              * 
              */
             if(add_mode == false)
-                $('#'+field_container).html('');
+                jQuery('#'+field_container).html('');
             
             /* append div with response, display is none for responsed div */
-            $('#'+field_container).append(response);
+            jQuery('#'+field_container).append(response);
             
             /* Now animate response */
-            $('#'+field_container + ' .' + field_row).last().animate({
+            jQuery('#'+field_container + ' .' + field_row).last().animate({
                 opacity : 1, 
                 left: '+50', 
                 height: 'toggle'
             });
             
             /* Grid should be viewable in parent view mode */
-            if(show_grid == true && $('#'+module_name+' .child').is(':hidden'))
+            if(show_grid == true && jQuery('#'+module_name+' .child').is(':hidden'))
             {
-                //                $('#'+module_name+' .child').show('slow');
-                $('#'+module_name+' .child').animate({
+                //                jQuery('#'+module_name+' .child').show('slow');
+                jQuery('#'+module_name+' .child').animate({
                     opacity : 1, 
                     left: '+50', 
                     height: 'toggle'
                 });
             }
           
-            $('#loading').toggle();
+            jQuery('#loading').toggle();
             add_options();
             add_mode = true;
         }
     });
 }
 
-$(".grid_fields").live('mouseover',function(){
-    $(this).find('.del-icon').show();
+jQuery(".grid_fields").live('mouseover',function(){
+    jQuery(this).find('.del-icon').show();
 });
-$(".grid_fields").live('mouseout',function(){
-    $(this).find('.del-icon').hide();
+jQuery(".grid_fields").live('mouseout',function(){
+    jQuery(this).find('.del-icon').hide();
 });
-$(".main").live('mouseover',function(){
-    $(this).find('.del-icon').show();
+jQuery(".main").live('mouseover',function(){
+    jQuery(this).find('.del-icon').show();
 });
-$(".main").live('mouseout',function(){
-    $(this).find('.del-icon').hide();
+jQuery(".main").live('mouseout',function(){
+    jQuery(this).find('.del-icon').hide();
 });
 
 
@@ -81,9 +82,9 @@ $(".main").live('mouseout',function(){
  */
 function delete_fields(elm, num_of_parents, grand_parent, check_child)
 {
-    parent=$(elm).parent();
-    //    last_parent_child=$(parent).children().last();
-    //    if($(last_parent_child).attr("class")=="attachment_index_class")
+    parent=jQuery(elm).parent();
+    //    last_parent_child=jQuery(parent).children().last();
+    //    if(jQuery(last_parent_child).attr("class")=="attachment_index_class")
     //    {
     //        delete_attachments(last_parent_child); 
     //    }
@@ -91,22 +92,22 @@ function delete_fields(elm, num_of_parents, grand_parent, check_child)
     if(check_child == "") check_child = ".grid_fields";
 
     /* Get exact delete button */
-    element = $(elm);
+    element = jQuery(elm);
    
-    elementTitle=$(elm).attr('title');
-    elememGrandParent=$(elm).parent().parent().parent().attr("id");
+    elementTitle=jQuery(elm).attr('title');
+    elememGrandParent=jQuery(elm).parent().parent().parent().attr("id");
 
-    elememParent=$(elm).parent().parent();
+    elememParent=jQuery(elm).parent().parent();
     
     
     /* go to the parent div which should be removed */
     for(count = 1; count <= num_of_parents; count++)
     {
-        element = $(element).parent();
+        element = jQuery(element).parent();
     }
 
     /* animate div */
-    $(element).animate(
+    jQuery(element).animate(
     {
         opacity: 0.25, 
         left: '+=50', 
@@ -114,11 +115,11 @@ function delete_fields(elm, num_of_parents, grand_parent, check_child)
     }, 500,
     function() {
         /* remove div */
-        $(element).remove();
+        jQuery(element).remove();
         /* if it is required to hide grand parend */
-        if(grand_parent != '' && $(grand_parent).find(check_child).length == 0)
+        if(grand_parent != '' && jQuery(grand_parent).find(check_child).length == 0)
         {
-            $(grand_parent).animate({
+            jQuery(grand_parent).animate({
                 height: 'toggle'
             }, 400);
         }
@@ -140,7 +141,7 @@ function delete_fields(elm, num_of_parents, grand_parent, check_child)
 function defineJspicker(model,index,attrbute)
 {
     element_a=model+"_"+index+"_"+attrbute;
-    $("#"+element_a).jPicker(
+    jQuery("#"+element_a).jPicker(
     {
         images:
         {
@@ -175,24 +176,24 @@ function deletetimage(obj)
 {
     if(confirm("Are you sure you want to delete this image"))
     {
-        deleted_url=$(obj).next().val();
+        deleted_url=jQuery(obj).next().val();
         /**
      * 
      */
         if(deleted_url.search("real")!=-1)
         {
-            elem_id=$(obj).prev().prev().val();
+            elem_id=jQuery(obj).prev().prev().val();
             deleted_url+="&id="+elem_id;
         }
-        $.ajax({
+        jQuery.ajax({
             type: "POST",
             url: deleted_url,
  
         }).done(function( msg ) {
-            $(obj).parent().remove();
-            if($.trim($(".image_content").html())=="")
+            jQuery(obj).parent().remove();
+            if(jQuery.trim(jQuery(".image_content").html())=="")
             {
-                $(".uploadify_log-details").hide();
+                jQuery(".uploadify_log-details").hide();
             }
         });
     }
@@ -202,8 +203,8 @@ function deletetimage(obj)
 }
 function dozoomer(obj)
 {        
-    $("#zoomer").attr("href",$(obj).attr("src"));
-    $("#zoomer").trigger("click");
+    jQuery("#zoomer").attr("href",jQuery(obj).attr("src"));
+    jQuery("#zoomer").trigger("click");
 }
 
 /**
@@ -211,38 +212,38 @@ function dozoomer(obj)
  */
 function fillDropDown(json,elemd_id)
 {
-    $("#"+elemd_id).html("");
+    jQuery("#"+elemd_id).html("");
     for(obj in json)
     {
         htm="<option value='"+obj+"'>"+json[obj]+"</option>";
-        $("#"+elemd_id).append(htm);
+        jQuery("#"+elemd_id).append(htm);
     }
 }
 
 function add_options()
 {
-    if(typeof($("#options").val())!="undefined" )
+    if(typeof(jQuery("#options").val())!="undefined" )
     {
-        default_options = $("#options").val();
+        default_options = jQuery("#options").val();
         default_options = default_options.split(",");
         if(default_options.length>0)
         {
             i = 0;
-            $(".grid_fields").each(function()
+            jQuery(".grid_fields").each(function()
             {
                 if(typeof(default_options[i])!="undefined")
                 {
-                    $(this).children().eq(0).children().eq(0).val(default_options[i]);
-                    $(this).children().eq(1).children().eq(0).val(default_options[i]);
+                    jQuery(this).children().eq(0).children().eq(0).val(default_options[i]);
+                    jQuery(this).children().eq(1).children().eq(0).val(default_options[i]);
                     if(i==0)
                     {
-                        $(this).children().eq(2).children().eq(1).attr("checked","checked");     
+                        jQuery(this).children().eq(2).children().eq(1).attr("checked","checked");     
                     }
                 }
                 else
                 {
-                    //$(this).children().eq(0).children().eq(0).val("");
-                    //$(this).children().eq(1).children().eq(0).val("");
+                    //jQuery(this).children().eq(0).children().eq(0).val("");
+                    //jQuery(this).children().eq(1).children().eq(0).val("");
                 }
                 i++;
             }) 
