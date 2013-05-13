@@ -7,7 +7,9 @@ $this->breadcrumbs = array(
     $model->role_id,
 );
 
-$this->renderPartial("/common/_left_menu");
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>View User Role #<?php echo $model->role_id; ?></h1>

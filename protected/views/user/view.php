@@ -7,7 +7,9 @@ $this->breadcrumbs=array(
 	$model->user_id,
 );
 
-$this->renderPartial("/common/_left_menu");
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>View User #<?php echo $model->user_id; ?></h1>
