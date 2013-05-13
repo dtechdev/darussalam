@@ -122,8 +122,10 @@ class TranslatorCompilerController extends Controller {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
+
+
     /**
-     * Lists all models.
+     * Manages all models.
      */
     public function actionIndex() {
         $model = new TranslatorCompiler('search');
@@ -132,20 +134,6 @@ class TranslatorCompilerController extends Controller {
             $model->attributes = $_GET['TranslatorCompiler'];
 
         $this->render('index', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin() {
-        $model = new TranslatorCompiler('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['TranslatorCompiler']))
-            $model->attributes = $_GET['TranslatorCompiler'];
-
-        $this->render('admin', array(
             'model' => $model,
         ));
     }

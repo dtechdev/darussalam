@@ -7,13 +7,9 @@ $this->breadcrumbs=array(
 	$model->language_id,
 );
 
-$this->menu=array(
-	array('label'=>'List Language', 'url'=>array('index')),
-	array('label'=>'Create Language', 'url'=>array('create')),
-	array('label'=>'Update Language', 'url'=>array('update', 'id'=>$model->language_id)),
-	array('label'=>'Delete Language', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->language_id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Language', 'url'=>array('admin')),
-);
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>View Language #<?php echo $model->language_id; ?></h1>

@@ -9,7 +9,9 @@ $this->breadcrumbs = array(
     $model->product_id,
 );
 
-$this->renderPartial("/common/_left_menu");
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>View Product #<?php echo $model->product_id; ?></h1>

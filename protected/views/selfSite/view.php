@@ -7,7 +7,9 @@ $this->breadcrumbs=array(
 	$model->site_id,
 );
 
-$this->renderPartial("/common/_left_menu");
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>View SelfSite #<?php echo $model->site_id; ?></h1>

@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
+<div class="form wide" >
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'translator-compiler-form',
@@ -23,12 +23,12 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>
-		<?php echo $form->textField($model,'type',array('size'=>10,'maxlength'=>10)); ?>
+                <?php echo $form->dropDownList($model,'type',array('translator'=>'translator','compiler'=>'compiler')); ?>
 		<?php echo $form->error($model,'type'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array('class'=>'btn')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
