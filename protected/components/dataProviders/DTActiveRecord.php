@@ -22,12 +22,16 @@ class DTActiveRecord extends CActiveRecord {
      */
     public $_action;
     
+    public $_controller;
+    
     
     public $_no_condition = false;
 
     public function __construct($scenario = 'insert') {
         parent::__construct($scenario);
         $this->_action = Yii::app()->controller->action->id;
+        $this->_controller = Yii::app()->controller->id;
+        
     }
 
     public function afterFind() {
