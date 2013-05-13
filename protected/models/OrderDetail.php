@@ -116,7 +116,7 @@ class OrderDetail extends DTActiveRecord
         $is_featured = '1';
 
         $criteria = new CDbCriteria(array(
-            'select' => '*',
+            'select' => 'is_featured,city_id,product_id,authors',
             'condition' => "is_featured='" . $is_featured . "' AND city_id='" . Yii::app()->session['city_id'] . "'",
             'limit' => $limit,
             'order' => 'product_id ASC',
@@ -157,11 +157,13 @@ class OrderDetail extends DTActiveRecord
                 'product_id' => $products->product_id,
                 'product_name' => $products->product_name,
                 'product_description' => $products->product_description,
+                'product_author' => !empty($products->author)?$products->author->author_name:"",
                 'product_price' => $products->productProfile[0]->price,
                 
                 'no_image' => $products->no_image,
                 'image' => $images
             );
+            //echo '<pre>'; print_r($featured_products);die;
         }
         return $featured_products;
     }
