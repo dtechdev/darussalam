@@ -24,7 +24,8 @@ foreach ($products as $product) {
         </h3>
         <p>
             <?php
-            echo implode(",", $product['author']);
+                //CVarDumper::dump($product['product_author'],20,TRUE);die;
+                echo $product['product_author'];
             ?>
         </p>
         <article>&dollar;<?php echo round($product['product_price'], 2); ?></article>
