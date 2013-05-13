@@ -21,6 +21,9 @@ class DTActiveRecord extends CActiveRecord {
      * update_user_id
      */
     public $_action;
+    
+    
+    public $_no_condition = false;
 
     public function __construct($scenario = 'insert') {
         parent::__construct($scenario);

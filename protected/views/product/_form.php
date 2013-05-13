@@ -53,6 +53,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/f
 
     <?php
     if ($this->action->id != "update") {
+        $this->renderPartial('productProfile/_container', array('model' => $model, "type" => "field"));
         $this->renderPartial('productCategories/_container', array('model' => $model, "type" => "field"));
         //$this->renderPartial('productImages/_container', array('model' => $model, "type" => "field"));
     }
