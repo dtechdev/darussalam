@@ -41,7 +41,7 @@ class UserController extends Controller {
 
         Yii::app()->controller->layout = '//layouts/main';
         $model = new User;
-        
+
 
         if (isset($_POST['User'])) {
 
@@ -56,7 +56,7 @@ class UserController extends Controller {
 
             $model->activation_key = sha1(mt_rand(10000, 99999) . time() . $model->user_email);
             $activation_url = $this->createUrl('web/user/activate', array('key' => $model->activation_key));
-           
+
             if ($model->save()) {
 
                 //Sending email part - For activation
@@ -68,7 +68,7 @@ class UserController extends Controller {
                         Yii::app()->createAbsoluteUrl('web/user/activate', array('key' => $model->activation_key, 'user_id' => $model->user_id, 'city_id' => $model->city_id)) .
                         "<br /><br /> Thanks you 
                                 ";
-               
+
                 $email['From'] = Yii::app()->params['adminEmail'];
                 $email['To'] = $model->user_email;
                 $email['Subject'] = "Your Activation Link";
@@ -76,7 +76,7 @@ class UserController extends Controller {
                 // $body.=" going to this url: <br /> \n" . $model->getActivationUrl();
                 $email['Body'] = $body;
                 $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
-             
+
                 $this->sendEmail2($email);
                 Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by visiting your email account.');
                 $this->redirect(array('site/login'));  ///take him to login page....
@@ -165,19 +165,18 @@ class UserController extends Controller {
                 $pass_new = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 9);
 
 
-                $from = Yii::app()->params->adminEmail;
-                $to = $record->user_email;
 
-                $headers = array(
-                    'MIME-Version: 1.0',
-                    'Content-type: text/html; charset=iso-8859-1',
-                );
+                $body = "Your New Password : " . $pass_new;
 
-                $subject = "Your New Password";
 
-                $message = "Your New Password : " . $pass_new;
+                $email['From'] = Yii::app()->params->adminEmail;
+                $email['To'] = $record->user_email;
+                $email['Subject'] = "Your New Password";
+                $email['Body'] = $body;
+                $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
+                $this->sendEmail2($email);
 
-                $isSent = Yii::app()->email->send($from, $to, $subject, $message, $headers);
+                // $isSent = Yii::app()->email->send($from, $to, $subject, $message, $headers);
 
                 $user_id = $record->user_id;
                 $role_id = $record->role_id;
