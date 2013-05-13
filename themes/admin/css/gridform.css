@@ -10,6 +10,10 @@
     /**/
     width: 787px;
 }
+.child-container-nth{
+    width: 750px !important;
+    margin-left: 10px !important;
+}
 
 .child-container:hover {
     /*border:  1px solid #dbdbdb;
