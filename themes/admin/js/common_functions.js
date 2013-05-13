@@ -334,6 +334,7 @@ function add_new_child_row(u, module_name, field_container, field_row, show_grid
             
             /* append div with response, display is none for responsed div */
             $('#'+field_container).append(response);
+           
             
             
             /**

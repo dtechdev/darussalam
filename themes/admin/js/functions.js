@@ -33,6 +33,67 @@ function add_new_child_row(u, module_name, field_container, field_row, show_grid
             
             /* append div with response, display is none for responsed div */
             jQuery('#'+field_container).append(response);
+             
+            
+            /* Now animate response */
+            jQuery('#'+field_container + ' .' + field_row).last().animate({
+                opacity : 1, 
+                left: '+50', 
+                height: 'toggle'
+            });
+            
+            /* Grid should be viewable in parent view mode */
+            if(show_grid == true && jQuery('#'+module_name+' .child').is(':hidden'))
+            {
+                //                jQuery('#'+module_name+' .child').show('slow');
+                jQuery('#'+module_name+' .child').animate({
+                    opacity : 1, 
+                    left: '+50', 
+                    height: 'toggle'
+                });
+            }
+          
+            jQuery('#loading').toggle();
+            add_options();
+            add_mode = true;
+        }
+    });
+}
+/**
+ *  for adding sub child
+ * @param {type} u
+ * @param {type} module_name
+ * @param {type} field_container
+ * @param {type} field_row
+ * @param {type} show_grid
+ * @returns {undefined}
+ */
+function add_newSub_child_row(u, module_name, field_container, field_row, show_grid)
+{
+ 
+    jQuery('#loading').toggle();
+    //    alert(field_container);
+    jQuery.ajax({
+        url: u,
+        success: function(response)
+        {
+            jQuery('#'+module_name+' .subform').css('display', 'block');
+               
+            /* 
+             * Normally when page is loaded add_mode is true. 
+             * When user click at edit button add_mode become false because there is a complete seprate code for
+             * loading field_container in edit mode under edit button.
+             * And when again add button is pressed, first field_container div is set to null and then it is updated by appending
+             * 
+             * In case of add we append the div - In case of edit we replace the div
+             * 
+             */
+            if(add_mode == false)
+                jQuery('#'+field_container).html('');
+            
+            /* append div with response, display is none for responsed div */
+            jQuery('#'+field_container).append(response);
+             
             
             /* Now animate response */
             jQuery('#'+field_container + ' .' + field_row).last().animate({
