@@ -1,28 +1,71 @@
 <?php
 $relationName = "productProfile";
-$mName="ProductProfile";
+$mName = "ProductProfile";
 ?>
 
 <div class="<?php echo $relationName; ?> child" style="<?php echo 'display:' . (isset($_POST[$mName]) ? 'block' : 'none'); ?>">
     <?php
-    
     $config = array(
         'criteria' => array(
-           'condition' => 'product_id=' . $model->primaryKey,
+            'condition' => 'product_id=' . $model->primaryKey,
         )
     );
     $mNameobj = new $mName;
     $mName_provider = new CActiveDataProvider($mName, $config);
     $this->widget('zii.widgets.grid.CGridView', array(
-        'id' => $mName.'-grid',
+        'id' => $mName . '-grid',
         'dataProvider' => $mName_provider,
         'columns' => array(
-           array(
-                'name' => 'id',
-                'value'=>'$data->id',
-                "type"=>"raw",
+            array(
+                'name' => 'item_code',
+                'value' => '$data->item_code',
+                "type" => "raw",
             ),
-           
+            array(
+                'name' => 'language_id',
+                'value' => '!empty($data->productLanguage)?$data->productLanguage->language_name:""',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'discount_type',
+                'value' => '$data->discount_type',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'discount_value',
+                'value' => '$data->discount_value',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'size',
+                'value' => '$data->size',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'binding',
+                'value' => '$data->binding',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'printing',
+                'value' => '$data->printing',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'no_of_pages',
+                'value' => '$data->no_of_pages',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'isbn',
+                'value' => '$data->isbn',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'price',
+                'value' => '$data->price',
+                "type" => "raw",
+            ),
             array
                 (
                 'class' => 'CButtonColumn',
@@ -52,7 +95,7 @@ $mName="ProductProfile";
                     ),
                     'delete' => array(
                         'label' => 'Delete',
-                        'url' => 'Yii::app()->controller->createUrl("deleteChildByAjax",array("id" => $data->primaryKey, "mName" => "'.$mName.'"))',
+                        'url' => 'Yii::app()->controller->createUrl("deleteChildByAjax",array("id" => $data->primaryKey, "mName" => "' . $mName . '"))',
                     ),
                 ),
             ),
@@ -60,7 +103,7 @@ $mName="ProductProfile";
     ));
     ?>
 </div>
-<?php
-$this->widget('ext.lyiightbox.LyiightBox2', array(
-));
-?>
+    <?php
+    $this->widget('ext.lyiightbox.LyiightBox2', array(
+    ));
+    ?>

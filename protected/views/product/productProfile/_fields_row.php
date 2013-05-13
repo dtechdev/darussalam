@@ -15,6 +15,8 @@ $relationName = "productProfile";
             echo CHtml::activeHiddenField($model, '[' . $index . ']id');
         }
 
+        echo CHtml::activeHiddenField($model, '[' . $index . ']upload_index', array("value" => $index));
+
         echo CHtml::activeTextField($model, '[' . $index . ']item_code');
         ?>
     </div>
@@ -29,8 +31,7 @@ $relationName = "productProfile";
     </div>
     <div class="field" style="width:60px">
         <?php
-         echo CHtml::activeDropDownList($model, '[' . $index . ']discount_type',
-                 array("fixed"=>"fixed","percentage"=>"percentage"));
+        echo CHtml::activeDropDownList($model, '[' . $index . ']discount_type', array("fixed" => "fixed", "percentage" => "percentage"));
         ?>
     </div>
     <div class="field" style="width:50px">
@@ -73,6 +74,11 @@ $relationName = "productProfile";
         echo CHtml::activeTextField($model, '[' . $index . ']isbn');
         ?>
     </div>
+    <div class="field" style="width:50px">
+        <?php
+        echo CHtml::activeTextField($model, '[' . $index . ']price');
+        ?>
+    </div>
 
 
 
@@ -99,3 +105,8 @@ $relationName = "productProfile";
     <div class="clear"></div>
 </div>
 <div class="clear"></div>
+<?php
+$this->renderPartial(
+        'productImages/_container', array('model' => $model,
+    "type" => "field", "index" => $index));
+?>

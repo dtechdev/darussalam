@@ -43,6 +43,7 @@ $this->widget('zii.widgets.CDetailView', array(
     ),
 ));
 
+$this->renderPartial('productProfile/_container', array('model' => $model, "type" => "form"));
 $this->renderPartial('productCategories/_container', array('model' => $model, "type" => "form"));
 //$this->renderPartial('productImages/_container', array('model' => $model, "type" => "form"));
 ?>

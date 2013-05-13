@@ -12,6 +12,7 @@
  * @property integer $discount_value
  * @property integer $language_id
  * @property string $isbn
+ * @property string $price
  *
  * The followings are the available model relations:
  * @property Author $author
@@ -30,6 +31,13 @@ class ProductProfile extends DTActiveRecord {
     }
 
     /**
+     * used to insert and upload images 
+     * for every own profile
+     * @var type 
+     */
+    public $upload_index;
+
+    /**
      * @return string the associated database table name
      */
     public function tableName() {
@@ -43,11 +51,12 @@ class ProductProfile extends DTActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('size,language_id,item_code,product_id', 'required'),
+            array('size,language_id,item_code', 'required'),
+            array('item_code', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
-            array('id,size,no_of_pages,binding,printing,paper,edition', 'safe'),
-            array('discount_type,discount_type', 'safe'),
+            array('product_id,activity_log', 'safe'),
+            array('id,size,no_of_pages,binding,printing,paper,edition,upload_index', 'safe'),
+            array('price,discount_type,discount_type', 'safe'),
             array('isbn', 'length', 'max' => 255),
             array('language_id', 'UniqueLanguage'),
             // The following rule is used by search().
@@ -57,25 +66,97 @@ class ProductProfile extends DTActiveRecord {
     }
 
     /**
+     * Behaviour
+     *
+     */
+    public function behaviors() {
+        return array(
+            'CSaveRelationsBehavior' => array(
+                'class' => 'CSaveRelationsBehavior',
+                'relations' => array(
+                    'basicFeatures' => array("message" => "Please, fill required fields"),
+                ),
+            ),
+            'CMultipleRecords' => array(
+                'class' => 'CMultipleRecords'
+            ),
+        );
+    }
+
+    /**
      * 
      * @param type $attribute
      * @param type $params
      */
     public function UniqueLanguage($attribute, $params) {
-        $languages = array();
-        $total_childs = array();
-        if (isset($_POST['ProductProfile'])) {
-            $total_childs = $_POST['ProductProfile'];
-            foreach ($_POST['ProductProfile'] as $pFile) {
-                $languages[] = $pFile['language_id'];
+        /** in case while creating new product * */
+        if ($this->_controller == "product" && $this->_action == "create") {
+            $languages = array();
+
+            $total_childs = array();
+            if (isset($_POST['ProductProfile'])) {
+                $total_childs = $_POST['ProductProfile'];
+                foreach ($_POST['ProductProfile'] as $pFile) {
+                    $languages[] = $pFile['language_id'];
+                }
+            }
+
+            $languages = array_unique($languages);
+
+
+            if (count($languages) > 0 && count($total_childs) != count($languages)) {
+
+                $this->addError($attribute, "Language Must be unique");
             }
         }
-        $languages = array_unique($languages);
+        /**
+         * in case creating profiles using product
+         */ else if ($this->_controller == "product" && $this->_action == "view") {
+            $is_error = $this->getLangsLists();
+            if ($is_error) {
+                $this->addError($attribute, "Language Must be unique");
+            }
+        }
+    }
+
+    /**
+     * langs list
+     */
+    public function getLangsLists() {
 
 
-        if (count($languages) > 0 && count($total_childs) != count($languages)) {
-            echo "ali";
-            $this->addError($attribute, "Language Must be unique");
+
+        if (!empty($_GET['id'])) {
+            $criteria = new CDbCriteria();
+            $criteria->select = "language_id";
+            $criteria->addCondition("product_id=" . $_GET['id']);
+            $criteria->addCondition("language_id=" . $this->language_id);
+            if (!$this->isNewRecord) {
+
+                $criteria->addCondition("id <>" . $this->id);
+            }
+            $product = ProductProfile::model()->findAll($criteria);
+            if (!empty($product)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function beforeValidate() {
+
+        $this->makePosthildsProfile();
+        return parent::beforeValidate();
+    }
+
+    /**
+     * for making every profile childs
+     */
+    public function makePosthildsProfile() {
+        CVarDumper::dump($_POST['ProductImage'],10,true);
+        die;
+        if (isset($_POST['ProductImage'])) {
+            $this->setRelationRecords('productImages', is_array($_POST['ProductImage']) ? $_POST['ProductImage'] : array());
         }
     }
 
@@ -86,8 +167,9 @@ class ProductProfile extends DTActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'profile' => array(self::BELONGS_TO, 'Product', 'product_id'),
+            'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
             'productLanguage' => array(self::BELONGS_TO, 'Language', 'language_id'),
+            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_profile_id', 'order' => 'is_default DESC'),
         );
     }
 
@@ -99,6 +181,7 @@ class ProductProfile extends DTActiveRecord {
             'profile_id' => 'Profile',
             'product_id' => 'Product',
             'isbn' => 'Isbn',
+            'price' => 'Price',
             'no_of_pages' => '# Pages',
             'binding' => 'Binding',
             'printing' => 'Printing',

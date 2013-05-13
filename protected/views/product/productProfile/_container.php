@@ -56,15 +56,16 @@ $plusImage = "<div class='left_float' style='padding-top:2px'>" .
     /**
      * in case of no post request
      */
-    if (!isset($_POST[$mName])) {
+    if (!isset($_POST[$mName]) && $this->action->id == 'create') {
         $m[] = new ProductProfile;
 
         $model->$relationName = $m;
+        $basic_feature_div = "block";
     }
 
     $relateModelobj = new $mName;
     ?>
-    <div id="<?php echo $relationName ?>-form" class="subform" style="">
+    <div id="<?php echo $relationName ?>-form" class="subform" style="display:<?php echo $basic_feature_div; ?>">
         <div class="main">
             <!--        <div class="head">Field Force Labors</div>-->
             <div class="form_body">
@@ -80,6 +81,7 @@ $plusImage = "<div class='left_float' style='padding-top:2px'>" .
                     <div class="title" style="width:50px"><?php echo CHtml::activeLabel($relateModelobj, 'edition'); ?></div>
                     <div class="title" style="width:50px"><?php echo CHtml::activeLabel($relateModelobj, 'no_of_pages'); ?></div>
                     <div class="title" style="width:50px"><?php echo CHtml::activeLabel($relateModelobj, 'isbn'); ?></div>
+                    <div class="title" style="width:50px"><?php echo CHtml::activeLabel($relateModelobj, 'price'); ?></div>
 
 
                 </div>

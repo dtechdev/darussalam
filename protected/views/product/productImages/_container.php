@@ -1,6 +1,6 @@
 <?php
 $dir = "productImages";
-$fields_div_id = $dir . '_fields';
+$fields_div_id = $dir . '_fields_' . $index;
 $heading = "Product Images";
 $mName = "ProductImage";
 
@@ -13,7 +13,7 @@ $plusImage = "<div class='left_float' style='padding-top:2px'>" .
         "</div>";
 ?>
 
-<div class="child-container" id ="<?php echo $dir; ?>">
+<div class="child-container child-container-nth" id ="<?php echo $dir; ?>">
     <div class="subsection-header">
         <div class="left_float">
             <?php
@@ -32,7 +32,7 @@ $plusImage = "<div class='left_float' style='padding-top:2px'>" .
                     u = '" . $this->createUrl("loadChildByAjax", array("mName" => "$mName", "dir" => $dir, "load_for" => $this->action->id,)) . "&index=' +  " . $relationName . "_index_sc;
                    
                     
-                    add_new_child_row(u, '" . $dir . "', '" . $fields_div_id . "', 'grid_fields', true);
+                    add_newSub_child_row(u, '" . $dir . "', '" . $fields_div_id . "', 'grid_fields', true);
                     jQuery('#" . $relationName . "-plus').attr('class', 'plus_rotate');
               
                      
@@ -88,6 +88,7 @@ $plusImage = "<div class='left_float' style='padding-top:2px'>" .
                                 "load_for" => $this->action->id,
                                 'display' => 'block',
                                 'dir' => $dir,
+                                "upload_index"=>$index,
                                 'fields_div_id' => $fields_div_id));
                             $relationName_index_sc = $key;
                         }
