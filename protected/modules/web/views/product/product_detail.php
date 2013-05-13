@@ -13,9 +13,9 @@
 
             <?php
             $detail_img = $product->no_image;
-            if (!empty($product->productImages[0])) {
-                $detail_img = CHtml::image($product->productImages[0]->image_url['image_large'], '', array("class" => "small_product_first", "id" => "large_image",));
-                echo CHtml::link($detail_img, $product->productImages[0]->image_url['image_large'], array("rel" => 'lightbox[_default]'));
+            if (!empty($product->productProfile[0])) {
+                $detail_img = CHtml::image($product->productProfile[0]->productImages[0]->image_url['image_large'], '', array("class" => "small_product_first", "id" => "large_image",));
+                echo CHtml::link($detail_img, $product->productProfile[0]->productImages[0]->image_url['image_large'], array("rel" => 'lightbox[_default]'));
             } else {
                 $detail_img = CHtml::image($product->no_image);
                 echo CHtml::link($detail_img, $product->no_image, array("rel" => 'lightbox[_default]'));
@@ -23,7 +23,7 @@
             ?>
             <div class="small_product">
                 <?php
-                foreach ($product->productImages as $img) {
+                foreach ($product->productProfile[0] as $img) {
                     echo CHtml::image($img->image_url['image_small'], '', array("width" => "66px", "height" => "95px", "large_image" => $img->image_url['image_large']));
                 }
                 ?>
@@ -67,7 +67,7 @@
                         <td class="left_td">Author</td>
                         <td class="right_td">
                             <?php
-                            echo isset($product->author->author_name)?$product->author->author_name:"";
+                            echo isset($product->author->author_name) ? $product->author->author_name : "";
 //$authors = $product->getAuthors();
 //echo implode("/", $authors);
                             ?></td>
@@ -76,9 +76,13 @@
                         <td class="left_td">Language</td>
                         <td class="right_td">
                             <?php
-                            echo isset($product->language->language_name)?$product->language->language_name:"";
-//$languages = $product->getBookLanguages();
-//echo implode("/", $languages);
+                            if (isset($product->productProfile[0]->language_id)) {
+                                $lan = new Language;
+                                $language_name = $lan->getLanguage($product->productProfile[0]->language_id);
+                                echo $language_name;
+                            } else {
+                                echo "";
+                            }
                             ?>
                         </td>
                     </tr>
@@ -86,7 +90,7 @@
                         <td class="left_td">ISBN No</td>
                         <td class="right_td">
                             <?php
-                            echo $product->isbn;
+                            echo isset($product->productProfile[0]->isbn) ? $product->productProfile[0]->isbn : "";
                             ?>
                         </td>
                     </tr>
@@ -133,11 +137,16 @@
                 </div>
                 <div class="product_cart">
                     <tr class="price_cart">
-                        <td class="price"  id="price"><?php echo '$ ' . round($product->product_price, 2); ?></td>
+                        <td class="price"  id="price">
+                            <?php
+                            echo isset($product->productProfile[0]->price) ? round($product->productProfile[0]->price, 2) : "";
+                            ?>
+
+                        </td>
                         <td class="quantity">Quantity 
                             <?php
                             $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
-                            echo CHtml::dropDownList('quantity', '', $quantities, array('onChange' => 'javascript:totalPrice(this.value,"' . $product->product_price . '")'), array());
+                            echo CHtml::dropDownList('quantity', '', $quantities, array('onChange' => 'javascript:totalPrice(this.value,"' . $product->productProfile[0]->price . '")'), array());
                             ?>
                         </td>
                         <td class="add_cart">
@@ -166,18 +175,18 @@
                                 echo CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg');
 
                                 echo CHtml::ajaxLink(' Add to wishlist', $this->createUrl('/cart/addtowishlist'), array('data' => array(
-                                    'product_id' => $product->product_id,
-                                    'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
-                                    'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
-                                ),
-                                'type' => 'POST',
-                                'dataType' => 'json',
-                                'success' => 'function(data){
+                                        'product_id' => $product->product_id,
+                                        'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
+                                        'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
+                                    ),
+                                    'type' => 'POST',
+                                    'dataType' => 'json',
+                                    'success' => 'function(data){
                                            jQuery("#wishlist_counter").html(data.wishlist_counter);
                                       }',
-                                    )
-                            );
-                            ?>
+                                        )
+                                );
+                                ?>
                             </a> </td>
                     </tr>
                 </div>
