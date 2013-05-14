@@ -116,7 +116,7 @@ class OrderDetail extends DTActiveRecord
         $is_featured = '1';
 
         $criteria = new CDbCriteria(array(
-            'select' => 'is_featured,city_id,product_id,authors',
+            'select' => '*',
             'condition' => "is_featured='" . $is_featured . "' AND city_id='" . Yii::app()->session['city_id'] . "'",
             'limit' => $limit,
             'order' => 'product_id ASC',
