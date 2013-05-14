@@ -79,8 +79,7 @@ class Product extends DTActiveRecord {
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
             'categories' => array(self::MANY_MANY, 'Categories', 'product_categories(product_id, product_category_id)'),
-            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'order' => 'is_default DESC'),
-            'productLanguage' => array(self::HAS_MANY, 'ProductLanguage', 'product_id'),
+            
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
             /**
              * only for ajax views
