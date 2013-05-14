@@ -14,11 +14,14 @@
         </div>
     </div>
     <div class="right_book">
-        <?php
-        echo $this->renderPartial(
-                "_product_detail_data", array("product" => $product,
-            "rating_value" => $rating_value));
-        ?>
+        <div class="book_data">
+            <?php
+            echo $this->renderPartial(
+                    "_product_detail_data", array("product" => $product,
+                "rating_value" => $rating_value));
+            ?>
+        </div>
+
         <div id="product_comments">
 
 

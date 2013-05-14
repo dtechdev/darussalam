@@ -1,4 +1,5 @@
 <table width="400">
+   
     <div class="middle_book">
         <h1><?php echo $product->product_name; ?></h1>
         <div class="products_img">
@@ -44,12 +45,26 @@
                 <?php
                 if (count($product->productProfile) > 1) {
                     foreach ($product->productProfile as $data) {
-                        $langugae_lists[] = $data->productLanguage->language_name;
+                        $langugae_lists[$data->productLanguage->language_id] = $data->productLanguage->language_name;
                     }
-                    echo CHtml::dropDownList('quantity', '', $langugae_lists, array(
-                        'ochange' => '
-                                                
-                                         '));
+                    echo CHtml::dropDownList('language', $product->productProfile[0]->language_id, $langugae_lists, array(
+                        'onchange' => '
+                            jQuery("#loading").show();
+                            jQuery.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: "' . $this->createUrl("/web/product/productDetailLang", array("id" => $product->product_id)) . '",
+                                data: 
+                                    { 
+                                        lang_id: jQuery("#language").val() 
+                                    }
+                                }).done(function( msg ) {
+                               
+                                jQuery("#loading").hide();
+                                jQuery(".left_book").html(msg["left_data"]);
+                                jQuery(".book_data").html(msg["right_data"]);
+                            });    
+                      '));
                 } else {
 
                     foreach ($product->productProfile as $data) {

@@ -70,6 +70,7 @@ class Product extends DTActiveRecord {
      * @return array relational rules.
      */
     public function relations() {
+        
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -81,7 +82,12 @@ class Product extends DTActiveRecord {
             'categories' => array(self::MANY_MANY, 'Categories', 'product_categories(product_id, product_category_id)'),
             'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'order' => 'is_default DESC'),
             'productLanguage' => array(self::HAS_MANY, 'ProductLanguage', 'product_id'),
+            
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
+            /**
+             * only for ajax views
+             */
+            'productSelectedProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id','condition'=>'language_id='.$_POST['lang_id']),
             'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id'),
             'author' => array(self::BELONGS_TO, 'Author', 'authors'),
             'language' => array(self::BELONGS_TO, 'Language', 'languages'),

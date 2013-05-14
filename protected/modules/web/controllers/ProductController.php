@@ -29,6 +29,7 @@ class ProductController extends Controller {
                 'actions' => array('viewcart', 'editcart', 'viewwishlist', 'editwishlist', 'allproducts',
                     'featuredproducts', 'bestsellings', 'productdetail', 'productlisting',
                     'productfilter',
+                    'productDetailLang',
                     'paymentmethod'),
                 'users' => array('*'),
             ),
@@ -172,21 +173,53 @@ class ProductController extends Controller {
         $this->render('product_listing');
     }
 
+    /**
+     * product detail
+     */
     public function actionproductDetail() {
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = Yii::app()->session['layout'];
-        
+
 
         $product = Product::model()->findByPk($_REQUEST['product_id']);
 
         Yii::app()->controller->layout = '//layouts/main';
-     
+
         /**
          *  getting value of poduct rating
          */
         $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
         $this->render('product_detail', array('product' => $product, "rating_value" => $rating_value));
+    }
+
+    /**
+     * product detail change
+     */
+    public function actionproductDetailLang($id) {
+
+        if (isset($_POST['lang_id'])) {
+
+
+
+            $product = Product::model();
+
+            $product = $product->findByPk($id);
+            $product->productProfile = $product->productSelectedProfile;
+    
+
+            /**
+             *  getting value of poduct rating
+             */
+            $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
+            $right_data = $this->renderPartial("_product_detail_data", array('product' => $product, "rating_value" => $rating_value), true, true);
+            $left_data = $this->renderPartial("_product_detail_image", array('product' => $product), true, false);
+
+            echo CJSON::encode(array(
+                "right_data" => $right_data,
+                "left_data" => $left_data,
+            ));
+        }
     }
 
     public function actionpaymentMethod() {
