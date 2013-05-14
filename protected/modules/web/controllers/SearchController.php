@@ -43,21 +43,23 @@ class SearchController extends Controller {
         if (isset($_POST['serach_field'])) {
             $q = $_POST['serach_field'];
 
-            $sql = "Select " .
+          $sql = "Select " .
             " DISTINCT(product.product_id), " .
             " product.product_name, " .
             " city.short_name as city_short, " .
             " product.city_id, " .
             " product.authors, " .
-            " product.languages, " .
+           // " product.languages, " .
             " country.short_name " .
             " FROM product " .
             " LEFT OUTER JOIN city " .
             " ON city.city_id = product.city_id " .
             " LEFT OUTER JOIN author " .
             " ON author.author_id = product.authors " .
-            " LEFT outer JOIN language " .
-            " ON language.language_id = product.languages " .
+            " LEFT outer JOIN product_profile " .
+            " ON product_profile.product_id = product.product_id " .
+            " LEFT  JOIN language " .
+            " ON language.language_id = product_profile.language_id " .
             " INNER JOIN country " .
             " ON country.country_id = city.country_id " .
             " LEFT OUTER JOIN product_categories ON " .
@@ -67,6 +69,10 @@ class SearchController extends Controller {
             " WHERE " .
             " ( " .
             " product.product_name LIKE '%" . $q . "%' " .
+            " OR " .
+            " author.author_name LIKE '%" . $q . "%' " .
+            " OR " .
+            " categories.category_name LIKE '%" . $q . "%' " .
             " OR " .
             " city.short_name LIKE '%" . $q . "%' " .
             " OR " .
@@ -81,7 +87,7 @@ class SearchController extends Controller {
             " categories.category_name LIKE '%" . $q . "%' ) ";
             $connection = Yii::app()->db;
             $command = $connection->createCommand($sql);
-            $rows = $command->queryAll();
+                $rows = $command->queryAll();
             $this->render("search_result", array('data' => $rows));
         } else {
 
