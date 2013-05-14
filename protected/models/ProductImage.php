@@ -172,10 +172,20 @@ class ProductImage extends DTActiveRecord {
      */
     public function setUploadVars() {
         $large_img = DTUploadedFile::getInstance($this, '[' . $this->upload_key . ']image_large');
+       
+
         if (!empty($large_img)) {
+            echo "ali";
             $this->image_large = $large_img;
             $this->image_small = "small_" . $large_img;
+        } else {
+            $this->image_large = $this->oldLargeImg;
+            $this->image_small = $this->oldSmallImg;
         }
+
+        $this->image_large;
+
+        
     }
 
     /**
