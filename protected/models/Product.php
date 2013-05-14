@@ -59,7 +59,6 @@ class Product extends DTActiveRecord {
             array('city_id', 'numerical', 'integerOnly' => true),
             array('product_name', 'length', 'max' => 255),
             array('is_featured', 'length', 'max' => 1),
-            
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('product_id, product_name,product_description, city_id, is_featured', 'safe', 'on' => 'search'),
@@ -70,7 +69,7 @@ class Product extends DTActiveRecord {
      * @return array relational rules.
      */
     public function relations() {
-        
+
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -80,14 +79,12 @@ class Product extends DTActiveRecord {
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
             'categories' => array(self::MANY_MANY, 'Categories', 'product_categories(product_id, product_category_id)'),
-            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_id', 'order' => 'is_default DESC'),
-            'productLanguage' => array(self::HAS_MANY, 'ProductLanguage', 'product_id'),
             
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
             /**
              * only for ajax views
              */
-            'productSelectedProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id','condition'=>'language_id='.$_POST['lang_id']),
+            'productSelectedProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id', 'condition' => 'language_id=' . $_POST['lang_id']),
             'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id'),
             'author' => array(self::BELONGS_TO, 'Author', 'authors'),
             'language' => array(self::BELONGS_TO, 'Language', 'languages'),
@@ -247,16 +244,15 @@ class Product extends DTActiveRecord {
      * get books languages
      */
     public function getBookLanguages() {
-        if (empty($this->languages)) {
-            return array();
-        }
-        $languages = explode(",", $this->languages);
+
 
         $criteria = new CDbCriteria();
-        $criteria->addInCondition("language_id", $languages);
-        $criteria->select = "language_id,language_name";
 
-        return CHtml::listData(Language::model()->findAll($criteria), "language_id", "language_name");
+        $criteria->addCondition("t.product_id=".$this->product_id);
+        $criteria->select = "t.language_id,language.language_name";
+        $criteria->join = "INNER JOIN language ON language.language_id =t.language_id";
+
+        return CHtml::listData(ProductProfile::model()->findAll($criteria), "language_id", "language_name");
     }
 
     /**

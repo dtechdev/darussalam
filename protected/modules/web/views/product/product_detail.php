@@ -41,7 +41,7 @@
 ;
 
 Yii::app()->clientScript->registerScript('image_change_function', "
-                    jQuery('.small_product img').click(function(){
+                    jQuery('.small_product img').live('click',function(){
                         dtech.detailImagechange(this)
                     })
                   
