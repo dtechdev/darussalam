@@ -77,15 +77,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'style' => "text-align:left"
             )
         ),
-
-        array(
-            'name' => 'product_rating',
-            'type' => 'Raw',
-            'value' => '$data->product_rating',
-            'headerHtmlOptions' => array(
-                'style' => "text-align:left"
-            )
-        ),
         array(
             'name' => 'create_time',
             'type' => 'Raw',
