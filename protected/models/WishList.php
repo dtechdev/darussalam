@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'wish_list':
  * @property string $id
- * @property integer $product_id
+ * @property integer $product_profile_id
  * @property integer $user_id
  * @property integer $city_id
  * @property string $added_date
@@ -49,14 +49,14 @@ class WishList extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('product_id', 'required'),
-			array('product_id, user_id, city_id', 'numerical', 'integerOnly'=>true),
+			array('product_profile_id', 'required'),
+			array('product_profile_id, user_id, city_id', 'numerical', 'integerOnly'=>true),
 			array('session_id', 'length', 'max'=>255),
 			array('create_user_id, update_user_id', 'length', 'max'=>11),
 			array('activity_log,create_time, create_user_id, update_time, update_user_id', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, product_id, user_id, city_id, added_date, session_id, create_time, create_user_id, update_time, update_user_id, activity_log', 'safe', 'on'=>'search'),
+			array('id, product_profile_id, user_id, city_id, added_date, session_id, create_time, create_user_id, update_time, update_user_id, activity_log', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,7 +69,7 @@ class WishList extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-			'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
+			'product' => array(self::BELONGS_TO, 'Product', 'product_profile_id'),
 			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
 		);
 	}
@@ -81,7 +81,7 @@ class WishList extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'product_id' => 'Product',
+			'product_profile_id' => 'Product',
 			'user_id' => 'User',
 			'city_id' => 'City',
 			'added_date' => 'Added Date',
@@ -106,7 +106,7 @@ class WishList extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('product_id',$this->product_id);
+		$criteria->compare('product_profile_id',$this->product_profile_id);
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('city_id',$this->city_id);
 		$criteria->compare('added_date',$this->added_date,true);
