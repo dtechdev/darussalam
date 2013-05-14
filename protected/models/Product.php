@@ -144,7 +144,7 @@ class Product extends DTActiveRecord {
         ));
 
         if (isset($_POST['ajax'])) {
-            $criteria->join = 'INNER JOIN product_categories  on t.product_id=product_categories.product_id';
+            
 
             if (!empty($_POST['author'])) {
                 $author = explode(",", $_POST['author']);
@@ -152,10 +152,13 @@ class Product extends DTActiveRecord {
             }
             if (!empty($_POST['langs'])) {
                 $langs = explode(",", $_POST['langs']);
-                $criteria->addInCondition("languages", $langs);
+                 $criteria->join.= ' INNER JOIN product_profile  '.
+                               ' ON product_profile.product_id = t.product_id';
+                $criteria->addInCondition("product_profile.language_id", $langs);
             }
             if (!empty($_POST['cat_id'])) {
-
+                $criteria->join.= ' LEFT JOIN product_categories  ON '.
+                               't.product_id=product_categories.product_id';
                 $criteria->addCondition("product_categories.category_id='" . $_POST['cat_id'] . "'");
             }
             $criteria->distinct = "t.product_id";

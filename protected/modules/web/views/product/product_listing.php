@@ -12,12 +12,12 @@
                     <div class="chek">
                         <?php
                         echo CHtml::checkBox('checkbox', '', array(
-                            "class" => "filter_checkbox", 
+                            "class" => "filter_checkbox",
                             "value" => $language->language_id,
-                            "onclick"=>'
+                            "onclick" => '
                                   dtech.updateProductListing("' . $this->createUrl("/web/product/productfilter") . '","");
                                '
-                            ))
+                        ))
                         ?>
                         <span>
                             <?php echo $language->language_name ?>
@@ -28,7 +28,7 @@
                 <h1>Author</h1>
                 <?php
                 $models = Author::model()->findAll();
-                $lstdata = CHtml::listData($models, 'author_id', 'author_name');
+                $lstdata = array("" => "All") + CHtml::listData($models, 'author_id', 'author_name');
                 echo CHtml::dropDownList('author_id', '', $lstdata, //not in action.....
                         array('options' => array('author_name' => array('selected' => true)),
                     'onchange' => '
