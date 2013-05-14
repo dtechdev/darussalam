@@ -59,7 +59,7 @@ class Cart extends DTActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'product' => array(self::BELONGS_TO, 'Product', 'product_profile_id'),
+            'productProfile' => array(self::BELONGS_TO, 'ProductProfile', 'product_profile_id'),
         );
     }
 
