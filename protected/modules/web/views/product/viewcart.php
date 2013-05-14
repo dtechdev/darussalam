@@ -29,7 +29,7 @@ if (empty($cart)) {
                     $total_quantity = 0;
                     $description = '';
                     foreach ($cart as $pro) {
-                        $grand_total = $grand_total + ($pro->quantity * $pro->product->product_price);
+                        $grand_total = $grand_total + ($pro->quantity * $pro->product->productProfile->price);
                         $total_quantity+=$pro->quantity;
                         $description.=$pro->product->product_name . ' , ';
                         ?>
@@ -37,14 +37,14 @@ if (empty($cart)) {
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                $images = $pro->product->getImage();
-                                $image = $pro->product['no_image'];
-                                if (isset($images[0]['image_small'])) {
-                                    $image = $images[0]['image_small'];
-                                }
+                                //$images = $pro->product->getImage();
+                                //$image = $pro->product['no_image'];
+                                //if (isset($images[0]['image_small'])) {
+                                 //   $image = $images[0]['image_small'];
+                               // }
                               
-                                echo CHtml::image($image);
-                                ?>
+                               // echo CHtml::image($image);
+                               // ?>
                             </div>
                             <div class="left_right_cart">
                                 <h1><?php echo $pro->product->product_name; ?></h1>
@@ -84,7 +84,7 @@ if (empty($cart)) {
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Language</td>
                                         <td class="cart_right_td"><?php
-                                    echo isset($pro->product->language->language_name) ? $pro->product->language->language_name : "";
+                                    echo isset($pro->product->productProfile->language->language_name) ? $pro->product->productProfile->language->language_name : "";
 //                                            $i = 0;
 //                                            foreach ($pro->product->productLanguage as $lan) {
 //                                                if ($i == 0)
@@ -100,7 +100,7 @@ if (empty($cart)) {
                                     </tr>
                                 </table>
                                 <div class="quantity_cart">
-                                    <p>$<?php echo round($pro->product->product_price, 2); ?></p>
+                                    <p>$<?php echo round($pro->product->productProfile->price, 2); ?></p>
                                     <span>Quantity</span> 
         <?php
         $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
@@ -117,7 +117,7 @@ if (empty($cart)) {
                                             ))
                                     );
                                     ?>
-                                    <h3>$<?php echo round($pro->quantity * $pro->product->product_price, 2); ?></h3>
+                                    <h3>$<?php echo round($pro->quantity * $pro->product->productProfile->price, 2); ?></h3>
                                 </div>
                             </div>
                         </div>

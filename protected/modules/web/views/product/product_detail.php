@@ -73,15 +73,19 @@
                             ?></td>
                     </tr>
                     <tr class="product_tr">
-                        <td class="left_td">Language</td>
+                        <td class="left_td">Available Languages</td>
                         <td class="right_td">
                             <?php
-                            if (isset($product->productProfile[0]->language_id)) {
-                                $lan = new Language;
-                                $language_name = $lan->getLanguage($product->productProfile[0]->language_id);
-                                echo $language_name;
+                            if (count($product->productProfile) > 1) {
+                                foreach ($product->productProfile as $data) {
+                                    $langugae_lists[] = $data->productLanguage->language_name;
+                                }
+                                echo CHtml::dropDownList('quantity', '', $langugae_lists, array('onChange' => 'callto some ajax here'));
                             } else {
-                                echo "";
+
+                                foreach ($product->productProfile as $data) {
+                                    echo $data->productLanguage->language_name;
+                                }
                             }
                             ?>
                         </td>
@@ -91,6 +95,14 @@
                         <td class="right_td">
                             <?php
                             echo isset($product->productProfile[0]->isbn) ? $product->productProfile[0]->isbn : "";
+                            ?>
+                        </td>
+                    </tr>
+                    <tr class="product_tr">
+                        <td class="left_td">Item Code</td>
+                        <td class="right_td">
+                            <?php
+                            echo isset($product->productProfile->item_code) ? $product->productProfile[0]->item_code : "";
                             ?>
                         </td>
                     </tr>
