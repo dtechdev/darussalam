@@ -202,5 +202,14 @@ class ProductProfile extends DTActiveRecord {
             'criteria' => $criteria,
         ));
     }
+    
+    /**
+     * language _name for 
+     * @return type
+     * when we needed it will work as language
+     */
+    public function getlanguage_name() {
+        return $this->productLanguage->language_name;
+    }
 
 }
