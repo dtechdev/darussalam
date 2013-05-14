@@ -113,31 +113,80 @@ class DTUploadedFile extends CUploadedFile {
      * @param type $pathToThumbs
      * @param type $thumbWidth
      */
-    static function createThumbs($pathToImage, $pathToThumbs, $thumbWidth, $name) {
+    public static function createThumbs($pathToImage, $pathToThumbs, $thumbWidth, $name) {
         // open the directory
         // parse path for the extension
         $info = pathinfo($pathToImage);
         // continue only if this is a JPEG image
         //echo "Creating thumbnail for {$pathToImage} <br />";
         // load image and get image size
-        $img = imagecreatefromjpeg("$pathToImage");
+
+
+        $img = self::imageCreateFrom("$pathToImage", $info['extension']);
         $width = imagesx($img);
         $height = imagesy($img);
-
         // calculate thumbnail size
         $new_width = $thumbWidth;
         $new_height = floor($height * ( $thumbWidth / $width ));
-
         // create a new temporary image
         $tmp_img = imagecreatetruecolor($new_width, $new_height);
-
         // copy and resize old image into new image
         imagecopyresized($tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-
         // save thumbnail into a file
-        imagejpeg($tmp_img, "$pathToThumbs" . DIRECTORY_SEPARATOR . $name);
+        self::createImage($tmp_img, $pathToThumbs, $name, $info['extension']);
+    }
+
+    /**
+     * on the bases of value extension
+     */
+    public static function imageCreateFrom($pathToImage, $ext) {
+        switch ($ext) {
+            case 'png':
+                return imagecreatefrompng($pathToImage);
+                break;
+            case 'jpeg':
+                return imagecreatefromjpeg($pathToImage);
+                break;
+            case 'jpg':
+                return imagecreatefromjpeg($pathToImage);
+                break;
+            case 'gif':
+                return imagecreatefromgif($pathToImage);
+                break;
+            case 'wbmp':
+                return imagecreatefromwbmp($pathToImage);
+                break;
+
+            default :
+                return FALSE;
+        }
+    }
+
+    /**
+     * acutal the bases of value extension
+     */
+    public static function createImage($tmp_img, $pathToThumbs, $name, $ext) {
+        switch ($ext) {
+            case 'png':
+                imagegif($tmp_img, "$pathToThumbs" . DIRECTORY_SEPARATOR . $name);
+                break;
+            case 'jpeg':
+                imagegif($tmp_img, "$pathToThumbs" . DIRECTORY_SEPARATOR . $name);
+                break;
+            case 'jpg':
+                imagegif($tmp_img, "$pathToThumbs" . DIRECTORY_SEPARATOR . $name);
+                break;
+            case 'gif':
+                imagegif($tmp_img, "$pathToThumbs" . DIRECTORY_SEPARATOR . $name);
+                break;
+            case 'wbmp':
+                imagewbmp($tmp_img, "$pathToThumbs" . DIRECTORY_SEPARATOR . $name);
+                break;
+
+            default :
+                return FALSE;
+        }
     }
 
 }
-
 ?>
