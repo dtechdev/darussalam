@@ -33,10 +33,10 @@ $relationName = "productImages";
         echo CHtml::activeCheckBox($model, '[' . $index . ']is_default', array(
             "class" => "default_checkbox", "onclick" => "
                                  cobj = this;
-                                 $('.default_checkbox').each(function()
+                                 jQuery('.default_checkbox').each(function()
                                  {
-                                    if($(cobj).is(':checked') && $(this).attr('id') != $(cobj).attr('id')){
-                                        $(this).removeAttr('checked');
+                                    if(jQuery(cobj).is(':checked') && jQuery(this).attr('id') != jQuery(cobj).attr('id')){
+                                        jQuery(this).removeAttr('checked');
                                     }
                                  })  
                                 "
