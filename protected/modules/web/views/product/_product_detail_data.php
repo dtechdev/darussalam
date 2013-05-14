@@ -67,7 +67,7 @@
                       '));
                 } else {
 
-                    echo $product->productLanguage[0]->language_name;
+                    echo $product->productProfile[0]->language_name;
                 }
                 ?>
             </td>
