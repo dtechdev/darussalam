@@ -190,7 +190,7 @@ class ProductProfile extends DTActiveRecord {
             'printing' => 'Printing',
             'paper' => 'Paper',
             'discount_type' => 'Disc Type',
-            'discount_value' => 'Disc Value',
+            'discount_value' => 'Discount',
             'language_id' => 'Language',
             'edition' => 'Edition',
         );

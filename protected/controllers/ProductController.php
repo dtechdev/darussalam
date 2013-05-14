@@ -278,7 +278,7 @@ class ProductController extends Controller {
      * @param type $model 
      */
     private function manageChildrens($model) {
-        $this->manageChild($model, "productImages", "product");
+        
         $this->manageChild($model, "productProfile", "product");
         $this->manageChild($model, "productCategories", "product");
     }
