@@ -192,12 +192,12 @@ class OrderDetail extends DTActiveRecord
             $product_id = $best_join[$i]->product->product_id;
             $product_name = $best_join[$i]->product->product_name;
             $product_description = $best_join[$i]->product->product_description;
-            $product_price = $best_join[$i]->product->product_price;
+            $product_price = $best_join[$i]->product->productProfile[0]->price;
             $product_totalOrder = $best_join[$i]->totalOrder;
 
             $criteria6 = new CDbCriteria;
             $criteria6->select = '*';  // only select the 'title' column
-            $criteria6->condition = 'product_id="' . $product_id . '"';
+            $criteria6->condition = 'product_profile_id="' . $product_id . '"';
             $imagebest = ProductImage::model()->findAll($criteria6);
             $imagesbestproducts = array();
            foreach ($imagebest as $img) {
