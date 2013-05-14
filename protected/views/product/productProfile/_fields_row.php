@@ -106,7 +106,9 @@ $relationName = "productProfile";
 </div>
 <div class="clear"></div>
 <?php
-$this->renderPartial(
-        'productImages/_container', array('model' => $model,
-    "type" => "field", "index" => $index));
+/*
+  $this->renderPartial(
+  'productImages/_container', array('model' => $model,
+  "type" => "field", "index" => $index));
+ */
 ?>

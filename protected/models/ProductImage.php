@@ -171,7 +171,7 @@ class ProductImage extends DTActiveRecord {
      * set image variable before save
      */
     public function setUploadVars() {
-        $large_img = DTUploadedFile::getInstance($this, '[' . $this->upload_index . '][' . $this->upload_key . ']image_large');
+        $large_img = DTUploadedFile::getInstance($this, '[' . $this->upload_key . ']image_large');
         if (!empty($large_img)) {
             $this->image_large = $large_img;
             $this->image_small = "small_" . $large_img;
@@ -182,7 +182,7 @@ class ProductImage extends DTActiveRecord {
      * upload images
      */
     public function uploadImages() {
-        $large_img = DTUploadedFile::getInstance($this, '[' . $this->upload_index . '][' . $this->upload_key . ']image_large');
+        $large_img = DTUploadedFile::getInstance($this, '[' . $this->upload_key . ']image_large');
         if (!empty($large_img)) {
 
 

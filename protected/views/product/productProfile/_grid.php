@@ -99,19 +99,9 @@ $mName = "ProductProfile";
                     ),
                     'viewimage' => array(
                         'label' => 'View Image',
-                        'url' => 'Yii::app()->controller->createUrl("viewImage",array("id" => $data->id, "mName" => "' . $mName . '"))',
-                        'imageUrl' => Yii::app()->theme->baseUrl."/images/icons/viewimage.jpeg",
-                        'click' => "js:function() {
-                                            $('#loading').toggle();
-                                            $.ajax({
-                                                url: $(this).attr('href'),
-                                                success: function(response)
-                                                {
-                                                    $('#image_area').css('display', 'block');
-                                                    $('#image_area').html(response);
-                                                     $('#loading').hide();
-                                                }
-                                            }); return false; }",
+                        'url' => 'Yii::app()->controller->createUrl("viewImage",array("id" => $data->id))',
+                        'imageUrl' => Yii::app()->theme->baseUrl . "/images/icons/viewimage.jpeg",
+        
                     ),
                 ),
             ),

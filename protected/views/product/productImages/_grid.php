@@ -1,8 +1,8 @@
 <?php
 $relationName = "productImages";
 $mName = "ProductImage";
+$this->renderPartial("productProfile/_view", array("model" => $model));
 ?>
-
 <div class="<?php echo $relationName; ?> child" style="<?php echo 'display:block'; ?>">
     <?php
     $config = array(
@@ -60,7 +60,6 @@ $mName = "ProductImage";
                         'label' => 'Delete',
                         'url' => 'Yii::app()->controller->createUrl("deleteChildByAjax",array("id" => $data->id, "mName" => "' . $mName . '"))',
                     ),
-                
                 ),
             ),
         ),

@@ -144,23 +144,7 @@ class ProductProfile extends DTActiveRecord {
     }
 
     public function beforeValidate() {
-
-        $this->makePosthildsProfile();
         return parent::beforeValidate();
-    }
-
-    /**
-     * for making every profile childs
-     */
-    public function makePosthildsProfile() {
-
-        if (isset($_POST['ProductImage'])) {
-
-            
-            
-            $this->setRelationRecords('productImages', is_array($_POST['ProductImage'][$this->upload_index]) ? $_POST['ProductImage'][$this->upload_index] : array());
-        }
-        //die;
     }
 
     /**

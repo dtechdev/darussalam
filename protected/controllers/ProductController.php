@@ -248,8 +248,13 @@ class ProductController extends Controller {
      * @param type $id
      * @param type $mName
      */
-    public function actionViewImage($id, $mName) {
-        $this->renderPartial("productImages/_grid", array("id" => $id, "dir" => "productImages"));
+    public function actionViewImage($id) {
+        $model = ProductProfile::model()->findByPk($id);
+        $this->manageChild($model, "productImages", "productProfile");
+        $this->render("productImages/_grid", array(
+            "id" => $id,
+            "model" => $model,
+            "dir" => "productImages"));
     }
 
     /*
@@ -278,7 +283,7 @@ class ProductController extends Controller {
      * @param type $model 
      */
     private function manageChildrens($model) {
-        
+
         $this->manageChild($model, "productProfile", "product");
         $this->manageChild($model, "productCategories", "product");
     }
