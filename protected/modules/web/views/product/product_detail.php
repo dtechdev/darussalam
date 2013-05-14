@@ -102,7 +102,7 @@
                         <td class="left_td">Item Code</td>
                         <td class="right_td">
                             <?php
-                            echo isset($product->productProfile->item_code) ? $product->productProfile[0]->item_code : "";
+                            echo isset($product->productProfile[0]->item_code) ? $product->productProfile[0]->item_code : "";
                             ?>
                         </td>
                     </tr>
