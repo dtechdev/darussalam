@@ -24,7 +24,7 @@ foreach ($products as $product) {
         </h3>
         <p>
             <?php
-                //CVarDumper::dump($product['product_author'],20,TRUE);die;
+            
                 echo $product['product_author'];
             ?>
         </p>
