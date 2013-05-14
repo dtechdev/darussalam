@@ -175,7 +175,7 @@ class ProductImage extends DTActiveRecord {
        
 
         if (!empty($large_img)) {
-            echo "ali";
+           
             $this->image_large = $large_img;
             $this->image_small = "small_" . $large_img;
         } else {
