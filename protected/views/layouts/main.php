@@ -88,7 +88,7 @@
                 </div>
                 <div class="right_middle">
                     <div id="right_header_part">
-                        <a href="<?php echo $this->createUrl('/web/product/viewwishlist');?>">
+                        <a href="<?php echo $this->createUrl('/web/product/viewwishlist'); ?>">
                             <?php
                             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg', "heart img", array("class" => "heart_img"));
                             ?>
@@ -165,7 +165,7 @@
                                         'clientOptions' => array(
                                             'validateOnSubmit' => true,
                                         ),
-                                            ));
+                                    ));
                                     ?>
 
 
@@ -185,8 +185,8 @@
                                     <?php echo $form->passwordField($login_model, 'password', $htmlOptions = array("class" => "second")); ?>
                                     <?php echo $form->checkBox($login_model, 'rememberMe', $htmlOptions = array("class" => "check")); ?>
                                     <span><?php
-                                echo $login_model->getAttributeLabel('rememberMe');
-                                    ?>
+                                        echo $login_model->getAttributeLabel('rememberMe');
+                                        ?>
                                     </span>
                                     <a href="<?php echo $this->createUrl('/web/user/forgot') ?>" class="forgot"> Forgot Password</a>
                                     <div class="sign_in_button">
@@ -264,6 +264,9 @@
             <div id="middle_footer">
                 <h1>Navigation</h1>
                 <?php
+                echo CHtml::openTag("article");
+                echo CHtml::link('Darussalam Blog', Yii::app()->createUrl('/?r=blog'), array("target" => "_blank"));
+                echo CHtml::closeTag("article");
                 $pages = Pages::model()->getPages();
                 foreach ($pages as $page) {
                     echo CHtml::openTag("article");
