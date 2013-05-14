@@ -117,7 +117,6 @@ class Product extends DTActiveRecord {
             'city_id' => 'City',
             'authors' => 'Author',
             'is_featured' => 'Is Featured',
-            'product_rating' => 'Product Rating',
         );
     }
 
