@@ -66,3 +66,7 @@ $this->renderPartial("productProfile/_view", array("model" => $model));
     ));
     ?>
 </div>
+<?php
+$this->widget('ext.lyiightbox.LyiightBox2', array(
+));
+?>

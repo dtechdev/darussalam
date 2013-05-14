@@ -114,7 +114,3 @@ $mName = "ProductProfile";
 
 </div>
 
-<?php
-//$this->widget('ext.lyiightbox.LyiightBox2', array(
-//));
-?>
