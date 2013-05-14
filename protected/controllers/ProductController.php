@@ -250,7 +250,9 @@ class ProductController extends Controller {
      */
     public function actionViewImage($id) {
         $model = ProductProfile::model()->findByPk($id);
-        $this->manageChild($model, "productImages", "productProfile");
+        $path = $this->createUrl("viewImage", array("id" => $id));
+        $this->manageChild($model, "productImages", "productProfile", "", 0, $path);
+
         $this->render("productImages/_grid", array(
             "id" => $id,
             "model" => $model,
