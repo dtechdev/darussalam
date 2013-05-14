@@ -19,13 +19,12 @@ foreach ($products as $product) {
         ?>
         <h3>
             <?php
-            echo CHtml::link($product['product_name'], $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])));
+            echo CHtml::link(implode(' ', array_slice(explode(' ', $product['product_name']), 0, 4)), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])),array('title'=>$product['product_name']));
             ?>
         </h3>
         <p>
             <?php
-            
-                echo $product['product_author'];
+            echo $product['product_author'];
             ?>
         </p>
         <article>&dollar;<?php echo round($product['product_price'], 2); ?></article>
