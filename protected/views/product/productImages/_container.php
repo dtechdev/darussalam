@@ -1,6 +1,6 @@
 <?php
 $dir = "productImages";
-$fields_div_id = $dir . '_fields_' . $index;
+$fields_div_id = $dir . '_fields';
 $heading = "Product Images";
 $mName = "ProductImage";
 
