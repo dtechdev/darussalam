@@ -62,7 +62,7 @@ class CartController extends Controller
                     ->queryRow();
         }
        
-        echo CJSON::encode(array('product_profile_id' => '1', 'cart_counter' => $tot['cart_total']));
+        echo CJSON::encode(array('product_profile_id' => $_REQUEST['product_profile_id'], 'cart_counter' => $tot['cart_total']));
     }
 
     public function actionAddtowishlist()
@@ -109,7 +109,7 @@ class CartController extends Controller
                     ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
                     ->queryRow();
         }
-        echo CJSON::encode(array('product_profile_id' => '1', 'wishlist_counter' => $tot['total_pro']));
+        echo CJSON::encode(array('product_profile_id' => $_REQUEST['product_profile_id'], 'wishlist_counter' => $tot['total_pro']));
     }
 
 }
