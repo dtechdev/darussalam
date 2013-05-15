@@ -179,7 +179,8 @@
                         'success' => 'function(data){
                                            jQuery("#wishlist_counter").html(data.wishlist_counter);
                                       }',
-                            )
+                            ),
+                            array('id' => 'add-wish-list'.uniqid())
                     );
                     ?>
                 </a> </td>
