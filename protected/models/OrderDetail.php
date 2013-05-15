@@ -52,15 +52,15 @@ class OrderDetail extends DTActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('product_id, product_price', 'required'),
+            array('product_profile_id, product_price', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
-            array('order_id, product_id', 'numerical', 'integerOnly' => true),
+            array('order_id, product_profile_id', 'numerical', 'integerOnly' => true),
             array('product_price', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('cart_id', 'safe'),
-            array('user_order_id, order_id, product_id, product_price', 'safe', 'on' => 'search'),
+            array('user_order_id, order_id, product_profile_id, product_price', 'safe', 'on' => 'search'),
         );
     }
 
@@ -85,7 +85,7 @@ class OrderDetail extends DTActiveRecord
         return array(
             'user_order_id' => 'User Order',
             'order_id' => 'Order',
-            'product_id' => 'Product',
+            'product_profile_id' => 'Product',
             'product_price' => 'Product Price',
         );
     }
@@ -103,7 +103,7 @@ class OrderDetail extends DTActiveRecord
 
         $criteria->compare('user_order_id', $this->user_order_id);
         $criteria->compare('order_id', $this->order_id);
-        $criteria->compare('product_id', $this->product_id);
+        $criteria->compare('product_profile_id', $this->product_profile_id);
         $criteria->compare('product_price', $this->product_price, true);
 
         return new CActiveDataProvider($this, array(

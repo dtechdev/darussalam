@@ -206,7 +206,7 @@ class ProductController extends Controller {
 
             $product = $product->findByPk($id);
             $product->productProfile = $product->productSelectedProfile;
-    
+
 
             /**
              *  getting value of poduct rating
@@ -260,45 +260,38 @@ class ProductController extends Controller {
      */
     public function CreditCardPayment($model) {
 
-        $error = array();
-        $auth_net_login_id = '6VxKcg8mb9hx';
-        $auth_net_tran_key = '7VB59273qGmv6u2B';
-        $authnet_values = array(
-            "x_login" => $auth_net_login_id,
-            "x_version" => "3.1",
-            "x_delim_char" => "|",
-            "x_delim_data" => "TRUE",
-            "x_url" => "FALSE",
-            "x_type" => "AUTH_CAPTURE",
-            "x_method" => "CC",
-            "x_tran_key" => $auth_net_tran_key, "x_relay_response" => "FALSE",
-            "x_card_num" => $model->card_number1 . $model->card_number2 . $model->card_number3 . $model->card_number4,
-            "x_exp_date" => $model->exp_month . $model->exp_year,
-            "x_description" => Yii::app()->session['description'],
-            "x_amount" => Yii::app()->session['total_price'],
-            "x_first_name" => $model->first_name,
-            "x_last_name" => $model->last_name,
-            "x_address" => $model->shipping_address1,
-            "x_city" => $model->shipping_city,
-            "x_state" => $model->shipping_state,
-            "x_zip" => $model->shipping_zip,
+        Yii::import('application.extensions.anet_php_sdk.AuthorizeNetException');
+
+        define("AUTHORIZENET_API_LOGIN_ID", "9f84PWNhV9");
+        define("AUTHORIZENET_TRANSACTION_KEY", "7A4Wfgq47Uv6zU93");
+        define("AUTHORIZENET_SANDBOX", true);
+
+        $author_rize = new AuthorizeNetException();
+        $sale = new AuthorizeNetAIM;
+
+
+        $sale->setFields(
+                array(
+                    'amount' => Yii::app()->session['total_price'],
+                    'card_num' => $model->card_number1 . $model->card_number2 . $model->card_number3 . $model->card_number4,
+                    'exp_date' => $model->exp_month . $model->exp_year,
+                    'first_name' => $model->first_name,
+                    'last_name' => $model->last_name,
+                    'address' => $model->shipping_address1,
+                    'city' => $model->shipping_city,
+                    'state' => $model->shipping_state,
+                    'country' => "",
+                    'zip' => $model->shipping_zip,
+                    'email' => Yii::app()->user->name,
+                    'card_code' => "123",
+                )
         );
 
-        $fields = "";
-        foreach ($authnet_values as $key => $value)
-            $fields .= "$key=" . urlencode($value) . "&";
-
-        $ch = curl_init("https://certification.authorize.net/gateway/transact.dll");
-        curl_setopt($ch, CURLOPT_HEADER, 0); // removes HTTP headers from response
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Returns response data
-        curl_setopt($ch, CURLOPT_POSTFIELDS, rtrim($fields, "& ")); // use HTTP POST to send form data
-        $authorize_response = curl_exec($ch); //execute post and get results
-        curl_close($ch);
-
-        // This line takes the response and breaks it into an array using the specified delimiting character
-        $response_array = explode($authnet_values["x_delim_char"], $authorize_response);
-
-        if ($response_array[0] == '1') {
+        $response = $sale->authorizeAndCapture();
+      
+        if ($response->approved) {
+            $transaction_id = $response->transaction_id;
+     
             $error['status'] = false;
             $error['message'] = 'Payment successfully';
 
@@ -317,8 +310,8 @@ class ProductController extends Controller {
                     'product_profile_id' => $pro->product_profile_id,
                     'quantity' => $pro->quantity,
                     'cart_id' => $pro->cart_id,
-                    'product_price' => round($pro->product->product_price, 2),
-                    'total_price' => round($pro->product->product_price * $pro->quantity, 2),
+                    'product_price' => round($pro->productProfile->price, 2),
+                    'total_price' => round($pro->productProfile->price * $pro->quantity, 2),
                 );
             }
 
@@ -326,13 +319,13 @@ class ProductController extends Controller {
 
             $order->save();
             //approved- Your order completed successfully
-        } elseif ($response_array[0] == '2') {
+        } elseif ($response->declined) {
             $error['status'] = true;
-            $error['message'] = $response_array[3];
+            $error['message'] = $response->response_reason_text;
             //Declined
         } else {
             $error['status'] = true;
-            $error['message'] = $response_array[3];
+            $error['message'] = $response->response_reason_text;
             //error
         }
         return $error;
