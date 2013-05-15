@@ -193,10 +193,10 @@ class OrderDetail extends DTActiveRecord
         $counter = count($best_join);
         for ($i = 0; $i < $counter; $i++)
         {
-            $product_id = $best_join[$i]->product->product_id;
-            $product_name = $best_join[$i]->product->product_name;
-            $product_description = $best_join[$i]->product->product_description;
-            $product_price = $best_join[$i]->product->productProfile[0]->price;
+            $product_id = $best_join[$i]->product_profile->product_id;
+            $product_name = $best_join[$i]->product_profile->product->product_name;
+            $product_description = $best_join[$i]->product_profile->product->product_description;
+            $product_price = $best_join[$i]->product_profile->price;
             $product_totalOrder = $best_join[$i]->totalOrder;
 
             $criteria6 = new CDbCriteria;
@@ -224,7 +224,7 @@ class OrderDetail extends DTActiveRecord
                 'product_description' => $product_description,
                 'product_price' => $product_price,
                 'totalOrder' => $product_totalOrder,
-                'no_image' => $best_join[$i]->product->no_image,
+                'no_image' => $best_join[$i]->product_profile->no_image,
                 'image' => $imagesbestproducts);
         }
 
