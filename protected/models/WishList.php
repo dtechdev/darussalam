@@ -69,7 +69,7 @@ class WishList extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-			'product' => array(self::BELONGS_TO, 'Product', 'product_profile_id'),
+			'productProfile' => array(self::BELONGS_TO, 'ProductProfile', 'product_profile_id'),
 			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
 		);
 	}

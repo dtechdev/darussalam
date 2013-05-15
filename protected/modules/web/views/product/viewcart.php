@@ -29,9 +29,9 @@ if (empty($cart)) {
                     $total_quantity = 0;
                     $description = '';
                     foreach ($cart as $pro) {
-                        $grand_total = $grand_total + ($pro->quantity * $pro->product->productProfile->price);
+                        $grand_total = $grand_total + ($pro->quantity * $pro->productProfile->price);
                         $total_quantity+=$pro->quantity;
-                        $description.=$pro->product->product_name . ' , ';
+                        $description.=$pro->productProfile->product->product_name . ' , ';
                         ?>
 
                         <div class="upper_cart">
@@ -47,7 +47,7 @@ if (empty($cart)) {
                                // ?>
                             </div>
                             <div class="left_right_cart">
-                                <h1><?php echo $pro->product->product_name; ?></h1>
+                                <h1><?php echo $pro->productProfile->product->product_name; ?></h1>
 
                                 <?php
                                 /*
@@ -70,12 +70,12 @@ if (empty($cart)) {
                                         )
                                 );
                                 ?>
-                                <h2><?php echo $pro->product->product_description; ?></h2>
+                                <h2><?php echo $pro->productProfile->product->product_description; ?></h2>
                                 <table width="100%">
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Author</td>
                                         <td class="cart_right_td"><?php
-                                            echo isset($pro->product->author->author_name) ? $pro->product->author->author_name : "";
+                                            echo isset($pro->productProfile->product->author->author_name) ? $pro->productProfile->product->author->author_name : "";
 //                                            foreach ($pro->product->productProfile as $pp) {
 //                                                echo $pp->author->author_name;
 //                                            }
@@ -84,7 +84,7 @@ if (empty($cart)) {
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Language</td>
                                         <td class="cart_right_td"><?php
-                                    echo isset($pro->product->productProfile->language->language_name) ? $pro->product->productProfile->language->language_name : "";
+                                    echo isset($pro->productProfile->productLanguage->language_name) ? $pro->productProfile->productLanguage->language_name : "";
 //                                            $i = 0;
 //                                            foreach ($pro->product->productLanguage as $lan) {
 //                                                if ($i == 0)
@@ -100,7 +100,7 @@ if (empty($cart)) {
                                     </tr>
                                 </table>
                                 <div class="quantity_cart">
-                                    <p>$<?php echo round($pro->product->productProfile->price, 2); ?></p>
+                                    <p>$<?php echo round($pro->productProfile->price, 2); ?></p>
                                     <span>Quantity</span> 
         <?php
         $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
@@ -117,7 +117,7 @@ if (empty($cart)) {
                                             ))
                                     );
                                     ?>
-                                    <h3>$<?php echo round($pro->quantity * $pro->product->productProfile->price, 2); ?></h3>
+                                    <h3>$<?php echo round($pro->quantity * $pro->productProfile->price, 2); ?></h3>
                                 </div>
                             </div>
                         </div>

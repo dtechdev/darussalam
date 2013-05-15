@@ -30,14 +30,14 @@ if (empty($cart)) {
                     $total_quantity = 0;
                     $description = '';
                     foreach ($cart as $pro) {
-                        $description.=$pro->product->product_name . ' , ';
+                        $description.=$pro->productProfile->product->product_name . ' , ';
                         ?>
 
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                $images = $pro->product->getImage();
-                                $image = $pro->product['no_image'];
+                                //$images = $pro->productProfile->product->getImage();
+                                $image = $pro->productProfile->product['no_image'];
                                 if (isset($images[0]['image_small'])) {
                                     $image = $images[0]['image_small'];
                                 }
@@ -46,7 +46,7 @@ if (empty($cart)) {
                                 ?>
                             </div>
                             <div class="left_right_cart">
-                                <h1><?php echo $pro->product->product_name; ?></h1>
+                                <h1><?php echo $pro->productProfile->product->product_name; ?></h1>
 
                                 <?php
                                 /*
@@ -69,12 +69,12 @@ if (empty($cart)) {
                                         )
                                 );
                                 ?>
-                                <h2><?php echo $pro->product->product_description; ?></h2>
+                                <h2><?php echo $pro->productProfile->product->product_description; ?></h2>
                                 <table width="100%">
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Author</td>
                                         <td class="cart_right_td"><?php
-                                            echo isset($pro->product->author->author_name) ? $pro->product->author->author_name : "";
+                                            echo isset($pro->productProfile->product->author->author_name) ? $pro->productProfile->product->author->author_name : "";
 //                                            foreach ($pro->product->productProfile as $pp) {
 //                                                echo $pp->author->author_name;
 //                                            }
@@ -83,7 +83,7 @@ if (empty($cart)) {
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Language</td>
                                         <td class="cart_right_td"><?php
-                                            echo isset($pro->product->language->language_name) ? $pro->product->language->language_name : "";
+                                            echo isset($pro->productProfile->productLanguage->language_name) ? $pro->productProfile->productLanguage->language_name : "";
 //                                            $i = 0;
 //                                            foreach ($pro->product->productLanguage as $lan) {
 //                                                if ($i == 0)
@@ -98,7 +98,7 @@ if (empty($cart)) {
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Price</td>
                                         <td class="cart_right_td">
-                                            $<?php echo round($pro->product->product_price, 2); ?>
+                                            $<?php echo round($pro->productProfile->price, 2); ?>
                                         </td>
                                     </tr>
                                     <tr class="cart_tr">
@@ -110,7 +110,7 @@ if (empty($cart)) {
 
                                             <?php
                                             echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart'), array('data' => array(
-                                                    'product_id' => $pro->product->product_id,
+                                                    'product_id' => $pro->productProfile->product->product_id,
                                                     'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                                                     'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                                                     'quantity' => '1'
