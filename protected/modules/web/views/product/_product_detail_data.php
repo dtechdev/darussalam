@@ -1,6 +1,3 @@
-<?php 
-print_r($product->productProfile[0]->id);
-?>aaaaaa
 <table width="400">
 
     <div class="middle_book">
