@@ -36,7 +36,7 @@ if (empty($cart)) {
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                //$images = $pro->productProfile->product->getImage();
+                                $images = $pro->productProfile->getImage();
                                 $image = $pro->productProfile->product['no_image'];
                                 if (isset($images[0]['image_small'])) {
                                     $image = $images[0]['image_small'];

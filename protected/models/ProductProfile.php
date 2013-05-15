@@ -199,10 +199,10 @@ class ProductProfile extends DTActiveRecord {
         $criteria->compare('edition', $this->edition, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
+                    'criteria' => $criteria,
+                ));
     }
-    
+
     /**
      * language _name for 
      * @return type
@@ -210,6 +210,31 @@ class ProductProfile extends DTActiveRecord {
      */
     public function getlanguage_name() {
         return $this->productLanguage->language_name;
+    }
+
+    /**
+     *  get product images for some code
+     * @return type 
+     */
+    public function getImage() {
+        $images = array();
+        foreach ($this->productImages as $img) {
+            if ($img->is_default == 1) {
+                $images[] = array('id' => $img->id,
+                    'image_large' => $img->image_url['image_large'],
+                    'image_small' => $img->image_url['image_small'],
+                );
+                break;
+            } else {
+                $images[] = array('id' => $img->id,
+                    'image_large' => $img->image_url['image_large'],
+                    'image_small' => $img->image_url['image_small'],
+                );
+                break;
+            }
+        }
+
+        return $images;
     }
 
 }

@@ -79,7 +79,6 @@ class Product extends DTActiveRecord {
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
             'categories' => array(self::MANY_MANY, 'Categories', 'product_categories(product_id, product_category_id)'),
-            
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
             /**
              * only for ajax views
@@ -136,15 +135,15 @@ class Product extends DTActiveRecord {
         $city_id = Yii::app()->session['city_id'];
 
         $criteria = new CDbCriteria(array(
-            'select' => '*',
-            'condition' => "t.city_id='" . $city_id . "' ",
-            'limit' => $limit,
-            'order' => 't.product_id ASC',
-                //'with'=>'commentCount' 
-        ));
+                    'select' => '*',
+                    'condition' => "t.city_id='" . $city_id . "' ",
+                    'limit' => $limit,
+                    'order' => 't.product_id ASC',
+                        //'with'=>'commentCount' 
+                ));
 
         if (isset($_POST['ajax'])) {
-            
+
 
             if (!empty($_POST['author'])) {
                 $author = explode(",", $_POST['author']);
@@ -152,13 +151,13 @@ class Product extends DTActiveRecord {
             }
             if (!empty($_POST['langs'])) {
                 $langs = explode(",", $_POST['langs']);
-                 $criteria->join.= ' INNER JOIN product_profile  '.
-                               ' ON product_profile.product_id = t.product_id';
+                $criteria->join.= ' INNER JOIN product_profile  ' .
+                        ' ON product_profile.product_id = t.product_id';
                 $criteria->addInCondition("product_profile.language_id", $langs);
             }
             if (!empty($_POST['cat_id'])) {
-                $criteria->join.= ' LEFT JOIN product_categories  ON '.
-                               't.product_id=product_categories.product_id';
+                $criteria->join.= ' LEFT JOIN product_categories  ON ' .
+                        't.product_id=product_categories.product_id';
                 $criteria->addCondition("product_categories.category_id='" . $_POST['cat_id'] . "'");
             }
             $criteria->distinct = "t.product_id";
@@ -223,8 +222,8 @@ class Product extends DTActiveRecord {
         $criteria->compare('is_featured', $this->is_featured, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
+                    'criteria' => $criteria,
+                ));
     }
 
     /**
@@ -251,36 +250,11 @@ class Product extends DTActiveRecord {
 
         $criteria = new CDbCriteria();
 
-        $criteria->addCondition("t.product_id=".$this->product_id);
+        $criteria->addCondition("t.product_id=" . $this->product_id);
         $criteria->select = "t.language_id,language.language_name";
         $criteria->join = "INNER JOIN language ON language.language_id =t.language_id";
 
         return CHtml::listData(ProductProfile::model()->findAll($criteria), "language_id", "language_name");
-    }
-
-    /**
-     *  get product images for some code
-     * @return type 
-     */
-    public function getImage() {
-        $images = array();
-        foreach ($this->productImages as $img) {
-            if ($img->is_default == 1) {
-                $images[] = array('id' => $img->id,
-                    'image_large' => $img->image_url['image_large'],
-                    'image_small' => $img->image_url['image_small'],
-                );
-                break;
-            } else {
-                $images[] = array('id' => $img->id,
-                    'image_large' => $img->image_url['image_large'],
-                    'image_small' => $img->image_url['image_small'],
-                );
-                break;
-            }
-        }
-
-        return $images;
     }
 
 }

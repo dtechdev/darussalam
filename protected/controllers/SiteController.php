@@ -152,7 +152,7 @@ class SiteController extends Controller {
                     $cart = $cart_model->findAll('session_id="' . $ip . '"');
                     foreach ($cart as $pro) {
                         $cart_model2 = new Cart();
-                        $exitstProduct = $cart_model2->find("user_id=" . Yii::app()->user->id . " AND product_id=" . $pro->product_id);
+                        $exitstProduct = $cart_model2->find("user_id=" . Yii::app()->user->id . " AND product_profile_id=" . $pro->product_profile_id);
                         if ($exitstProduct) {
                             $exitstProduct->quantity = $exitstProduct->quantity + $pro->quantity;
                             $cart_model2 = $exitstProduct;

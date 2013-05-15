@@ -37,13 +37,13 @@ if (empty($cart)) {
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                //$images = $pro->product->getImage();
-                                //$image = $pro->product['no_image'];
-                                //if (isset($images[0]['image_small'])) {
-                                 //   $image = $images[0]['image_small'];
-                               // }
+                                $images = $pro->productProfile->getImage();
+                                $image = $pro->productProfile->product['no_image'];
+                                if (isset($images[0]['image_small'])) {
+                                    $image = $images[0]['image_small'];
+                                }
                               
-                               // echo CHtml::image($image);
+                                echo CHtml::image($image);
                                // ?>
                             </div>
                             <div class="left_right_cart">
