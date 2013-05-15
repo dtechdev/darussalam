@@ -8,12 +8,9 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List City', 'url'=>array('index')),
-	array('label'=>'Create City', 'url'=>array('create')),
-	array('label'=>'View City', 'url'=>array('view', 'id'=>$model->city_id)),
-	array('label'=>'Manage City', 'url'=>array('admin')),
-);
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>Update City <?php echo $model->city_id; ?></h1>

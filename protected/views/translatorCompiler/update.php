@@ -8,12 +8,9 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List TranslatorCompiler', 'url'=>array('index')),
-	array('label'=>'Create TranslatorCompiler', 'url'=>array('create')),
-	array('label'=>'View TranslatorCompiler', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage TranslatorCompiler', 'url'=>array('admin')),
-);
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>Update TranslatorCompiler <?php echo $model->id; ?></h1>

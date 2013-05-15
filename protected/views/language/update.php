@@ -8,12 +8,9 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List Language', 'url'=>array('index')),
-	array('label'=>'Create Language', 'url'=>array('create')),
-	array('label'=>'View Language', 'url'=>array('view', 'id'=>$model->language_id)),
-	array('label'=>'Manage Language', 'url'=>array('admin')),
-);
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>Update Language <?php echo $model->language_id; ?></h1>

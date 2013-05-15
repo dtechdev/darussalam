@@ -8,12 +8,9 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List Country', 'url'=>array('index')),
-	array('label'=>'Create Country', 'url'=>array('create')),
-	array('label'=>'View Country', 'url'=>array('view', 'id'=>$model->country_id)),
-	array('label'=>'Manage Country', 'url'=>array('admin')),
-);
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>Update Country <?php echo $model->country_id; ?></h1>

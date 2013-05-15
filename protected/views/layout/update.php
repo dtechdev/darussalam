@@ -8,12 +8,9 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List Layout', 'url'=>array('index')),
-	array('label'=>'Create Layout', 'url'=>array('create')),
-	array('label'=>'View Layout', 'url'=>array('view', 'id'=>$model->layout_id)),
-	array('label'=>'Manage Layout', 'url'=>array('admin')),
-);
+if(!(Yii::app()->user->isGuest)) {
+        $this->renderPartial("/common/_left_menu");
+}
 ?>
 
 <h1>Update Layout <?php echo $model->layout_id; ?></h1>
