@@ -38,6 +38,7 @@ class SelfSite extends DTActiveRecord
         // will receive user inputs.
         return array(
             array('site_name, site_descriptoin', 'required'),
+            array('site_name', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
             array('site_name, site_descriptoin', 'length', 'max' => 255),
