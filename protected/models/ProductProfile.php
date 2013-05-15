@@ -155,6 +155,7 @@ class ProductProfile extends DTActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
+            'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'product_profile_id'),
             'productLanguage' => array(self::BELONGS_TO, 'Language', 'language_id'),
             'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_profile_id', 'order' => 'is_default DESC'),
         );
@@ -199,8 +200,8 @@ class ProductProfile extends DTActiveRecord {
         $criteria->compare('edition', $this->edition, true);
 
         return new CActiveDataProvider($this, array(
-                    'criteria' => $criteria,
-                ));
+            'criteria' => $criteria,
+        ));
     }
 
     /**
