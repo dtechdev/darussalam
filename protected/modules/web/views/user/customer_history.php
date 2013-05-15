@@ -1,9 +1,9 @@
 <div id="book_content">
     <div id="book_main_content">
         <div class="left_book_main_content">
-            <a href="<?php echo $this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])); ?>">
-                <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/darussalam-inner-logo.png", 'logo') ?>
-            </a>
+            <?php
+            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/darussalam-inner-logo.png", 'logo'), $this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+            ?>
         </div>
         <div class="search_box">
             <?php echo CHtml::textField('textsearch', '', array("class" => "search_text", "placeholder" => "Search keywords or image by keywords...")) ?>
@@ -12,9 +12,19 @@
         </div>
         <nav>
             <ul>
-                <li><a href="<?php echo $this->createUrl('/site/page', array('view' => 'about')) ?>">About Us</a></li>
-                <li><a href="<?php echo $this->createUrl('/site/contact') ?>">Contact Us</a></li>
-                <li><a href="#">Help</a></li>
+                <?php
+                echo CHtml::openTag("li");
+                $require_pages = array("About Us", "Help");
+
+                foreach ($this->webPages as $page) {
+                    if (in_array($page->title, $require_pages)) {
+
+                        echo CHtml::link($page->title, Yii::app()->createUrl('/web/page/viewPage/', array("id" => $page->id)));
+                    }
+                }
+                echo CHtml::link('Contact Us', $this->createUrl('/site/contact'));
+                echo CHtml::closeTag("li");
+                ?>
             </ul>
         </nav>
     </div>
@@ -52,7 +62,7 @@ if (empty($cart)) {
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                echo CHtml::image(Yii::app()->baseUrl . '/images/product_images/' . $pro->product->productImages[0]->image_small);
+                                echo CHtml::image($pro->product->productProfile[0]->productImages[0]->image_url['image_small']);
                                 ?>
                             </div>
                             <div class="left_right_cart">
@@ -62,24 +72,24 @@ if (empty($cart)) {
                                 <table width="100%">
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Author :</td>
-                                        <td class="cart_right_td"><?php
-                                            foreach ($pro->product->productProfile as $pp) {
-                                                echo $pp->author->author_name;
-                                            }
+                                        <td class="cart_right_td">
+                                            <?php
+                                            echo!empty($pro->product->author->author_name) ? $pro->product->author->author_name : "";
                                             ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Language :</td>
                                         <td class="cart_right_td"><?php
-                                            $i = 0;
-                                            foreach ($pro->product->productLanguage as $lan) {
-                                                if ($i == 0)
-                                                    echo $lan->language->language_name;
-                                                else
-                                                    echo ' / ' . $lan->language->language_name;
-
-                                                $i++;
-                                            }
+//                                            $i = 0;
+//                                            foreach ($pro->product->productProfile[0]->productLanguage as $lan) {
+//                                                if ($i == 0)
+//                                                    echo $lan->language_name;
+//                                                else
+//                                                    echo ' / ' . $lan->language_name;
+//
+//                                                $i++;
+//                                            }
+                                            echo $pro->product->productProfile[0]->productLanguage->language_name;
                                             ?></td>
                                     </tr>
                                     <tr class="cart_tr">
@@ -98,11 +108,11 @@ if (empty($cart)) {
                                         ?>
                                     </p>
                                     <p><span>Unit Price :</span>
-                                        $<?php echo round($pro->product->product_price, 2); ?>
+                                        $<?php echo round($pro->product_price, 2); ?>
                                     </p>
 
                                     <p><span>Sub Total :</span>
-                                        $<?php echo round($pro->quantity * $pro->product->product_price, 2); ?>
+                                        $<?php echo round($pro->quantity * $pro->total_price, 2); ?>
                                     </p>
                                 </div>
                             </div>
