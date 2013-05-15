@@ -72,12 +72,12 @@ class SiteController extends Controller {
         $email['To'] = 'ubaidullah@darussalampk.com';
         $email['Subject'] = "Congratz! You are now registered on " . Yii::app()->name;
         $body = "You are now registered on " . Yii::app()->name . ", please validate your email";
-       // $body.=" going to this url: <br /> \n" . $model->getActivationUrl();
+        // $body.=" going to this url: <br /> \n" . $model->getActivationUrl();
         $email['Body'] = $body;
-            $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email, "heading" => "Dear " ), true, false);
-        echo  $email['Body'];
+        $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email, "heading" => "Dear "), true, false);
+        echo $email['Body'];
         die;
-       // $email['Body'] = $this->renderPartial('/common/_email_template');
+        // $email['Body'] = $this->renderPartial('/common/_email_template');
         $this->sendEmail2($email);
     }
 
@@ -148,31 +148,18 @@ class SiteController extends Controller {
                     $this->redirect(array('user/admin'));
                 }
                 if (Yii::app()->user->isCustomer) {
-                    $cart_model = new Cart();
-                    $cart = $cart_model->findAll('session_id="' . $ip . '"');
-                    foreach ($cart as $pro) {
-                        $cart_model2 = new Cart();
-                        $exitstProduct = $cart_model2->find("user_id=" . Yii::app()->user->id . " AND product_profile_id=" . $pro->product_profile_id);
-                        if ($exitstProduct) {
-                            $exitstProduct->quantity = $exitstProduct->quantity + $pro->quantity;
-                            $cart_model2 = $exitstProduct;
-                            Cart::model()->findByPk($pro->cart_id)->delete();
-                        } else {
-                            $cart_model2 = $pro;
-                        }
+                    $cart = new Cart();
+                    $cart->addCartByUser();
+                    $wishlist = new WishList();
+                    $wishlist->addWishlistByUser();
+                }
 
-                        $cart_model2->user_id = Yii::app()->user->id;
-
-                        $cart_model2->session_id = '';
-                        $cart_model2->save();
-                    }
-                    $user_profile = new UserProfile();
-                    $user_profile_set = $user_profile->findAll('id=' . Yii::app()->user->id);
-                    if ($user_profile_set)
-                        $this->redirect(array('/web/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
-                    else {
-                        $this->redirect(array('/web/userProfile/index'));
-                    }
+                $user_profile = new UserProfile();
+                $user_profile_set = $user_profile->findAll('id=' . Yii::app()->user->id);
+                if ($user_profile_set)
+                    $this->redirect(array('/web/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
+                else {
+                    $this->redirect(array('/web/userProfile/index'));
                 }
             }
         }

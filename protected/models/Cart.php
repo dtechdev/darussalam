@@ -11,32 +11,28 @@
  * The followings are the available model relations:
  * @property Product $product
  */
-class Cart extends DTActiveRecord
-{
+class Cart extends DTActiveRecord {
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
      * @return Cart the static model class
      */
-    public static function model($className = __CLASS__)
-    {
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName()
-    {
+    public function tableName() {
         return 'cart';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules()
-    {
+    public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
@@ -54,8 +50,7 @@ class Cart extends DTActiveRecord
     /**
      * @return array relational rules.
      */
-    public function relations()
-    {
+    public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -66,8 +61,7 @@ class Cart extends DTActiveRecord
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return array(
             'cart_id' => 'Cart',
             'product_profile_id' => 'Product',
@@ -79,8 +73,7 @@ class Cart extends DTActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -91,8 +84,35 @@ class Cart extends DTActiveRecord
         $criteria->compare('added_date', $this->added_date, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
+                    'criteria' => $criteria,
+                ));
+    }
+
+    /**
+     * Add products against user when user login
+     */
+    function addCartByUser() {
+        $ip = getenv("REMOTE_ADDR");
+        $cart_model = new Cart();
+        $cart = $cart_model->findAll('session_id="' . $ip . '"');
+        if ($cart) {
+            foreach ($cart as $pro) {
+                $cart_model2 = new Cart();
+                $exitstProduct = $cart_model2->find("user_id=" . Yii::app()->user->id . " AND product_profile_id=" . $pro->product_profile_id);
+                if ($exitstProduct) {
+                    $exitstProduct->quantity = $exitstProduct->quantity + $pro->quantity;
+                    $cart_model2 = $exitstProduct;
+                    Cart::model()->findByPk($pro->cart_id)->delete();
+                } else {
+                    $cart_model2 = $pro;
+                }
+
+                $cart_model2->user_id = Yii::app()->user->id;
+
+                $cart_model2->session_id = '';
+                $cart_model2->save();
+            }
+        }
     }
 
 }

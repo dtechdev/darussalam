@@ -110,7 +110,7 @@ if (empty($cart)) {
 
                                             <?php
                                             echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart'), array('data' => array(
-                                                    'product_id' => $pro->productProfile->product->product_id,
+                                                    'product_profile_id' => $pro->product_profile_id,
                                                     'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                                                     'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                                                     'quantity' => '1'
