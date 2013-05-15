@@ -1,3 +1,4 @@
+<div class="clear"></div>
 <table width="400">
 
     <div class="middle_book">
