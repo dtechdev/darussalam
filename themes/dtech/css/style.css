@@ -13,7 +13,7 @@ html, body { margin: 0; padding: 0; }
 
 a:active, a:hover { outline: 0; }
 
-body { width:100%; font-family:Arial, Helvetica, sans-serif; max-width:100%; }
+body { width:100%; font-family:Arial, Helvetica, sans-serif; max-width:100%; background-color: scrollbar}
 
 header { float:left; width:100%; background:#f3f3f3; border-bottom: 1px solid #a9a9a9; height:auto; }
 
