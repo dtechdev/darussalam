@@ -8,9 +8,10 @@ class DefaultController extends Controller
 	public function actionauthenticatewith( $provider="" ) {
 
 		$hybridauth_config =Yiiauth::hybridAuthConfig();
-		
+		//CVarDumper::dump($hybridauth_config,10,true);
 		$error = false;
 		$user_profile = false;
+             
 		try{
 		// create an instance for Hybridauth with the configuration file path as parameter
 			$hybridauth = new Hybrid_Auth( $hybridauth_config );
@@ -47,6 +48,8 @@ class DefaultController extends Controller
 			// well, basically your should not display this to the end user, just give him a hint and move on..
 			$error .= "<br /><br /><b>Original error message:</b> " . $e->getMessage(); 
 			$error .= "<hr /><pre>Trace:<br />" . $e->getTraceAsString() . "</pre>";  
+                        
+                           
 
 		}
 		/**$user_profile->identifier; //unique id

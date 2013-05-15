@@ -314,7 +314,7 @@ class ProductController extends Controller {
 
             foreach ($cart as $pro) {
                 $ordetail['OrderDetail'][] = array(
-                    'product_id' => $pro->product_id,
+                    'product_profile_id' => $pro->product_profile_id,
                     'quantity' => $pro->quantity,
                     'cart_id' => $pro->cart_id,
                     'product_price' => round($pro->product->product_price, 2),

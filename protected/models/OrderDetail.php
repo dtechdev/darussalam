@@ -72,7 +72,7 @@ class OrderDetail extends DTActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
+            'product_profile' => array(self::BELONGS_TO, 'ProductProfile', 'product_profile_id'),
             'order' => array(self::BELONGS_TO, 'Order', 'order_id'),
         );
     }
@@ -174,17 +174,21 @@ class OrderDetail extends DTActiveRecord
         $city_id = Yii::app()->session['city_id'];
 
         $criteria = new CDbCriteria(array(
-            'select' => "COUNT( t.product_id ) as totalOrder",
-            'group' => 't.product_id',
+            'select' => "COUNT( product.product_id ) as totalOrder,product_profile.*,product.*",
+            'group' => 'product.product_id',
             // 'condition'=>"is_featured='".$is_featured."' AND city_id='".Yii::app()->session['city_id']."'",
             'limit' => $limit,
+            "join" => "
+                    INNER JOIN product_profile 
+                    ON product_profile.id = t.product_profile_id
+                    INNER JOIN product 
+                    ON product.product_id = product_profile.product_id 
+                    AND product.city_id = '".$city_id."'
+                ",
             'order' => 'totalOrder DESC',
         ));
 
-        $best_join = OrderDetail::model()->with(array(
-                    'product' => array('select' => '*',
-                        'joinType' => 'INNER JOIN',
-                        'condition' => 'product.city_id= "' . $city_id . '"'),))->findAll($criteria);
+        $best_join = OrderDetail::model()->findAll($criteria);
 
         $counter = count($best_join);
         for ($i = 0; $i < $counter; $i++)

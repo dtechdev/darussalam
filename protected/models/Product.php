@@ -74,7 +74,7 @@ class Product extends DTActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'carts' => array(self::HAS_MANY, 'Cart', 'product_id'),
-            'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'product_id'),
+         
             'discount' => array(self::HAS_MANY, 'ProductDiscount', 'product_id'),
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),

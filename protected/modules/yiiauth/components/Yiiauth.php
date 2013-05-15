@@ -17,11 +17,11 @@ class Yiiauth extends CController {
         // ----------------------------------------------------------------------------------------
         return Yii::app()->controller->module->config;
     }
-    
+
     public function beforeAction($action) {
         $this->initConfigurations();
         parent::beforeAction($action);
-        
+
         return true;
     }
 
@@ -227,9 +227,8 @@ class Yiiauth extends CController {
         $conf = ConfMisc::model()->findAll($criteria);
         if (!empty($conf)) {
             foreach ($conf as $data) {
-               Yii::app()->params[$data->param] = $data->value;
+                Yii::app()->params[$data->param] = $data->value;
             }
-            
         }
     }
 
