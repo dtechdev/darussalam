@@ -201,4 +201,52 @@ class SiteController extends Controller {
         echo CJSON::encode(array('redirect' => $this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']))));
     }
 
+    public function actionTestauth() {
+
+        Yii::import('application.extensions.anet_php_sdk.*');
+
+        //Yii::import('ext.anet_php_sdk.*');
+        Yii::import('application.extensions.anet_php_sdk.AuthorizeNetException');
+        $author = new AuthorizeNetException();
+      
+
+        define("AUTHORIZENET_API_LOGIN_ID", "9f84PWNhV9");
+        define("AUTHORIZENET_TRANSACTION_KEY", "7A4Wfgq47Uv6zU93");
+        define("AUTHORIZENET_SANDBOX", true);
+
+
+        $sale = new AuthorizeNetAIM;
+        $sale->amount = "5.99";
+        $sale->card_num = '370000000000002';
+        $sale->exp_date = '04/15';
+
+        $sale->setFields(
+                array(
+                    'amount' => "5.99",
+                    'card_num' => '4007000000027',
+                    'exp_date' => '0415',
+                    'first_name' => "Syed Ali ",
+                    'last_name' => "Abbas",
+                    'address' => "test",
+                    'city' => "Lahore",
+                    'state' => "Punjab",
+                    'country' => "Pakistan",
+                    'zip' => "5444",
+                    'email' => "itsgeniusstar@gmail.com",
+                    'card_code' => "123",
+                )
+        );
+        
+        $response = $sale->authorizeAndCapture();
+        if ($response->approved) {
+            $transaction_id = $response->transaction_id;
+        }
+
+        echo "<pre>";
+        print_r($response);
+        echo "</pre>";
+
+        die;
+    }
+
 }
