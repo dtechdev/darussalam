@@ -12,12 +12,15 @@ class PaypalController extends Controller
         $paymentInfo['Order']['description'] = Yii::app()->session['description'];
         $paymentInfo['Order']['quantity'] = Yii::app()->session['quantity'];
 
-
+       // CVarDumper::dump($paymentInfo,10,true);
+        Yii::app()->Paypal->returnUrl= Yii::app()->request->hostInfo.$this->createUrl("/web/paypal/confirm");
+        Yii::app()->Paypal->cancelUrl= Yii::app()->request->hostInfo.$this->createUrl("/web/paypal/cancel");
+     
 
         // call paypal 
         $result = Yii::app()->Paypal->SetExpressCheckout($paymentInfo);
         //Detect Errors 
-        CVarDumper::dump($result, 10, true);
+        //CVarDumper::dump($result, 10, true);
 
         if (!Yii::app()->Paypal->isCallSucceeded($result))
         {
@@ -48,6 +51,7 @@ class PaypalController extends Controller
 
     public function actionConfirm()
     {
+
         $token = trim($_GET['token']);
         $payerId = trim($_GET['PayerID']);
 
