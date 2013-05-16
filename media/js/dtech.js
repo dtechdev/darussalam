@@ -24,6 +24,13 @@ var dtech = {
                     }
         }).done(function(msg) {
             $("#right_main_content").html(msg);
+
+            if (id != "") {
+                s_url = "cat=" + id;
+                dtech.updatehashBrowerUrl(s_url);
+            }
+
+
             $("#loading").hide();
         });
         return false;
@@ -56,28 +63,47 @@ var dtech = {
             hash_str = hash_str.split("=");
 
             if (typeof(hash_str[1]) != "undefined") {
-              
+
                 lang_val = dtech.findLangVal(hash_str[1]);
                 //console.log(lang_val);
                 jQuery("#language").val(lang_val);
                 window.location.hash = "";
                 jQuery("#language").trigger("change");
-                
+
             }
         }
 
     },
-    findLangVal : function(text){
-         return_lang = "";
-         jQuery("#language option").each(function(){
-             text = jQuery.trim(text);
-             if(jQuery(this).html()==text){
+    findLangVal: function(text) {
+        return_lang = "";
+        jQuery("#language option").each(function() {
+            text = jQuery.trim(text);
+            if (jQuery(this).html() == text) {
                 return_lang = jQuery(this).val();
-                
+
                 //return jQuery(this).val();
-             }
-         })
-         
-         return return_lang;
-    }        
+            }
+        })
+
+        return return_lang;
+    },
+    /**
+     *  loaded automatically using category filtering
+     *  in ajax
+     * @returns {undefined}
+     */
+    loadallPrdoucts_Cat: function(url) {
+        hash_str = window.location.hash;
+        
+        if (hash_str != "") {
+            hash_str = hash_str.split("=");
+
+            if (typeof(hash_str[1]) != "undefined") {
+              
+                dtech.updateProductListing(url,hash_str[1]);
+
+
+            }
+        }
+    }
 }
