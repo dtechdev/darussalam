@@ -39,9 +39,9 @@
             $image = $featured['image'][0]['image_small'];
         }
         echo CHtml::openTag("div",array("class"=>"books"));
-        echo CHtml::link(CHtml::image($image, 'image'), $this->createUrl('/web/product/productDetail', array('product_id' => $featured['product_id'])));
+        echo CHtml::link(CHtml::image($image, 'image'), $this->createUrl('/web/product/productDetail', array('product_id' => $featured['product_id'])),array('title' => $name));
         echo CHtml::openTag("p");
-        echo CHtml::link($name,$this->createUrl('/web/product/productDetail'));
+        echo CHtml::link(implode(' ', array_slice(explode(' ', $name), 0, 4)),$this->createUrl('/web/product/productDetail'));
         echo CHtml::closeTag("p");
         echo CHtml::closeTag("div");
        
@@ -62,9 +62,9 @@
             $image = $bests['image'][0]['image_small'];
         }
         echo CHtml::openTag("div",array("class"=>"books"));
-        echo CHtml::link(CHtml::image($image, 'image'), $this->createUrl('/web/product/productDetail', array('product_id' => $bests['product_id'])));
+        echo CHtml::link(CHtml::image($image, 'image'), $this->createUrl('/web/product/productDetail', array('product_id' => $bests['product_id'])),array('title' => $pro_name));
         echo CHtml::openTag("p");
-        echo CHtml::link($pro_name,$this->createUrl('/web/product/productDetail'));
+        echo CHtml::link(implode(' ', array_slice(explode(' ', $pro_name), 0, 4)),$this->createUrl('/web/product/productDetail'));
         echo CHtml::closeTag("p");
         echo CHtml::closeTag("div");
     }
