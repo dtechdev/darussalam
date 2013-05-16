@@ -176,24 +176,20 @@ class OrderDetail extends DTActiveRecord
         $criteria = new CDbCriteria(array(
             'select' => "COUNT( product.product_id ) as totalOrder,product_profile.*,product.*",
             'group' => 'product.product_id',
-            // 'condition'=>"is_featured='".$is_featured."' AND city_id='".Yii::app()->session['city_id']."'",
+             //'condition'=>"is_featured='".$is_featured."' AND city_id='".Yii::app()->session['city_id']."'",
+            'condition' =>"product.city_id = '".$city_id."'",
             'limit' => $limit,
-            "join" => "
-                    INNER JOIN product_profile 
-                    ON product_profile.id = t.product_profile_id
-                    INNER JOIN product 
-                    ON product.product_id = product_profile.product_id 
-                    AND product.city_id = '".$city_id."'
-                ",
+
             'order' => 'totalOrder DESC',
         ));
-
-        $best_join = OrderDetail::model()->findAll($criteria);
+        
+        $best_join = OrderDetail::model()->with(array('product_profile', 'product_profile.product'=>array('alias'=>'product')))->findAll($criteria);
 
         $counter = count($best_join);
         for ($i = 0; $i < $counter; $i++)
         {
             $product_id = $best_join[$i]->product_profile->product_id;
+           
             $product_name = $best_join[$i]->product_profile->product->product_name;
             $product_description = $best_join[$i]->product_profile->product->product_description;
             $product_price = $best_join[$i]->product_profile->price;
@@ -224,7 +220,7 @@ class OrderDetail extends DTActiveRecord
                 'product_description' => $product_description,
                 'product_price' => $product_price,
                 'totalOrder' => $product_totalOrder,
-                'no_image' => $best_join[$i]->product_profile->no_image,
+                'no_image' => $best_join[$i]->product_profile->product->no_image,
                 'image' => $imagesbestproducts);
         }
 
