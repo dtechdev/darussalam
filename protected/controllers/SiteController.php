@@ -208,7 +208,7 @@ class SiteController extends Controller {
         //Yii::import('ext.anet_php_sdk.*');
         Yii::import('application.extensions.anet_php_sdk.AuthorizeNetException');
         $author = new AuthorizeNetException();
-      
+
 
         define("AUTHORIZENET_API_LOGIN_ID", "9f84PWNhV9");
         define("AUTHORIZENET_TRANSACTION_KEY", "7A4Wfgq47Uv6zU93");
@@ -236,7 +236,7 @@ class SiteController extends Controller {
                     'card_code' => "123",
                 )
         );
-        
+
         $response = $sale->authorizeAndCapture();
         if ($response->approved) {
             $transaction_id = $response->transaction_id;
@@ -247,6 +247,56 @@ class SiteController extends Controller {
         echo "</pre>";
 
         die;
+    }
+
+    public function actionIphone() {
+        $books = array(
+            "English" => array(
+                array(
+                    "id" => "1",
+                    "name" => "Enjoy Your Life",
+                    "description" => "Enjoy Your life",
+                    "price" => "10",
+                ),
+                array(
+                    "id" => "2",
+                    "name" => "Description of Paradise",
+                    "description" => "Description of Paradise",
+                    "price" => "20",
+                ),
+            ),
+            "Urdu" => array(
+                array(
+                    "id" => "3",
+                    "name" => "آپ زندگی کا لطف",
+                    "description" => "آپ زندگی کا لطف",
+                    "price" => "10",
+                ),
+                array(
+                    "id" => "4",
+                    "name" => "جنت کی تفصیل",
+                    "description" => "جنت کی تفصیل",
+                    "price" => "20",
+                ),
+            ),
+            "Chinese" => array(
+                array(
+                    "id" => "3",
+                    "name" => "享受你的生活",
+                    "description" => "享受你的生活",
+                    "price" => "10",
+                ),
+                array(
+                    "id" => "4",
+                    "name" => "天堂的描述",
+                    "description" => "天堂的描述",
+                    "price" => "20",
+                ),
+            ),
+        );
+        $this->layout = "";
+     
+        echo CJSON::encode($books);
     }
 
 }
