@@ -33,8 +33,8 @@ class User extends DTActiveRecord {
     const LEVEL_CUSTOMER = 3, LEVEL_ADMIN = 2, LEVEL_SUPERADMIN = 1, LEVEL_UNKNOWN = 0;
     const WEAK = 0;
     const STRONG = 1;
-    public $agreement_status;
 
+    public $agreement_status;
     public $user_password2;
 
     public static function model($className = __CLASS__) {
@@ -67,10 +67,10 @@ class User extends DTActiveRecord {
             array('user_name', 'unique'),
             array('user_password', 'passwordStrength', 'strength' => self::STRONG),
             array('join_date,social_id', 'safe'),
-            array('agreement_status','compare','compareValue'=>'1','message'=>"You must accept the Darusslam Terms and conditions"),
+            array('agreement_status', 'compare', 'compareValue' => '1', 'message' => "You must accept the Darusslam Terms and conditions"),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('special_offer,agreement_status','safe'),
+            array('special_offer,agreement_status', 'safe'),
             array('user_id, user_password, role_id, status_id, city_id, activation_key, is_active, site_id', 'safe', 'on' => 'search'),
         );
     }
@@ -143,14 +143,15 @@ class User extends DTActiveRecord {
         $criteria->compare('activation_key', $this->activation_key, true);
         $criteria->compare('is_active', $this->is_active, true);
         $criteria->compare('site_id', $this->site_id);
-        
-         $criteria->addCondition("user_id<>".Yii::app()->user->id);
-        
+
+        $criteria->addCondition("user_id<>" . Yii::app()->user->id);
+
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
+
     public function searchCustomer() {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
@@ -167,7 +168,7 @@ class User extends DTActiveRecord {
         $criteria->compare('activation_key', $this->activation_key, true);
         $criteria->compare('is_active', $this->is_active, true);
         $criteria->compare('site_id', $this->site_id);
-        $criteria->order='create_time desc';
+        $criteria->order = 'create_time desc';
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -178,7 +179,7 @@ class User extends DTActiveRecord {
      *  used to set the value for validation
      */
     public function beforeValidate() {
-   
+
         parent::beforeValidate();
         return true;
     }
@@ -193,6 +194,14 @@ class User extends DTActiveRecord {
         $this->user_password = md5($this->user_password);
         parent::beforeSave();
         return true;
+    }
+
+    public function afterFind() {
+       
+        if (!empty($this->join_date)) {
+            $this->join_date = DTFunctions::dateFormatForView($this->join_date);
+        }
+        parent::afterFind();
     }
 
     /**
@@ -220,11 +229,11 @@ class User extends DTActiveRecord {
         if (!preg_match($pattern, $this->$attribute))
             $this->addError($attribute, 'Weak Password ! At least 5 characters.Passowrd can contain both letters and numbers!');
     }
-    public function customerHistory()
-    {
-        $id=  Yii::app()->user->id;
-        $model=new Order;
-        $data=$model->with('orderDetails')->find('user_id='.$id);
+
+    public function customerHistory() {
+        $id = Yii::app()->user->id;
+        $model = new Order;
+        $data = $model->with('orderDetails')->find('user_id=' . $id);
         return $data;
     }
 
