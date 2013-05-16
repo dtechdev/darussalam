@@ -174,16 +174,16 @@ class OrderDetail extends DTActiveRecord
         $city_id = Yii::app()->session['city_id'];
 
         $criteria = new CDbCriteria(array(
-            'select' => "COUNT( product.product_id ) as totalOrder,product_profile.*,product.*",
+           'select' => "COUNT( product.product_id ) as totalOrder,product.*,product_profile.*",
             'group' => 'product.product_id',
+            'distinct' => 'product.product_id',
              //'condition'=>"is_featured='".$is_featured."' AND city_id='".Yii::app()->session['city_id']."'",
             'condition' =>"product.city_id = '".$city_id."'",
             'limit' => $limit,
-
-            'order' => 'totalOrder DESC',
+           'order' => 'totalOrder DESC',
         ));
         
-        $best_join = OrderDetail::model()->with(array('product_profile', 'product_profile.product'=>array('alias'=>'product')))->findAll($criteria);
+        $best_join = OrderDetail::model()->with(array('product_profile','product_profile.product'=>array('alias'=>'product','joinType'=>"INNER JOIN ")))->findAll($criteria);
 
         $counter = count($best_join);
         for ($i = 0; $i < $counter; $i++)
@@ -197,9 +197,9 @@ class OrderDetail extends DTActiveRecord
 
             $criteria6 = new CDbCriteria;
             $criteria6->select = '*';  // only select the 'title' column
-            $criteria6->condition = 'product_profile_id="' . $product_id . '"';
+            $criteria6->condition = 'product_profile_id="' . $best_join[$i]->product_profile->id . '"';
             $imagebest = ProductImage::model()->findAll($criteria6);
-            $imagesbestproducts = array();
+            $images = array();
            foreach ($imagebest as $img) {
                 if ($img->is_default == 1) {
                     $images[] = array('id' => $img->id,
@@ -215,15 +215,15 @@ class OrderDetail extends DTActiveRecord
                     break;
                 }
             }
-            $best_products[] = array('product_id' => $product_id,
+            $best_products[$product_id] = array('product_id' => $product_id,
                 'product_name' => $product_name,
                 'product_description' => $product_description,
                 'product_price' => $product_price,
                 'totalOrder' => $product_totalOrder,
                 'no_image' => $best_join[$i]->product_profile->product->no_image,
-                'image' => $imagesbestproducts);
+                'image' => $images);
         }
-
+       
         return $best_products;
     }
 
