@@ -16,7 +16,6 @@ class Controller extends Yiiauth {
      * @var array context menu items. This property will be assigned to {@link CMenu::items}.
      */
     public $menu = array();
-    
     public $_module;
 
     /**
@@ -57,8 +56,8 @@ class Controller extends Yiiauth {
      *  set pages for system
      */
     public function setPages() {
-        $module =  $this->getModule();
-        
+        $module = $this->getModule();
+
         if ($this->id == "site" || get_class($module) == "WebModule") {
 
             $this->webPages = Pages::model()->getPages();
@@ -219,21 +218,29 @@ class Controller extends Yiiauth {
 
             $mailer->FromName = (isset($email['FromName']) && !empty($email['FromName']) ? $email['FromName'] : Yii::app()->name); //Yii::app()->user->name;
 
-            $mailer->IsSMTP();
+            if (Yii::app()->params['smtp'] == 1) {
+                $mailer->IsSMTP();
+
+                $mailer->SMTPAuth = true;
+                $mailer->SMTPSecure = Yii::app()->params['mailSecuity'];
+                $mailer->SMTPDebug = 0;
+                $mailer->Host = Yii::app()->params['mailHost'];
+                $mailer->Port = Yii::app()->params['mailPort'];
+                $mailer->Username = Yii::app()->params['mailUsername'];
+                $mailer->Password = Yii::app()->params['mailPassword'];
+            }
+
             $mailer->IsHTML(true);
-            $mailer->SMTPAuth = true;
-            $mailer->SMTPSecure = Yii::app()->params['mailSecuity'];
-
-            $mailer->Host = Yii::app()->params['mailHost'];
-            $mailer->Port = Yii::app()->params['mailPort'];
-            $mailer->Username = Yii::app()->params['mailUsername'];
-            $mailer->Password = Yii::app()->params['mailPassword'];
-
 
             $mailer->AddAddress($email['To']);
             $mailer->From = $email['From'];
             $mailer->Subject = $email['Subject'];
             $mailer->Body = $email['Body'];
+
+
+
+            $mailer->Send();
+            $mailer->ClearAddresses();
 
 
 
