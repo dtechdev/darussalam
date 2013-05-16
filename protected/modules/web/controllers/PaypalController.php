@@ -110,11 +110,11 @@ class PaypalController extends Controller
                 foreach ($cart as $pro)
                 {
                     $ordetail['OrderDetail'][] = array(
-                        'product_id' => $pro->product_id,
+                        'product_profile_id' => $pro->product_profile_id,
                         'quantity' => $pro->quantity,
                         'cart_id' =>$pro->cart_id,
-                        'product_price' => round($pro->product->product_price, 2),
-                        'total_price' => round($pro->product->product_price * $pro->quantity, 2),
+                        'product_price' => round($pro->productProfile->price, 2),
+                        'total_price' => round($pro->productProfile->price * $pro->quantity, 2),
                     );
                 }
 
