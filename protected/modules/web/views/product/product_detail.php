@@ -52,4 +52,9 @@ Yii::app()->clientScript->registerScript('image_change_function', "
     }
 </script>
 
+<?php 
+    Yii::app()->clientScript->registerScript('change_lang_script', '
+        dtech.load_languageDetail();
+    ', CClientScript::POS_READY);
+?>
 
