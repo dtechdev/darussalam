@@ -27,6 +27,12 @@ $url_manager = array(
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/userProfile/' =>'/web/userProfile/index',
         /** Product detail * */
        
+        /**
+         * paypall
+         */
+        '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/paypalconfirm' => '/web/paypal/confirm',
+        '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/paypalcancel' => '/web/paypal/cancel',
+        
         /** Search **/
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/dosearch' =>'/web/search/dosearch',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/getSearch' =>'/web/search/getSearch',
