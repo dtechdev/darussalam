@@ -56,13 +56,13 @@
     {
         $pro_name = $bests['product_name'];
         $orders = $bests['totalOrder'];
-        $image = $featured['no_image'];
+        $image = $bests['no_image'];
         
-        if (isset($featured['image'][0]['image_small'])) {
-            $image = $featured['image'][0]['image_small'];
+        if (isset($bests['image'][0]['image_small'])) {
+            $image = $bests['image'][0]['image_small'];
         }
         echo CHtml::openTag("div",array("class"=>"books"));
-        echo CHtml::link(CHtml::image($image, 'image'), $this->createUrl('/web/product/productDetail', array('product_id' => $featured['product_id'])));
+        echo CHtml::link(CHtml::image($image, 'image'), $this->createUrl('/web/product/productDetail', array('product_id' => $bests['product_id'])));
         echo CHtml::openTag("p");
         echo CHtml::link($pro_name,$this->createUrl('/web/product/productDetail'));
         echo CHtml::closeTag("p");
