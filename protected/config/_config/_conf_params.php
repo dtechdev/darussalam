@@ -32,9 +32,9 @@ $params = array(
         'cancelUrl' => 'paypal/cancel/', //regardless of url management component
     ),
     'adminEmail' => 'no_reply@darussalam.com',
-
     'dateformat' => 'm/d/y',
     'mailHost' => 'smtp.gmail.com',
+    'smtp' => true,
     //'mailPort' => 587,
     'mailPort' => 465,
     'mailUsername' => 'testservice733@gmail.com',
