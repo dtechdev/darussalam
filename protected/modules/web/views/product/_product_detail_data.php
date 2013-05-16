@@ -62,6 +62,10 @@
                                 }).done(function( msg ) {
                                
                                 jQuery("#loading").hide();
+                                
+                                browser_string = "lang="+jQuery("#language option:selected").text();
+                                dtech.updatehashBrowerUrl(browser_string);
+                                
                                 jQuery(".left_book").html(msg["left_data"]);
                                 jQuery(".book_data").html(msg["right_data"]);
                             });    
