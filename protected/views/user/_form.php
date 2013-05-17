@@ -16,24 +16,7 @@
     <p class="note">Fields with <span class="required">*</span> are required.</p>
 
     <?php echo $form->errorSummary($model); ?>
-    <?php $modelp = UserProfile::model(); ?>
-    <?php
-    if (!Yii::app()->user->isGuest) {
-        ?>
-        <div class="row">
 
-            <?php echo $form->labelEx($modelp, 'first_name'); ?>
-            <?php echo $form->textField($modelp, 'first_name', array('size' => 60, 'maxlength' => 255)); ?>
-            <?php echo $form->error($modelp, 'first_name'); ?>
-        </div>
-
-        <div class="row">
-
-            <?php echo $form->labelEx($modelp, 'last_name'); ?>
-            <?php echo $form->textField($modelp, 'last_name', array('size' => 60, 'maxlength' => 255)); ?>
-            <?php echo $form->error($modelp, 'last_name'); ?>
-        </div>
-    <?php } ?>
     <div class="row">
 
         <?php echo $form->labelEx($model, 'user_email'); ?>
@@ -76,14 +59,7 @@
             <?php echo $form->error($model, 'activation_key'); ?>
         </div>
 
-        <div class="row">
-            <?php //$listd=CHtml::listData(User::model()->findAll(),'user_id','is_active'); ?>
-            <?php echo $form->labelEx($model, 'is_active'); ?>
-            <?php // echo $form->activeDropDownList($model,'is_active',$listd, array('prompt'=>'Select status'));   ?>
-            <?php echo zHtml::enumDropDownList($model, 'is_active'); ?>
-
-            <?php echo $form->error($model, 'is_active'); ?>
-        </div>
+  
 
 
         <div class="row">
@@ -104,17 +80,15 @@
 
         <div class="row">
             <?php echo $form->labelEx($model, 'status_id'); ?>
-            <?php echo $form->textField($model, 'status_id'); ?>
+            <?php
+            echo $form->dropDownList(
+                    $model, 'status_id', array("0" => "Disabled", "1" => "Enabled")
+            );
+            ?>
             <?php echo $form->error($model, 'status_id'); ?>
         </div>
 
 
-
-        <div class="row">
-            <?php echo $form->labelEx($modelp, 'address'); ?>
-            <?php echo $form->textField($modelp, 'address', array('size' => 60, 'maxlength' => 255)); ?>
-            <?php echo $form->error($modelp, 'address'); ?>
-        </div>
         <div class="row">
             <?php echo $form->labelEx($model, 'join_date'); ?>
             <?php
@@ -128,7 +102,6 @@
                 ),
                 'htmlOptions' => array(
                     'size' => '15', // textField size
-                    
                     'maxlength' => '10', // textField maxlength
                 ),
             ));
@@ -136,7 +109,11 @@
             <?php echo $form->error($model, 'join_date'); ?>
         </div>
     <?php } ?>
-
+    <div class="row">
+        <?php echo $form->labelEx($model, 'agreement_status'); ?>
+        <?php echo $form->checkBox($model, 'agreement_status'); ?>
+        <?php echo $form->error($model, 'agreement_status'); ?>
+    </div>
 
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => "btn")); ?>

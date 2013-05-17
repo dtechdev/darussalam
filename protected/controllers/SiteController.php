@@ -145,7 +145,7 @@ class SiteController extends Controller {
                     $this->redirect(array('user/index'));
                 }
                 if (Yii::app()->user->isAdmin) {
-                    $this->redirect(array('user/admin'));
+                    $this->redirect(array('product/index'));
                 }
                 if (Yii::app()->user->isCustomer) {
                     $cart = new Cart();

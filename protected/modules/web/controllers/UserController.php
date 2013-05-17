@@ -65,7 +65,7 @@ class UserController extends Controller {
                 $subject = "Your Activation Link";
                 $message = "
                                     Please click this below to activate your account <br /><br />" .
-                        Yii::app()->createAbsoluteUrl('web/user/activate', array('key' => $model->activation_key, 'user_id' => $model->user_id, 'city_id' => $model->city_id)) .
+                        Yii::app()->createAbsaboluteUrl('web/user/activate', array('key' => $model->activation_key, 'user_id' => $model->user_id, 'city_id' => $model->city_id)) .
                         "<br /><br /> Thanks you 
                                 ";
 
