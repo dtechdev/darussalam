@@ -86,7 +86,7 @@ class PaypalController extends Controller
                             foreach($cart as $pro){
                                 $order_detail=new OrderDetail;
                                 $order_detail->order_id=$order->order_id;
-                                $order_detail->product_id=$pro->product_id;
+                                $order_detail->product_profile_id=$pro->product_profile_id;
                                 $order_detail->quantity=$pro->quantity;
                                 $order_detail->product_price=round($pro->product->product_price,2);
                                 $order_detail->total_price=round($pro->product->product_price*$pro->quantity,2);
