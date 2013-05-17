@@ -94,7 +94,7 @@
                             ?>
                         </a>
                         <p id="wishlist_counter" style="margin-left: 0px;">
-                            <?
+                            <?php
                             $ip = Yii::app()->request->getUserHostAddress();
                             if (isset(Yii::app()->user->id)) {
                                 $tot = Yii::app()->db->createCommand()
