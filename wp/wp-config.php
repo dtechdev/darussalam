@@ -18,8 +18,7 @@
 /** The name of the database for WordPress */
 
 
-
-require_once("protected/config/_config/_conf_db.php");
+require_once dirname(__FILE__)."/../protected/config/_config/_conf_db.php";
 
 $db = explode(":",$conf_component_db['connectionString']);
 $db = explode(";",$db[1]);
