@@ -50,6 +50,26 @@ class UserIdentity extends CUserIdentity {
 
         return $this->errorCode == self::ERROR_NONE;
     }
+    /**
+     * authicate with social 
+     * @return type
+     */
+    public function authenticateWith() {
+        //$this->setState("isSuperAdmin", Yii::app()->user->isSuperAdmin);
+        $user = User::model()->find("user_email = '" . $this->username . "'");
+        if ($user === null)
+            $this->errorCode = self::ERROR_USERNAME_INVALID;
+        else if ($user->status_id == '0')
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+        else {
+            $this->_id = $user->user_id;
+            $this->username = $user->user_email;
+            $this->errorCode = self::ERROR_NONE;
+        }
+
+
+        return $this->errorCode == self::ERROR_NONE;
+    }
 
     /**
      * @return integer the ID of the user record

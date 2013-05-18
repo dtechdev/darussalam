@@ -145,94 +145,9 @@
                             <h1><a href="<?php echo $this->createUrl('/site/logout') ?>" class="button" style="margin-top: -7px;">Logout</a>
                                 <?php
                             } else {
+                                $this->renderPartial("application.views.layouts._login_box", array("login_model" => $login_model));
                                 ?>
-                                <div class="example2">
-                                    <?php
-                                    /* @var $this SiteController */
-                                    /* @var $model LoginForm */
-                                    /* @var $form CActiveForm  */
 
-                                    $this->pageTitle = Yii::app()->name . ' - Login';
-                                    $this->breadcrumbs = array(
-                                        'Login',
-                                    );
-                                    ?>
-                                    <?php
-                                    $form = $this->beginWidget('CActiveForm', array(
-                                        'id' => 'login-form',
-                                        'action' => Yii::app()->createUrl('/site/login'),
-                                        'enableClientValidation' => true,
-                                        'clientOptions' => array(
-                                            'validateOnSubmit' => true,
-                                        ),
-                                    ));
-                                    ?>
-
-
-                                    <h1>Sign In</h1>
-                                    <p>
-                                        <?php
-                                        echo $login_model->getAttributeLabel('username');
-                                        ?>
-                                    </p>
-                                    <?php echo $form->textField($login_model, 'username', $htmlOptions = array("class" => "second")); ?>
-                                    <?php //echo $form->error($login_model,'username');  ?>
-                                    <p>
-                                        <?php
-                                        echo $login_model->getAttributeLabel('password');
-                                        ?>
-                                    </p>
-                                    <?php echo $form->passwordField($login_model, 'password', $htmlOptions = array("class" => "second")); ?>
-                                    <?php echo $form->checkBox($login_model, 'rememberMe', $htmlOptions = array("class" => "check")); ?>
-                                    <span><?php
-                                        echo $login_model->getAttributeLabel('rememberMe');
-                                        ?>
-                                    </span>
-                                    <a href="<?php echo $this->createUrl('/web/user/forgot') ?>" class="forgot"> Forgot Password</a>
-                                    <div class="sign_in_button">
-                                        <?php echo CHtml::submitButton("Sign In", array("class" => "btn")); ?>
-                                    </div>
-                                    <h2 class="signinp">Sign in with</h2>
-                                    <div class="sign_in">
-                                        <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/facebook'); ?>">
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/facebook_img_03.jpg');
-                                            ?>
-                                        </a>
-                                        <?php echo CHtml::button('Facebook', array("class" => "f_img")); ?>
-                                    </div>
-                                    <div class="sign_in">
-                                        <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/linkedin'); ?>">
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/linkedin_img_03.jpg');
-                                            ?>
-                                        </a>
-                                        <?php echo CHtml::button('Linkedin', array("class" => "l_img")); ?>
-                                    </div>
-                                    <div class="sign_in">
-                                        <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/twitter'); ?>">
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/twitter_img_03.jpg');
-                                            ?>
-                                        </a>
-                                        <?php echo CHtml::button('Twitter', array("class" => "t_img")); ?>
-                                    </div>
-                                    <div class="sign_in">
-                                        <a href="<?php echo $this->createUrl('/yiiauth/default/authenticatewith/provider/google'); ?>">
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/google_img_03.jpg');
-                                            ?>
-                                        </a>
-                                        <?php echo CHtml::button('Google', array("class" => "g_img")); ?>
-                                    </div>
-                                    <h3 class="dont">Don't have account?</h3>
-                                    <div class="sign_up_button">
-                                        <a href="<?php echo $this->createUrl('/web/user/register') ?>">
-                                            <?php echo CHtml::button('Sign Up', array("class" => "btn")); ?>
-                                        </a>
-                                    </div>
-                                    <?php $this->endWidget(); ?>
-                                </div>
                             <?php } ?>
                     </div>
                 </div>
@@ -267,9 +182,9 @@
                 echo CHtml::openTag("article");
                 echo CHtml::link('Darussalam Blog', Yii::app()->createUrl('/?r=blog'), array("target" => "_blank"));
                 echo '<br>';
-                echo CHtml::link('User Profile',$this->createUrl('/web/userProfile', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                echo CHtml::link('User Profile', $this->createUrl('/web/userProfile', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                 echo '<br>';
-                echo CHtml::link('Customer History',$this->createUrl('/web/user/customerHistory', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                echo CHtml::link('Customer History', $this->createUrl('/web/user/customerHistory', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                 echo CHtml::closeTag("article");
                 $pages = Pages::model()->getPages();
                 foreach ($pages as $page) {

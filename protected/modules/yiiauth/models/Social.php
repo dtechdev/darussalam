@@ -38,7 +38,7 @@ class Social extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('yiiuser, provider, provideruser', 'required'),
+			array('provider, provideruser', 'required'),
 			array('yiiuser', 'numerical', 'integerOnly'=>true),
 			array('provider', 'length', 'max'=>50),
 			array('provideruser', 'length', 'max'=>255),
@@ -47,7 +47,8 @@ class Social extends CActiveRecord
 			array('id, yiiuser, provider, provideruser', 'safe', 'on'=>'search'),
 		);
 	}
-
+        
+  
 	/**
 	 * @return array relational rules.
 	 */
