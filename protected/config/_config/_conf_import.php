@@ -17,5 +17,6 @@ $import = array(
     'application.extensions.KEmail.KEmail',
     'application.extensions.ProDropDown.*',
     'application.modules.yiiauth.components.*',
+    'application.modules.yiiauth.models.Social',
 ); 
 ?>

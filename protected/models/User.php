@@ -79,6 +79,27 @@ class User extends DTActiveRecord {
     }
 
     /**
+     * Behaviour
+     *
+     */
+    public function behaviors() {
+        return array(
+            'CSaveRelationsBehavior' => array(
+                'class' => 'CSaveRelationsBehavior',
+                'relations' => array(
+                    'basicFeatures' => array("message" => "Please, fill required fields"),
+                ),
+            ),
+            'CMultipleRecords' => array(
+                'class' => 'CMultipleRecords'
+            ),
+            'COneRelations' => array(
+                'class' => 'COneRelations'
+            ),
+        );
+    }
+
+    /**
      * @return array relational rules.
      */
     public function relations() {
@@ -91,6 +112,7 @@ class User extends DTActiveRecord {
             'role' => array(self::BELONGS_TO, 'UserRole', 'role_id'),
             'userProfiles' => array(self::HAS_ONE, 'UserProfile', 'id'),
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
+            'social' => array(self::HAS_MANY, 'Social', 'yiiuser'),
         );
     }
 
@@ -201,7 +223,7 @@ class User extends DTActiveRecord {
     }
 
     public function afterFind() {
-       
+
         if (!empty($this->join_date)) {
             $this->join_date = DTFunctions::dateFormatForView($this->join_date);
         }
