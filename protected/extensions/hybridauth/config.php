@@ -11,10 +11,10 @@
 // ----------------------------------------------------------------------------------------
 //	HybridAuth Config file: http://hybridauth.sourceforge.net/userguide/Configuration.html
 // ----------------------------------------------------------------------------------------
-
+//http://localhost/test/test2/socialconnect/hybridauth-2.1.2/
 return
         array(
-            "base_url" => "http://localhost/test/test2/socialconnect/hybridauth-2.1.2/hybridauth/",
+            "base_url" => "http://localhost/darussalam/index.php/site/testHybrid",
             "providers" => array(
                 // openid providers
                 "OpenID" => array(
