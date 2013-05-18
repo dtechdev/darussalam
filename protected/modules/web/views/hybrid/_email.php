@@ -1,5 +1,5 @@
 <div class="right_user_login">
-    <h2>Please Enter your email</h2>
+    <h2>Please Enter your email Your Social Login has return any Email</h2>
     <table>
         <tr>
             <td>
