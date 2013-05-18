@@ -13,6 +13,7 @@
  * @property string $activation_key
  * @property string $is_active
  * @property integer $site_id
+ * @property integer $old_password
  *
  * The followings are the available model relations:
  * @property Order[] $orders
@@ -36,6 +37,8 @@ class User extends DTActiveRecord {
 
     public $agreement_status;
     public $user_password2;
+    public $old_password;
+
 
     public static function model($className = __CLASS__) {
         return parent::model($className);
@@ -70,7 +73,7 @@ class User extends DTActiveRecord {
             array('agreement_status', 'compare', 'compareValue' => '1', 'message' => "You must accept the Darusslam Terms and conditions"),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('special_offer,agreement_status', 'safe'),
+            array('special_offer,agreement_status,old_password,user_password2', 'safe'),
             array('user_id, user_password, role_id, status_id, city_id, activation_key, is_active, site_id', 'safe', 'on' => 'search'),
         );
     }
@@ -108,6 +111,7 @@ class User extends DTActiveRecord {
             'user_email' => 'Email',
             'join_date' => 'Registration date',
             'user_password2' => 'Confirm Password',
+            'old_password' => 'Old Password',
         );
     }
 
@@ -214,9 +218,9 @@ class User extends DTActiveRecord {
         
     }
 
-    public function validatePassword($password, $saved_password) {
+    public function validatePassword($password, $old_password) {
 
-        return md5($password) === $saved_password;
+        return md5($password) === $old_password;
         //return $password;
     }
 
