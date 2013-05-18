@@ -248,6 +248,12 @@ class SiteController extends Controller {
 
         die;
     }
+    
+    public function actionTestHybrid(){
+        Yii::import('application.extensions.hybridauth.Hybrid.Hybrid_Auth');
+        Yii::import('application.extensions.hybridauth.Hybrid.Hybrid_Endpoint');
+        Hybrid_Endpoint::process();
+    }
 
     public function actionIphone() {
         $books = array(
