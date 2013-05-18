@@ -61,6 +61,7 @@ class DTSocialHandler {
         } else {
 
             Yii::app()->session['social_user_info'] = $this->makeObjectNewSocialUser($userProfile, $provider);
+
             return "";
         }
     }
@@ -133,17 +134,21 @@ class DTSocialHandler {
             'provideruser' => $userProfile->identifier,
         );
 
-        $profile = array();
-
-        $profile['UserProfile'] = array(
-            'first_name' => $userProfile->firstName,
-            'last_name' => $userProfile->lastName,
-        );
-
         $user->setRelationRecords('social', is_array($social['Social']) ? $social['Social'] : array());
 
+        $profile = array();
+        /**
+         * As require the things here coz it is require in this model
+         */
+        if (!empty($userProfile->first_name) && !empty($userProfile->lastName)) {
 
-        $user->saveOnetToOneMultipleChilds('userProfiles', $profile['UserProfile']);
+            $profile['UserProfile'] = array(
+                'first_name' => $userProfile->firstName,
+                'last_name' => $userProfile->lastName,
+            );
+
+            $user->saveOnetToOneMultipleChilds('userProfiles', $profile['UserProfile']);
+        }
 
         return $user;
     }

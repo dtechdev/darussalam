@@ -90,7 +90,7 @@ class HybridController extends Controller {
             $model->attributes = $_POST['HybridLogin'];
             if ($model->validate()) {
                 $this->saveAndsendEmail($model);
-                $this->redirect($this->createUrl("site/login"));
+                //$this->redirect($this->createUrl("site/login"));
             }
         }
         $this->render("email", array("model" => $model));
@@ -100,7 +100,8 @@ class HybridController extends Controller {
         //Sending email part - For activation
         $model = Yii::app()->session['social_user_info'];
         $model->user_email = $emailModel->email;
-
+        
+        
         if ($model->save()) {
             $subject = "Your Activation Link";
             $message = "
@@ -120,6 +121,7 @@ class HybridController extends Controller {
             $this->sendEmail2($email);
             Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by visiting your email account.');
         }
+        
     }
 
 }
