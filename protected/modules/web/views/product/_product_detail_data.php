@@ -138,7 +138,7 @@
         <tr class="price_cart">
             <td class="price"  id="price">
                 <?php
-                echo isset($product->productProfile[0]->price) ? round($product->productProfile[0]->price, 2) : "";
+                echo isset($product->productProfile[0]->price) ? '$ '.round($product->productProfile[0]->price, 2) : "";
                 ?>
 
             </td>
@@ -192,6 +192,3 @@
     </div>
 </div>
 </table>
-<div class="product_para">
-    <p><?php echo $product->product_description; ?></p>
-</div>

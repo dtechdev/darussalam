@@ -48,7 +48,7 @@ Yii::app()->clientScript->registerScript('image_change_function', "
     function totalPrice(quantity, price)
     {
         total_price = quantity * price;
-        jQuery('#price').html('$' + total_price);
+        jQuery('#price').html('$ ' + total_price);
     }
 </script>
 
