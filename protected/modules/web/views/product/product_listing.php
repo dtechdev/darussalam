@@ -43,19 +43,28 @@
                 <ul>
                     <?php
                     foreach ($allCate as $allCatego) {
-                        ?>
-                        <li>
-                            <?php
-                            echo CHtml::link($allCatego->category_name, $this->createUrl('/web/product/allproducts'), array('onclick' => '
+
+                        echo CHtml::openTag("li");
+                        echo CHtml::link($allCatego->category_name, $this->createUrl('/web/product/allproducts'), array('onclick' => '
                                             
                                                   dtech.updateProductListing("' . $this->createUrl("/web/product/productfilter") . '",$(this).attr("id"));  
                                                   
                                                 return false;
                                         ', "id" => $allCatego->category_id));
-                            echo ' (' . $allCatego->totalStock . ')';
-                            ?>
-                        </li>
-                    <?php } ?>
+                        echo ' (' . $allCatego->totalStock . ')';
+                        echo CHtml::closeTag("/li");
+                    }
+                    if (!empty($allCate)) {
+                        echo CHtml::openTag("li");
+                        echo CHtml::link("All", $this->createUrl('/web/product/allproducts'), array('onclick' => '
+                                            
+                                                  dtech.updateProductListing("' . $this->createUrl("/web/product/productfilter") . '","");  
+                                                  
+                                                return false;
+                                        ', "id" => "all"));
+                        echo CHtml::closeTag("/li");
+                    }
+                    ?>
                 </ul>
             </div>
         </div>

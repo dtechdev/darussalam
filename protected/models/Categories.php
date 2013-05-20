@@ -86,14 +86,14 @@ class Categories extends DTActiveRecord {
     public function allCategories() {
 
         $criteriaC = new CDbCriteria(array(
-            'select' => "COUNT(product_category_id ) as totalStock,*",
+            'select' => "COUNT(product_category_id ) as totalStock,t.category_id,t.category_name",
             'group' => 't.category_id',
             //'limit' => 14,
-            'condition' => "city_id=" . Yii::app()->session['city_id'], //parent id = 0 means category that is parent by itself.show only parent category in list
+            'condition' => "t.city_id=" . Yii::app()->session['city_id']." AND product.city_id=" . Yii::app()->session['city_id'], //parent id = 0 means category that is parent by itself.show only parent category in list
             'order' => 'totalStock DESC',
         ));
-
-        $cate = $this->with('productCategories')->findAll($criteriaC);
+        $cate = $this->with(array('productCategories'=>array("select"=>""), 'productCategories.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ","select"=>"")))->findAll($criteriaC);
+       
         return $cate;
     }
 
