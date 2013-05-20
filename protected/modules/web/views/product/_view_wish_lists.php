@@ -54,17 +54,20 @@ if (empty($wishList)) {
                                                 )
                                         ), $this->createUrl("/web/product/editwishlist"), array(
                                     "type" => "POST",
+                                    'dataType' => 'json',
                                     "data" => array(
                                         "type" => 'delete_wishlist',
                                         "id" => $pro->id,
                                     ),
                                     "success" => "function(data) {
-                                                    jQuery('#wishList_container').html(data);          
+                                                    $('#loading').hide();
+                                                    jQuery('#wishList_container').html(data._view_list); 
+                                                    jQuery('#wishlist_counter').html(data.wish_list_count);
                                                }",
                                         ), array(
                                     "onclick" => "
                                                 if(confirm('Are you want to remove this item from wish list')){
-                                                   //return true;
+                                                   $('#loading').show();
                                                  }
                                                  else {
                                                    return  false;

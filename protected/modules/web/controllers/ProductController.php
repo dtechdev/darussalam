@@ -43,32 +43,31 @@ class ProductController extends Controller {
         );
     }
 
+    /**
+     * view cart page
+     */
     public function actionViewcart() {
 
 
         Yii::app()->user->SiteSessions;
-        $ip = Yii::app()->request->getUserHostAddress();
+
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
 
-
-        $cart_model = new Cart();
-        if (isset(Yii::app()->user->id)) {
-            $cart = $cart_model->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
-        } else {
-            $cart = $cart_model->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"');
-        }
-
+        $cart = Cart::model()->getCartLists();
 
         $this->render('viewcart', array('cart' => $cart));
     }
 
+    /**
+     * edit or delete cart
+     */
     public function actionEditcart() {
 
         if ($_REQUEST['type'] == 'delete_cart') {
             $cart_model = new Cart();
-            $cart_model->findByPk($_REQUEST['cart_id'])->delete();
-            //$this->redirect('/product/viewcart');
+
+            Cart::model()->deleteByPk($_REQUEST['cart_id']);
         } else {
             $cart_model = new Cart();
             $cart = $cart_model->find('cart_id=' . $_REQUEST['cart_id']);
@@ -76,7 +75,11 @@ class ProductController extends Controller {
             $cart_model->quantity = $_REQUEST['quantity'];
             $cart_model->save();
         }
-        echo CJSON::encode(array('redirect' => $this->createUrl('/web/product/viewcart')));
+        $cart = Cart::model()->getCartLists();
+        $cart_list_count = Cart::model()->getCartListCount();
+
+        $_view_cart = $this->renderPartial("_view_cart", array('cart' => $cart), true, true);
+        echo CJSON::encode(array("_view_cart" => $_view_cart, "cart_list_count" => $cart_list_count));
     }
 
     /**
@@ -86,13 +89,12 @@ class ProductController extends Controller {
 
 
         Yii::app()->user->SiteSessions;
-        
+
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
 
 
         $wishlist = WishList::model()->getWishLists();
-
 
         $this->render('viewwishlist', array('wishList' => $wishlist));
     }
@@ -109,7 +111,10 @@ class ProductController extends Controller {
              * get wish list again
              */
             $wishlist = WishList::model()->getWishLists();
-            $this->renderPartial("_view_wish_lists",array('wishList' => $wishlist));
+            $wish_list_count = WishList::model()->getWishListCount();
+            $_view_list = $this->renderPartial("_view_wish_lists", array('wishList' => $wishlist),true,true);
+
+            echo CJSON::encode(array("_view_list" => $_view_list, "wish_list_count" => $wish_list_count));
         }
     }
 

@@ -84,8 +84,8 @@ class Cart extends DTActiveRecord {
         $criteria->compare('added_date', $this->added_date, true);
 
         return new CActiveDataProvider($this, array(
-                    'criteria' => $criteria,
-                ));
+            'criteria' => $criteria,
+        ));
     }
 
     /**
@@ -113,6 +113,46 @@ class Cart extends DTActiveRecord {
                 $cart_model2->save();
             }
         }
+    }
+
+    /**
+     * get Cart for user 
+     * 
+     */
+    function getCartLists() {
+        $cart = "";
+        $ip = Yii::app()->request->getUserHostAddress();
+        if (isset(Yii::app()->user->id)) {
+            $cart = $this->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
+        } else {
+            $cart = $this->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"');
+        }
+
+        return $cart;
+    }
+
+    /**
+     * get Cart count for user
+     */
+    function getCartListCount() {
+        //count total added products in cart
+        $ip = Yii::app()->request->getUserHostAddress();
+
+        if (isset(Yii::app()->user->id)) {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('sum(quantity) as cart_total')
+                    ->from('cart')
+                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
+                    ->queryRow();
+        } else {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('sum(quantity) as cart_total')
+                    ->from('cart')
+                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
+                    ->queryRow();
+        }
+
+        return $tot;
     }
 
 }
