@@ -12,6 +12,14 @@ var dtech = {
     },
     updateProductListing: function(ajax_url, id) {
         $("#loading").show();
+        
+        url_hash = window.location.hash;
+        if(url_hash!=""){
+            url_hash = url_hash.split("=");
+            if(url_hash[0]=="cat"){
+                id = url_hash[1]; 
+            }
+        }
         $.ajax({
             type: "POST",
             url: ajax_url,
@@ -28,8 +36,12 @@ var dtech = {
             if (id != "") {
                 s_url = "cat=" + id;
                 dtech.updatehashBrowerUrl(s_url);
+                dtech.updateCategoryStatus(id);
             }
-
+            else{
+                dtech.updatehashBrowerUrl("");
+                dtech.updateCategoryStatus(id);
+            }
 
             $("#loading").hide();
         });
@@ -105,5 +117,21 @@ var dtech = {
 
             }
         }
-    }
+    },
+    /**
+     * to see which category is selected
+     * @param {type} cat_id
+     * @returns {undefined}
+     */
+    updateCategoryStatus : function(cat_id){
+        $("#category_list ul li a").each(function(){
+            if($(this).attr("id") == cat_id){
+                $(this).css("font-weight","bold");
+            }
+            else {
+                $(this).css("font-weight","normal");
+            }
+        })
+    }        
+            
 }
