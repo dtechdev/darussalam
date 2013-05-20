@@ -12,6 +12,7 @@ class HybridController extends Controller {
      */
     public function actionLogin($provider = "facebook") {
 
+        $this->initConfigurations();
         /**
          * in case of already login
          */
@@ -100,8 +101,8 @@ class HybridController extends Controller {
         //Sending email part - For activation
         $model = Yii::app()->session['social_user_info'];
         $model->user_email = $emailModel->email;
-        
-        
+
+
         if ($model->save()) {
             $subject = "Your Activation Link";
             $message = "
@@ -121,7 +122,19 @@ class HybridController extends Controller {
             $this->sendEmail2($email);
             Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by visiting your email account.');
         }
-        
+    }
+
+    public function initConfigurations() {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("city_id='" . Yii::app()->session['city_id'] . "'");
+        $selected = array("fb_key", "fb_secret", "google_key", "google_secret", "twitter_key", 'twitter_secret');
+        $criteria->addInCondition("param", $selected);
+        $conf = ConfMisc::model()->findAll($criteria);
+        if (!empty($conf)) {
+            foreach ($conf as $data) {
+                Yii::app()->params[$data->param] = $data->value;
+            }
+        }
     }
 
 }
