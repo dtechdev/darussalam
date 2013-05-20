@@ -32,34 +32,7 @@ class HybridController extends Controller {
 
             $adapter = $hybridauth->authenticate($provider);
 
-            $user_profile1 = $adapter->getUserProfile();
-
-            $user_profile = new stdClass();
-            $user_profile->identifier = $user_profile1->identifier;
-
-            $user_profile->webSiteURL = $user_profile1->webSiteURL;
-            $user_profile->profileURL = $user_profile1->profileURL;
-            $user_profile->photoURL = $user_profile1->photoURL;
-            $user_profile->displayName = $user_profile1->displayName;
-            $user_profile->description = $user_profile1->description;
-            $user_profile->firstName = $user_profile1->firstName;
-            $user_profile->lastName = $user_profile1->lastName;
-            $user_profile->gender = $user_profile1->gender;
-            $user_profile->language = $user_profile1->language;
-            $user_profile->age = $user_profile1->age;
-            $user_profile->birthDay = $user_profile1->birthDay;
-            $user_profile->birthMonth = $user_profile1->birthMonth;
-            $user_profile->birthYear = $user_profile1->birthYear;
-            $user_profile->email = "";
-            $user_profile->emailVerified = $user_profile1->emailVerified;
-            $user_profile->phone = $user_profile1->phone;
-            $user_profile->address = $user_profile1->address;
-            $user_profile->country = $user_profile1->country;
-            $user_profile->region = $user_profile1->region;
-            $user_profile->city = $user_profile1->city;
-            $user_profile->zip = $user_profile1->zip;
-
-
+            $user_profile = $adapter->getUserProfile();
 
             /**
              * 
@@ -117,7 +90,7 @@ class HybridController extends Controller {
             $model->attributes = $_POST['HybridLogin'];
             if ($model->validate()) {
                 $this->saveAndsendEmail($model);
-                $this->redirect($this->createUrl("site/login"));
+                //$this->redirect($this->createUrl("site/login"));
             }
         }
         $this->render("email", array("model" => $model));
@@ -127,7 +100,8 @@ class HybridController extends Controller {
         //Sending email part - For activation
         $model = Yii::app()->session['social_user_info'];
         $model->user_email = $emailModel->email;
-
+        
+        
         if ($model->save()) {
             $subject = "Your Activation Link";
             $message = "
@@ -147,6 +121,7 @@ class HybridController extends Controller {
             $this->sendEmail2($email);
             Yii::app()->user->setFlash('registration', 'Thank you for Registration...Please activate your account by visiting your email account.');
         }
+        
     }
 
 }
