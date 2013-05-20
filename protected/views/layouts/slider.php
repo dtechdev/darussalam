@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-    <div id="right_banner">
+    <div id="right_banner" style="display:none">
         <div class="small_book">
             <div class="small_book_img">
                 <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/small_book_1_03.jpg" alt="scientific book" />
@@ -104,9 +104,9 @@
 <div id="content">
     <div id="main_content">
         <div id="left_content">
-            <h1>Over 1500 books for every type</h1>
+            <h1>Over <?php echo Product::model()->count("city_id='" . Yii::app()->session['city_id'] . "'") ?> books for every type</h1>
         </div>
-        <div id="right_content">
+        <div id="right_content" style="display:none">
             <ul>
                 <li><a href="#">Careers</a></li>
                 <li><a href="#">Becomes Our Partner</a></li>
