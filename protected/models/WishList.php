@@ -112,8 +112,8 @@ class WishList extends CActiveRecord {
         $criteria->compare('activity_log', $this->activity_log, true);
 
         return new CActiveDataProvider($this, array(
-                    'criteria' => $criteria,
-                ));
+            'criteria' => $criteria,
+        ));
     }
 
     /**
@@ -138,6 +138,23 @@ class WishList extends CActiveRecord {
                 }
             }
         }
+    }
+
+    /**
+     * get wishList for user 
+     * 
+     */
+    function getWishLists() {
+        $wishList = "";
+        $ip = Yii::app()->request->getUserHostAddress();
+        if (isset(Yii::app()->user->id)) {
+
+            $wishList = $this->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
+        } else {
+            $wishList = $this->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"');
+        }
+
+        return $wishList;
     }
 
 }

@@ -86,20 +86,15 @@ class ProductController extends Controller {
 
 
         Yii::app()->user->SiteSessions;
-        $ip = Yii::app()->request->getUserHostAddress();
+        
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
 
 
-        $wishlist_model = new WishList();
-        if (isset(Yii::app()->user->id)) {
-            $wish = $wishlist_model->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
-        } else {
-            $wish = $wishlist_model->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"');
-        }
+        $wishlist = WishList::model()->getWishLists();
 
 
-        $this->render('viewwishlist', array('cart' => $wish));
+        $this->render('viewwishlist', array('wishList' => $wishlist));
     }
 
     /**
@@ -110,9 +105,12 @@ class ProductController extends Controller {
         if ($_REQUEST['type'] == 'delete_wishlist') {
             $wishlist_model = new WishList();
             $wishlist_model->findByPk($_REQUEST['id'])->delete();
-            //$this->redirect('/product/viewcart');
+            /**
+             * get wish list again
+             */
+            $wishlist = WishList::model()->getWishLists();
+            $this->renderPartial("_view_wish_lists",array('wishList' => $wishlist));
         }
-        echo CJSON::encode(array('redirect' => $this->createUrl('/web/product/viewwishlist')));
     }
 
     //front site actions
@@ -288,10 +286,10 @@ class ProductController extends Controller {
         );
 
         $response = $sale->authorizeAndCapture();
-      
+
         if ($response->approved) {
             $transaction_id = $response->transaction_id;
-     
+
             $error['status'] = false;
             $error['message'] = 'Payment successfully';
 
