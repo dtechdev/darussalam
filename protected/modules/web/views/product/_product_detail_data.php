@@ -1,5 +1,5 @@
 <div class="clear"></div>
-<table width="400">
+<table width="400"> 
 
     <div class="middle_book">
         <h1><?php echo $product->product_name; ?></h1>
