@@ -33,4 +33,7 @@ div.errorMessage {font-size: 12px;color: red}
     cursor: pointer;
 }
 
-/**---------------**/
+/**--------custom css for will be change-------**/
+select#author_id{
+    width: 100px;
+}
