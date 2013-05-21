@@ -10,7 +10,7 @@
             <?php
                 foreach($cats as $cat_id=>$cat){
                     echo CHtml::openTag("li");
-                        echo CHtml::link($cat, $this->createUrl('/web/product/allproducts'));
+                        echo CHtml::link($cat, $this->createUrl('/web/product/allproducts')."#cat=".$cat_id);
                     echo CHtml::closeTag("li");
                     
                 }
