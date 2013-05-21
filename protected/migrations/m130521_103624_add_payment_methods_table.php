@@ -8,7 +8,7 @@ class m130521_103624_add_payment_methods_table extends DTDbMigration {
             'id' => 'int(10) unsigned NOT NULL auto_increment',
             'name' => 'varchar(255) NOT NULL',
             'status' => 'enum("Disable","Enable") DEFAULT "Disable"',
-            'sanbox' => 'enum("Disable","Enable") DEFAULT "Enable"',
+            'sandbox' => 'enum("Disable","Enable") DEFAULT "Enable"',
             'create_time' => 'datetime NOT NULL',
             'create_user_id' => 'int(11) unsigned NOT NULL',
             'update_time' => 'datetime NOT NULL',
