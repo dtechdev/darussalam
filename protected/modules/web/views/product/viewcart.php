@@ -1,3 +1,4 @@
+<?php Yii::app()->clientScript->registerCoreScript('jquery-ui.min'); ?>
 <div id="book_content">
     <div id="book_main_content">
         <?php $this->renderPartial("_subheader"); ?>
@@ -8,3 +9,6 @@
         $this->renderPartial("_view_cart",array("cart"=>$cart));
     ?>
 </div>
+<?php
+
+?>

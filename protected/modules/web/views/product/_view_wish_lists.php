@@ -1,3 +1,4 @@
+<?php Yii::app()->clientScript->registerCoreScript('jquery-ui.min'); ?>
 <?php
 if (empty($wishList)) {
     ?>
