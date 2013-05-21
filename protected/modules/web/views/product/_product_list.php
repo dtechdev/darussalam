@@ -7,6 +7,7 @@
 ?>
 
 <?php
+
 foreach ($products as $product) {
     ?>
     <div class="condition">
@@ -29,4 +30,4 @@ foreach ($products as $product) {
         </p>
         <article>&dollar;<?php echo round($product['product_price'], 2); ?></article>
     </div>
-<?php } ?>
+<?php } die; ?>

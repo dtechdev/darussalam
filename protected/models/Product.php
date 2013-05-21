@@ -149,7 +149,7 @@ class Product extends DTActiveRecord {
                 'order' => 't.product_id ASC',
                     //'with'=>'commentCount' 
             ));
-            $criteria->addInCondition("product_id", $productArray);
+            $criteria->addInCondition("t.product_id", $productArray);
         } else {
             $criteria = new CDbCriteria(array(
                 'select' => '*',

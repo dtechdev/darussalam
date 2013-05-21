@@ -1,6 +1,6 @@
 <div id="book_content">
     <div id="book_main_content">
-        <?php $this->renderPartial("_subheader"); ?>
+        <?php $this->renderPartial("/product/_subheader"); ?>
         <div id="left_main_content">
             <div id="check_boxes">
                 <h1>Languages</h1>
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div id="right_main_content">
-            <?php $this->renderPartial("_product_list", array("products" => $products)) ?>
+            <?php $this->renderPartial("/product/_product_list", array("products" => $products)) ?>
         </div>
     </div>
 </div>

@@ -93,8 +93,12 @@ class SearchController extends Controller {
             foreach ($rows as $products) {
                 array_push($producharray, $products['product_id']);
             }
+           
             $all_products = Product::model()->allProducts($producharray);
-            $this->renderPartial('/product/all_products', array('products' => $all_products));
+
+            $allCategories = Categories::model()->allCategories();
+
+            $this->renderPartial('/product/all_products', array('products' => $all_products, 'allCate' => $allCategories));
 
             //$this->render("search_result", array('data' => $rows));
         } else {
