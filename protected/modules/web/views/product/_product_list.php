@@ -30,4 +30,4 @@ foreach ($products as $product) {
         </p>
         <article>&dollar;<?php echo round($product['product_price'], 2); ?></article>
     </div>
-<?php } die; ?>
+<?php } ?>

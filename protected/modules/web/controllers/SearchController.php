@@ -39,7 +39,8 @@ class SearchController extends Controller {
     }
 
     public function actionGetSearch() {
-
+        Yii::app()->controller->layout = '//layouts/main';
+        Yii::app()->user->SiteSessions;
         if (isset($_POST['serach_field'])) {
             $q = $_POST['serach_field'];
 
@@ -93,12 +94,12 @@ class SearchController extends Controller {
             foreach ($rows as $products) {
                 array_push($producharray, $products['product_id']);
             }
-           
+
             $all_products = Product::model()->allProducts($producharray);
 
             $allCategories = Categories::model()->allCategories();
 
-            $this->renderPartial('/product/all_products', array('products' => $all_products, 'allCate' => $allCategories));
+            $this->render('/product/all_products', array('products' => $all_products, 'allCate' => $allCategories));
 
             //$this->render("search_result", array('data' => $rows));
         } else {
