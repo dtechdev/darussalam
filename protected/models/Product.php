@@ -74,7 +74,6 @@ class Product extends DTActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'carts' => array(self::HAS_MANY, 'Cart', 'product_id'),
-         
             'discount' => array(self::HAS_MANY, 'ProductDiscount', 'product_id'),
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
@@ -127,7 +126,7 @@ class Product extends DTActiveRecord {
      * @param type $limit
      * @return type 
      */
-    public function allProducts($limit = 30) {
+    public function allProducts($productArray = array(), $limit = 30) {
 
 
 
@@ -135,12 +134,31 @@ class Product extends DTActiveRecord {
         $city_id = Yii::app()->session['city_id'];
 
         $criteria = new CDbCriteria(array(
-                    'select' => '*',
-                    'condition' => "t.city_id='" . $city_id . "' ",
-                    'limit' => $limit,
-                    'order' => 't.product_id ASC',
-                        //'with'=>'commentCount' 
-                ));
+            'select' => '*',
+            'condition' => "t.city_id='" . $city_id . "' ",
+            'limit' => $limit,
+            'order' => 't.product_id ASC',
+                //'with'=>'commentCount' 
+        ));
+
+        if (!empty($productArray)) {
+            $criteria = new CDbCriteria(array(
+                'select' => '*',
+                //'condition' => "t.city_id='" . $city_id . "' ",
+                'limit' => $limit,
+                'order' => 't.product_id ASC',
+                    //'with'=>'commentCount' 
+            ));
+            $criteria->addInCondition("product_id", $productArray);
+        } else {
+            $criteria = new CDbCriteria(array(
+                'select' => '*',
+                'condition' => "t.city_id='" . $city_id . "' ",
+                'limit' => $limit,
+                'order' => 't.product_id ASC',
+                    //'with'=>'commentCount' 
+            ));
+        }
 
         if (isset($_POST['ajax'])) {
 
@@ -222,8 +240,8 @@ class Product extends DTActiveRecord {
         $criteria->compare('is_featured', $this->is_featured, true);
 
         return new CActiveDataProvider($this, array(
-                    'criteria' => $criteria,
-                ));
+            'criteria' => $criteria,
+        ));
     }
 
     /**
