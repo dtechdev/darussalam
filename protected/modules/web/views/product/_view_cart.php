@@ -66,6 +66,7 @@ if (empty($cart)) {
                                                                  
                                                                  jQuery('#cart_container').html(data._view_cart);
                                                                  jQuery('#cart_counter').html(data.cart_list_count.cart_total);
+                                                                 dtech.custom_alert('Deleted from cart successfully');
                                                            }",
                                         ), array(
                                     "onclick" => "

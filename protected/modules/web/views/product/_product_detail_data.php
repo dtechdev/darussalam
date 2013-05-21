@@ -138,7 +138,7 @@
         <tr class="price_cart">
             <td class="price"  id="price">
                 <?php
-                echo isset($product->productProfile[0]->price) ? round($product->productProfile[0]->price, 2) : "";
+                echo isset($product->productProfile[0]->price) ? "$".round($product->productProfile[0]->price, 2) : "";
                 ?>
 
             </td>
@@ -164,6 +164,7 @@
                     'dataType' => 'json',
                     'success' => 'function(data){
                                            jQuery("#cart_counter").html(data.cart_counter);
+                                           dtech.custom_alert("Added in cart successfully");
                                       }',
                         ), array('class' => 'add_to_cart')
                 );
@@ -181,7 +182,14 @@
                         'type' => 'POST',
                         'dataType' => 'json',
                         'success' => 'function(data){
+                                           old_counter = jQuery.trim(jQuery("#wishlist_counter").html());
                                            jQuery("#wishlist_counter").html(data.wishlist_counter);
+                                           if(old_counter < data.wishlist_counter){
+                                                 dtech.custom_alert("Added to Wishlist successfully");
+                                           }
+                                           else {
+                                                dtech.custom_alert("Already in Wishlist");
+                                           }
                                       }',
                             ),
                             array('id' => 'add-wish-list'.uniqid())

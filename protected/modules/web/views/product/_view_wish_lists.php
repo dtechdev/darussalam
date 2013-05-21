@@ -59,11 +59,12 @@ if (empty($wishList)) {
                                         "type" => 'delete_wishlist',
                                         "id" => $pro->id,
                                     ),
-                                    "success" => "function(data) {
-                                                    $('#loading').hide();
-                                                    jQuery('#wishList_container').html(data._view_list); 
-                                                    jQuery('#wishlist_counter').html(data.wish_list_count);
-                                               }",
+                                    "success" => 'function(data) {
+                                                    $("#loading").hide();
+                                                    jQuery("#wishList_container").html(data._view_list); 
+                                                    jQuery("#wishlist_counter").html(data.wish_list_count);
+                                                    dtech.custom_alert("Deleted from wishlist successfully");
+                                               }',
                                         ), array(
                                     "onclick" => "
                                                 if(confirm('Are you want to remove this item from wish list')){
@@ -114,6 +115,7 @@ if (empty($wishList)) {
                                                 'dataType' => 'json',
                                                 'success' => 'function(data){
                                                     jQuery("#cart_counter").html(data.cart_counter);
+                                                    dtech.custom_alert("Added in cart successfully");
                                                 }',
                                                     ), array('class' => 'add_to_cart')
                                             );
