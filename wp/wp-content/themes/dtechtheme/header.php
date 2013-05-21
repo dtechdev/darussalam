@@ -21,75 +21,74 @@
                     <div id="text">
                         <?php if (!Yii::app()->user->isGuest) {
                             ?>
-                        <h1>
-                            <?php 
-                            echo CHtml::link('Sign Out',Yii::app()->createUrl('/site/logout') ,array("class" => "button","style" => "margin-top: -7px;")); 
-                             } else {
-                                ?>
-                                <div class="example2">
-                                    <h1>Sign In</h1>
-                                    <p>
-                                        <?php
-                                        $model = new Country();
-                                        $login_model = new LoginForm;
-                                        echo $login_model->getAttributeLabel('username');
-                                        echo CHtml::beginForm('/darussalam/index.php/site/login');
-                                        ?>
-                                    </p>
-                                    <?php echo CHtml::activeTextField($login_model, 'username', $htmlOptions = array("class" => "second")); ?>
-                                    <p>
-                                        <?php
-                                        echo $login_model->getAttributeLabel('password');
-                                        ?>
-                                    </p>
-                                    <?php echo CHtml::activePasswordField($login_model, 'password', $htmlOptions = array("class" => "second")); ?>
-                                    <?php echo CHtml::activeCheckBox($login_model, 'rememberMe', $htmlOptions = array("class" => "check")); ?>
-                                    <span>
-                                        <?php
-                                        echo $login_model->getAttributeLabel('rememberMe');
-                                        ?>
-                                    </span>
+                            <?php
+                            echo CHtml::link('Sign Out', Yii::app()->createUrl('/site/logout'), array("class" => "button", "style" => "margin-top: -7px;"));
+                        } else {
+                            ?>
+                            <div class="example2">
+                                <h1>Sign In</h1>
+                                <p>
                                     <?php
-                                    echo CHtml::link('Forgot Password', Yii::app()->createUrl('/web/user/forgot', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])), array('class' => 'forgot'));
+                                    $model = new Country();
+                                    $login_model = new LoginForm;
+                                    echo $login_model->getAttributeLabel('username');
+                                    echo CHtml::beginForm('/darussalam/index.php/site/login');
                                     ?>
-                                    <div class="sign_in_button">
-                                        <?php echo CHtml::submitButton("Sign In", array("class" => "btn")); ?>
-                                    </div>
-                                    <?php echo CHtml::endForm(); ?>
-                                    <h2 class="signinp">Sign in with</h2>
-                                    <div class="sign_in">
-                                        <?php
-                                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/facebook_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "Facebook")));
-                                        echo CHtml::button('Facebook', array("class" => "f_img"));
-                                        ?>
-                                    </div>
-                                    <div class="sign_in">
-                                        <?php
-                                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/linkedin_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "Linkedin")));
-                                        echo CHtml::button('Linkedin', array("class" => "l_img"));
-                                        ?>
-                                    </div>
-                                    <div class="sign_in">
-                                        <?php
-                                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/twitter_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "twitter")));
-                                        echo CHtml::button('Twitter', array("class" => "t_img"));
-                                        ?>
-                                    </div>
-                                    <div class="sign_in">
-                                        <?php
-                                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/google_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "Google")));
-                                        echo CHtml::button('Google', array("class" => "g_img"));
-                                        ?>
-                                    </div>
-                                    <h3 class="dont">Don't have account?</h3>
-                                    <div class="sign_up_button">
-
-                                        <?php
-                                        echo CHtml::link(CHtml::button('Sign Up', array("class" => "btn")), Yii::app()->createUrl('/web/user/register', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
-                                        ?>
-                                    </div>
+                                </p>
+                                <?php echo CHtml::activeTextField($login_model, 'username', $htmlOptions = array("class" => "second")); ?>
+                                <p>
+                                    <?php
+                                    echo $login_model->getAttributeLabel('password');
+                                    ?>
+                                </p>
+                                <?php echo CHtml::activePasswordField($login_model, 'password', $htmlOptions = array("class" => "second")); ?>
+                                <?php echo CHtml::activeCheckBox($login_model, 'rememberMe', $htmlOptions = array("class" => "check")); ?>
+                                <span>
+                                    <?php
+                                    echo $login_model->getAttributeLabel('rememberMe');
+                                    ?>
+                                </span>
+                                <?php
+                                echo CHtml::link('Forgot Password', Yii::app()->createUrl('/web/user/forgot', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])), array('class' => 'forgot'));
+                                ?>
+                                <div class="sign_in_button">
+                                    <?php echo CHtml::submitButton("Sign In", array("class" => "btn")); ?>
                                 </div>
-                            <?php } ?>
+                                <?php echo CHtml::endForm(); ?>
+                                <h2 class="signinp">Sign in with</h2>
+                                <div class="sign_in">
+                                    <?php
+                                    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/facebook_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "Facebook")));
+                                    echo CHtml::button('Facebook', array("class" => "f_img"));
+                                    ?>
+                                </div>
+                                <div class="sign_in">
+                                    <?php
+                                    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/linkedin_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "Linkedin")));
+                                    echo CHtml::button('Linkedin', array("class" => "l_img"));
+                                    ?>
+                                </div>
+                                <div class="sign_in">
+                                    <?php
+                                    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/twitter_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "twitter")));
+                                    echo CHtml::button('Twitter', array("class" => "t_img"));
+                                    ?>
+                                </div>
+                                <div class="sign_in">
+                                    <?php
+                                    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/google_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "Google")));
+                                    echo CHtml::button('Google', array("class" => "g_img"));
+                                    ?>
+                                </div>
+                                <h3 class="dont">Don't have account?</h3>
+                                <div class="sign_up_button">
+
+                                    <?php
+                                    echo CHtml::link(CHtml::button('Sign Up', array("class" => "btn")), Yii::app()->createUrl('/web/user/register', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                                    ?>
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </header>
