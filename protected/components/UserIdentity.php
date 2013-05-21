@@ -5,41 +5,78 @@
  * It contains the authentication method that checks if the provided
  * data can identity the user.
  */
-class UserIdentity extends CUserIdentity
-{
+class UserIdentity extends CUserIdentity {
 
-    private $id;
+    private $_id;
 
-    public function authenticate()
-    {
+    /* ERROR_NONE=0;
+      ERROR_USERNAME_INVALID = 1;
+      ERROR_PASSWORD_INVALID = 2;
+      ERROR_UNKNOWN_IDENTITY = 100;
 
-        $user = User::model()->find('LOWER(user_email)=?', array(strtolower($this->username)));
+      /**
+     * Authenticates a user.
+     * @return boolean whether authentication succeeds.
+     */
+
+    public function hybridauth($username) {
+        $user = User::model()->find("social_id = '" . $username . "'");
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        //else if(!$user->validatePassword($this->password))
-        else if ($user->user_password !== $this->password)
-            $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        else if ($user->status_id == '0')
-            $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        else
-        {
-            $this->id = $user->user_id;
-            //$this->username=$user->user_name;
-            $this->setState('user_email', $user->user_email);
-            $this->setState('role_id', $user->role_id);
-            $this->setState('status_id', $user->status_id);
-            $this->setState('city_id', $user->city_id);
-            $this->setState('site_id', $user->site_id);
-            $this->setState('is_active', $user->is_active);
-
+        else {
+            $this->_id = $user->user_id;
+            $this->username = $user->user_email;
             $this->errorCode = self::ERROR_NONE;
         }
         return $this->errorCode == self::ERROR_NONE;
     }
 
-    public function getId()
-    {
-        return $this->id;
+    public function authenticate() {
+        //$this->setState("isSuperAdmin", Yii::app()->user->isSuperAdmin);
+        $user = User::model()->find("user_email = '" . $this->username . "'");
+        echo "HERE";
+        if ($user === null)
+            $this->errorCode = self::ERROR_USERNAME_INVALID;
+
+        else if (!$user->validatePassword($this->password, $user->user_password))
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+        else if ($user->status_id == '0')
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+        else {
+            $this->_id = $user->user_id;
+            $this->username = $user->user_email;
+            $this->errorCode = self::ERROR_NONE;
+        }
+
+
+        return $this->errorCode == self::ERROR_NONE;
+    }
+    /**
+     * authicate with social 
+     * @return type
+     */
+    public function authenticateWith() {
+        //$this->setState("isSuperAdmin", Yii::app()->user->isSuperAdmin);
+        $user = User::model()->find("user_email = '" . $this->username . "'");
+        if ($user === null)
+            $this->errorCode = self::ERROR_USERNAME_INVALID;
+        else if ($user->status_id == '0')
+            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+        else {
+            $this->_id = $user->user_id;
+            $this->username = $user->user_email;
+            $this->errorCode = self::ERROR_NONE;
+        }
+
+
+        return $this->errorCode == self::ERROR_NONE;
+    }
+
+    /**
+     * @return integer the ID of the user record
+     */
+    public function getId() {
+        return $this->_id;
     }
 
 }

@@ -12,11 +12,12 @@
 //	HybridAuth Config file: http://hybridauth.sourceforge.net/userguide/Configuration.html
 // ----------------------------------------------------------------------------------------
 //http://localhost/test/test2/socialconnect/hybridauth-2.1.2/
-
+//echo Yii::app()->request->hostInfo . Yii::app()->baseUrl . "/index.php/site/importHybrid";
+//exit;
 
 return
         array(
-            "base_url" => "http://localhost/darussalam/index.php/site/testHybrid",
+            "base_url" => Yii::app()->request->hostInfo . Yii::app()->baseUrl . "/index.php/site/importHybrid",
             "providers" => array(
                 "Google" => array(
                     "enabled" => true,
