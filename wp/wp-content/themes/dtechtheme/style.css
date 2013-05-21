@@ -89,7 +89,7 @@ img.selectphoto { float: left; margin: 3px 5px 0 0; }
 
 .search a img { padding: 0; margin: 5px; float:left; }
 
-.search_text { border: none; height:23px; }
+.search_text { border: none; height:23px; float:left; width:150px; }
 
 .sidebar_list { padding:0px 0 0px 0; margin: 0; }
 
