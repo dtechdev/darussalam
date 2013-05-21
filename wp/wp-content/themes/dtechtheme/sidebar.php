@@ -1,6 +1,8 @@
 <div id="sidebar">
     <div class="web_button">
-        <input type="button" value="Visit Darussalam.com" class="visit_btn" />
+        <?php
+        echo CHtml::link(CHtml::button('Visit darussalam.com', array('class' => 'visit_btn')), Yii::app()->createUrl('/site/storehome',array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])),array('style' =>'cursor:pointer'));
+        ?>
         <div class="small_images">
             <h1>Follow us</h1>
             <a href="#"><?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/f_img_03.jpg'); ?></a>
