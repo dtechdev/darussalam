@@ -155,7 +155,7 @@
         <div id="under_footer">
             <div id="left_footer">
                 <h1>Connect to DARUSSALAM</h1>
-                <?php $this->widget('LoginWidget'); ?>
+                <?php //$this->widget('LoginWidget'); ?>
                 <div id="left_under_footer">
                     <li>
                         <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/phone_img_03.jpg', 'phone'); ?>
