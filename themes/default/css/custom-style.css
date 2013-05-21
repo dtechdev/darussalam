@@ -32,3 +32,8 @@ div.errorMessage {font-size: 12px;color: red}
 .txt_btn,.search_btn,.searching_img {
     cursor: pointer;
 }
+
+/**--------custom css for will be change-------**/
+select#author_id{
+    width: 100px;
+}

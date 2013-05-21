@@ -157,4 +157,28 @@ class WishList extends CActiveRecord {
         return $wishList;
     }
 
+    /**
+     * get Wish list count for user
+     */
+    function getWishListCount() {
+        //count total added products in cart
+        $ip = Yii::app()->request->getUserHostAddress();
+
+        if (isset(Yii::app()->user->id)) {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('count(*) as total_pro')
+                    ->from('wish_list')
+                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
+                    ->queryRow();
+        } else {
+            $tot = Yii::app()->db->createCommand()
+                    ->select('count(*) as total_pro')
+                    ->from('wish_list')
+                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
+                    ->queryRow();
+        }
+
+        return $tot;
+    }
+
 }

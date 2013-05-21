@@ -12,12 +12,12 @@ var dtech = {
     },
     updateProductListing: function(ajax_url, id) {
         $("#loading").show();
-        
+
         url_hash = window.location.hash;
-        if(url_hash!=""){
+        if (url_hash != "") {
             url_hash = url_hash.split("=");
-            if(url_hash[0]=="cat"){
-                id = url_hash[1]; 
+            if (url_hash[0] == "cat") {
+                id = url_hash[1];
             }
         }
         $.ajax({
@@ -38,7 +38,7 @@ var dtech = {
                 dtech.updatehashBrowerUrl(s_url);
                 dtech.updateCategoryStatus(id);
             }
-            else{
+            else {
                 dtech.updatehashBrowerUrl("");
                 dtech.updateCategoryStatus(id);
             }
@@ -106,13 +106,13 @@ var dtech = {
      */
     loadallPrdoucts_Cat: function(url) {
         hash_str = window.location.hash;
-        
+
         if (hash_str != "") {
             hash_str = hash_str.split("=");
 
             if (typeof(hash_str[1]) != "undefined") {
-              
-                dtech.updateProductListing(url,hash_str[1]);
+
+                dtech.updateProductListing(url, hash_str[1]);
 
 
             }
@@ -123,15 +123,35 @@ var dtech = {
      * @param {type} cat_id
      * @returns {undefined}
      */
-    updateCategoryStatus : function(cat_id){
-        $("#category_list ul li a").each(function(){
-            if($(this).attr("id") == cat_id){
-                $(this).css("font-weight","bold");
+    updateCategoryStatus: function(cat_id) {
+        $("#category_list ul li a").each(function() {
+            if ($(this).attr("id") == cat_id) {
+                $(this).css("font-weight", "bold");
             }
             else {
-                $(this).css("font-weight","normal");
+                $(this).css("font-weight", "normal");
             }
         })
-    }        
-            
+    },
+    custom_alert: function(output_msg, title_msg)
+    {
+        if (!title_msg)
+            title_msg = 'Alert';
+
+        if (!output_msg)
+            output_msg = 'No Message to Display.';
+
+        jQuery("<div></div>").html(output_msg).dialog({
+            title: title_msg,
+            resizable: false,
+            modal: true,
+            buttons: {
+                "Ok": function()
+                {
+                    jQuery(this).dialog("close");
+                }
+            }
+        });
+    }
+
 }
