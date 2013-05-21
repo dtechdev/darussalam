@@ -61,7 +61,9 @@
 
                                         <tr class="account_row">
                                             <td class="account_left"></td>
-                                            <td class="account_right"><a href="#">Change Password</a></td>
+                                            <td class="account_right">
+                                                <?php echo CHtml::link('Change Password', $this->createUrl('/web/user/changePass')) ?>
+                                            </td>
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left" valign="top">

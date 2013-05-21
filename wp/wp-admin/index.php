@@ -9,7 +9,7 @@
  */
 
 /** Load WordPress Bootstrap */
-require_once('admin.php');
+require_once('./admin.php');
 
 /** Load WordPress dashboard API */
 require_once(ABSPATH . 'wp-admin/includes/dashboard.php');

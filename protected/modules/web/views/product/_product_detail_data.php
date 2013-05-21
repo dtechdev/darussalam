@@ -200,6 +200,3 @@
     </div>
 </div>
 </table>
-<div class="product_para">
-    <p><?php echo $product->product_description; ?></p>
-</div>

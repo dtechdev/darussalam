@@ -28,7 +28,7 @@ class UserController extends Controller {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('updateprofile', 'CustomerHistory'),
+                'actions' => array('updateprofile', 'ChangePass', 'CustomerHistory'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -131,7 +131,6 @@ class UserController extends Controller {
     }
 
     public function actionUpdateProfile($id) {
-        echo "ali";
         $model = $this->loadModel($id);
 
         // Uncomment the following line if AJAX validation is needed
@@ -160,23 +159,14 @@ class UserController extends Controller {
                 Yii::app()->user->setFlash('incorrect_email', 'Email does not exists...Please try correct email address');
             } else {
 
-
-
                 $pass_new = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 7)), 0, 9);
-
-
-
                 $body = "Your New Password : " . $pass_new;
-
-
                 $email['From'] = Yii::app()->params->adminEmail;
                 $email['To'] = $record->user_email;
                 $email['Subject'] = "Your New Password";
                 $email['Body'] = $body;
                 $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
                 $this->sendEmail2($email);
-
-                // $isSent = Yii::app()->email->send($from, $to, $subject, $message, $headers);
 
                 $user_id = $record->user_id;
                 $role_id = $record->role_id;
@@ -195,6 +185,30 @@ class UserController extends Controller {
         }
 
         $this->render('forgot_password', array('model' => User::model()));
+    }
+
+    /*
+     * 
+     * @return method for change user password.
+     */
+
+    public function actionChangePass() {
+        Yii::app()->controller->layout = '//layouts/main';
+        $model = new ChangePassword;
+        if (Yii::app()->user->id) {
+            if (isset($_POST['ChangePassword'])) {
+                $model->attributes = $_POST['ChangePassword'];
+                if ($model->validate()) {
+                    if ($model->updatePassword()) {
+                        /*
+                         * here we will add sending email module to inform user for password change..
+                         */
+                        $this->redirect($this->createUrl('user/changePass'));
+                    }
+                }
+            }
+            $this->render('change_password', array('model' => $model));
+        }
     }
 
     public function actionProductReview() {
@@ -262,3 +276,4 @@ class UserController extends Controller {
     }
 
 }
+

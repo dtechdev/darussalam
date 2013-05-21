@@ -88,11 +88,9 @@
                 </div>
                 <div class="right_middle">
                     <div id="right_header_part">
-                        <a href="<?php echo $this->createUrl('/web/product/viewwishlist'); ?>">
-                            <?php
-                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg', "heart img", array("class" => "heart_img"));
-                            ?>
-                        </a>
+                        <?php
+                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg', "heart img", array("class" => "heart_img")), $this->createUrl('/web/product/viewwishlist'));
+                        ?>
                         <p id="wishlist_counter" style="margin-left: 0px;">
                             <?php
                             $ip = Yii::app()->request->getUserHostAddress();
@@ -113,11 +111,9 @@
                             ?>
 
                         </p>
-                        <a href="<?php echo $this->createUrl('/web/product/viewcart', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])) ?>">
                             <?php
-                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/simple_cart_img_03.jpg', "cart img", array("class" => "cart_img"));
+                            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/simple_cart_img_03.jpg', "cart img", array("class" => "cart_img")),$this->createUrl('/web/product/viewcart', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             ?>
-                        </a>
                         <p id="cart_counter">
                             <?php
                             //count total added products in cart
@@ -182,9 +178,11 @@
                 echo CHtml::openTag("article");
                 echo CHtml::link('Darussalam Blog', Yii::app()->createUrl('/?r=blog'), array("target" => "_blank"));
                 echo '<br>';
-                echo CHtml::link('User Profile', $this->createUrl('/web/userProfile', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
-                echo '<br>';
-                echo CHtml::link('Customer History', $this->createUrl('/web/user/customerHistory', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                if (!Yii::app()->user->isGuest) {
+                    echo CHtml::link('User Profile', $this->createUrl('/web/userProfile', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                    echo '<br>';
+                    echo CHtml::link('Customer History', $this->createUrl('/web/user/customerHistory', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                }
                 echo CHtml::closeTag("article");
                 $pages = Pages::model()->getPages();
                 foreach ($pages as $page) {

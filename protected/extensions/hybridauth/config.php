@@ -12,56 +12,27 @@
 //	HybridAuth Config file: http://hybridauth.sourceforge.net/userguide/Configuration.html
 // ----------------------------------------------------------------------------------------
 //http://localhost/test/test2/socialconnect/hybridauth-2.1.2/
+
+
 return
         array(
             "base_url" => "http://localhost/darussalam/index.php/site/testHybrid",
             "providers" => array(
-                // openid providers
-                "OpenID" => array(
-                    "enabled" => true
-                ),
-                "AOL" => array(
-                    "enabled" => true
-                ),
-                "Yahoo" => array(
-                    "enabled" => true,
-                    "keys" => array(
-                        "id" => "",
-                        "secret" => ""
-                    )
-                ),
                 "Google" => array(
                     "enabled" => true,
-                    "keys" => array("id" => "284978357583.apps.googleusercontent.com",
-                        "secret" => "1iN-G15Wy0sfhR0rNONO-wqV")
+                    "keys" => array("id" => Yii::app()->params['google_key'], "secret" => Yii::app()->params['google_secret'])
                 ),
                 "Facebook" => array(
                     "enabled" => true,
-                    "keys" => array("id" => "522175311153131", "secret" => "1e2856455b9a218e27e204e1519a8d3d")
+                    "keys" => array("id" => Yii::app()->params['fb_key'], "secret" => Yii::app()->params['fb_secret'])
                 ),
                 "Twitter" => array(
                     "enabled" => true,
-                    "keys" => array(
-                        
-                        "key" => "4qePikLbny5D5VS4GGHHUg", 
-                        "secret" => "eYKHpptp9zCDEXPLZAjEw8dQcpjFoL8JfXXh7bxEneA")
-                ),
-                // windows live
-                "Live" => array(
-                    "enabled" => true,
-                    "keys" => array("id" => "", "secret" => "")
-                ),
-                "MySpace" => array(
-                    "enabled" => true,
-                    "keys" => array("key" => "", "secret" => "")
+                    "keys" => array("key" => Yii::app()->params['twitter_key'], "secret" => Yii::app()->params['twitter_secret'])
                 ),
                 "LinkedIn" => array(
                     "enabled" => true,
-                    "keys" => array("key" => "x196m9043lsl", "secret" => "4JNFh3VSuNTFAS8j")
-                ),
-                "Foursquare" => array(
-                    "enabled" => true,
-                    "keys" => array("id" => "", "secret" => "")
+                    "keys" => array("key" => Yii::app()->params['linkedin_key'], "secret" => Yii::app()->params['linkedin_secret'])
                 ),
             ),
             // if you want to enable logging, set 'debug_mode' to true  then provide a writable file by the web server on "debug_file"
