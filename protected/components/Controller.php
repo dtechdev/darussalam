@@ -4,7 +4,7 @@
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class Controller extends Yiiauth {
+class Controller extends CController {
 
     /**
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',
@@ -248,6 +248,20 @@ class Controller extends Yiiauth {
             $mailer->ClearAddresses();
         }
         return true;
+    }
+
+    /**
+     * 
+     * @param type $route
+     * @param type $params
+     * @param type $ampersand
+     * @return boolean
+     */
+    public function createUrl($route, $params = array(), $ampersand = '&') {
+
+        $conCate = array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']);
+        $params = array_merge($params, $conCate);
+        return parent::createUrl($route, $params, $ampersand);
     }
 
 }
