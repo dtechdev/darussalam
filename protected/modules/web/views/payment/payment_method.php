@@ -116,7 +116,7 @@
                     <p>We accept Master Card, Visa, Discover and American Express.</p>
                     <p><span>*</span> First Name</p>
 
-                    <?php echo $form->textField($model, 'first_name', array('class' => 'payment_text', 'value' => '')); ?>
+                    <?php echo $form->textField($model, 'first_name', array('class' => 'payment_text')); ?>
                     <?php echo $form->error($model, 'first_name'); ?>
 
 
