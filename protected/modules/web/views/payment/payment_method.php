@@ -41,6 +41,76 @@
             ?>
 
             <div class="left_method">
+                <h4>Shipping Address</h4>
+                <p class="mandatory"><span>*</span> = Mandatory fields</p>
+                <div class="under_left_method">
+                    <table width="100%">
+                       	<tr>
+                            <td class="left_prefix"><span>*</span> Prefix</td>
+                            <td class="right_prefix"><span>*</span> First Name</td>
+                        </tr>
+                        <tr>
+                            <td class="left_prefix"><select name="shipping_prefix"><option>Mr. </option><option>Mrs. </option></select></td>
+                            <td class="right_prefix">
+                                <?php echo $form->textField($model, 'shipping_first_name', array('class' => 'small_right_text')); ?>
+                                <?php echo $form->error($model, 'shipping_first_name'); ?>
+                            </td>
+                       	</tr>
+                    </table>
+                    <p><span>*</span> Last Name</p>
+                    <?php echo $form->textField($model, 'shipping_last_name', array('class' => 'payment_text')); ?>
+                    <?php echo $form->error($model, 'shipping_last_name'); ?>
+                    <p><span>*</span> Address Line 1</p>
+                    <?php echo $form->textField($model, 'shipping_address1', array('class' => 'payment_text')); ?>
+                    <?php echo $form->error($model, 'shipping_address1'); ?>
+                    <p><span>*</span> Address Line 2</p>
+                    <?php echo $form->textField($model, 'shipping_address2', array('class' => 'payment_text')); ?>
+                    <?php echo $form->error($model, 'shipping_address2'); ?>
+                    <p><span>*</span> Country</i></p>
+                    <div class="country_option">
+                        <?php
+                        echo $form->dropDownList($model, 'shipping_country', $regionList, array(
+                            'empty' => 'Please Select Country',
+                            'ajax' => array(
+                                'type' => 'POST',
+                                'url' => $this->createUrl('/web/payment/statelist'),
+                                'update' => '#UserProfile_shipping_state'
+                            )
+                        ));
+                        ?>
+                        <?php echo $form->error($model, 'shipping_country'); ?>
+                    </div>
+
+                    <p><span>*</span> State / Province</i></p>
+                    <div class="country_option">
+                        <?php echo $form->dropDownList($model, 'shipping_state', array()); ?>
+                        <?php echo $form->error($model, 'shipping_state'); ?>
+                    </div>
+                    <table width="100%" class="state_table">
+                        <tr>
+                            <td class="left_state"><span>*</span> City</td>
+                            <td class="right_state"><span>*</span> Zip / Postal Code</td>
+                        </tr>
+                        <tr>
+                            <td class="left_state">
+                                <?php echo $form->textField($model, 'shipping_city', array('class' => 'zip_text')); ?>
+                                <?php echo $form->error($model, 'shipping_city'); ?>
+                            </td>
+                            <td class="right_state">
+                                <?php echo $form->textField($model, 'shipping_zip', array('class' => 'zip_text')); ?>
+                                <?php echo $form->error($model, 'shipping_zip'); ?>
+                        </tr>
+                    </table>
+                    <p><span>*</span> Telephone Number <i>(10 gigits only, no dashes)</i></p>
+                    <?php echo $form->textField($model, 'shipping_phone', array('class' => 'payment_text')); ?>
+                    <?php echo $form->error($model, 'shipping_phone'); ?>
+                </div>
+            </div>
+
+
+
+
+            <div class="left_method">
                 <h3>Credit Card</h3>
                 <div class="under_left_method">
                     <p>We accept Master Card, Visa, Discover and American Express.</p>
@@ -133,72 +203,10 @@
                     <span class="payment_check"> Save your payment method for any future transactions</span>
                 </div>
             </div>
-            <div class="left_method">
-                <h4>Shipping Address</h4>
-                <p class="mandatory"><span>*</span> = Mandatory fields</p>
-                <div class="under_left_method">
-                    <table width="100%">
-                       	<tr>
-                            <td class="left_prefix"><span>*</span> Prefix</td>
-                            <td class="right_prefix"><span>*</span> First Name</td>
-                        </tr>
-                        <tr>
-                            <td class="left_prefix"><select name="shipping_prefix"><option>Mr. </option><option>Mrs. </option></select></td>
-                            <td class="right_prefix">
-                                <?php echo $form->textField($model, 'shipping_first_name', array('class' => 'small_right_text')); ?>
-                                <?php echo $form->error($model, 'shipping_first_name'); ?>
-                            </td>
-                       	</tr>
-                    </table>
-                    <p><span>*</span> Last Name</p>
-                    <?php echo $form->textField($model, 'shipping_last_name', array('class' => 'payment_text')); ?>
-                    <?php echo $form->error($model, 'shipping_last_name'); ?>
-                    <p><span>*</span> Address Line 1</p>
-                    <?php echo $form->textField($model, 'shipping_address1', array('class' => 'payment_text')); ?>
-                    <?php echo $form->error($model, 'shipping_address1'); ?>
-                    <p><span>*</span> Address Line 2</p>
-                    <?php echo $form->textField($model, 'shipping_address2', array('class' => 'payment_text')); ?>
-                    <?php echo $form->error($model, 'shipping_address2'); ?>
-                    <p><span>*</span> Country</i></p>
-                    <div class="country_option">
-                        <?php echo $form->dropDownList($model, 'shipping_country', $regionList,
-                                array(
-                                    'empty'=>'Please Select Country',
-                                    'ajax'=>array(
-                                                        'type'=>'POST',
-                                                        'url'=>$this->createUrl('/web/product/statelist'),
-                                                        'update'=>'#CreditCardForm_shipping_state'
-                                                        )       
-                                                )); ?>
-                        <?php echo $form->error($model, 'shipping_country'); ?>
-                    </div>
-                    
-                    <p><span>*</span> State / Province</i></p>
-                    <div class="country_option">
-                        <?php echo $form->dropDownList($model, 'shipping_state', array()); ?>
-                        <?php echo $form->error($model, 'shipping_state'); ?>
-                    </div>
-                    <table width="100%" class="state_table">
-                        <tr>
-                            <td class="left_state"><span>*</span> City</td>
-                            <td class="right_state"><span>*</span> Zip / Postal Code</td>
-                        </tr>
-                        <tr>
-                            <td class="left_state">
-                                <?php 
-                                echo $form->textField($model, 'shipping_city', array('class' => 'zip_text')); ?>
-                                <?php echo $form->error($model, 'shipping_city'); ?>
-                            </td>
-                            <td class="right_state">
-                                <?php echo $form->textField($model, 'shipping_zip', array('class' => 'zip_text')); ?>
-                                <?php echo $form->error($model, 'shipping_zip'); ?>
-                        </tr>
-                    </table>
-                    <p><span>*</span> Telephone Number <i>(10 gigits only, no dashes)</i></p>
-                    <?php echo $form->textField($model, 'shipping_phone', array('class' => 'payment_text')); ?>
-                    <?php echo $form->error($model, 'shipping_phone'); ?>
-                </div>
-            </div>
+
+
+
+
             <?php echo CHtml::submitButton('continue', array('class' => 'continue')); ?>
 <!--            <a href="<?php echo $this->createUrl('/web/payment/confirmorder', array('type' => 'card')); ?>">Credit Card</a>-->
             <?php $this->endWidget(); ?>

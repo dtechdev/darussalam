@@ -29,6 +29,13 @@ class UserProfile extends DTActiveRecord {
      */
     public $uploaded_img = "";
     public $oldImg = "";
+    public $card_number1 = '';
+    public $card_number2 = '';
+    public $card_number3 = '';
+    public $card_number4 = '';
+    public $cvc = '';
+    public $exp_month = '';
+    public $exp_year = '';
 
     /**
      * Returns the static model of the specified AR class.
@@ -170,6 +177,15 @@ class UserProfile extends DTActiveRecord {
 
             DTUploadedFile::deleteExistingFile($file);
         }
+    }
+
+    /**
+     * Save shipping information in case of payment
+     */
+    public function saveShippingInfo($model) {
+        $userProfile_model = $this->findByPk(Yii::app()->user->id);
+        $userProfile_model->attributes = $model;
+        $userProfile_model->save();
     }
 
 }

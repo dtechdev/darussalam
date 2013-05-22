@@ -45,22 +45,30 @@ class PaymentController extends Controller {
 
         $error = array('status' => false);
         $model = new CreditCardForm();
-        if (isset($_POST['CreditCardForm'])) {
-            $model->attributes = $_POST['CreditCardForm'];
+        if (isset($_POST['UserProfile'])) {
+            $model->attributes = $_POST['UserProfile'];
             $error = $this->CreditCardPayment($model);
             if ($error) {
+
                 if (!$error['status']) {
+
+                    //save the shipping information of user
+                    $userProfile_model = UserProfile::model();
+                    $userProfile_model->saveShippingInfo($_POST['UserProfile']);
                     $this->redirect(array('/web/payment/confirmOrder'));
                 }
             }
+        } else {
+            $model = UserProfile::model()->findByPk(Yii::app()->user->id);
         }
+
         $regionList = CHtml::listData(Region::model()->findAll(), 'id', 'name');
         $this->render('payment_method', array('model' => $model, 'regionList' => $regionList, 'error' => $error));
     }
 
     public function actionStatelist() {
 
-        $shipping_country = $_REQUEST['CreditCardForm']['shipping_country'];
+        $shipping_country = $_REQUEST['UserProfile']['shipping_country'];
         $stateList = Subregion::model()->findAll('region_id=' . $shipping_country);
 
         $stateList = CHtml::listData($stateList, 'code', 'name');
@@ -154,5 +162,4 @@ class PaymentController extends Controller {
         Yii::app()->controller->layout = '//layouts/main';
         $this->render('confirm_order');
     }
-
 }
