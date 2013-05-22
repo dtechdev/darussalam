@@ -12,6 +12,8 @@ class m130522_075550_add_fieldIndorder extends DTDbMigration {
     public function down() {
         $table = "order";
         $this->dropColumn($table, "status");
+        $this->dropColumn($table, "transaction_id");
+        $this->dropColumn($table, "payment_method_id");
     }
 
 }
