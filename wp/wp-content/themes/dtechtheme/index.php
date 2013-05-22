@@ -3,7 +3,8 @@
     <div id="content">
         <?php get_sidebar(); ?>
         <section>
-            <div class="under_section"><?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+            <div class="under_section">
+                <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                         <h2>
                             <?php
                             echo CHtml::link(get_post()->post_title, Yii::app()->createUrl('/?r=blog&p=' . get_post()->ID));
@@ -38,9 +39,12 @@
                     endwhile;
                 else:
                     ?>
-                    <p><?php _e('Sorry, There is no Post with this Category.'); ?></p>
-                </div>
-            <?php endif; ?>	
+                    <p>
+                        <?php _e('Sorry, There is no Post with this Category.'); ?>
+                    </p>
+                <?php endif; ?>	
+            </div>
+
         </section>
     </div>
 </div>
