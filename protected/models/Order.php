@@ -43,12 +43,13 @@ class Order extends DTActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, total_price, order_date', 'required'),
+            array('payment_method_id,user_id, total_price, order_date', 'required'),
             array('user_id', 'numerical', 'integerOnly' => true),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
             array('total_price', 'length', 'max' => 10),
-            array('status,order_date', 'length', 'max' => 255),
+            array('order_date', 'length', 'max' => 255),
+            array('transaction_id,status','safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('order_id, user_id, total_price, order_date', 'safe', 'on' => 'search'),
@@ -84,6 +85,7 @@ class Order extends DTActiveRecord
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'order_id'),
+            'paymentMethod' => array(self::BELONGS_TO, 'ConfPaymentMethods', 'payment_method_id'),
         );
     }
 
