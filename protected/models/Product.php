@@ -138,7 +138,7 @@ class Product extends DTActiveRecord {
         if (!empty($product_array)) {
             $criteria = new CDbCriteria(array(
                 'select' => '*',
-                'condition' => "t.city_id='" . $city_id . "' ",
+               
                 'limit' => $limit,
                 'order' => 't.product_id ASC',
                     //'with'=>'commentCount' 
@@ -206,6 +206,9 @@ class Product extends DTActiveRecord {
             $all_pro[] = array(
                 'product_id' => $products->product_id,
                 'no_image' => $products->no_image,
+                'city_id' => $products->city_id,
+                'city_short' => $products->city->short_name,
+                'country_short' => $products->city->country->short_name,
                 'product_name' => $products->product_name,
                 'product_description' => $products->product_description,
                 'product_price' => $products->productProfile[0]->price,
