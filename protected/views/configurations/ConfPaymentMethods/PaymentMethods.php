@@ -21,7 +21,7 @@ if (!$model->isNewRecord) {
             <?php echo $form->labelEx($model, 'status'); ?>
 
             <?php
-            echo $form->dropDownList($model, 'name', array('Disable' => 'Disable', 'Enable' => 'Enable'));
+            echo $form->dropDownList($model, 'status', array('Disable' => 'Disable', 'Enable' => 'Enable'));
             ?>
             <?php echo $form->error($model, 'status'); ?>
         </div>

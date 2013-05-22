@@ -100,6 +100,7 @@ class Order extends DTActiveRecord
             'total_price' => 'Total Price',
             'order_date' => 'Order Date',
             'status' => 'Status',
+            'payment_method_id'=>"Payment Method"
         );
     }
 
@@ -119,10 +120,19 @@ class Order extends DTActiveRecord
         $criteria->compare('total_price', $this->total_price, true);
         $criteria->compare('order_date', $this->order_date, true);
         $criteria->compare('status', $this->status, true);
-
+        
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array('defaultOrder' => "order_id,status='process'")
         ));
+    }
+    
+    /**
+     * set the values
+     */
+    public function afterFind() {
+        $this->order_date = DTFunctions::dateFormatForView($this->order_date);
+        parent::afterFind();
     }
 
 }
