@@ -1,4 +1,4 @@
-<div class="example2">
+<div class="example2" >
     <?php
     /* @var $this SiteController */
     /* @var $model LoginForm */

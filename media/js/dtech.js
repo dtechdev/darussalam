@@ -12,14 +12,22 @@ var dtech = {
     },
     updateProductListing: function(ajax_url, id) {
         $("#loading").show();
-
+       
         url_hash = window.location.hash;
-        if (url_hash != "") {
+
+        if (id == "" && id != "all" && url_hash != "") {
             url_hash = url_hash.split("=");
-            if (url_hash[0] == "cat") {
+            if (url_hash[0] == "#cat") {
                 id = url_hash[1];
             }
         }
+        /**
+         * in case of all id will be nul
+         */
+        if (id == "all") {
+            id = "";
+        }
+     
         $.ajax({
             type: "POST",
             url: ajax_url,

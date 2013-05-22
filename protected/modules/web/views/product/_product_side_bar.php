@@ -61,7 +61,7 @@
                 echo CHtml::openTag("li");
                 echo CHtml::link("All", $this->createUrl('/web/product/allproducts'), array('onclick' => '
                                             
-                                                  dtech.updateProductListing("' . $this->createUrl("/web/product/productfilter") . '","");  
+                                                  dtech.updateProductListing("' . $this->createUrl("/web/product/productfilter") . '","all");  
                                                   
                                                 return false;
                                         ', "id" => "all"));
