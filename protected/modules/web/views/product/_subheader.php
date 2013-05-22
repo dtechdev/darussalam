@@ -13,6 +13,7 @@
     <form id="search_form" method="post" 
           action="<?php echo $this->createUrl("/web/search/getSearch") ?>" >
               <?php
+              
               $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                   'name' => 'serach_field',
                   'source' => $this->createUrl("/web/search/dosearch"),
@@ -22,7 +23,8 @@
                   ),
                   'htmlOptions' => array(
                       'class' => 'search_text',
-                      "placeholder" => "Search keywords or image by keywords..."
+                      "placeholder" => "Search keywords or image by keywords...",
+                      'value'=>(isset($_POST['serach_field'])?$_POST['serach_field']:""),
                   ),
               ));
               ?>

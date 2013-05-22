@@ -39,6 +39,7 @@
                             ),
                             'htmlOptions' => array(
                                 'class' => 'txt_bar',
+                                'value'=>(isset($_POST['serach_field'])?$_POST['serach_field']:""),
                             ),
                         ));
                         ?>
