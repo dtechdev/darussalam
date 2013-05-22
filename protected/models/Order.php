@@ -8,6 +8,7 @@
  * @property integer $user_id
  * @property string $total_price
  * @property string $order_date
+ * @property string $status
  *
  * The followings are the available model relations:
  * @property User $user
@@ -47,7 +48,7 @@ class Order extends DTActiveRecord
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
             array('total_price', 'length', 'max' => 10),
-            array('order_date', 'length', 'max' => 255),
+            array('status,order_date', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('order_id, user_id, total_price, order_date', 'safe', 'on' => 'search'),
@@ -96,6 +97,7 @@ class Order extends DTActiveRecord
             'user_id' => 'User',
             'total_price' => 'Total Price',
             'order_date' => 'Order Date',
+            'status' => 'Status',
         );
     }
 
@@ -114,6 +116,7 @@ class Order extends DTActiveRecord
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('total_price', $this->total_price, true);
         $criteria->compare('order_date', $this->order_date, true);
+        $criteria->compare('status', $this->status, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
