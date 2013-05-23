@@ -12,6 +12,7 @@
  * @var bool
  */
 define('WP_USE_THEMES', true);
+comments_template(); // Get wp-comments.php template
 
 /** Loads the WordPress Environment and Template */
 require('./wp-blog-header.php');
