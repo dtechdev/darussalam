@@ -4,14 +4,16 @@
         echo CHtml::link(CHtml::button('Visit darussalam.com', array('class' => 'visit_btn')), Yii::app()->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])), array('style' => 'cursor:pointer'));
         ?>
         <div class="small_images">
+            <div id="fb-root"></div>
+
             <h1>Follow us</h1>
-            <a href="#"><?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/f_img_03.jpg'); ?></a>
-            <a href="#"><?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/t_img_03.jpg'); ?></a>
-            <a href="#"><?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/subscriber_img_03.jpg'); ?></a>
+            <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/f_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "Facebook"))); ?>
+            <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/t_img_03.jpg'), Yii::app()->createUrl('/web/hybrid/login/', array("provider" => "Twitter"))); ?>
+            <a href="<?php // bloginfo('rss2_url'); ?> "><?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/subscriber_img_03.jpg'); ?></a>
         </div>
         <div class="like_us">
             <h1>Like us on Facebook</h1>
-            <a href="#"><?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/f_114k_img_03.jpg'); ?></a>
+            <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/f_114k_img_03.jpg'); ?>
         </div>
         <h1>Search blog posts</h1>
         <div class="search">

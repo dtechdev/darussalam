@@ -1,4 +1,4 @@
-    @charset "utf-8";
+@charset "utf-8";
 /* CSS Document */
 
 html, body { padding: 0; margin: 0; }
@@ -79,7 +79,7 @@ img.selectphoto { float: left; margin: 3px 5px 0 0; }
 
 .web_button { padding: 0 0 0px 0; margin: 0 0 10px 0; float:left; }
 
-.visit_btn { background:url(images/button_bg_03.jpg) no-repeat; width:181px; height:31px; border:none; color:#FFF; font-size:14px; font-weight:bold;cursor:pointer; }
+.visit_btn { background:url(images/button_bg_03.jpg) no-repeat; width:181px; height:31px; border:none; color:#FFF; font-size:14px; font-weight:bold; cursor: pointer; }
 
 #sidebar h1 { color:#5a5a5a; font-size:15px; font-weight:bold; padding: 15px 0 5px 0; margin: 0; }
 
@@ -109,13 +109,17 @@ section { padding: 0 0 30px 0; margin: 0; float:right; }
 
 .under_section { padding: 0; margin: 0 0 0 20px; float:left; width:735px; border-top: 1px solid #d0d0d0; }
 
-h2 { padding: 15px 0 7px 0; margin: 0;}
+.comments_under_section { padding: 0; margin: 0 0 0 20px; float:left; width:735px; }
+
+.comments_under_section h2 { padding: 0px 0 7px 0; margin: 0; color:#495b73; font-size:21px; }
+
+h2 { padding: 15px 0 7px 0; margin: 0; }
 
 h2 a { color:#495b73; font-size:21px; padding: 0; margin: 0; }
 
 h2 a:hover { color:#2e3192; }
 
-.f_t_g_img { padding: 0; margin: 0; width:730px; display:block; float:left; }
+.f_t_g_img { padding: 0; margin: 3px 0; width:730px; display:block; float:left; }
 
 .f_t_g_img img { padding: 0; margin: 0 20px 0 0px; float:left; }
 
@@ -123,7 +127,7 @@ h3 { padding: 0; margin: 10px 0; color:#5a5a5a; font-size:12px; font-weight:norm
 
 .right_td { padding: 0 15px; margin: 0; }
 
-.big_para { padding: 0 0 0 0; margin: 0; line-height:20px; color:#303030; font-size:15px; }
+.big_para { padding: 0 0 0 0; margin: 0 0 10px 0; line-height:20px; color:#303030; font-size:15px; }
 
 .right_td a { font-size:15px; color:#2e3192; }
 
@@ -140,3 +144,33 @@ footer { width:960px; padding: 0; margin: 0 auto; }
 footer span { padding: 25px 0; float:right; color:#003a83; font-size:12px; }
 
 .left_td { width:228px; }
+
+.under_section2 { padding: 0; margin: 0; float:left; }
+
+.left_section { padding: 0; margin: 0px 20px 5px 0px; float:left; }
+
+.right_section { padding: 0; margin: 0 10px 0 0px; }
+
+.big_para { font-size:15px; color:#303030; text-align:justify; }
+
+.comments { padding: 0; margin: 10px 0 0 0; float:left; border-top: 1px solid #d0d0d0; }
+
+.comments h4 { color:#1171a5; font-size:12px; font-weight:normal; margin: 17px 0 7px 0; }
+
+.comments p { color:#2f2f2f; font-size:12px; padding: 0 170px 0 0; text-align:justify; margin: 0 0 7px 0; width: 750px; }
+
+.comments span { color:#8a8a8a; font-size:12px; }
+
+.add_comment { padding: 0; margin: 0; float:left; }
+
+.add_comment h5 { font-size:17px; color:#495b73; padding: 0; margin: 30px 0 10px 0; }
+
+.name { padding: 0 0 0 5px; margin: 0 0 10px 0; width:345px; height:27px; display:block; float:none; }
+
+.add_comment_btn { padding: 0; margin: 10px 0 0 455px; float:none; display:block; width:108px; height:28px; border:none; color:#FFF; background:#008dde; font-size:13px; border-radius:3px; cursor:pointer; }
+
+.main_comments { padding: 0; margin: 25px 0 0 0; float:left; }
+.clear {
+    clear: both;
+
+}
