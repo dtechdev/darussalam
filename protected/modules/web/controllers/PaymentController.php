@@ -45,8 +45,10 @@ class PaymentController extends Controller {
 
         $error = array('status' => false);
         $model = new CreditCardForm();
-        if (isset($_POST['UserProfile'])) {
-            $model->attributes = $_POST['UserProfile'];
+        $model->setAttributeByDefault();
+        
+        if (isset($_POST['CreditCardForm'])) {
+            $model->attributes = $_POST['CreditCardForm'];
             $error = $this->CreditCardPayment($model);
             if ($error) {
 
@@ -54,24 +56,22 @@ class PaymentController extends Controller {
 
                     //save the shipping information of user
                     $userProfile_model = UserProfile::model();
-                    $userProfile_model->saveShippingInfo($_POST['UserProfile']);
+                    $userProfile_model->saveShippingInfo($_POST['CreditCardForm']);
                     $this->redirect(array('/web/payment/confirmOrder'));
                 }
             }
-        } else {
-            $model = UserProfile::model()->findByPk(Yii::app()->user->id);
-        }
+        } 
 
         $regionList = CHtml::listData(Region::model()->findAll(), 'id', 'name');
         $this->render('payment_method', array('model' => $model, 'regionList' => $regionList, 'error' => $error));
     }
 
     public function actionStatelist() {
-
-        $shipping_country = $_REQUEST['UserProfile']['shipping_country'];
-        $stateList = Subregion::model()->findAll('region_id=' . $shipping_country);
-
-        $stateList = CHtml::listData($stateList, 'code', 'name');
+        $credit_card = new CreditCardForm;
+        if(isset($_POST['CreditCardForm'])){
+            $credit_card->attributes = $_POST['CreditCardForm'];
+        }
+        $stateList = $credit_card->getStates();
         echo CHtml::tag('option', array('value' => ''), 'Select State', true);
         foreach ($stateList as $value => $name) {
             echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
