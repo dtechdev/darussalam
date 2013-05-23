@@ -2,7 +2,7 @@
 /**
  * The template for displaying Search Results pages.
  *
- * @package WordPress
+ * @package dtechtheme
  * @subpackage dtechtheme
  * @since Dstheme
  */
@@ -17,8 +17,6 @@ get_header();
                     <h2>
                         <?php printf(__('<tt>Search Results for: %s</tt>', 'dtechtheme'), '<tt>' . get_search_query() . '</tt>'); ?>
                     </h2>
-                    <?php dtechtheme('nav-above'); ?>
-
                     <?php /* Start the Loop */ ?>
                     <?php while (have_posts()) : the_post(); ?>
 
@@ -31,14 +29,22 @@ get_header();
                         ?>
                     <?php endwhile; ?>
                 <?php else : ?>
-
                     <article id="post-0" class="post no-results not-found">
                         <header class="entry-header">
                             <h1 class="entry-title"><?php _e('Nothing Found', 'dtechtheme'); ?></h1>
                         </header><!-- .entry-header -->
                         <div class="entry-content">
                             <p><?php _e('Sorry, but nothing matched your search criteria. Please try again with some different keywords.', 'dtechtheme'); ?></p>
-                            <?php get_search_form(); ?>
+                            <b>New Search Term :</b>
+                            <div class="search">
+                                <a href="javascript:void(0)" onclick="$('#searchform').submit();">
+                                    <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/search_img_03.jpg'); ?>
+                                </a>
+                                <form method="get" id="searchform" action="">
+                                    <input type="hidden" name="r" value="blog"/>
+                                    <input type="text" class="search_text"  name="s" id="s" placeholder="<?php esc_attr_e('Search', 'dtechtheme'); ?>" />
+                                </form>
+                            </div>
                         </div><!-- .entry-content -->
                     </article><!-- #post-0 -->
                 <?php endif; ?>

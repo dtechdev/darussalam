@@ -19,11 +19,10 @@
                 <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/search_img_03.jpg'); ?>
             </a>
 
-            <form method="get" id="searchform" action="<?php echo Yii::app()->createUrl('/r=blog&'); ?>">
-               <input type="text" class="search_text"  name="s" id="s" placeholder="<?php esc_attr_e('Search', 'dtechtheme'); ?>" />
+            <form method="get" id="searchform" action="">
+                <input type="hidden" name="r" value="blog"/>
+                <input type="text" class="search_text"  name="s" id="s" placeholder="<?php esc_attr_e('Search', 'dtechtheme'); ?>" />
             </form>
-
-
         </div>
         <div class="sidebar_list">
             <h1>Categories</h1>
