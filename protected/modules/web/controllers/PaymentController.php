@@ -57,14 +57,16 @@ class PaymentController extends Controller {
 
             if ($model->validate() && $is_valid) {
 
-                $error = $creditCardModel->CreditCardPayment($model, $creditCardModel);
-                if (empty($error)) {
-                    //save the shipping information of user
-                    $userProfile_model = UserProfile::model();
-                    $userProfile_model->saveShippingInfo($_POST['ShippingInfoForm']);
-                    $this->redirect(array('/web/payment/confirmOrder'));
-                } else {
-                    $creditCardModel->showCreditCardErrors($error);
+                switch ($model->payment_method) {
+                    case 2: // credit card
+                        $this->processCreditCard($model, $creditCardModel);
+                        break;
+                    case 3:
+                        $this->processManual($model, $creditCardModel);
+                        break;
+                    case 1:
+                        echo "i equals 2";
+                        break;
                 }
             }
         }
@@ -98,6 +100,34 @@ class PaymentController extends Controller {
         }
 
         return true;
+    }
+
+    /**
+     * process credit card method
+     */
+    public function processCreditCard($model, $creditCardModel) {
+        $error = $creditCardModel->CreditCardPayment($model, $creditCardModel);
+        if (empty($error)) {
+            //save the shipping information of user
+            $userProfile_model = UserProfile::model();
+            $userProfile_model->saveShippingInfo($_POST['ShippingInfoForm']);
+            $this->redirect(array('/web/payment/confirmOrder'));
+        } else {
+            $creditCardModel->showCreditCardErrors($error);
+        }
+    }
+
+    /**
+     * 
+     * @param type $model
+     * @param type $creditCardModel
+     */
+    public function processManual($model, $creditCardModel) {
+        $creditCardModel->saveOrder("", $model);
+
+        UserProfile::model()->saveShippingInfo($_POST['ShippingInfoForm']);
+
+        $this->redirect(array('/web/payment/confirmOrder'));
     }
 
     public function actionStatelist() {
