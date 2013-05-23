@@ -37,3 +37,7 @@ div.errorMessage {font-size: 12px;color: red}
 select#author_id{
     width: 100px;
 }
+
+.left_method h3,.left_method div.paypal {
+    cursor: pointer;
+}
