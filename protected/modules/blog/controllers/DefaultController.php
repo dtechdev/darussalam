@@ -93,8 +93,7 @@ class DefaultController extends Controller {
             if ($modelz->validate()) {
 
                 $_POST['submit'] = 'Post Comment';
-                $_POST['comment_post_ID'] = !empty($p) ? $p : "";
-                $comment_post_ID = isset($_POST['comment_post_ID']) ? (int) $_POST['comment_post_ID'] : 0;
+                $comment_post_ID = !empty($p) ? (int)$p : 0;
                 $post = get_post($comment_post_ID);
 
                 $comment_author = ( isset($modelz->wp_user_name) ) ? trim(strip_tags($modelz->wp_user_name)) : null;
@@ -102,7 +101,7 @@ class DefaultController extends Controller {
                 $comment_author_url = ( isset($_POST['url']) ) ? trim($_POST['url']) : null;
                 $comment_content = ( isset($modelz->wp_comment) ) ? trim($modelz->wp_comment) : null;
 
-                $comment_parent = isset($_POST['comment_parent']) ? absint($_POST['comment_parent']) : 0;
+                $comment_parent = 0;
                 $commentdata = compact('comment_post_ID', 'comment_author', 'comment_author_email', 'comment_author_url', 'comment_content', 'comment_type', 'comment_parent', 'user_ID');
                 $comment_id = wp_new_comment($commentdata);
 

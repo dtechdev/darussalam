@@ -93,6 +93,10 @@
                                 //'action' => '/darussalam/wp/wp-comments-post.php',
                                 'enableClientValidation' => true,
                             ));
+                            /*
+                             * some issues here two time model is needed to validtae
+                             * will be set in comming days...
+                             */
 
                             $modelz = new WpComment;
                             if (isset($_POST['WpComment'])) {
@@ -107,8 +111,8 @@
                             echo $form->textField($modelz, 'wp_user_name', array('class' => 'name', 'placeholder' => 'Your Name...'));
                             //echo $form->hiddenField($modelz, 'wp_user_name', array('class' => 'name', 'placeholder' => 'Your Name...'));
                             if (!empty(Yii::app()->user->id) || is_user_logged_in()) {
-                                echo $form->textField($modelz, 'wp_user_email', array('class' => 'name', 'placeholder' => 'Email_Login...'));
-                                //echo $form->textField($modelz, 'wp_user_email', array('class' => 'name', 'placeholder' => 'Email', 'value' => Yii::app()->user->user_email));
+                                //echo $form->textField($modelz, 'wp_user_email', array('class' => 'name', 'placeholder' => 'Emailz'));
+                                echo $form->textField($modelz, 'wp_user_email', array('class' => 'name', 'placeholder' => 'Email', 'value' => !empty(Yii::app()->user->user_email)? Yii::app()->user->user_email:""));
                             } else {
                                 echo $form->textField($modelz, 'wp_user_email', array('class' => 'name', 'placeholder' => 'Email'));
                             }
