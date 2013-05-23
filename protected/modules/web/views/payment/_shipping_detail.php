@@ -15,7 +15,11 @@
         $criteria->select = "id,name";
         $paymentMethods = ConfPaymentMethods::model()->findAll();
         ?>
-        <?php echo $form->textField($model, 'payment_method', CHtml::listData($paymentMethods, "id", "name")); ?>
+        <?php
+        echo $form->dropDownList($model, 'payment_method', array("" => "Select") +
+                CHtml::listData($paymentMethods, "id", "name"), array("onchange" => "dtech.showPaymentMethods(this)")
+        );
+        ?>
         <?php echo $form->error($model, 'payment_method'); ?>
 
         <table width="100%">
@@ -48,7 +52,7 @@
                 'ajax' => array(
                     'type' => 'POST',
                     'url' => $this->createUrl('/web/payment/statelist'),
-                    'update' => '#CreditCardForm_shipping_state'
+                    'update' => '#ShippingInfoForm_shipping_state'
                 )
             ));
             ?>

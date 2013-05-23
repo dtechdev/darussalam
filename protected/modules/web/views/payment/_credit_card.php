@@ -1,26 +1,26 @@
-<h3>Credit Card</h3>
-<div class="under_left_method" >
+<h3 class="credit_card_fields">Credit Card</h3>
+<div class="under_left_method credit_card_fields" >
     <p>We accept Master Card, Visa, Discover and American Express.</p>
     <p><span>*</span> First Name</p>
 
-    <?php echo $form->textField($model, 'first_name', array('class' => 'payment_text')); ?>
-    <?php echo $form->error($model, 'first_name'); ?>
+    <?php echo $form->textField($creditCardModel, 'first_name', array('class' => 'payment_text')); ?>
+    <?php echo $form->error($creditCardModel, 'first_name'); ?>
 
 
     <p><span>*</span> Last Name</p>
-    <?php echo $form->textField($model, 'last_name', array('class' => 'payment_text')); ?>
-    <?php echo $form->error($model, 'last_name'); ?>
+    <?php echo $form->textField($creditCardModel, 'last_name', array('class' => 'payment_text')); ?>
+    <?php echo $form->error($creditCardModel, 'last_name'); ?>
 
     <p><span>*</span>  Card Number <i>(the 16 digits on the front of the card)</i></p>
-    <?php echo $form->textField($model, 'card_number1', array('class' => 'small_text', 'max-length' => '4', 'error' => "Box one can't be blank")); ?>
-    <?php echo $form->textField($model, 'card_number2', array('class' => 'small_text')); ?>
-    <?php echo $form->textField($model, 'card_number3', array('class' => 'small_text')); ?>
-    <?php echo $form->textField($model, 'card_number4', array('class' => 'small_text')); ?>
+    <?php echo $form->textField($creditCardModel, 'card_number1', array('class' => 'small_text', 'max-length' => '4', 'error' => "Box one can't be blank")); ?>
+    <?php echo $form->textField($creditCardModel, 'card_number2', array('class' => 'small_text')); ?>
+    <?php echo $form->textField($creditCardModel, 'card_number3', array('class' => 'small_text')); ?>
+    <?php echo $form->textField($creditCardModel, 'card_number4', array('class' => 'small_text')); ?>
 
-    <?php echo $form->error($model, 'card_number1'); ?>
-    <?php echo $form->error($model, 'card_number2'); ?>
-    <?php echo $form->error($model, 'card_number3'); ?>
-    <?php echo $form->error($model, 'card_number4'); ?>
+    <?php echo $form->error($creditCardModel, 'card_number1'); ?>
+    <?php echo $form->error($creditCardModel, 'card_number2'); ?>
+    <?php echo $form->error($creditCardModel, 'card_number3'); ?>
+    <?php echo $form->error($creditCardModel, 'card_number4'); ?>
 
     <div class="payment_small_img">
         <a href="#">
@@ -39,8 +39,8 @@
 
     <p><span>*</span> CVS or CVS <i>(Last 3 digits on back of card, Amex: 4 gigit code on front)</i></p>
 
-    <?php echo $form->textField($model, 'cvc', array('class' => 'small2_text')); ?>
-    <?php echo $form->error($model, 'cvc'); ?>
+    <?php echo $form->textField($creditCardModel, 'cvc', array('class' => 'small2_text')); ?>
+    <?php echo $form->error($creditCardModel, 'cvc'); ?>
     <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/card_img_03.png', 'scratch card', array("class" => "card_img")) ?>
     <p><span>*</span> Expiration Date</p>
     <div class="payment_option">
@@ -60,7 +60,7 @@
             '11' => '11',
             '12' => '12',
         );
-        echo $form->dropDownList($model, 'exp_month', $exp_months);
+        echo $form->dropDownList($creditCardModel, 'exp_month', $exp_months);
         ?>
         <span> Year </span>
 
@@ -75,7 +75,7 @@
             '19' => '2019',
             '20' => '2020',
         );
-        echo $form->dropDownList($model, 'exp_year', $exp_years);
+        echo $form->dropDownList($creditCardModel, 'exp_year', $exp_years);
         ?>
     </div>
 </div>

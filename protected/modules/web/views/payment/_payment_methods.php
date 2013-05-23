@@ -6,7 +6,11 @@
 ?>
 <div class="left_method">
     <?php
-    $this->renderPartial("_credit_card", array("model" => $model, "form" => $form));
+    $this->renderPartial("_credit_card", array(
+        "model" => $model,
+        "form" => $form,
+        "creditCardModel" => $creditCardModel)
+    );
     ?>
     <?php
     $this->renderPartial("_paypal", array("model" => $model, "form" => $form));

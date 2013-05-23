@@ -37,12 +37,13 @@
                 'id' => 'card-form',
                 'enableClientValidation' => true,
                 'clientOptions' => array(
-                    'validateOnSubmit' => true,
+                    'validateOnSubmit' => false,
                 ),
             ));
-            echo $form->hiddenField($model,'payment_method');
+          
             $this->renderPartial("_shipping_detail", array("model" => $model,"regionList"=>$regionList,"form"=>$form));
-            $this->renderPartial("_payment_methods", array("model" => $model,"form"=>$form));
+            $this->renderPartial("_payment_methods", array("model" => $model,
+                "form"=>$form,"creditCardModel"=>$creditCardModel));
             ?>
 
             <?php echo CHtml::submitButton('continue', array('class' => 'continue')); ?>
@@ -61,3 +62,20 @@
 
         ', CClientScript::POS_READY);
     ?>
+<style>
+    .credit_card_fields,.pay_list,.manual_list{
+        display: none;
+    }
+    <?php
+        if($model->payment_method == "2"){
+            echo ".credit_card_fields{display:block;}";
+        }
+        else if($model->payment_method == "1"){
+            echo ".pay_list{display:block;}";
+        }
+        else if($model->payment_method == "3"){
+            echo ".manual_list{display:block;}";
+        }
+    ?>
+</style>
+    

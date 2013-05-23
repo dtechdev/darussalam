@@ -44,34 +44,71 @@ class PaymentController extends Controller {
         Yii::app()->controller->layout = '//layouts/main';
 
         $error = array('status' => false);
-        $model = new CreditCardForm();
+        $model = new ShippingInfoForm();
         $model->setAttributeByDefault();
-        
-        if (isset($_POST['CreditCardForm'])) {
-            $model->attributes = $_POST['CreditCardForm'];
-            $error = $this->CreditCardPayment($model);
-            if ($error) {
 
-                if (!$error['status']) {
+        $creditCardModel = new CreditCardForm;
 
-                    //save the shipping information of user
-                    $userProfile_model = UserProfile::model();
-                    $userProfile_model->saveShippingInfo($_POST['CreditCardForm']);
-                    $this->redirect(array('/web/payment/confirmOrder'));
+        if (isset($_POST['ShippingInfoForm'])) {
+            $model->attributes = $_POST['ShippingInfoForm'];
+            
+            $is_valid = $this->validateCreditCard($model,$creditCardModel);
+            
+            if ($model->validate() && $is_valid) {
+                $error = $this->CreditCardPayment($creditCardModel);
+                if ($error) {
+
+                    if (!$error['status']) {
+
+                        //save the shipping information of user
+                        $userProfile_model = UserProfile::model();
+                        $userProfile_model->saveShippingInfo($_POST['CreditCardForm']);
+                        $this->redirect(array('/web/payment/confirmOrder'));
+                    }
                 }
             }
-        } 
+            
+            
+        }
 
         $regionList = CHtml::listData(Region::model()->findAll(), 'id', 'name');
-        $this->render('payment_method', array('model' => $model, 'regionList' => $regionList, 'error' => $error));
+        $this->render('payment_method', array(
+            'model' => $model,
+            'regionList' => $regionList,
+            'creditCardModel' => $creditCardModel,
+            'error' => $error
+        ));
+    }
+    
+    /**
+     * 
+     * @param type $model
+     * validate credit Card
+     */
+    public function validateCreditCard($model,$creditCardModel){
+        
+        if($model->payment_method == "2"){
+            if(isset($_POST['CreditCardForm'])){
+                $creditCardModel->attributes = $_POST['CreditCardForm'];
+                
+                if($creditCardModel->validate()){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
 
     public function actionStatelist() {
-        $credit_card = new CreditCardForm;
-        if(isset($_POST['CreditCardForm'])){
-            $credit_card->attributes = $_POST['CreditCardForm'];
+        $shipping_card = new ShippingInfoForm();
+        if (isset($_POST['ShippingInfoForm'])) {
+            $shipping_card->attributes = $_POST['ShippingInfoForm'];
         }
-        $stateList = $credit_card->getStates();
+        $stateList = $shipping_card->getStates();
         echo CHtml::tag('option', array('value' => ''), 'Select State', true);
         foreach ($stateList as $value => $name) {
             echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
@@ -162,4 +199,5 @@ class PaymentController extends Controller {
         Yii::app()->controller->layout = '//layouts/main';
         $this->render('confirm_order');
     }
+
 }
