@@ -250,5 +250,19 @@ class Controller extends CController {
         return true;
     }
 
+    /**
+     * 
+     * @param type $route
+     * @param type $params
+     * @param type $ampersand
+     * @return boolean
+     */
+    public function createUrl($route, $params = array(), $ampersand = '&') {
+
+        $conCate = array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']);
+        $params = array_merge($params, $conCate);
+        return parent::createUrl($route, $params, $ampersand);
+    }
+
 }
 
