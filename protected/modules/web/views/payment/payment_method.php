@@ -31,7 +31,7 @@
             </div>
         <? } ?>
         <div class="bottom_payment_method">
-<!--                <form method="POST" action="<?php echo $this->createUrl('/web/Paypal/directpayment'); ?>">-->
+
             <?php
             $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'card-form',
@@ -40,13 +40,13 @@
                     'validateOnSubmit' => true,
                 ),
             ));
-
+            echo $form->hiddenField($model,'payment_method');
             $this->renderPartial("_shipping_detail", array("model" => $model,"regionList"=>$regionList,"form"=>$form));
             $this->renderPartial("_payment_methods", array("model" => $model,"form"=>$form));
             ?>
 
             <?php echo CHtml::submitButton('continue', array('class' => 'continue')); ?>
-<!--            <a href="<?php echo $this->createUrl('/web/payment/confirmorder', array('type' => 'card')); ?>">Credit Card</a>-->
+
             <?php $this->endWidget(); ?>
         </div>
     </div>

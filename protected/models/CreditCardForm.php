@@ -27,6 +27,7 @@ class CreditCardForm extends CFormModel {
     public $shipping_state;
     public $shipping_zip;
     public $shipping_phone;
+    public $payment_method;
     private $_identity;
     
     public $_states = array();
@@ -45,7 +46,7 @@ class CreditCardForm extends CFormModel {
                             shipping_city, shipping_state, shipping_zip, shipping_phone', 'required'),
             array('card_number1,card_number2,card_number3,card_number4', 'numerical', 'integerOnly' => true),
             array('card_number1,card_number2,card_number3,card_number4', 'length', 'max' => 4),
-            array('_states','safe'),
+            array('_states,payment_method','safe'),
                 // rememberMe needs to be a boolean
                 //array('rememberMe', 'boolean'),
                 // password needs to be authenticated

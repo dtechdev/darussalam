@@ -8,6 +8,16 @@
     <h4>Shipping Address</h4>
     <p class="mandatory"><span>*</span> = Mandatory fields</p>
     <div class="under_left_method">
+
+        <p><span>*</span>Payment Method</p>
+        <?php
+        $criteria = new CDbCriteria();
+        $criteria->select = "id,name";
+        $paymentMethods = ConfPaymentMethods::model()->findAll();
+        ?>
+        <?php echo $form->textField($model, 'payment_method', CHtml::listData($paymentMethods, "id", "name")); ?>
+        <?php echo $form->error($model, 'payment_method'); ?>
+
         <table width="100%">
             <tr>
                 <td class="left_prefix"><span>*</span> Prefix</td>
