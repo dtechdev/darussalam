@@ -170,5 +170,15 @@ class UserProfile extends DTActiveRecord {
             DTUploadedFile::deleteExistingFile($file);
         }
     }
+    
+    
+    /**
+     * Save shipping information in case of payment
+     */
+    public function saveShippingInfo($attributes) {
+        $userProfile_model = $this->findByPk(Yii::app()->user->id);
+        $userProfile_model->attributes = $attributes;
+        $userProfile_model->save();
+    }
 
 }

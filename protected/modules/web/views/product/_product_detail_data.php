@@ -66,6 +66,7 @@
                                 browser_string = "lang="+jQuery("#language option:selected").text();
                                 dtech.updatehashBrowerUrl(browser_string);
                                 
+                                
                                 jQuery(".left_book").html(msg["left_data"]);
                                 jQuery(".book_data").html(msg["right_data"]);
                             });    
@@ -164,6 +165,7 @@
                     'dataType' => 'json',
                     'success' => 'function(data){
                                            jQuery("#cart_counter").html(data.cart_counter);
+                                           dtech.custom_alert("Added in cart successfully");
                                       }',
                         ), array('class' => 'add_to_cart')
                 );
@@ -181,7 +183,14 @@
                         'type' => 'POST',
                         'dataType' => 'json',
                         'success' => 'function(data){
+                                           old_counter = jQuery.trim(jQuery("#wishlist_counter").html());
                                            jQuery("#wishlist_counter").html(data.wishlist_counter);
+                                           if(old_counter < data.wishlist_counter){
+                                                 dtech.custom_alert("Added to Wishlist successfully");
+                                           }
+                                           else {
+                                                dtech.custom_alert("Already in Wishlist");
+                                           }
                                       }',
                             ),
                             array('id' => 'add-wish-list'.uniqid())

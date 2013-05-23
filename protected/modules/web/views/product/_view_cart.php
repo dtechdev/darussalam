@@ -149,7 +149,7 @@ if (empty($cart)) {
                             Yii::app()->session['quantity'] = $total_quantity;
                             Yii::app()->session['description'] = $description;
                             ?>
-                            <a href="<?php echo $this->createUrl('/web/product/paymentmethod'); ?>">
+                            <a href="<?php echo $this->createUrl('/web/payment/paymentmethod'); ?>">
                                 <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
                             </a>
                             <?php
