@@ -326,7 +326,10 @@ class MenusController extends Controller {
         $ary[] = array("id" => "38", "pid" => "37", "root_parent" => "37", "controller" => "translatorCompiler", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
         $ary[] = array("id" => "39", "pid" => "37", "root_parent" => "37", "controller" => "translatorCompiler", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
 
-
+        /** FOr order module **/
+        
+        $ary[] = array("id" => "40", "pid" => "0", "root_parent" => "40", "controller" => "order", "action" => "index", "default_title" => "Order", "user_title" => "Order", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "41", "pid" => "40", "root_parent" => "40", "controller" => "order", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
 
 
         $this->updateWpbaseUrl();

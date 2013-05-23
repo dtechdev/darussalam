@@ -8,6 +8,7 @@
  * @property integer $user_id
  * @property string $total_price
  * @property string $order_date
+ * @property string $status
  *
  * The followings are the available model relations:
  * @property User $user
@@ -42,12 +43,13 @@ class Order extends DTActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, total_price, order_date', 'required'),
+            array('payment_method_id,user_id, total_price, order_date', 'required'),
             array('user_id', 'numerical', 'integerOnly' => true),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
             array('total_price', 'length', 'max' => 10),
             array('order_date', 'length', 'max' => 255),
+            array('transaction_id,status','safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('order_id, user_id, total_price, order_date', 'safe', 'on' => 'search'),
@@ -83,6 +85,7 @@ class Order extends DTActiveRecord
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
             'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'order_id'),
+            'paymentMethod' => array(self::BELONGS_TO, 'ConfPaymentMethods', 'payment_method_id'),
         );
     }
 
@@ -96,6 +99,8 @@ class Order extends DTActiveRecord
             'user_id' => 'User',
             'total_price' => 'Total Price',
             'order_date' => 'Order Date',
+            'status' => 'Status',
+            'payment_method_id'=>"Payment Method"
         );
     }
 
@@ -114,10 +119,20 @@ class Order extends DTActiveRecord
         $criteria->compare('user_id', $this->user_id);
         $criteria->compare('total_price', $this->total_price, true);
         $criteria->compare('order_date', $this->order_date, true);
-
+        $criteria->compare('status', $this->status, true);
+        
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array('defaultOrder' => "order_id,status='process'")
         ));
+    }
+    
+    /**
+     * set the values
+     */
+    public function afterFind() {
+        $this->order_date = DTFunctions::dateFormatForView($this->order_date);
+        parent::afterFind();
     }
 
 }
