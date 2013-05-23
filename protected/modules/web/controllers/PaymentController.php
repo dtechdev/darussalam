@@ -57,15 +57,19 @@ class PaymentController extends Controller {
 
             if ($model->validate() && $is_valid) {
 
+                $creditCardModel->payment_method = $model->payment_method;
+
                 switch ($model->payment_method) {
                     case 2: // credit card
-                        $this->processCreditCard($model, $creditCardModel);
+
+                        $this->processCreditCard($model,$creditCardModel);
                         break;
-                    case 3:
-                        $this->processManual($model, $creditCardModel);
+                    case 3: // manual
+                        $this->processManual($creditCardModel);
                         break;
-                    case 1:
-                        echo "i equals 2";
+                    case 1: //paypal
+                        UserProfile::model()->saveShippingInfo($_POST['ShippingInfoForm']);
+                        $this->redirect($this->createUrl("/web/paypal/buy"));
                         break;
                 }
             }
@@ -122,8 +126,8 @@ class PaymentController extends Controller {
      * @param type $model
      * @param type $creditCardModel
      */
-    public function processManual($model, $creditCardModel) {
-        $creditCardModel->saveOrder("", $model);
+    public function processManual($creditCardModel) {
+        $creditCardModel->saveOrder("");
 
         UserProfile::model()->saveShippingInfo($_POST['ShippingInfoForm']);
 

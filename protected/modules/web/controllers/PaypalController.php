@@ -102,29 +102,12 @@ class PaypalController extends Controller
             else
             {
                 //payment was completed successfully
-                $order = new Order;
-                $order->user_id = Yii::app()->user->id;
-                $order->total_price = Yii::app()->session['total_price'];
-                $order->order_date = date('Y-m-d');
-
-                $ordetail = array();
-                $cart_model = new Cart();
-                $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id);
-
-                foreach ($cart as $pro)
-                {
-                    $ordetail['OrderDetail'][] = array(
-                        'product_profile_id' => $pro->product_profile_id,
-                        'quantity' => $pro->quantity,
-                        'cart_id' =>$pro->cart_id,
-                        'product_price' => round($pro->productProfile->price, 2),
-                        'total_price' => round($pro->productProfile->price * $pro->quantity, 2),
-                    );
-                }
-
-                $order->setRelationRecords('orderDetails', is_array($ordetail['OrderDetail']) ? $ordetail['OrderDetail'] : array());
-
-                $order->save();
+                $creditCardModel = new CreditCardForm;
+                /**
+                 * 1 ID is belong to pay pall
+                 */
+                $creditCardModel->payment_method = 1;
+                $creditCardModel->saveOrder($result['TOKEN']);
 
                 $this->render('confirm');
             }

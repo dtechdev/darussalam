@@ -8,6 +8,7 @@
 class CreditCardForm extends CFormModel {
 
     public $first_name;
+    public $payment_method;
     public $last_name;
     public $card_number1;
     public $card_number2;
@@ -31,6 +32,7 @@ class CreditCardForm extends CFormModel {
                            ', 'required'),
             array('card_number1,card_number2,card_number3,card_number4', 'numerical', 'integerOnly' => true),
             array('card_number1,card_number2,card_number3,card_number4', 'length', 'max' => 4),
+            array('payment_method','safe'),
                 // rememberMe needs to be a boolean
                 //array('rememberMe', 'boolean'),
                 // password needs to be authenticated
@@ -86,7 +88,7 @@ class CreditCardForm extends CFormModel {
 
         if ($response->approved) {
             $transaction_id = $response->transaction_id;
-            $this->saveOrder($transaction_id,$shippingModel);
+            $this->saveOrder($transaction_id);
 
             return array();
 
@@ -125,7 +127,7 @@ class CreditCardForm extends CFormModel {
     /**
      * save Order
      */
-    public function saveOrder($transaction_id = "", $shippingmodel) {
+    public function saveOrder($transaction_id = "") {
         $error['status'] = false;
         $error['message'] = 'Payment successfully';
 
@@ -135,7 +137,7 @@ class CreditCardForm extends CFormModel {
         $order->total_price = Yii::app()->session['total_price'];
         $order->order_date = date('Y-m-d');
         $order->transaction_id = $transaction_id;
-        $order->payment_method_id = $shippingmodel->payment_method;
+        $order->payment_method_id = $this->payment_method;
 
         $ordetail = array();
         $cart_model = new Cart();
