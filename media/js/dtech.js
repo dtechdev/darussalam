@@ -12,7 +12,7 @@ var dtech = {
     },
     updateProductListing: function(ajax_url, id) {
         $("#loading").show();
-       
+
         url_hash = window.location.hash;
 
         if (id == "" && id != "all" && url_hash != "") {
@@ -27,7 +27,7 @@ var dtech = {
         if (id == "all") {
             id = "";
         }
-     
+
         $.ajax({
             type: "POST",
             url: ajax_url,
@@ -160,6 +160,32 @@ var dtech = {
                 }
             }
         });
+    },
+    showPaymentMethods: function(obj) {
+        if ($(obj).val() == "1") {
+            $(".pay_list").show();
+            $(".credit_card_fields").hide();
+            $(".manual_list").hide();
+        }
+        else if ($(obj).val() == "2") {
+            $(".credit_card_fields").show();
+            $(".pay_list").hide();
+            $(".manual_list").hide();
+
+        }
+        else if ($(obj).val() == "3") {
+            $(".manual_list").show();
+            $(".pay_list").hide();
+            $(".credit_card_fields").hide();
+
+        }
+
+        else {
+            $(".pay_list").hide();
+            $(".credit_card_fields").hide();
+            $(".manual_list").hide();
+        }
+
     }
 
 }
