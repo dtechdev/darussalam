@@ -51,24 +51,22 @@ class PaymentController extends Controller {
 
         if (isset($_POST['ShippingInfoForm'])) {
             $model->attributes = $_POST['ShippingInfoForm'];
-            
-            $is_valid = $this->validateCreditCard($model,$creditCardModel);
-            
+
+            $is_valid = $this->validateCreditCard($model, $creditCardModel);
+
+
             if ($model->validate() && $is_valid) {
-                $error = $this->CreditCardPayment($creditCardModel);
-                if ($error) {
 
-                    if (!$error['status']) {
-
-                        //save the shipping information of user
-                        $userProfile_model = UserProfile::model();
-                        $userProfile_model->saveShippingInfo($_POST['CreditCardForm']);
-                        $this->redirect(array('/web/payment/confirmOrder'));
-                    }
+                $error = $creditCardModel->CreditCardPayment($model, $creditCardModel);
+                if (empty($error)) {
+                    //save the shipping information of user
+                    $userProfile_model = UserProfile::model();
+                    $userProfile_model->saveShippingInfo($_POST['ShippingInfoForm']);
+                    $this->redirect(array('/web/payment/confirmOrder'));
+                } else {
+                    $creditCardModel->showCreditCardErrors($error);
                 }
             }
-            
-            
         }
 
         $regionList = CHtml::listData(Region::model()->findAll(), 'id', 'name');
@@ -79,27 +77,26 @@ class PaymentController extends Controller {
             'error' => $error
         ));
     }
-    
+
     /**
      * 
      * @param type $model
      * validate credit Card
      */
-    public function validateCreditCard($model,$creditCardModel){
-        
-        if($model->payment_method == "2"){
-            if(isset($_POST['CreditCardForm'])){
+    public function validateCreditCard($model, $creditCardModel) {
+
+        if ($model->payment_method == "2") {
+            if (isset($_POST['CreditCardForm'])) {
                 $creditCardModel->attributes = $_POST['CreditCardForm'];
-                
-                if($creditCardModel->validate()){
+
+                if ($creditCardModel->validate()) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             }
         }
-        
+
         return true;
     }
 
@@ -113,84 +110,6 @@ class PaymentController extends Controller {
         foreach ($stateList as $value => $name) {
             echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
         }
-    }
-
-    /**
-     * Function for credit card payment using authorize.net api
-     * @param type $model
-     * @return type
-     */
-    public function CreditCardPayment($model) {
-
-        Yii::import('application.extensions.anet_php_sdk.AuthorizeNetException');
-
-        define("AUTHORIZENET_API_LOGIN_ID", "9f84PWNhV9");
-        define("AUTHORIZENET_TRANSACTION_KEY", "7A4Wfgq47Uv6zU93");
-        define("AUTHORIZENET_SANDBOX", true);
-
-        $author_rize = new AuthorizeNetException();
-        $sale = new AuthorizeNetAIM;
-
-
-        $sale->setFields(
-                array(
-                    'amount' => Yii::app()->session['total_price'],
-                    'card_num' => $model->card_number1 . $model->card_number2 . $model->card_number3 . $model->card_number4,
-                    'exp_date' => $model->exp_month . $model->exp_year,
-                    'first_name' => $model->first_name,
-                    'last_name' => $model->last_name,
-                    'address' => $model->shipping_address1,
-                    'city' => $model->shipping_city,
-                    'state' => $model->shipping_state,
-                    'country' => "",
-                    'zip' => $model->shipping_zip,
-                    'email' => Yii::app()->user->name,
-                    'card_code' => "123",
-                )
-        );
-
-        $response = $sale->authorizeAndCapture();
-
-        if ($response->approved) {
-            $transaction_id = $response->transaction_id;
-
-            $error['status'] = false;
-            $error['message'] = 'Payment successfully';
-
-            //payment was completed successfully
-            $order = new Order;
-            $order->user_id = Yii::app()->user->id;
-            $order->total_price = Yii::app()->session['total_price'];
-            $order->order_date = date('Y-m-d');
-
-            $ordetail = array();
-            $cart_model = new Cart();
-            $cart = $cart_model->findAll('user_id=' . Yii::app()->user->id);
-
-            foreach ($cart as $pro) {
-                $ordetail['OrderDetail'][] = array(
-                    'product_profile_id' => $pro->product_profile_id,
-                    'quantity' => $pro->quantity,
-                    'cart_id' => $pro->cart_id,
-                    'product_price' => round($pro->productProfile->price, 2),
-                    'total_price' => round($pro->productProfile->price * $pro->quantity, 2),
-                );
-            }
-
-            $order->setRelationRecords('orderDetails', is_array($ordetail['OrderDetail']) ? $ordetail['OrderDetail'] : array());
-
-            $order->save();
-            //approved- Your order completed successfully
-        } elseif ($response->declined) {
-            $error['status'] = true;
-            $error['message'] = $response->response_reason_text;
-            //Declined
-        } else {
-            $error['status'] = true;
-            $error['message'] = $response->response_reason_text;
-            //error
-        }
-        return $error;
     }
 
     public function actionconfirmOrder() {

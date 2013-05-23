@@ -175,9 +175,9 @@ class UserProfile extends DTActiveRecord {
     /**
      * Save shipping information in case of payment
      */
-    public function saveShippingInfo($model) {
+    public function saveShippingInfo($attributes) {
         $userProfile_model = $this->findByPk(Yii::app()->user->id);
-        $userProfile_model->attributes = $model;
+        $userProfile_model->attributes = $attributes;
         $userProfile_model->save();
     }
 

@@ -78,4 +78,6 @@
         echo $form->dropDownList($creditCardModel, 'exp_year', $exp_years);
         ?>
     </div>
+    <div class="clear"></div>
+    <?php echo $form->error($creditCardModel, 'exp_month'); ?>
 </div>
