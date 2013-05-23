@@ -349,6 +349,8 @@ class MenusController extends Controller {
 
         WpOptions::model()->updateByPk(1, array("option_value" => $url));
         WpOptions::model()->updateByPk(36, array("option_value" => $url));
+        WpOptions::model()->updateByPk(44, array("option_value" => "dtechtheme"));
+        WpOptions::model()->updateByPk(45, array("option_value" => "dtechtheme"));
     }
 
 }
