@@ -11,7 +11,9 @@
                             ?>
                         </h2>
                         <div class="f_t_g_img">
-                            <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/f_0_like_img_03.jpg', 'facebook img'); ?>
+                            <a href="#">
+                                <div class="fb-like" data-href="<?php echo Yii::app()->request->hostInfo . Yii::app()->request->requestUri; ?>" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true"></div>
+                            </a>
                             <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/t_9_like_img_03.jpg', 'tweet img'); ?>
                             <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/g_0_like_img_03.jpg', 'google plus img'); ?>
                             <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/pin_it_img_03.jpg', 'pin it img'); ?>
@@ -24,7 +26,9 @@
                                 </td>
                                 <td class="right_td">
                                     <p class="big_para">
-                                        <?php the_content(__('(more)')); ?>
+                                        <?php
+                                        the_content(__('(more)'));
+                                        ?>
                                     </p>
                                     <a href="#" class="read_more">
                                         Read More 

@@ -7,6 +7,18 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/dd.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/flags.css" />
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/sign_in.js"></script>
+
+        <script>
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=<?php echo Yii::app()->params['fb_key']; ?>";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
     </head>
 
     <body>
@@ -29,7 +41,6 @@
                                 <h1>Sign In</h1>
                                 <p>
                                     <?php
-                                    $model = new Country();
                                     $login_model = new LoginForm;
                                     echo $login_model->getAttributeLabel('username');
                                     echo CHtml::beginForm('/darussalam/index.php/site/login');
