@@ -27,15 +27,25 @@
                                 <td class="right_td">
                                     <p class="big_para">
                                         <?php
-                                        the_content(__('(more)'));
+                                        echo $string = substr(get_post()->post_content, 0, 600) . ' .....';
                                         ?>
                                     </p>
-                                    <a href="#" class="read_more">
-                                        Read More 
-                                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/read_more_arrow_img_03.jpg', 'read more /'); ?>
-                                    </a>
-                                    <p class="tag">Tags: <a href="#">advice, Design,Inspiration, kids</a></p>
-                                    <p class="tag">Posted by Talha Mujahid in <a href="#">Tips and Tricks  |  Comment</a></p>
+                                    <?php
+                                    echo CHtml::link('Read More ', Yii::app()->createUrl('/?r=blog&p=' . get_post()->ID));
+                                    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/read_more_arrow_img_03.jpg', 'read more /'), Yii::app()->createUrl('/?r=blog&p=' . get_post()->ID));
+                                    ?>
+                                    <p class="tag">
+                                        Tags: 
+                                        <?php
+                                        echo CHtml::link('advice, Design,Inspiration, kids', Yii::app()->createUrl('/?r=blog&p=' . get_post()->ID));
+                                        ?>
+                                    </p>
+                                    <p class="tag">
+                                        Posted by Talha Mujahid in
+                                        <?php
+                                        echo CHtml::link('Tips and Tricks  |  Comment', Yii::app()->createUrl('/?r=blog&p=' . get_post()->ID));
+                                        ?>
+                                    </p>
                                 </td>
                             </tr>
                         </table>
