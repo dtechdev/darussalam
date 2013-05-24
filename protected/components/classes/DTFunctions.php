@@ -246,6 +246,21 @@ class DTFunctions
         }
         return $string;
     }
+    /**
+     * getting Integor random no 
+     * 
+     * @param type $length 
+     */
+    public function getIntRanddomeNo($length)
+    {
+        $character_array = array_merge(range("0", "9"));
+        $int_r = "";
+        for ($i = 0; $i < $length; $i++)
+        {
+            $int_r .= $character_array[rand(0, (count($character_array) - 1))];
+        }
+        return $int_r;
+    }
     
     /**
      * this function used to get
