@@ -89,51 +89,43 @@
                 <div class="right_middle">
                     <div id="right_header_part">
                         <?php
-                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg', "heart img", array("class" => "heart_img")), $this->createUrl('/web/product/viewwishlist'));
+                        $ip = Yii::app()->request->getUserHostAddress();
+                        if (isset(Yii::app()->user->id)) {
+                            $tot = Yii::app()->db->createCommand()
+                                    ->select('count(*) as total_pro')
+                                    ->from('wish_list')
+                                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
+                                    ->queryRow();
+                        } else {
+                            $tot = Yii::app()->db->createCommand()
+                                    ->select('count(*) as total_pro')
+                                    ->from('wish_list')
+                                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
+                                    ->queryRow();
+                        }
+                        $wishlistCount = ($tot['total_pro'] > 0) ? $tot['total_pro'] : "";
+
+                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg', "heart img", array("class" => "heart_img")) . '<p id="wishlist_counter" style="margin-left: 0px;">' . $wishlistCount . '</p>', $this->createUrl('/web/product/viewwishlist'));
+                       
+                        //count total added products in cart
+                        if (isset(Yii::app()->user->id)) {
+                            $tot = Yii::app()->db->createCommand()
+                                    ->select('sum(quantity) as cart_total')
+                                    ->from('cart')
+                                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
+                                    ->queryRow();
+                        } else {
+                            $tot = Yii::app()->db->createCommand()
+                                    ->select('sum(quantity) as cart_total')
+                                    ->from('cart')
+                                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
+                                    ->queryRow();
+                        }
+                        $cartCount = $tot['cart_total'];
+
+
+                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/simple_cart_img_03.jpg', "cart img", array("class" => "cart_img")) . '<p id="cart_counter">' . $cartCount . '</p>', $this->createUrl('/web/product/viewcart', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                         ?>
-                        <p id="wishlist_counter" style="margin-left: 0px;">
-                            <?php
-                            $ip = Yii::app()->request->getUserHostAddress();
-                            if (isset(Yii::app()->user->id)) {
-                                $tot = Yii::app()->db->createCommand()
-                                        ->select('count(*) as total_pro')
-                                        ->from('wish_list')
-                                        ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
-                                        ->queryRow();
-                            } else {
-                                $tot = Yii::app()->db->createCommand()
-                                        ->select('count(*) as total_pro')
-                                        ->from('wish_list')
-                                        ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
-                                        ->queryRow();
-                            }
-                            echo ($tot['total_pro'] > 0) ? $tot['total_pro'] : "";
-                            ?>
-
-                        </p>
-                            <?php
-                            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/simple_cart_img_03.jpg', "cart img", array("class" => "cart_img")),$this->createUrl('/web/product/viewcart', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
-                            ?>
-                        <p id="cart_counter">
-                            <?php
-                            //count total added products in cart
-                            if (isset(Yii::app()->user->id)) {
-                                $tot = Yii::app()->db->createCommand()
-                                        ->select('sum(quantity) as cart_total')
-                                        ->from('cart')
-                                        ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
-                                        ->queryRow();
-                            } else {
-                                $tot = Yii::app()->db->createCommand()
-                                        ->select('sum(quantity) as cart_total')
-                                        ->from('cart')
-                                        ->where('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"')
-                                        ->queryRow();
-                            }
-                            echo $tot['cart_total'];
-                            ?>
-
-                        </p>
                     </div>
                     <div id="text">
                         <?php if (!Yii::app()->user->isGuest) {
