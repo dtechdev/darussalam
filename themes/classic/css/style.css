@@ -283,7 +283,7 @@ footer { font-family:Arial, Helvetica, sans-serif; font-size:12px; background:ur
 
 .search_text { float:left; border:none; height:31px; border: 1px solid #c4c4c4; color:#afafaf; width:432px; padding: 0 0 0 9px; margin: 0; border-radius: 3px 0 0 3px; }
 
-.search_btn { background:#848484; width:68px; background:url(../images/search_bg_img_img_03.jpg) repeat-x; height:33px; padding: 0; display:block; float:left; margin: 0px 0 0 0px; border:none; border-radius: 0 3px 3px 0; border: 1px solid #888888; }
+.search_btn { z-index: 100;background:#848484; width:68px; background:url(../images/search_bg_img_img_03.jpg) repeat-x; height:33px; padding: 0; display:block; float:left; margin: 0px 0 0 0px; border:none; border-radius: 0 3px 3px 0; border: 1px solid #888888; }
 
 .searching_img { position:absolute; padding: 0; margin: 10px 0 0 -40px; }
 
