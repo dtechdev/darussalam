@@ -130,7 +130,7 @@ class Product extends DTActiveRecord {
 
 
 
-        $all_pro = array();
+
         $city_id = Yii::app()->session['city_id'];
 
 
@@ -164,6 +164,7 @@ class Product extends DTActiveRecord {
                 $langs = explode(",", $_POST['langs']);
                 $criteria->join.= ' INNER JOIN product_profile  ' .
                         ' ON product_profile.product_id = t.product_id';
+
                 $criteria->addInCondition("product_profile.language_id", $langs);
             }
             if (!empty($_POST['cat_id'])) {
@@ -180,7 +181,7 @@ class Product extends DTActiveRecord {
             ),
             'criteria' => $criteria,
         ));
-        
+       
         return $dataProvider;
     }
 
@@ -188,9 +189,9 @@ class Product extends DTActiveRecord {
      * return all products
      */
     public function returnProducts($dataProvider) {
-        
+        $all_pro = array();
         $data = $dataProvider->getData();
-        
+
         $featured_products = array();
         $product = array();
         $images = array();
