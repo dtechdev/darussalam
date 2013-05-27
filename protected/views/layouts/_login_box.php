@@ -85,3 +85,22 @@
     </div>
     <?php $this->endWidget(); ?>
 </div>
+
+<script>
+
+    var mouse_is_inside = false;
+    $(document).ready(function()
+    {
+        $('.example2').hover(function() {
+            mouse_is_inside = true;
+        }, function() {
+            mouse_is_inside = false;
+        });
+
+        $("body").mouseup(function() {
+            if (!mouse_is_inside)
+                $('.example2').hide();
+        });
+    });
+
+</script>
