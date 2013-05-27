@@ -85,14 +85,14 @@ if (empty($cart)) {
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Author</td>
                                         <td class="cart_right_td"><?php
-                        echo isset($pro->productProfile->product->author->author_name) ? $pro->productProfile->product->author->author_name : "";
-                                ?></td>
+                                            echo isset($pro->productProfile->product->author->author_name) ? $pro->productProfile->product->author->author_name : "";
+                                            ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Language</td>
                                         <td class="cart_right_td"><?php
-                                    echo isset($pro->productProfile->productLanguage->language_name) ? $pro->productProfile->productLanguage->language_name : "";
-                                ?></td>
+                                            echo isset($pro->productProfile->productLanguage->language_name) ? $pro->productProfile->productLanguage->language_name : "";
+                                            ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                     </tr>
@@ -143,25 +143,13 @@ if (empty($cart)) {
                                 <td class="right_right_cart_td">$<?php echo $grand_total; ?></td>
                             </tr>
                         </table>
-                        <?php
-                        if (Yii::app()->user->id) {
-                            Yii::app()->session['total_price'] = round($grand_total, 2);
-                            Yii::app()->session['quantity'] = $total_quantity;
-                            Yii::app()->session['description'] = $description;
-                            ?>
-                            <a href="<?php echo $this->createUrl('/web/payment/paymentmethod'); ?>">
-                                <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
-                            </a>
-                            <?php
-                        } else {
-                            ?>
-                            <a href="<?php echo $this->createUrl('/web/site/login'); ?>">
-                                <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
-                            </a>
-                        <?php } ?>
+
+                        <a href="<?php echo $this->createUrl('/web/payment/paymentmethod'); ?>">
+                            <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div><?php }
-                    ?>
+                        ?>
