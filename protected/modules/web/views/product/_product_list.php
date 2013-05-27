@@ -54,6 +54,7 @@ echo CHtml::closeTag("div");
 $this->widget('DTPager', array(
     'pages' => $dataProvider->pagination,
     'ajax'=>true,
+    'append_param'=> (!empty($_REQUEST['serach_field']))?"serach_field=".$_REQUEST['serach_field']:"",
     'jsMethod' =>'dtech.updatePaginationFilter(this);return false;',
    )
 );

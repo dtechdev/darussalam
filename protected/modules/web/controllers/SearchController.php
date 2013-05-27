@@ -41,9 +41,9 @@ class SearchController extends Controller {
     public function actionGetSearch() {
         Yii::app()->controller->layout = '//layouts/main';
         Yii::app()->user->SiteSessions;
-        
-        if (isset($_POST['serach_field'])) {
-            $q = $_POST['serach_field'];
+
+        if (isset($_REQUEST['serach_field'])) {
+            $q = $_REQUEST['serach_field'];
 
             $sql = "Select " .
                     " DISTINCT(product.product_id), " .
@@ -90,20 +90,37 @@ class SearchController extends Controller {
             $connection = Yii::app()->db;
             $command = $connection->createCommand($sql);
             $rows = $command->queryAll();
-            
+
             $product_array = array();
-            foreach($rows as $row){
-                $product_array[$row['product_id']] = $row['product_id']; 
+            foreach ($rows as $row) {
+                $product_array[$row['product_id']] = $row['product_id'];
             }
-            $all_products = Product::model()->allProducts($product_array);
-            
+            $dataProvider = Product::model()->allProducts($product_array);
+            $all_products = Product::model()->returnProducts($dataProvider);
+
+
             $allCategories = Categories::model()->allCategories();
-            
-            $this->render('/product/all_products', array('products' => $all_products, 'allCate' => $allCategories));
+
+            if (isset($_POST['ajax'])) {
+                $this->productfilter($dataProvider, $all_products);
+            } else {
+
+                $this->render('/product/all_products', array('products' => $all_products, 'allCate' => $allCategories, "dataProvider" => $dataProvider));
+            }
         } else {
 
             Yii::app()->end();
         }
+    }
+
+    /**
+     *  to get product on ajax bases
+     *  for filter of category
+     */
+    public function productfilter($dataProvider, $all_products) {
+
+        $this->renderPartial("/product/_product_list", array('products' => $all_products,
+            'dataProvider' => $dataProvider,));
     }
 
     public function actionSearchDetail() {

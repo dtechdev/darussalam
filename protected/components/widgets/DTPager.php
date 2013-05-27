@@ -9,6 +9,12 @@ class DTPager extends CLinkPager {
     public $ajax = false;
     public $jsMethod = "";
 
+    /**
+     * only in case when u have to append extra param
+     * @var type 
+     */
+    public $append_param;
+
     public function createPageButton($label, $page, $class, $hidden, $selected) {
         if ($this->ajax == true) {
             if ($hidden || $selected) {
@@ -18,7 +24,18 @@ class DTPager extends CLinkPager {
             if ($this->jsMethod != "") {
                 $htmlOptions = array("onclick" => $this->jsMethod);
             }
-            return '<li class="' . $class . '">' . CHtml::link($label, $this->createPageUrl($page), $htmlOptions) . '</li>';
+            $pageUrl = $this->createPageUrl($page);
+           /**
+            * extra param will be append
+            */
+            if (!empty($this->append_param)) {
+                if (strstr($pageUrl, "?")) {
+                    $pageUrl.= "&" . $this->append_param;
+                } else {
+                    $pageUrl.= "?" . $this->append_param;
+                }
+            }
+            return '<li class="' . $class . '">' . CHtml::link($label, $pageUrl, $htmlOptions) . '</li>';
         } else {
             return parent::createPageButton($label, $page, $class, $hidden, $selected);
         }
