@@ -40,6 +40,10 @@ class MenusController extends Controller {
      */
     public function accessRules() {
         return array(
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('rebuildAssets'),
+                'users' => array('*'),
+            ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('index', 'create', 'update', 'delete', 'addChild', 'sort',
                     'installMenu', 'generateData', 'json'),
@@ -319,15 +323,14 @@ class MenusController extends Controller {
         $ary[] = array("id" => "35", "pid" => "0", "root_parent" => "35", "controller" => "customer", "action" => "index", "default_title" => "Customer Role", "user_title" => "Customer Role", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
         $ary[] = array("id" => "36", "pid" => "35", "root_parent" => "35", "controller" => "customer", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
 
-        
+
         /* admin module for the Translator Compiler managment */
 
         $ary[] = array("id" => "37", "pid" => "0", "root_parent" => "37", "controller" => "translatorCompiler", "action" => "index", "default_title" => "Author", "user_title" => "Translator Compiler", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
         $ary[] = array("id" => "38", "pid" => "37", "root_parent" => "37", "controller" => "translatorCompiler", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
         $ary[] = array("id" => "39", "pid" => "37", "root_parent" => "37", "controller" => "translatorCompiler", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
 
-        /** FOr order module **/
-        
+        /** FOr order module * */
         $ary[] = array("id" => "40", "pid" => "0", "root_parent" => "40", "controller" => "order", "action" => "index", "default_title" => "Order", "user_title" => "Order", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
         $ary[] = array("id" => "41", "pid" => "40", "root_parent" => "40", "controller" => "order", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
 
@@ -345,12 +348,60 @@ class MenusController extends Controller {
     }
 
     public function updateWpbaseUrl() {
-        $url = Yii::app()->request->hostInfo . Yii::app()->baseUrl."/wp";
+        $url = Yii::app()->request->hostInfo . Yii::app()->baseUrl . "/wp";
 
         WpOptions::model()->updateByPk(1, array("option_value" => $url));
         WpOptions::model()->updateByPk(36, array("option_value" => $url));
         WpOptions::model()->updateByPk(44, array("option_value" => "dtechtheme"));
         WpOptions::model()->updateByPk(45, array("option_value" => "dtechtheme"));
+    }
+
+    /*
+     * function to remove assets data
+     * 
+     * 
+     */
+    
+    
+    public function actionRebuildAssets() {
+        $this->deleteDir();
+    }
+    
+    /**
+     * for linux
+     */
+    public function deleteDir() {
+
+        $basePath = Yii::app()->basePath;
+
+        if (strstr($basePath, "protected")) {
+            $basePath = realPath($basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR);
+        }
+
+        $assets_path = $basePath . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR;
+
+        if (stristr(PHP_OS, 'Linux')) {
+
+
+
+            if (is_dir($assets_path) && $handle = opendir($assets_path)) {
+
+
+                /* This is the correct way to loop over the directory. */
+                while (($file = readdir($handle)) !== false) {
+
+                    if ($file != "." && $file != "..") {
+
+                        echo $assets_path . $file;
+                        echo "<br/>";
+                        exec('rm -rf ' . $assets_path . $file);
+                    }
+                }
+
+
+                closedir($handle);
+            }
+        }
     }
 
 }
