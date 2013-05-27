@@ -111,7 +111,7 @@ class ProductController extends Controller {
              */
             $wishlist = WishList::model()->getWishLists();
             $wish_list_count = WishList::model()->getWishListCount();
-            $_view_list = $this->renderPartial("_view_wish_lists", array('wishList' => $wishlist),true,true);
+            $_view_list = $this->renderPartial("_view_wish_lists", array('wishList' => $wishlist), true, true);
 
             echo CJSON::encode(array("_view_list" => $_view_list, "wish_list_count" => $wish_list_count));
         }
@@ -119,25 +119,39 @@ class ProductController extends Controller {
 
     //front site actions
     public function actionallProducts() {
-        //queries 
-        Yii::app()->controller->layout = '//layouts/main';
-        Yii::app()->user->SiteSessions;
+        
+        /**
+         * ajax based
+         */
+        if (isset($_POST['ajax'])) {
+            $this->productfilter();
+        } else {
+            //queries 
+            Yii::app()->controller->layout = '//layouts/main';
+            Yii::app()->user->SiteSessions;
 
-        $all_products = Product::model()->allProducts();
+            $dataProvider = Product::model()->allProducts();
+            $all_products = Product::model()->returnProducts($dataProvider);
 
-        $allCategories = Categories::model()->allCategories();
+            $allCategories = Categories::model()->allCategories();
 
 
-        $this->render('all_products', array('products' => $all_products, 'allCate' => $allCategories));
+            $this->render('all_products', array(
+                'products' => $all_products,
+                'dataProvider' => $dataProvider,
+                'allCate' => $allCategories));
+        }
     }
 
     /**
      *  to get product on ajax bases
      *  for filter of category
      */
-    public function actionProductfilter() {
-        $all_products = Product::model()->allProducts();
-        $this->renderPartial("_product_list", array('products' => $all_products,));
+    public function productfilter() {
+        $dataProvider = Product::model()->allProducts();
+        $all_products = Product::model()->returnProducts($dataProvider);
+        $this->renderPartial("_product_list", array('products' => $all_products,
+            'dataProvider' => $dataProvider,));
     }
 
     public function actionfeaturedProducts() {

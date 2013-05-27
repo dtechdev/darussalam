@@ -261,6 +261,7 @@ class Controller extends CController {
 
         $conCate = array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']);
         $params = array_merge($params, $conCate);
+       
         return parent::createUrl($route, $params, $ampersand);
     }
 

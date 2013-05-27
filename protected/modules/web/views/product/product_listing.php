@@ -15,7 +15,11 @@
         }
         ?>
         <div id="right_main_content">
-            <?php $this->renderPartial("/product/_product_list", array("products" => $products)) ?>
+            <?php $this->renderPartial("/product/_product_list", 
+                    array(
+                        "products" => $products,
+                        'dataProvider'=>$dataProvider,
+                    )) ?>
         </div>
     </div>
 </div>
