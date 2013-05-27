@@ -53,28 +53,27 @@ if (empty($cart)) {
                     $grand_total = 0;
                     $total_quantity = 0;
                     $description = '';
-                    foreach ($cart->orderDetails as $pro) {
+                    foreach ($cart as $pro) {
 
-                        $total_quantity+=$pro->quantity;
-                        $description.=$pro->product_profile->product->product_description . ' , ';
+                        $total_quantity+=$pro->orderDetails->quantity;
+                        $description.=$pro->orderDetails->product_profile->product->product_description . ' , ';
                         ?>
-
                         <div class="upper_cart">
                             <div class="left_left_cart">
                                 <?php
-                                echo CHtml::image($pro->product_profile->productImages[0]->image_url['image_small']);
+                                echo CHtml::image($pro->orderDetails[0]->product_profile->productImages[0]->image_url['image_small']);
                                 ?>
                             </div>
                             <div class="left_right_cart">
-                                <h1><?php echo $pro->product_profile->product->product_name; ?></h1>
+                                <h1><?php echo $pro->orderDetails[0]->product_profile->product->product_name; ?></h1>
 
-                                <h2><?php echo $pro->product_profile->product->product_description; ?></h2>
+                                <h2><?php echo $pro->orderDetails[0]->product_profile->product->product_description; ?></h2>
                                 <table width="100%">
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Author :</td>
                                         <td class="cart_right_td">
                                             <?php
-                                            echo!empty($pro->product_profile->product->author->author_name) ? $pro->product_profile->product->author->author_name : "";
+                                            echo!empty($pro->orderDetails[0]->product_profile->product->author->author_name) ? $pro->orderDetails[0]->product_profile->product->author->author_name : "";
                                             ?></td>
                                     </tr>
                                     <tr class="cart_tr">
@@ -89,14 +88,16 @@ if (empty($cart)) {
 //
 //                                                $i++;
 //                                            }
-                                            echo!empty($pro->product_profile->productLanguage->language_name) ? $pro->product_profile->productLanguage->language_name : "";
+                                            echo!empty($pro->orderDetails[0]->product_profile->productLanguage->language_name) ? $pro->orderDetails[0]->product_profile->productLanguage->language_name : "";
                                             ?></td>
                                     </tr>
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Order Date :</td>
-                                        <td class="cart_right_td"><?php
-                                            echo $cart->order_date;
-                                            ?></td>
+                                        <td class="cart_right_td">
+                                            <?php
+                                            echo $pro->order_date;
+                                            ?>
+                                        </td>
                                     </tr>
                                     <tr class="cart_tr">
                                     </tr>
@@ -104,24 +105,21 @@ if (empty($cart)) {
                                 <div class="quantity_cart">
                                     <p><span> Quantity : &nbsp; &nbsp;</span> 
                                         <?php
-                                        echo CHtml::label($pro->quantity, '');
+                                        echo CHtml::label($pro->orderDetails[0]->quantity, '');
                                         ?>
                                     </p>
                                     <p><span>Unit Price :</span>
-                                        $<?php echo round($pro->product_price, 2); ?>
+                                        $<?php echo round($pro->orderDetails[0]->product_price, 2); ?>
                                     </p>
 
                                     <p><span>Sub Total :</span>
-                                        $<?php echo round($pro->quantity * $pro->product_price, 2); ?>
+                                        $<?php echo round($pro->orderDetails[0]->quantity * $pro->orderDetails[0]->product_price, 2); ?>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     <?php } ?>
-
-
                 </div>
-
             </div>
         </div>
     </div><?php
