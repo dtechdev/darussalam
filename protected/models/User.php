@@ -259,7 +259,7 @@ class User extends DTActiveRecord {
     public function customerHistory() {
         $id = Yii::app()->user->id;
         $model = new Order;
-        $data = $model->with('orderDetails')->find('user_id=' . $id);
+        $data = $model->with('orderDetails')->findAll('user_id=' . $id);
         return $data;
     }
 
