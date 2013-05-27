@@ -54,8 +54,17 @@ class ProductController extends Controller {
         Yii::app()->controller->layout = '//layouts/main';
 
         $cart = Cart::model()->getCartLists();
-
+        
         $this->render('viewcart', array('cart' => $cart));
+    }
+
+    /**
+     * set Total amount in session
+     */
+    public function setTotalAmountSession($grand_total,$total_quantity,$description) {
+        Yii::app()->session['total_price'] = round($grand_total, 2);
+        Yii::app()->session['quantity'] = $total_quantity;
+        Yii::app()->session['description'] = $description;
     }
 
     /**
@@ -76,6 +85,7 @@ class ProductController extends Controller {
         }
         $cart = Cart::model()->getCartLists();
         $cart_list_count = Cart::model()->getCartListCount();
+      
 
         $_view_cart = $this->renderPartial("_view_cart", array('cart' => $cart), true, true);
         echo CJSON::encode(array("_view_cart" => $_view_cart, "cart_list_count" => $cart_list_count));
@@ -119,7 +129,7 @@ class ProductController extends Controller {
 
     //front site actions
     public function actionallProducts() {
-        
+
         /**
          * ajax based
          */
