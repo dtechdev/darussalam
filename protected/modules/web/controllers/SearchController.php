@@ -109,7 +109,12 @@ class SearchController extends Controller {
             }
         } else {
 
-            Yii::app()->end();
+            $dataProvider = Product::model()->allProducts();
+            $all_products = Product::model()->returnProducts($dataProvider);
+            $this->productfilter($dataProvider, $all_products);
+
+
+            $allCategories = Categories::model()->allCategories();
         }
     }
 
