@@ -7,8 +7,8 @@ $this->breadcrumbs = array(
     'Manage',
 );
 
-if(!(Yii::app()->user->isGuest)) {
-        $this->renderPartial("/common/_left_single_menu");
+if (!(Yii::app()->user->isGuest)) {
+    $this->renderPartial("/common/_left_single_menu");
 }
 
 Yii::app()->clientScript->registerScript('search', "
@@ -60,10 +60,33 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'value' => '!empty($data->paymentMethod->name)?$data->paymentMethod->name:""',
         ),
         array(
+            'class' => 'CLinkColumn',
+            'label' => 'View Detail',
+            'header' => 'History',
+            'urlExpression' => 'Yii::app()->controller->createUrl("/order/orderDetail",array("id"=>$data->order_id))',
+            'linkHtmlOptions' => array(
+                "onclick" => '
+                    $("#loading").show();
+                    ajax_url = $(this).attr("href");
+                    user_name = $(this).parent().prev().prev().prev().prev().prev().prev().html();
+                    $.ajax({
+                        type: "POST",
+                        url: ajax_url,
+                        data: { username: user_name }
+                    }).done(function( msg ) {
+                        $("#order_detail").html(msg);
+                        $("#loading").hide();
+                    });
+                    return false;
+                    '
+            ),
+        ),
+        array(
             'class' => 'CButtonColumn',
             'template' => '{view}{update}',
-     
         ),
     ),
 ));
 ?>
+<div id="order_detail"></div>
+
