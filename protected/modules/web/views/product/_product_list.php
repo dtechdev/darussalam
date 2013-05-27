@@ -41,13 +41,17 @@ foreach ($products as $product) {
         </p>
         <article>&dollar;<?php echo round($product['product_price'], 2); ?></article>
     </div>
-<?php
+    <?php
 }
-echo CHtml::openTag("div", array("style"=>"clear:both"));
+echo CHtml::openTag("div", array("style" => "clear:both"));
 echo CHtml::closeTag("div");
 /**
  * pagination
  */
-$this->widget('CLinkPager', array(
-    'pages' => $dataProvider->pagination));
+$this->widget('DTPager', array(
+    'pages' => $dataProvider->pagination,
+    'ajax'=>true,
+    'jsMethod' =>'dtech.updatePaginationFilter(this);return false;',
+   )
+);
 ?>

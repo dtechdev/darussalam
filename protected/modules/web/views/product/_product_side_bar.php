@@ -18,7 +18,7 @@
                     "class" => "filter_checkbox",
                     "value" => $language->language_id,
                     "onclick" => '
-                                  dtech.updateProductListing("' . $this->createUrl("/web/product/allProducts") . '","");
+                                  dtech.updateProductListing("' . $this->createUrl("/web/product/allproducts") . '","");
                                '
                 ))
                 ?>
