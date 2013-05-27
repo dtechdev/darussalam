@@ -170,13 +170,20 @@ class UserProfile extends DTActiveRecord {
             DTUploadedFile::deleteExistingFile($file);
         }
     }
-    
-    
+
     /**
      * Save shipping information in case of payment
      */
     public function saveShippingInfo($attributes) {
+
         $userProfile_model = $this->findByPk(Yii::app()->user->id);
+        /**
+         * in case when profile id is exsit thats why to take new
+         * instance
+         */
+        if (empty($userProfile_model)) {
+            $userProfile_model = new UserProfile;
+        }
         $userProfile_model->attributes = $attributes;
         $userProfile_model->save();
     }
