@@ -18,7 +18,7 @@
                     "class" => "filter_checkbox",
                     "value" => $language->language_id,
                     "onclick" => '
-                                  dtech.updateProductListing("' . $this->createUrl("/web/product/productfilter") . '","");
+                                  dtech.updateProductListing("' . $this->createUrl("/web/product/allproducts") . '","");
                                '
                 ))
                 ?>
@@ -35,9 +35,10 @@
         echo CHtml::dropDownList('author_id', '', $lstdata, //not in action.....
                 array('options' => array('author_name' => array('selected' => true)),
             'onchange' => '
-                        dtech.updateProductListing("' . $this->createUrl("/web/product/productfilter") . '","");
+                        dtech.updateProductListing("' . $this->createUrl("/web/product/allproducts") . '","");
                         '
         ));
+       
         ?>
 
     </div>
@@ -50,7 +51,7 @@
                 echo CHtml::openTag("li");
                 echo CHtml::link($allCatego->category_name, $this->createUrl('/web/product/allproducts'), array('onclick' => '
                                             
-                                                  dtech.updateProductListing("' . $this->createUrl("/web/product/productfilter") . '",$(this).attr("id"));  
+                                                  dtech.updateProductListing("' . $this->createUrl("/web/product/allproducts") . '",$(this).attr("id"));  
                                                   
                                                 return false;
                                         ', "id" => $allCatego->category_id));
@@ -61,7 +62,7 @@
                 echo CHtml::openTag("li");
                 echo CHtml::link("All", $this->createUrl('/web/product/allproducts'), array('onclick' => '
                                             
-                                                  dtech.updateProductListing("' . $this->createUrl("/web/product/productfilter") . '","all");  
+                                                  dtech.updateProductListing("' . $this->createUrl("/web/product/allproducts") . '","all");  
                                                   
                                                 return false;
                                         ', "id" => "all"));

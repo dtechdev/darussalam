@@ -17,8 +17,7 @@ foreach ($products as $product) {
         }
         if (Yii::app()->controller->action->id == "getSearch") {
             echo CHtml::link(CHtml::image($image, 'image', array('title' => $product['product_name'])), Yii::app()->createUrl('/web/search/searchDetail', array('country' => $product['country_short'], 'city' => $product['city_short'], 'city_id' => $product['city_id'], 'product_id' => $product['product_id'])));
-        }
-        else {
+        } else {
             echo CHtml::link(CHtml::image($image, 'image', array('title' => $product['product_name'])), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id']));
         }
         ?>
@@ -42,4 +41,17 @@ foreach ($products as $product) {
         </p>
         <article>&dollar;<?php echo round($product['product_price'], 2); ?></article>
     </div>
-<?php } ?>
+    <?php
+}
+echo CHtml::openTag("div", array("style" => "clear:both"));
+echo CHtml::closeTag("div");
+/**
+ * pagination
+ */
+$this->widget('DTPager', array(
+    'pages' => $dataProvider->pagination,
+    'ajax'=>true,
+    'jsMethod' =>'dtech.updatePaginationFilter(this);return false;',
+   )
+);
+?>

@@ -138,7 +138,6 @@ class Product extends DTActiveRecord {
         if (!empty($product_array)) {
             $criteria = new CDbCriteria(array(
                 'select' => '*',
-               
                 'limit' => $limit,
                 'order' => 't.product_id ASC',
                     //'with'=>'commentCount' 
@@ -174,9 +173,24 @@ class Product extends DTActiveRecord {
             }
             $criteria->distinct = "t.product_id";
         }
-        $data = Product::model()->findAll($criteria);
 
+        $dataProvider = new CActiveDataProvider($this, array(
+            'pagination' => array(
+                'pageSize' => 16,
+            ),
+            'criteria' => $criteria,
+        ));
+        
+        return $dataProvider;
+    }
 
+    /**
+     * return all products
+     */
+    public function returnProducts($dataProvider) {
+        
+        $data = $dataProvider->getData();
+        
         $featured_products = array();
         $product = array();
         $images = array();

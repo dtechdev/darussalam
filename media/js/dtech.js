@@ -55,6 +55,9 @@ var dtech = {
         });
         return false;
     },
+    updatePaginationFilter : function (obj){
+        dtech.updateProductListing($(obj).attr("href"), "");
+    },
     /**
      *  detail image change on runtime
      *  click
