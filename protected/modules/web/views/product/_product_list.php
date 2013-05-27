@@ -43,6 +43,9 @@ foreach ($products as $product) {
     </div>
     <?php
 }
+if(empty($products)){
+    echo "No Record Found";
+}
 echo CHtml::openTag("div", array("style" => "clear:both"));
 echo CHtml::closeTag("div");
 /**
