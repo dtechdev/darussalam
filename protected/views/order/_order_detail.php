@@ -20,6 +20,7 @@ $('.search-form form').submit(function(){
 	return false;
 });
 ");
+
 ?>
 
 <h1>Orders Detail of [<?php echo $user_name ?>]</h1>

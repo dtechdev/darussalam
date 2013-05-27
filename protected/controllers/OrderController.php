@@ -31,13 +31,20 @@ class OrderController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array(),
-                'users' => array('*'),
-            ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'view', 'update'),
+                'actions' => array('index', 'view',
+                ),
                 'users' => array('@'),
+            ),
+            array('allow',
+                'actions' => array('update', 'orderDetail'),
+                'expression' => 'Yii::app()->user->isAdmin',
+            //the 'user' var in an accessRule expression is a reference to Yii::app()->user
+            ),
+            array('allow',
+                'actions' => array('delete', 'update', 'orderDetail'),
+                'expression' => 'Yii::app()->user->isSuperAdmin',
+            //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -62,10 +69,10 @@ class OrderController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
-        if(isset($_POST['Order'])){
+        if (isset($_POST['Order'])) {
             $model->attributes = $_POST['Order'];
-            $model->updateByPk($id,array("status"=>$model->status));
-            $this->redirect(array("view","id"=>$id));
+            $model->updateByPk($id, array("status" => $model->status));
+            $this->redirect(array("view", "id" => $id));
         }
         $this->render('update', array(
             'model' => $model,
@@ -97,6 +104,21 @@ class OrderController extends Controller {
         $this->render('index', array(
             'model' => $model,
         ));
+    }
+
+    public function actionOrderDetail($id) {
+
+        $model = new OrderDetail('Search');
+        $model->unsetAttributes();  // clear any default values
+        $model->order_id = $id;
+        if (isset($_GET['User'])) {
+            $model->attributes = $_GET['Order'];
+        }
+        $this->renderPartial('_order_detail', array(
+            'model' => $model,
+            'user_name' => $_POST['username'],
+        ));
+        Yii::app()->end();
     }
 
     /**
