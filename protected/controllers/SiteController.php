@@ -87,32 +87,19 @@ class SiteController extends Controller {
     public function actionContact() {
         Yii::app()->user->SiteSessions;
         Yii::app()->controller->layout = '//layouts/slider';
-        //Yii::app()->theme='admin';
         $model = new ContactForm;
         if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
             if ($model->validate()) {
-                $to = Yii::app()->params->supportEmail;
-                $from = Yii::app()->params->adminEmail;
+                $email['To'] = Yii::app()->params['adminEmail'];
+                $email['From'] = $model->email;
+                $email['Subject'] = $model->subject . 'From Mr/Mrs: ' . $model->name;
+                $email['Body'] = $model->body;
+                $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
 
-                $headers = array(
-                    'MIME-Version: 1.0',
-                    'Content-type: text/html; charset=iso-8859-1',
-                );
-                $subject = '=?UTF-8?B?' . base64_encode($model->subject) . '?=';
-
-                $message = "
-                                <html>
-                                    <body>
-                                    Name : $model->name <br />
-                                    From : $model->email <br />
-                                    Subject : $model->subject <br /><br />
-                                    Message : $model->body</body>
-                            </html>";
-
-                Yii::app()->email->send($from, $to, $subject, $message, $headers);
+                $this->sendEmail2($email);
                 Yii::app()->user->setFlash('contact', 'Thank you for contacting us. We will respond to you as soon as possible.');
-                $this->refresh();
+                $this->redirect($this->createUrl('/site/contact', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
             }
         }
         $this->render('contact', array('model' => $model));
@@ -248,8 +235,8 @@ class SiteController extends Controller {
 
         die;
     }
-    
-    public function actionTestHybrid(){
+
+    public function actionTestHybrid() {
         Yii::import('application.extensions.hybridauth.Hybrid.Hybrid_Auth');
         Yii::import('application.extensions.hybridauth.Hybrid.Hybrid_Endpoint');
         Hybrid_Endpoint::process();
@@ -301,7 +288,7 @@ class SiteController extends Controller {
             ),
         );
         $this->layout = "";
-     
+
         echo CJSON::encode($books);
     }
 
