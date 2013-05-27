@@ -89,17 +89,17 @@
 <script>
 
     var mouse_is_inside = false;
-    $(document).ready(function()
+    jQuery(document).ready(function()
     {
-        $('.example2').hover(function() {
+        jQuery('.example2').hover(function() {
             mouse_is_inside = true;
         }, function() {
             mouse_is_inside = false;
         });
 
-        $("body").mouseup(function() {
+        jQuery("body").mouseup(function() {
             if (!mouse_is_inside)
-                $('.example2').hide();
+                jQuery('.example2').hide();
         });
     });
 
