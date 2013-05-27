@@ -47,7 +47,8 @@
 //
 LightboxOptions = Object.extend({
     fileLoadingImage:        yii_base_url + '/media/lyiightbox2images/loading.gif',
-    fileBottomNavCloseImage: yii_base_url + '/lyiightbox2images/closelabel.gif',
+    fileBottomNavCloseImage: yii_base_url + '/media/lyiightbox2images/closelabel.gif',
+   
 
     overlayOpacity: 0.8,   // controls transparency of shadow overlay
 
