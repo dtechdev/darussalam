@@ -124,7 +124,7 @@ class SiteController extends Controller {
             $model->attributes = $_POST['LoginForm'];
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login()) {
-
+                
                 Yii::app()->session['isSuper'] = 0;
 
                 if (Yii::app()->user->isSuperAdmin) {
@@ -140,14 +140,9 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
-
-                $user_profile = new UserProfile();
-                $user_profile_set = $user_profile->findAll('id=' . Yii::app()->user->id);
-                if ($user_profile_set)
-                    $this->redirect(array('/web/product/allproducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']));
-                else {
-                    $this->redirect(array('/web/userProfile/index'));
-                }
+               
+                //$this->redirect(Yii::app()->user->returnUrl);
+               $this->redirect(Yii::app()->user->returnUrl);
             }
         }
         // display the login form

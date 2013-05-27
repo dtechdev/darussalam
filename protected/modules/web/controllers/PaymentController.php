@@ -25,12 +25,9 @@ class PaymentController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('paymentmethod'),
-                'users' => array('*'),
-            ),
+            
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('confirmorder', 'statelist'),
+                'actions' => array('paymentmethod','confirmorder', 'statelist'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users

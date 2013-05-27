@@ -8,6 +8,11 @@
     <div id="check_boxes">
         <h1>Languages</h1>
         <?php
+        $url = $this->createUrl("/web/product/allproducts");
+        if (Yii::app()->controller->action->id == "getSearch") {
+            
+            $url = $this->createUrl("/web/search/getSearch");
+        }
         $lang = new Language();
         $allLanguages = $lang->findAll();
         foreach ($allLanguages as $language) {
@@ -18,7 +23,7 @@
                     "class" => "filter_checkbox",
                     "value" => $language->language_id,
                     "onclick" => '
-                                  dtech.updateProductListing("' . $this->createUrl("/web/product/allproducts") . '","");
+                                  dtech.updateProductListing("' .$url . '","");
                                '
                 ))
                 ?>
@@ -35,7 +40,7 @@
         echo CHtml::dropDownList('author_id', '', $lstdata, //not in action.....
                 array('options' => array('author_name' => array('selected' => true)),
             'onchange' => '
-                        dtech.updateProductListing("' . $this->createUrl("/web/product/allproducts") . '","");
+                        dtech.updateProductListing("' . $url . '","");
                         '
         ));
        
@@ -49,9 +54,9 @@
             foreach ($allCate as $allCatego) {
 
                 echo CHtml::openTag("li");
-                echo CHtml::link($allCatego->category_name, $this->createUrl('/web/product/allproducts'), array('onclick' => '
+                echo CHtml::link($allCatego->category_name, $url, array('onclick' => '
                                             
-                                                  dtech.updateProductListing("' . $this->createUrl("/web/product/allproducts") . '",$(this).attr("id"));  
+                                                  dtech.updateProductListing("' . $url . '",$(this).attr("id"));  
                                                   
                                                 return false;
                                         ', "id" => $allCatego->category_id));
@@ -62,7 +67,7 @@
                 echo CHtml::openTag("li");
                 echo CHtml::link("All", $this->createUrl('/web/product/allproducts'), array('onclick' => '
                                             
-                                                  dtech.updateProductListing("' . $this->createUrl("/web/product/allproducts") . '","all");  
+                                                  dtech.updateProductListing("' . $url . '","all");  
                                                   
                                                 return false;
                                         ', "id" => "all"));
