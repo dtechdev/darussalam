@@ -74,7 +74,7 @@ class m130524_115156_upload_images extends DTDbMigration {
                 "activity_log" => "inserted by Admin",
             );
 
-            $image_dir = DTUploadedFile::creeatRecurSiveDirectories(array("product", $data['id'], "product_images", $counter,));
+            $image_dir = DTUploadedFile::creeatRecurSiveDirectories(array("product", $data['id'], "product_images", $data['id'],));
             $dest_image = $image_dir . $large_img;
 
             //$book_image = (string)trim($book_image);
