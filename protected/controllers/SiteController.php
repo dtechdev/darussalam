@@ -41,9 +41,16 @@ class SiteController extends Controller {
         Yii::app()->user->SiteSessions;
         $order_detail = new OrderDetail;
         $limit = 3;
-        $featured_products = $order_detail->featuredBooks($limit);
+        /** featured products * */
+        $dataProvider = $order_detail->featuredBooks($limit);
+        $featured_products = $order_detail->getFeaturedProducts($dataProvider);
+
+        /**
+         * best selling
+         */
         $dataProvider = $order_detail->bestSellings($limit);
         $bestSellings = $order_detail->getBestSelling($dataProvider);
+
         $segments_footer_cats = Categories::model()->getCategoriesInSegment(5);
         $this->render('storehome', array(
             'product' => $featured_products,
@@ -125,7 +132,7 @@ class SiteController extends Controller {
             $model->attributes = $_POST['LoginForm'];
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login()) {
-                
+
                 Yii::app()->session['isSuper'] = 0;
 
                 if (Yii::app()->user->isSuperAdmin) {
@@ -141,9 +148,9 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
-               
+
                 //$this->redirect(Yii::app()->user->returnUrl);
-               $this->redirect(Yii::app()->user->returnUrl);
+                $this->redirect(Yii::app()->user->returnUrl);
             }
         }
         // display the login form

@@ -104,6 +104,11 @@ class OrderDetail extends DTActiveRecord {
         ));
     }
 
+    /**
+     * 
+     * @param type $limit
+     * @return type
+     */
     public function featuredBooks($limit = 30) {
         $is_featured = '1';
 
@@ -115,9 +120,24 @@ class OrderDetail extends DTActiveRecord {
                 //'with'=>'commentCount' 
         ));
 
-        $data = Product::model()->with('productProfile')->findAll($criteria);
+        $model = Product::model()->with('productProfile');
 
+        $dataProvider = new CActiveDataProvider($model, array(
+            'pagination' => array(
+                'pageSize' => $limit,
+            ),
+            'criteria' => $criteria,
+        ));
+        
+        return $dataProvider;
+    }
 
+    /**
+     * get Featured Products
+     */
+    public function getFeaturedProducts($dataProvider) {
+
+        $data = $dataProvider->getData();
         $featured_products = array();
         $product = array();
         $images = array();
@@ -153,7 +173,6 @@ class OrderDetail extends DTActiveRecord {
                 'no_image' => $products->no_image,
                 'image' => $images
             );
-            //echo '<pre>'; print_r($featured_products);die;
         }
         return $featured_products;
     }
@@ -195,31 +214,29 @@ class OrderDetail extends DTActiveRecord {
             }
             if (!empty($_POST['langs'])) {
                 $langs = explode(",", $_POST['langs']);
-     
+
                 $criteria->addInCondition("product_profile.language_id", $langs);
 
                 //$model = OrderDetail::model()->with(array('product_profile', 'product_profile.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ")));
             }
             if (!empty($_POST['cat_id'])) {
-               
+
 
                 $model = OrderDetail::model()->with(
                         array(
                             'product_profile',
                             'product_profile.product' => array('alias' => 'product',
                                 'joinType' => "INNER JOIN "),
-                            'product_profile.product.productCategories' => 
-                             array(
-                                 'alias' => 'cat',
-                                 'select'=>'d.*',
-                                 'joinType' => "LEFT JOIN ",
-                                 'together'=>true
-                                
-                                 )
-                                
+                            'product_profile.product.productCategories' =>
+                            array(
+                                'alias' => 'cat',
+                                'select' => 'd.*',
+                                'joinType' => "LEFT JOIN ",
+                                'together' => true
+                            )
                         )
                 );
-              
+
                 $criteria->addCondition("cat.category_id='" . $_POST['cat_id'] . "'");
             }
 
