@@ -33,6 +33,11 @@
 <div id="accounts">
     <div id="account_detail">
         <h5>Account Details</h5>
+        <?php
+        if (Yii::app()->user->hasFlash('profie_success')) {
+            echo Yii::app()->user->getFlash('profie_success');
+        }
+        ?>
         <div id="page-wrap">
             <div class="tabs">
                 <div class="tab">
@@ -49,7 +54,7 @@
                         );
                         ?>
 <!--                    <p class="note">Fields with <span class="required">*</span> are required.</p>-->
-                        <?php //echo $form->errorSummary($model); ?>
+                        <?php //echo $form->errorSummary($model);  ?>
                         <table width="100%">
                             <tr>
                                 <td>
