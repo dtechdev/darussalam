@@ -19,16 +19,32 @@
                 }(document, 'script', 'facebook-jssdk'));
             </script>
 
-            <div class="fly_product_hover">
-            </div>
-            <div class="f_product_hover">
-            </div>
-            <div class="t_product_hover">
-            </div>
+            <!--            <div class="fly_product_hover">
+                        </div>
+                        <div class="f_product_hover">
+                        </div>
+                        <div class="t_product_hover">
+                        </div>-->
             <a href="#">
                 <div class="fb-like" data-href="<?php echo Yii::app()->request->hostInfo . Yii::app()->request->requestUri; ?>" data-send="false" data-layout="button_count" data-width="200" data-show-faces="true"></div>
 
             </a>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo Yii::app()->request->hostInfo . Yii::app()->request->requestUri; ?>">Tweet</a>
+            <script>!function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = p + '://platform.twitter.com/widgets.js';
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, 'script', 'twitter-wjs');</script>
+
+
+            <script src="//platform.linkedin.com/in.js" type="text/javascript">
+                lang: en_US
+            </script>
+            <script type="IN/FollowCompany" data-id="71704" data-counter="right"></script>
         </div>
         <h2><?php echo $product->product_description; ?></h2>
     </div>
@@ -45,7 +61,7 @@
             <td class="right_td">
                 <?php
                 $languages = $product->getBookLanguages();
-                
+
                 if (count($languages) > 1) {
 
                     echo CHtml::dropDownList('language', $product->productProfile[0]->language_id, $languages, array(
@@ -139,7 +155,7 @@
         <tr class="price_cart">
             <td class="price"  id="price">
                 <?php
-                echo isset($product->productProfile[0]->price) ? '$ '.round($product->productProfile[0]->price, 2) : "";
+                echo isset($product->productProfile[0]->price) ? '$ ' . round($product->productProfile[0]->price, 2) : "";
                 ?>
 
             </td>
@@ -192,8 +208,7 @@
                                                 dtech.custom_alert("Already in Wishlist");
                                            }
                                       }',
-                            ),
-                            array('id' => 'add-wish-list'.uniqid())
+                            ), array('id' => 'add-wish-list' . uniqid())
                     );
                     ?>
                 </a> </td>
