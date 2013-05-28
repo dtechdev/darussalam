@@ -232,7 +232,7 @@ class ProductController extends Controller {
             $best_sellings = $order_detail->getBestSelling($dataProvider);
 
             $categories = new Categories();
-            $allCategories = $categories->allCategories();
+            $allCategories = $categories->allCategories("bestselling");
 
             Yii::app()->controller->layout = '//layouts/main';
             $this->render('best_sellings', array(
