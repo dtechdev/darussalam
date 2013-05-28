@@ -115,7 +115,7 @@ class OrderDetail extends DTActiveRecord {
         $criteria = new CDbCriteria(array(
             'select' => '*',
             'condition' => "is_featured='" . $is_featured . "' AND t.city_id='" . Yii::app()->session['city_id'] . "'",
-            'limit' => $limit,
+            //'limit' => $limit,
             'order' => 't.product_id ASC',
                 //'with'=>'commentCount' 
         ));
@@ -140,10 +140,11 @@ class OrderDetail extends DTActiveRecord {
                 $criteria->addCondition("product_categories.category_id='" . $_POST['cat_id'] . "'");
             }
             $criteria->distinct = "t.product_id";
+              //$model = Product::model()->with('productProfile','productCategories');
         }
 
         $model = Product::model()->with('productProfile');
-
+ 
         $dataProvider = new CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageSize' => $limit,

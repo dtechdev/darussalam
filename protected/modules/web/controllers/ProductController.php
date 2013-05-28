@@ -192,7 +192,7 @@ class ProductController extends Controller {
             $featured_products = $order_detail->getFeaturedProducts($dataProvider);
 
             $categories = new Categories();
-            $allCategories = $categories->allCategories();
+            $allCategories = $categories->allCategories("featured");
 
             Yii::app()->controller->layout = '//layouts/main';
             $this->render('featured_products', array(
