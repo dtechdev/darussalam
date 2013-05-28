@@ -68,7 +68,7 @@
                                         <?php echo $form->labelEx($model, 'body'); ?>
                                     </td>
                                     <td class="contact_us_right_td">
-                                        <?php echo $form->textArea($model, 'body', array('rows' => 6, 'cols' => 50)); ?>
+                                        <?php echo $form->textArea($model, 'body', array('rows' => 3, 'cols' => 31, 'class' => 'form_textarea')); ?>
                                     </td>
                                 </tr>
 
