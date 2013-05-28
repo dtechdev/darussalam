@@ -84,6 +84,7 @@ class ShippingInfoForm extends CFormModel {
         $this->shipping_city = $userinfo->shipping_city;
         $this->shipping_zip = $userinfo->shipping_zip;
         $this->shipping_phone = $userinfo->shipping_phone;
+        $this->_states = $this->getStates();
     }
 
 }
