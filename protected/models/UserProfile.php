@@ -183,9 +183,10 @@ class UserProfile extends DTActiveRecord {
          */
         if (empty($userProfile_model)) {
             $userProfile_model = new UserProfile;
+            $userProfile_model->id = Yii::app()->user->id;
         }
         $userProfile_model->attributes = $attributes;
-        $userProfile_model->save();
+        $userProfile_model->save(false);
     }
 
 }
