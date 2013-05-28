@@ -128,6 +128,17 @@ class DTWebUser extends CWebUser {
         Yii::app()->session['city_id'] = $city['city_id'];
         Yii::app()->theme = Yii::app()->session['layout'];
         
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("city_id='" . Yii::app()->session['city_id'] . "'");
+        $selected = array("fb_key", "fb_secret", "google_key", "google_secret", "twitter_key", 'twitter_secret', 'linkedin_key', 'linkedin_secret');
+        $criteria->addInCondition("param", $selected);
+        $conf = ConfMisc::model()->findAll($criteria);
+        if (!empty($conf)) {
+            foreach ($conf as $data) {
+                Yii::app()->params[$data->param] = $data->value;
+            }
+        }
+        
     }
 
 }
