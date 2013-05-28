@@ -94,7 +94,7 @@ class SiteController extends Controller {
      */
     public function actionContact() {
         Yii::app()->user->SiteSessions;
-        Yii::app()->controller->layout = '//layouts/slider';
+        Yii::app()->controller->layout = '//layouts/main';
         $model = new ContactForm;
         if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
