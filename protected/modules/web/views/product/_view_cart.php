@@ -143,7 +143,12 @@ if (empty($cart)) {
                                 <td class="right_right_cart_td">$<?php echo $grand_total; ?></td>
                             </tr>
                         </table>
-
+                       <?php
+                       /**
+                        * Pcm temporary save session
+                        */
+                       $this->setTotalAmountSession($grand_total,$total_quantity,$description);
+                       ?>
                         <a href="<?php echo $this->createUrl('/web/payment/paymentmethod'); ?>">
                             <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
                         </a>
