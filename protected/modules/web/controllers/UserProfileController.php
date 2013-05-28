@@ -52,11 +52,14 @@ class UserProfileController extends Controller {
      */
     public function actionIndex() {
 
-        
+
         Yii::app()->user->SiteSessions;
         Yii::app()->controller->layout = '//layouts/main';
         $model = UserProfile::model()->findByPk(Yii::app()->user->id);
-
+        /**
+         * to persist old pic for this
+         */
+        $old_pic = $model->avatar;
         if (empty($model)) {
             $model = new UserProfile;
         }
@@ -70,11 +73,17 @@ class UserProfileController extends Controller {
             $model->attributes = $_POST['UserProfile'];
             $user_file = DTUploadedFile::getInstance($model, 'avatar');
             $model->avatar = $user_file;
+            if (empty($user_file)) {
+                $model->avatar = $old_pic;
+            }
+
             if ($model->save()) {
                 $upload_path = DTUploadedFile::creeatRecurSiveDirectories(array("user_profile", Yii::app()->user->id));
-
-                $user_file->saveAs($upload_path . $user_file->name);
-                $this->redirect(array('index'));
+                if (!empty($user_file)) {
+                    $user_file->saveAs($upload_path . $user_file->name);
+                }
+                Yii::app()->user->setFlash("profie_success", "Your Profile has been updated successfully");
+                $this->redirect($this->createUrl("index"));
             }
         }
 
