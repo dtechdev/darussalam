@@ -18,7 +18,7 @@ class m130528_052729_make_some_products_featured extends DTDbMigration {
     }
 
     public function down() {
-        return TRUE;
+          return TRUE;
     }
 
 }
