@@ -13,8 +13,7 @@
  * @property Product $product
  * @property Order $order
  */
-class OrderDetail extends DTActiveRecord
-{
+class OrderDetail extends DTActiveRecord {
 
     public $totalOrder;
 
@@ -31,24 +30,21 @@ class OrderDetail extends DTActiveRecord
      * @param string $className active record class name.
      * @return OrderDetail the static model class
      */
-    public static function model($className = __CLASS__)
-    {
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName()
-    {
+    public function tableName() {
         return 'order_detail';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules()
-    {
+    public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
@@ -67,8 +63,7 @@ class OrderDetail extends DTActiveRecord
     /**
      * @return array relational rules.
      */
-    public function relations()
-    {
+    public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -80,8 +75,7 @@ class OrderDetail extends DTActiveRecord
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return array(
             'user_order_id' => 'User Order',
             'order_id' => 'Order',
@@ -94,8 +88,7 @@ class OrderDetail extends DTActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -111,8 +104,7 @@ class OrderDetail extends DTActiveRecord
         ));
     }
 
-    public function featuredBooks($limit = 30)
-    {
+    public function featuredBooks($limit = 30) {
         $is_featured = '1';
 
         $criteria = new CDbCriteria(array(
@@ -125,12 +117,11 @@ class OrderDetail extends DTActiveRecord
 
         $data = Product::model()->with('productProfile')->findAll($criteria);
 
-//echo '<pre>'; print_r($data);die;
+
         $featured_products = array();
         $product = array();
         $images = array();
-        foreach ($data as $products)
-        {
+        foreach ($data as $products) {
             $product_id = $products->product_id;
             $criteria2 = new CDbCriteria;
             $criteria2->select = '*';  // only select the 'title' column
@@ -157,9 +148,8 @@ class OrderDetail extends DTActiveRecord
                 'product_id' => $products->product_id,
                 'product_name' => $products->product_name,
                 'product_description' => $products->product_description,
-                'product_author' => !empty($products->author)?$products->author->author_name:"",
+                'product_author' => !empty($products->author) ? $products->author->author_name : "",
                 'product_price' => $products->productProfile[0]->price,
-                
                 'no_image' => $products->no_image,
                 'image' => $images
             );
@@ -167,29 +157,48 @@ class OrderDetail extends DTActiveRecord
         }
         return $featured_products;
     }
+    /**
+     * 
+     * @param type $limit
+     * @return CActiveDataProvider
+     */
+    public function bestSellings($limit = 16) {
 
-    public function bestSellings($limit = 30)
-    {
-        $best_products = array();
         $city_id = Yii::app()->session['city_id'];
 
         $criteria = new CDbCriteria(array(
-           'select' => "COUNT( product.product_id ) as totalOrder,product.*,product_profile.*",
+            'select' => "COUNT( product.product_id ) as totalOrder,product.*,product_profile.*",
             'group' => 'product.product_id',
             'distinct' => 'product.product_id',
-             //'condition'=>"is_featured='".$is_featured."' AND city_id='".Yii::app()->session['city_id']."'",
-            'condition' =>"product.city_id = '".$city_id."'",
-            'limit' => $limit,
-           'order' => 'totalOrder DESC',
+            //'condition'=>"is_featured='".$is_featured."' AND city_id='".Yii::app()->session['city_id']."'",
+            'condition' => "product.city_id = '" . $city_id . "'",
+            //'limit' => $limit,
+            'order' => 'totalOrder DESC',
+        ));
+
+        $model = OrderDetail::model()->with(array('product_profile', 'product_profile.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ")));
+
+        $dataProvider = new CActiveDataProvider($model, array(
+            'pagination' => array(
+                'pageSize' => $limit,
+            ),
+            'criteria' => $criteria,
         ));
         
-        $best_join = OrderDetail::model()->with(array('product_profile','product_profile.product'=>array('alias'=>'product','joinType'=>"INNER JOIN ")))->findAll($criteria);
-
+        return $dataProvider;
+    }
+    /**
+     * GET BEST SELLING
+     * @param type $dataProvider
+     * @return type
+     */
+    public function getBestSelling($dataProvider) {
+        $best_products = array();
+        $best_join = $dataProvider->getData();
         $counter = count($best_join);
-        for ($i = 0; $i < $counter; $i++)
-        {
+        for ($i = 0; $i < $counter; $i++) {
             $product_id = $best_join[$i]->product_profile->product_id;
-           
+
             $product_name = $best_join[$i]->product_profile->product->product_name;
             $product_description = $best_join[$i]->product_profile->product->product_description;
             $product_price = $best_join[$i]->product_profile->price;
@@ -200,7 +209,7 @@ class OrderDetail extends DTActiveRecord
             $criteria6->condition = 'product_profile_id="' . $best_join[$i]->product_profile->id . '"';
             $imagebest = ProductImage::model()->findAll($criteria6);
             $images = array();
-           foreach ($imagebest as $img) {
+            foreach ($imagebest as $img) {
                 if ($img->is_default == 1) {
                     $images[] = array('id' => $img->id,
                         'image_large' => $img->image_url['image_large'],
@@ -223,19 +232,15 @@ class OrderDetail extends DTActiveRecord
                 'no_image' => $best_join[$i]->product_profile->product->no_image,
                 'image' => $images);
         }
-       
+
         return $best_products;
     }
-
-   
 
     /**
      *  performing operation on after save
      */
-    public function afterSave()
-    {
-        if (!empty($this->cart_id))
-        {
+    public function afterSave() {
+        if (!empty($this->cart_id)) {
             Cart::model()->findByPk($this->cart_id)->delete();
         }
 
