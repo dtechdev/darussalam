@@ -114,11 +114,33 @@ class OrderDetail extends DTActiveRecord {
 
         $criteria = new CDbCriteria(array(
             'select' => '*',
-            'condition' => "is_featured='" . $is_featured . "' AND city_id='" . Yii::app()->session['city_id'] . "'",
+            'condition' => "is_featured='" . $is_featured . "' AND t.city_id='" . Yii::app()->session['city_id'] . "'",
             'limit' => $limit,
-            'order' => 'product_id ASC',
+            'order' => 't.product_id ASC',
                 //'with'=>'commentCount' 
         ));
+
+        if (isset($_POST['ajax'])) {
+
+
+            if (!empty($_POST['author'])) {
+                $author = explode(",", $_POST['author']);
+                $criteria->addInCondition("authors", $author);
+            }
+            if (!empty($_POST['langs'])) {
+                $langs = explode(",", $_POST['langs']);
+                $criteria->join.= ' INNER JOIN product_profile  ' .
+                        ' ON product_profile.product_id = t.product_id';
+
+                $criteria->addInCondition("product_profile.language_id", $langs);
+            }
+            if (!empty($_POST['cat_id'])) {
+                $criteria->join.= ' LEFT JOIN product_categories  ON ' .
+                        't.product_id=product_categories.product_id';
+                $criteria->addCondition("product_categories.category_id='" . $_POST['cat_id'] . "'");
+            }
+            $criteria->distinct = "t.product_id";
+        }
 
         $model = Product::model()->with('productProfile');
 
@@ -128,7 +150,7 @@ class OrderDetail extends DTActiveRecord {
             ),
             'criteria' => $criteria,
         ));
-        
+
         return $dataProvider;
     }
 
