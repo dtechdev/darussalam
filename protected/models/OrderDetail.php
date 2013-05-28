@@ -157,6 +157,7 @@ class OrderDetail extends DTActiveRecord {
         }
         return $featured_products;
     }
+
     /**
      * 
      * @param type $limit
@@ -176,17 +177,64 @@ class OrderDetail extends DTActiveRecord {
             'order' => 'totalOrder DESC',
         ));
 
-        $model = OrderDetail::model()->with(array('product_profile', 'product_profile.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ")));
 
+
+        $model = OrderDetail::model()->with(
+                array(
+                    'product_profile',
+                    'product_profile.product' =>
+                    array('alias' => 'product',
+                        'joinType' => "INNER JOIN "))
+        );
+        if (isset($_POST['ajax'])) {
+
+
+            if (!empty($_POST['author'])) {
+                $author = explode(",", $_POST['author']);
+                $criteria->addInCondition("product.authors", $author);
+            }
+            if (!empty($_POST['langs'])) {
+                $langs = explode(",", $_POST['langs']);
+     
+                $criteria->addInCondition("product_profile.language_id", $langs);
+
+                //$model = OrderDetail::model()->with(array('product_profile', 'product_profile.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ")));
+            }
+            if (!empty($_POST['cat_id'])) {
+               
+
+                $model = OrderDetail::model()->with(
+                        array(
+                            'product_profile',
+                            'product_profile.product' => array('alias' => 'product',
+                                'joinType' => "INNER JOIN "),
+                            'product_profile.product.productCategories' => 
+                             array(
+                                 'alias' => 'cat',
+                                 'select'=>'d.*',
+                                 'joinType' => "LEFT JOIN ",
+                                 'together'=>true
+                                
+                                 )
+                                
+                        )
+                );
+              
+                $criteria->addCondition("cat.category_id='" . $_POST['cat_id'] . "'");
+            }
+
+            $criteria->distinct = "t.product_id";
+        }
         $dataProvider = new CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageSize' => $limit,
             ),
             'criteria' => $criteria,
         ));
-        
+
         return $dataProvider;
     }
+
     /**
      * GET BEST SELLING
      * @param type $dataProvider

@@ -13,6 +13,10 @@
             
             $url = $this->createUrl("/web/search/getSearch");
         }
+        else if (Yii::app()->controller->action->id == "bestSellings") {
+            
+            $url = $this->createUrl("/web/product/bestSellings");
+        }
         $lang = new Language();
         $allLanguages = $lang->findAll();
         foreach ($allLanguages as $language) {
