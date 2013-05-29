@@ -70,6 +70,7 @@ class Product extends DTActiveRecord {
      */
     public function relations() {
 
+        $lang_id=isset($_POST['lang_id'])?$_POST['lang_id']:'1';
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -82,7 +83,7 @@ class Product extends DTActiveRecord {
             /**
              * only for ajax views
              */
-            'productSelectedProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id', 'condition' => 'language_id=' . $_POST['lang_id']),
+            'productSelectedProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id', 'condition' => 'language_id=' . $lang_id),
             'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id'),
             'author' => array(self::BELONGS_TO, 'Author', 'authors'),
             'language' => array(self::BELONGS_TO, 'Language', 'languages'),
