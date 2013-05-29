@@ -54,14 +54,14 @@ class ProductController extends Controller {
         Yii::app()->controller->layout = '//layouts/main';
 
         $cart = Cart::model()->getCartLists();
-        
+
         $this->render('viewcart', array('cart' => $cart));
     }
 
     /**
      * set Total amount in session
      */
-    public function setTotalAmountSession($grand_total,$total_quantity,$description) {
+    public function setTotalAmountSession($grand_total, $total_quantity, $description) {
         Yii::app()->session['total_price'] = round($grand_total, 2);
         Yii::app()->session['quantity'] = $total_quantity;
         Yii::app()->session['description'] = $description;
@@ -85,7 +85,7 @@ class ProductController extends Controller {
         }
         $cart = Cart::model()->getCartLists();
         $cart_list_count = Cart::model()->getCartListCount();
-      
+
 
         $_view_cart = $this->renderPartial("_view_cart", array('cart' => $cart), true, true);
         echo CJSON::encode(array("_view_cart" => $_view_cart, "cart_list_count" => $cart_list_count));
@@ -164,32 +164,82 @@ class ProductController extends Controller {
             'dataProvider' => $dataProvider,));
     }
 
-    public function actionfeaturedProducts() {
-        Yii::app()->user->SiteSessions;
-        Yii::app()->theme = Yii::app()->session['layout'];
+    /**
+     *  to get product on ajax bases
+     *  for based on ajax
+     */
+    public function productBestfilter() {
         //queries 
         $order_detail = new OrderDetail;
-        $featured_products = $order_detail->featuredBooks();
+        $dataProvider = $order_detail->bestSellings();
+        $best_sellings = $order_detail->getBestSelling($dataProvider);
+        $this->renderPartial("_product_list", array('products' => $best_sellings,
+            'dataProvider' => $dataProvider,));
+    }
 
-        $categories = new Categories();
-        $allCategories = $categories->allCategories();
+    /**
+     * get Featured Products
+     */
+    public function actionfeaturedProducts() {
+        if (isset($_POST['ajax'])) {
+            $this->productFeaturedfilter();
+        } else {
+            Yii::app()->user->SiteSessions;
+            Yii::app()->theme = Yii::app()->session['layout'];
+            //queries 
+            $order_detail = new OrderDetail;
+            $dataProvider = $order_detail->featuredBooks();
+            $featured_products = $order_detail->getFeaturedProducts($dataProvider);
 
-        Yii::app()->controller->layout = '//layouts/main';
-        $this->render('featured_products', array('products' => $featured_products, 'allCate' => $allCategories));
+            $categories = new Categories();
+            $allCategories = $categories->allCategories("featured");
+
+            Yii::app()->controller->layout = '//layouts/main';
+            $this->render('featured_products', array(
+                'products' => $featured_products,
+                'dataProvider' => $dataProvider,
+                'allCate' => $allCategories));
+        }
+    }
+
+    /**
+     *  to get product on ajax bases
+     *  for based on ajax
+     */
+    public function productFeaturedfilter() {
+        //queries 
+
+        $order_detail = new OrderDetail;
+        $dataProvider = $order_detail->featuredBooks();
+        $featured_products = $order_detail->getFeaturedProducts($dataProvider);
+        $this->renderPartial("_product_list", array('products' => $featured_products,
+            'dataProvider' => $dataProvider,));
     }
 
     public function actionbestSellings() {
-        Yii::app()->user->SiteSessions;
-        Yii::app()->theme = Yii::app()->session['layout'];
-        //queries 
-        $order_detail = new OrderDetail;
-        $best_sellings = $order_detail->bestSellings();
+        /**
+         * ajax based
+         */
+        if (isset($_POST['ajax'])) {
+            $this->productBestfilter();
+        } else {
 
-        $categories = new Categories();
-        $allCategories = $categories->allCategories();
+            Yii::app()->user->SiteSessions;
+            Yii::app()->theme = Yii::app()->session['layout'];
+            //queries 
+            $order_detail = new OrderDetail;
+            $dataProvider = $order_detail->bestSellings();
+            $best_sellings = $order_detail->getBestSelling($dataProvider);
 
-        Yii::app()->controller->layout = '//layouts/main';
-        $this->render('best_sellings', array('products' => $best_sellings, 'allCate' => $allCategories));
+            $categories = new Categories();
+            $allCategories = $categories->allCategories("bestselling");
+
+            Yii::app()->controller->layout = '//layouts/main';
+            $this->render('best_sellings', array(
+                'products' => $best_sellings,
+                'dataProvider' => $dataProvider,
+                'allCate' => $allCategories));
+        }
     }
 
     public function actionproductListing() {

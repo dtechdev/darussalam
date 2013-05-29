@@ -33,7 +33,10 @@ class ContactForm extends CFormModel {
      */
     public function attributeLabels() {
         return array(
-            'name' => 'name',
+            'name' => 'Name',
+            'email' => 'Email',
+            'subject' => 'Subject',
+            'body' => 'Message',
         );
     }
 

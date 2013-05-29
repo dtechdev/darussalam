@@ -6,8 +6,10 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/custom-style.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/gumby.css" />
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/sign_in2.js"></script>
-        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/dd.css" />
 
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/dd.css" />
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/accordion.core.css" />
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/core.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/flags.css" />
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/sign_in.js"></script>
         <script src="<?php echo Yii::app()->baseUrl; ?>/media/js/dtech.js"></script>
@@ -106,7 +108,7 @@
                         $wishlistCount = ($tot['total_pro'] > 0) ? $tot['total_pro'] : "";
 
                         echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg', "heart img", array("class" => "heart_img")) . '<p id="wishlist_counter" style="margin-left: 0px;">' . $wishlistCount . '</p>', $this->createUrl('/web/product/viewwishlist'));
-                       
+
                         //count total added products in cart
                         if (isset(Yii::app()->user->id)) {
                             $tot = Yii::app()->db->createCommand()
@@ -171,17 +173,24 @@
                 echo CHtml::link('Darussalam Blog', Yii::app()->createUrl('/?r=blog'), array("target" => "_blank"));
                 echo '<br>';
                 if (!Yii::app()->user->isGuest) {
-                    echo CHtml::link('User Profile', $this->createUrl('/web/userProfile/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                    echo CHtml::link('User Profile', $this->createUrl('/web/userProfile', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                     echo '<br>';
                     echo CHtml::link('Customer History', $this->createUrl('/web/user/customerHistory', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                 }
                 echo CHtml::closeTag("article");
+                $require_pages = array("Contact Us");
                 $pages = Pages::model()->getPages();
+
                 foreach ($pages as $page) {
-                    echo CHtml::openTag("article");
-                    echo CHtml::link($page->title, Yii::app()->createUrl('/web/page/viewPage/', array("id" => $page->id)));
-                    echo CHtml::closeTag("article");
+                    if (!in_array($page->title, $require_pages)) {
+                        echo CHtml::openTag("article");
+                        echo CHtml::link($page->title, Yii::app()->createUrl('/web/page/viewPage/', array("id" => $page->id)));
+                        echo CHtml::closeTag("article");
+                    }
                 }
+                echo CHtml::openTag("article");
+                echo CHtml::link('Contact Us', $this->createUrl('/site/contact'));
+                echo CHtml::closeTag("article");
                 ?>
             </div>
             <div id="right_footer">

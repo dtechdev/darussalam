@@ -55,7 +55,7 @@ var dtech = {
         });
         return false;
     },
-    updatePaginationFilter : function (obj){
+    updatePaginationFilter: function(obj) {
         dtech.updateProductListing($(obj).attr("href"), "");
     },
     /**
@@ -189,6 +189,9 @@ var dtech = {
             $(".manual_list").hide();
         }
 
+    },
+    isNumber: function(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
 }

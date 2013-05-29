@@ -79,7 +79,7 @@
                     <?php echo $form->error($model, 'shipping_zip'); ?>
             </tr>
         </table>
-        <p><span>*</span> Telephone Number <i>(10 gigits only, no dashes)</i></p>
+        <p><span>*</span> Telephone Number <i>(10 digits only, no dashes)</i></p>
         <?php echo $form->textField($model, 'shipping_phone', array('class' => 'payment_text')); ?>
         <?php echo $form->error($model, 'shipping_phone'); ?>
     </div>

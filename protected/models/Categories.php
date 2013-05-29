@@ -83,7 +83,7 @@ class Categories extends DTActiveRecord {
      * 
      * @return type
      */
-    public function allCategories() {
+    public function allCategories($type = "") {
 
         $criteriaC = new CDbCriteria(array(
             'select' => "COUNT(product_category_id ) as totalStock,t.category_id,t.category_name",
@@ -92,8 +92,17 @@ class Categories extends DTActiveRecord {
             'condition' => "t.city_id=" . Yii::app()->session['city_id'] . " AND product.city_id=" . Yii::app()->session['city_id'], //parent id = 0 means category that is parent by itself.show only parent category in list
             'order' => 'totalStock DESC',
         ));
-        $cate = $this->with(array('productCategories' => array("select" => ""), 'productCategories.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ", "select" => "")))->findAll($criteriaC);
-
+        /**
+         * in case of featured product
+         */
+        if($type == "featured"){
+            $criteriaC->addCondition("product.is_featured = '1'");
+        }
+        else if ($type == "bestselling"){
+            $criteriaC->addInCondition("product.product_id", $this->getOderedProducts());
+        }
+        $cate = $this->with(array('productCategories'=>array("select"=>""), 'productCategories.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ","select"=>"")))->findAll($criteriaC);
+       
         return $cate;
     }
 
@@ -131,6 +140,23 @@ class Categories extends DTActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+    
+    /**
+     * ordered product 
+     * to see handle the category count
+     * @return type
+     */
+    public function getOderedProducts(){
+         $connection = Yii::app()->db;
+        $sql = "SELECT ".
+            " DISTINCT(product_profile.product_id) ".
+          " FROM product_profile ".
+          " INNER JOIN order_detail ".
+          " ON order_detail.product_profile_id = product_profile.id ";
+          $command = $connection->createCommand($sql);
+          $row = $command->queryColumn();
+          return $row;
     }
 
     /**

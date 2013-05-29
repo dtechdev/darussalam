@@ -41,8 +41,16 @@ class SiteController extends Controller {
         Yii::app()->user->SiteSessions;
         $order_detail = new OrderDetail;
         $limit = 3;
-        $featured_products = $order_detail->featuredBooks($limit);
-        $bestSellings = $order_detail->bestSellings($limit);
+        /** featured products * */
+        $dataProvider = $order_detail->featuredBooks($limit);
+        $featured_products = $order_detail->getFeaturedProducts($dataProvider);
+
+        /**
+         * best selling
+         */
+        $dataProvider = $order_detail->bestSellings($limit);
+        $bestSellings = $order_detail->getBestSelling($dataProvider);
+
         $segments_footer_cats = Categories::model()->getCategoriesInSegment(5);
         $this->render('storehome', array(
             'product' => $featured_products,
@@ -86,7 +94,7 @@ class SiteController extends Controller {
      */
     public function actionContact() {
         Yii::app()->user->SiteSessions;
-        Yii::app()->controller->layout = '//layouts/slider';
+        Yii::app()->controller->layout = '//layouts/main';
         $model = new ContactForm;
         if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];

@@ -6,17 +6,22 @@
  */
 
 class PageController extends Controller {
-    
+
     //$models=new Pages();
-    
-    public function actionViewPage($id)
-    {
-   
-         $page = Pages::model()->findByPk($id);
-                 
-         $this->render('view_page',array('page'=>$page));
+
+    public function actionViewPage($id) {
+        Yii::app()->controller->layout = '//layouts/main';
+        $page = Pages::model()->findByPk($id);
+        if ($page->title == "FAQ's" ) {
+           
+           $this->render('faq_page', array('page' => $page));
+         
+        } else {
+
+            $this->render('view_page', array('page' => $page));
+        }
     }
-    
+
 }
 
 ?>
