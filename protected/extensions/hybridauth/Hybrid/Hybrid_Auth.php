@@ -53,7 +53,7 @@ class Hybrid_Auth
 		if( ! is_array( $config ) ){
 			$config = include $config;
 		}
-
+                spl_autoload_unregister(array('YiiBase', 'autoload'));
 		// build some need'd paths
 		$config["path_base"]        = realpath( dirname( __FILE__ ) )  . "/"; 
 		$config["path_libraries"]   = $config["path_base"] . "thirdparty/";
@@ -83,7 +83,7 @@ class Hybrid_Auth
 		require_once $config["path_base"] . "User_Profile.php";
 		require_once $config["path_base"] . "User_Contact.php";
 		require_once $config["path_base"] . "User_Activity.php";
-
+                
 		// hash given config
 		Hybrid_Auth::$config = $config;
 
@@ -152,7 +152,7 @@ class Hybrid_Auth
 		}
 
 		Hybrid_Logger::info( "Hybrid_Auth initialize: no error found. initialization succeed." );
-
+                spl_autoload_register(array('YiiBase', 'autoload'));
 		// Endof initialize 
 	}
 
