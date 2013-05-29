@@ -20,6 +20,8 @@ class HybridController extends Controller {
         if (!empty(Yii::app()->user->id)) {
             $this->redirect($this->createUrl("/site/index"));
         }
+
+
         /**
          * from social login
          */
@@ -27,14 +29,22 @@ class HybridController extends Controller {
 
         Yii::import('application.extensions.hybridauth.DTSocialHandler');
 
+
+
         $config = realPath(Yii::app()->basePath . '/extensions/hybridauth/config.php');
+
+
 
         try {
             $hybridauth = new Hybrid_Auth($config);
 
             $adapter = $hybridauth->authenticate($provider);
-
+            spl_autoload_unregister(array('YiiBase', 'autoload'));
             $user_profile = $adapter->getUserProfile();
+
+            spl_autoload_register(array('YiiBase', 'autoload'));
+
+
 
             /**
              * 
@@ -128,7 +138,7 @@ class HybridController extends Controller {
     public function initConfigurations() {
         $criteria = new CDbCriteria();
         $criteria->addCondition("city_id='" . Yii::app()->session['city_id'] . "'");
-        $selected = array("fb_key", "fb_secret", "google_key", "google_secret", "twitter_key", 'twitter_secret','linkedin_key','linkedin_secret');
+        $selected = array("fb_key", "fb_secret", "google_key", "google_secret", "twitter_key", 'twitter_secret', 'linkedin_key', 'linkedin_secret');
         $criteria->addInCondition("param", $selected);
         $conf = ConfMisc::model()->findAll($criteria);
         if (!empty($conf)) {
