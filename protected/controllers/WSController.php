@@ -10,7 +10,18 @@ class WSController extends Controller {
     public $layout = '';
 
     public function actionIndex() {
-        echo CJSON::encode(array("status" => "Connection Established"));
+        print_r($_REQUEST);
+        if ($_REQUEST['record_set'] == 'product') {
+            $model = new Product;
+            $allBooks = $model->getWsAllBooks();
+            $this->layout = "";
+            echo CJSON::encode($allBooks);
+        } else if ($_REQUEST['record_set'] == 'product_category') {
+            $model = new Product;
+            $allBooks = $model->getWsAllBooksByCategory();
+            $this->layout = "";
+            echo CJSON::encode($allBooks);
+        }
     }
 
 }
