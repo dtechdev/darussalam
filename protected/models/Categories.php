@@ -89,11 +89,11 @@ class Categories extends DTActiveRecord {
             'select' => "COUNT(product_category_id ) as totalStock,t.category_id,t.category_name",
             'group' => 't.category_id',
             //'limit' => 14,
-            'condition' => "t.city_id=" . Yii::app()->session['city_id']." AND product.city_id=" . Yii::app()->session['city_id'], //parent id = 0 means category that is parent by itself.show only parent category in list
+            'condition' => "t.city_id=" . Yii::app()->session['city_id'] . " AND product.city_id=" . Yii::app()->session['city_id'], //parent id = 0 means category that is parent by itself.show only parent category in list
             'order' => 'totalStock DESC',
         ));
-        $cate = $this->with(array('productCategories'=>array("select"=>""), 'productCategories.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ","select"=>"")))->findAll($criteriaC);
-       
+        $cate = $this->with(array('productCategories' => array("select" => ""), 'productCategories.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ", "select" => "")))->findAll($criteriaC);
+
         return $cate;
     }
 
@@ -131,6 +131,21 @@ class Categories extends DTActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    /**
+     * 
+     * get books by category for web service
+     */
+    public function getAllCategoriesForWebService() {
+
+        $criteriaC = new CDbCriteria(array(
+            'select' => "t.category_id,t.category_name",
+            'group' => 't.category_id',
+            'order' => 't.category_name ASC',
+        ));
+        $cate = $this->with(array('productCategories' => array("select" => ""), 'productCategories.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ", "select" => "")))->findAll($criteriaC);
+        return $cate;
     }
 
 }
