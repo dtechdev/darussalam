@@ -38,12 +38,14 @@ if (empty($cart)) {
                                     $image = $images[0]['image_small'];
                                 }
 
-                                echo CHtml::image($image);
+                                echo CHtml::link(CHtml::image($image, 'image', array('title' => $pro->productProfile->product->product_name)), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
                                 // 
                                 ?>
                             </div>
                             <div class="left_right_cart">
-                                <h1><?php echo $pro->productProfile->product->product_name; ?></h1>
+                                <h1><?php 
+                                echo CHtml::link($pro->productProfile->product->product_name, $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
+                                 ?></h1>
 
                                 <?php
                                 /*
