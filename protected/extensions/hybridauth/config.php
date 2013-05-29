@@ -14,7 +14,7 @@
 //http://localhost/test/test2/socialconnect/hybridauth-2.1.2/
 return
         array(
-            "base_url" => "http://localhost/darussalam/index.php/site/testHybrid",
+            "base_url" => Yii::app()->request->hostInfo .Yii::app()->baseUrl."/index.php/site/testHybrid",
             "providers" => array(
                 // openid providers
                 "OpenID" => array(
