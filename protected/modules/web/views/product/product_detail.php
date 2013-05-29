@@ -47,13 +47,21 @@ Yii::app()->clientScript->registerScript('image_change_function', "
 <script>
     function totalPrice(quantity, price)
     {
-        total_price = quantity * price;
-        jQuery('#price').html('$ ' + total_price);
+        if (dtech.isNumber(quantity))
+        {
+            total_price = quantity * price;
+            jQuery('#price').html('$ ' + total_price);
+        }
+        else
+        {
+            dtech.custom_alert('Quantity should be Numeric....!');
+            jQuery('#quantity').val('1');
+        }
     }
 </script>
 
-<?php 
-    Yii::app()->clientScript->registerScript('change_lang_script', '
+<?php
+Yii::app()->clientScript->registerScript('change_lang_script', '
         dtech.load_languageDetail();
     ', CClientScript::POS_READY);
 ?>
