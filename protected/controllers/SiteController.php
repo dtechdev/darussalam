@@ -290,9 +290,18 @@ class SiteController extends Controller {
     /**
      * Web service for getting all products and return json formate
      */
-    public function actionWsAllProducts() {
+    public function actionWebServiceProducts() {
         $model = new Product;
         $allBooks = $model->getWsAllBooks();
+        $this->layout = "";
+        echo CJSON::encode($allBooks);
+    }
+/**
+ * Web service for getting all products by categories
+ */
+    public function actionWebServiceProductsByCategory() {
+        $model = new Product;
+        $allBooks = $model->getWsAllBooksByCategory();
         $this->layout = "";
         echo CJSON::encode($allBooks);
     }
