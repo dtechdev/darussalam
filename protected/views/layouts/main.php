@@ -13,7 +13,8 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/msdropdown/flags.css" />
         <script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/sign_in.js"></script>
         <script src="<?php echo Yii::app()->baseUrl; ?>/media/js/dtech.js"></script>
-        <title>Darussalam</title>
+        <link href='<?php echo Yii::app()->theme->baseUrl; ?>/images/favicon.ico' rel='icon' type='image/x-icon'/>
+        <title>Dar-us-Salam Publications</title>
         <script>
             var yii_base_url = "<?php echo Yii::app()->baseUrl; ?>";
         </script>
