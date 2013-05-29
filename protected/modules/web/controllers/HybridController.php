@@ -39,10 +39,10 @@ class HybridController extends Controller {
             $hybridauth = new Hybrid_Auth($config);
 
             $adapter = $hybridauth->authenticate($provider);
-            spl_autoload_unregister(array('YiiBase', 'autoload'));
+            
             $user_profile = $adapter->getUserProfile();
 
-            spl_autoload_register(array('YiiBase', 'autoload'));
+            
 
 
 
