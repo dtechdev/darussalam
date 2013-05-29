@@ -295,4 +295,14 @@ class SiteController extends Controller {
         echo CJSON::encode($books);
     }
 
+    /**
+     * Web service for getting all products and return json formate
+     */
+    public function actionWsAllProducts() {
+        $model = new Product;
+        $allBooks = $model->getWsAllBooks();
+        $this->layout = "";
+        echo CJSON::encode($allBooks);
+    }
+
 }
