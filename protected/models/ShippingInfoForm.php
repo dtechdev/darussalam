@@ -32,6 +32,8 @@ class ShippingInfoForm extends CFormModel {
             array('shipping_first_name, shipping_last_name,
                    shipping_address1,shipping_country,
                    shipping_city, shipping_state, shipping_zip, shipping_phone', 'required'),
+            array('shipping_phone', 'length', 'max'=>10),
+            array('shipping_phone', 'numerical', 'integerOnly' => true),
             array('_states,payment_method', 'safe'),
                 // rememberMe needs to be a boolean
                 //array('rememberMe', 'boolean'),
