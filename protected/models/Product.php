@@ -181,7 +181,7 @@ class Product extends DTActiveRecord {
             ),
             'criteria' => $criteria,
         ));
-       
+
         return $dataProvider;
     }
 
@@ -285,6 +285,57 @@ class Product extends DTActiveRecord {
         $criteria->join = "INNER JOIN language ON language.language_id =t.language_id";
 
         return CHtml::listData(ProductProfile::model()->findAll($criteria), "language_id", "language_name");
+    }
+
+    /**
+     * 
+     * Get All books for web services
+     */
+    public function getWsAllBooks() {
+
+        $criteria = new CDbCriteria(array(
+            'select' => '*',
+            'order' => 't.product_id ASC',
+        ));
+
+        $data = Product::model()->with('productProfile')->findAll($criteria);
+
+        $all_products = array();
+        $images = array();
+        foreach ($data as $products) {
+            $product_id = $products->product_id;
+            $criteria2 = new CDbCriteria;
+            $criteria2->select = '*';  // only select the 'title' column
+            $criteria2->condition = "product_profile_id='" . $product_id . "'";
+            $imagedata = ProductImage::model()->findAll($criteria2);
+            $images = array();
+            foreach ($imagedata as $img) {
+                if ($img->is_default == 1) {
+                    $images[] = array('id' => $img->id,
+                        'image_large' => Yii::app()->request->hostInfo . $img->image_url['image_large'],
+                        'image_small' => Yii::app()->request->hostInfo . $img->image_url['image_small'],
+                    );
+                    break;
+                } else {
+                    $images[] = array('id' => $img->id,
+                        'image_large' => Yii::app()->request->hostInfo . $img->image_url['image_large'],
+                        'image_small' => Yii::app()->request->hostInfo . $img->image_url['image_small'],
+                    );
+                    break;
+                }
+            }
+
+            $all_products[] = array(
+                'product_id' => $products->product_id,
+                'product_name' => $products->product_name,
+                'product_description' => $products->product_description,
+                'product_author' => !empty($products->author) ? $products->author->author_name : "",
+                'currencySymbol' => '$',
+                'product_price' => $products->productProfile[0]->price,
+                'image' => $images
+            );
+        }
+        return $all_products;
     }
 
 }

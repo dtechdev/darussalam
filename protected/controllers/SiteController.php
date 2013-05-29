@@ -124,7 +124,7 @@ class SiteController extends Controller {
             $model->attributes = $_POST['LoginForm'];
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login()) {
-                
+
                 Yii::app()->session['isSuper'] = 0;
 
                 if (Yii::app()->user->isSuperAdmin) {
@@ -140,9 +140,9 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
-               
+
                 //$this->redirect(Yii::app()->user->returnUrl);
-               $this->redirect(Yii::app()->user->returnUrl);
+                $this->redirect(Yii::app()->user->returnUrl);
             }
         }
         // display the login form
@@ -285,6 +285,16 @@ class SiteController extends Controller {
         $this->layout = "";
 
         echo CJSON::encode($books);
+    }
+
+    /**
+     * Web service for getting all products and return json formate
+     */
+    public function actionWsAllProducts() {
+        $model = new Product;
+        $allBooks = $model->getWsAllBooks();
+        $this->layout = "";
+        echo CJSON::encode($allBooks);
     }
 
 }
