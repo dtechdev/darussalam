@@ -10,7 +10,7 @@ class WSController extends Controller {
     public $layout = '';
 
     public function actionIndex() {
-        print_r($_REQUEST);
+       
         if ($_REQUEST['record_set'] == 'product') {
             $model = new Product;
             $allBooks = $model->getWsAllBooks();
