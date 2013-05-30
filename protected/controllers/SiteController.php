@@ -29,6 +29,18 @@ class SiteController extends Controller {
 
         $this->redirect($this->createUrl('/site/storehome'));
     }
+    
+    /**
+     * configure app
+     */
+    public function actionConfigureSite(){
+        $host =  Yii::app()->request->hostInfo."/".Yii::app()->baseUrl;
+        $site = SelfSite::model()->getSiteInfo($host);
+        $columns = array("site_id"=>$site['site_id']);
+        Yii::app()->db->createCommand()->update("country", $columns);
+        Yii::app()->db->createCommand()->update("user", $columns);
+        Yii::app()->db->createCommand()->update("layout", $columns);
+    }
 
     /**
      *  partucular store 
