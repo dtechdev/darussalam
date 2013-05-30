@@ -9,7 +9,7 @@
 <?php
 foreach ($products as $product) {
     ?>
-    <div class="condition">
+    <div class="condition" style="text-align: center">
         <?php
         $image = $product['no_image'];
         if (isset($product['image'][0]['image_small'])) {

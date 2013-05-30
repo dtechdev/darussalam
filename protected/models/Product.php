@@ -70,6 +70,7 @@ class Product extends DTActiveRecord {
      */
     public function relations() {
 
+        $lang_id=isset($_POST['lang_id'])?$_POST['lang_id']:'1';
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
@@ -82,7 +83,7 @@ class Product extends DTActiveRecord {
             /**
              * only for ajax views
              */
-            'productSelectedProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id', 'condition' => 'language_id=' . $_POST['lang_id']),
+            'productSelectedProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id', 'condition' => 'language_id=' . $lang_id),
             'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id'),
             'author' => array(self::BELONGS_TO, 'Author', 'authors'),
             'language' => array(self::BELONGS_TO, 'Language', 'languages'),
@@ -298,7 +299,7 @@ class Product extends DTActiveRecord {
             'order' => 't.product_id ASC',
         ));
 
-        $data = Product::model()->with(array('productProfile'=>array('select'=>'price')))->findAll($criteria);
+        $data = Product::model()->with(array('productProfile' => array('select' => 'price')))->findAll($criteria);
 
         $all_products = array();
         $images = array();
@@ -337,56 +338,63 @@ class Product extends DTActiveRecord {
         }
         return $all_products;
     }
-    
-    /**
-     * 
-     * Get All books category wise for web services
-     */
-    public function getWsBooksCategoryWise() {
 
-        $criteria = new CDbCriteria(array(
-            'select' => '*',
-            'order' => 't.product_id ASC',
-        ));
+    public function getWsAllBooksByCategory() {
+        $cate = new Categories;
+        $categories = $cate->getAllCategoriesForWebService();
 
-        $data = Product::model()->with('productProfile')->findAll($criteria);
+        $category_info = array();
+        foreach ($categories as $c) {
+            $criteria = new CDbCriteria(array(
+                'select' => 't.product_id,t.product_name,t.product_description',
+                'order' => 't.product_id ASC',
+                'condition' => "t.product_id=productCategories.product_id AND productCategories.category_id=$c->category_id"
+            ));
 
-        $all_products = array();
-        $images = array();
-        foreach ($data as $products) {
-            $product_id = $products->product_id;
-            $criteria2 = new CDbCriteria;
-            $criteria2->select = '*';  // only select the 'title' column
-            $criteria2->condition = "product_profile_id='" . $product_id . "'";
-            $imagedata = ProductImage::model()->findAll($criteria2);
+            $data = Product::model()->with(array('productProfile' => array('select' => 'price'), 'productCategories'))->findAll($criteria);
+            $all_products = array();
             $images = array();
-            foreach ($imagedata as $img) {
-                if ($img->is_default == 1) {
-                    $images[] = array('id' => $img->id,
-                        'image_large' => Yii::app()->request->hostInfo . $img->image_url['image_large'],
-                        'image_small' => Yii::app()->request->hostInfo . $img->image_url['image_small'],
-                    );
-                    break;
-                } else {
-                    $images[] = array('id' => $img->id,
-                        'image_large' => Yii::app()->request->hostInfo . $img->image_url['image_large'],
-                        'image_small' => Yii::app()->request->hostInfo . $img->image_url['image_small'],
-                    );
-                    break;
+            foreach ($data as $products) {
+                $product_id = $products->product_id;
+                $criteria2 = new CDbCriteria;
+                $criteria2->select = 'id,product_profile_id,image_large,image_small,is_default';  // only select the 'title' column
+                $criteria2->condition = "product_profile_id='" . $product_id . "'";
+                $imagedata = ProductImage::model()->findAll($criteria2);
+                $images = array();
+                foreach ($imagedata as $img) {
+                    if ($img->is_default == 1) {
+                        $images[] = array(
+                            'image_large' => Yii::app()->request->hostInfo . $img->image_url['image_large'],
+                            'image_small' => Yii::app()->request->hostInfo . $img->image_url['image_small'],
+                        );
+                        break;
+                    } else {
+                        $images[] = array(
+                            'image_large' => Yii::app()->request->hostInfo . $img->image_url['image_large'],
+                            'image_small' => Yii::app()->request->hostInfo . $img->image_url['image_small'],
+                        );
+                        break;
+                    }
                 }
+
+                $all_products[] = array(
+                    'product_id' => $products->product_id,
+                    'product_name' => $products->product_name,
+                    'product_description' => $products->product_description,
+                    'product_author' => !empty($products->author) ? $products->author->author_name : "",
+                    'currencySymbol' => '$',
+                    'product_price' => $products->productProfile[0]->price,
+                    'image' => $images
+                );
             }
 
-            $all_products[] = array(
-                'product_id' => $products->product_id,
-                'product_name' => $products->product_name,
-                'product_description' => $products->product_description,
-                'product_author' => !empty($products->author) ? $products->author->author_name : "",
-                'currencySymbol' => '$',
-                'product_price' => $products->productProfile[0]->price,
-                'image' => $images
+            $category_info['category_products'][] = array(
+                'category_id' => $c->category_id,
+                'category_name' => $c->category_name,
+                'products' => $all_products
             );
         }
-        return $all_products;
+        return $category_info;
     }
 
 }
