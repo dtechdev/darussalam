@@ -152,10 +152,16 @@ var dtech = {
         if (!output_msg)
             output_msg = 'No Message to Display.';
 
-        jQuery("<div></div>").html(output_msg).dialog({
+        jQuery("<div id='custom_dialoge'></div>").html(output_msg).dialog({
             title: title_msg,
             resizable: false,
             modal: true,
+            open: function(event, ui) {
+                setTimeout(function() {
+                    jQuery('#custom_dialoge').dialog("close");
+                }, 4000);
+
+            },
             buttons: {
                 "Ok": function()
                 {
@@ -163,7 +169,9 @@ var dtech = {
                 }
             }
         });
+
     },
+
     showPaymentMethods: function(obj) {
         if ($(obj).val() == "1") {
             $(".pay_list").show();
