@@ -50,25 +50,25 @@
     <div id="login_images">
         <div class="login_img">
             <?php
-            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/facebook_img_03.jpg"), $this->createUrl('/yiiauth/default/authenticatewith/provider/facebook'));
+            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/facebook_img_03.jpg"), $this->createUrl('/web/hybrid/login/', array("provider" => "facebook")));
             ?>
             <span>Facebook</span>
         </div>
         <div class="login_img">
             <?php
-            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/linkedin_img_03.jpg"), $this->createUrl('/yiiauth/default/authenticatewith/provider/linkedin'));
+            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/linkedin_img_03.jpg"), $this->createUrl('/web/hybrid/login/', array("provider" => "linkedin")));
             ?>
             <span>Linkedin</span>
         </div>
         <div class="login_img">
             <?php
-            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/twitter_img_03.jpg"), $this->createUrl('/yiiauth/default/authenticatewith/provider/twitter'));
+            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/twitter_img_03.jpg"),$this->createUrl('/web/hybrid/login/', array("provider" => "twitter")));
             ?>
             <span>Twitter</span>
         </div>
         <div class="login_img">
             <?php
-            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/google_img_03.jpg"), $this->createUrl('/yiiauth/default/authenticatewith/provider/google'));
+            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/google_img_03.jpg"), $this->createUrl('/web/hybrid/login/', array("provider" => "google")));
             ?>
             <span>Google</span>
         </div>
