@@ -181,7 +181,7 @@
                     'dataType' => 'json',
                     'success' => 'function(data){
                                            jQuery("#cart_counter").html(data.cart_counter);
-                                           dtech.custom_alert("Added in cart successfully");
+                                           dtech.custom_alert("Item has added to cart" ,"Add to Cart");
                                       }',
                         ), array('class' => 'add_to_cart')
                 );
@@ -202,10 +202,10 @@
                                            old_counter = jQuery.trim(jQuery("#wishlist_counter").html());
                                            jQuery("#wishlist_counter").html(data.wishlist_counter);
                                            if(old_counter < data.wishlist_counter){
-                                                 dtech.custom_alert("Added to Wishlist successfully");
+                                                 dtech.custom_alert("Item has added to Wishlist","Add to Wishlist");
                                            }
                                            else {
-                                                dtech.custom_alert("Already in Wishlist");
+                                                dtech.custom_alert("Already in Wishlist", "Add to Wishlist");
                                            }
                                       }',
                             ), array('id' => 'add-wish-list' . uniqid())
