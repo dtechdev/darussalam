@@ -45,7 +45,7 @@ class DTDbMigration extends CDbMigration {
         $parents = $connection->createCommand($sql)->queryAll();
         $array = array();
 
-        foreach ($parents as $data) {
+         foreach ($parents as $data) {
             $array[strtolower($data['Tables_in_' . $dbname . ''])] = $data['Tables_in_' . $dbname . ''];
         }
         return $array;
@@ -161,7 +161,7 @@ class DTDbMigration extends CDbMigration {
      */
     public function getSuperUserId() {
         $con = $this->getConnection();
-        $sql = "Select id,username from users where username='admin'";
+        $sql = "Select user_id,user_name from user where user_name='super'";
         $command = $con->createCommand($sql);
         $row = $command->queryRow();
         return $row;
@@ -226,10 +226,10 @@ class DTDbMigration extends CDbMigration {
         $user_row = $this->getSuperUserId();
         $common_column = array(
             "create_time" => date("Y-m-d H:i:s"),
-            "create_user_id" => $user_row['id'],
+            "create_user_id" => $user_row['user_id'],
             "update_time" => date("Y-m-d H:i:s"),
-            "update_user_id" => $user_row['id'],
-            "activity_log" => "inserted by " . $user_row['username'],
+            "update_user_id" => $user_row['user_id'],
+            "activity_log" => "inserted by " . $user_row['user_name'],
         );
         $columns = array_merge($columns, $common_column);
         $this->insert($table, $columns);
