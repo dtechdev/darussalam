@@ -45,7 +45,7 @@ class DTDbMigration extends CDbMigration {
         $parents = $connection->createCommand($sql)->queryAll();
         $array = array();
 
-        foreach ($parents as $data) {
+         foreach ($parents as $data) {
             $array[strtolower($data['Tables_in_' . $dbname . ''])] = $data['Tables_in_' . $dbname . ''];
         }
         return $array;
