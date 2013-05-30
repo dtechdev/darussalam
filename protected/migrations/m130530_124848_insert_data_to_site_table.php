@@ -22,7 +22,7 @@ class m130530_124848_insert_data_to_site_table extends DTDbMigration {
         $sql.= ", update_time ='" . date("Y-m-d H:i:s") . "' , update_user_id='1' ";
         $sql.= ", activity_log ='by admin'  ";
 
-        $this->execute($sql);
+         $this->execute($sql);
     }
 
     public function down() {
