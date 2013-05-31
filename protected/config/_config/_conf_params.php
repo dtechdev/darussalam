@@ -38,7 +38,7 @@ $params = array(
     //'mailPort' => 587,
     'mailPort' => 465,
     'mailUsername' => 'testservice733@gmail.com',
-    'mailPassword' => 'abc123AB',
+    'mailPassword' => 'abc123AB1',
     'mailSecuity' => 'ssl',
 );
 ?>
