@@ -157,8 +157,10 @@
                         +(92) 42 35254654 - 54
                     </li>
                     <li>
-                        <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/gmail_img_03.jpg', 'phone'); ?>
-                        support@darussalam.com
+                        <?php
+                        echo CHtml::image(Yii::app()->theme->baseUrl . '/images/gmail_img_03.jpg', 'phone');
+                        echo CHtml::mailto("support@darussalam.com", "support@darussalam.com");
+                        ?>
                     </li>
                     <li>
                         <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/home_img_03.jpg', 'phone'); ?>
