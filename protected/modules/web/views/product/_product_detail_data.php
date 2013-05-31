@@ -44,7 +44,8 @@
             <script src="//platform.linkedin.com/in.js" type="text/javascript">
                 lang: en_US
             </script>
-            <script type="IN/FollowCompany" data-id="71704" data-counter="right"></script>
+            <script type="IN/Share" data-counter="right"></script>
+
         </div>
         <h2><?php echo $product->product_description; ?></h2>
     </div>
