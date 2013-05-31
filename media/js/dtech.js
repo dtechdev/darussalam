@@ -146,6 +146,7 @@ var dtech = {
     },
     custom_alert: function(output_msg, title_msg)
     {
+        jQuery(".ui-widget ui-widget-content").remove();
         if (!title_msg)
             title_msg = 'Alert';
 
@@ -157,9 +158,9 @@ var dtech = {
             resizable: false,
             modal: true,
             open: function(event, ui) {
-                setTimeout(function() {
-                    jQuery('#custom_dialoge').dialog("close");
-                }, 4000);
+                setTimeout(function() { 
+                    jQuery(".ui-button").trigger("click");
+                }, 3000);
 
             },
             buttons: {

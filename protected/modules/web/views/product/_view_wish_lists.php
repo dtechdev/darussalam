@@ -116,6 +116,7 @@ if (empty($wishList)) {
                                                 'dataType' => 'json',
                                                 'success' => 'function(data){
                                                     jQuery("#cart_counter").html(data.cart_counter);
+                                                    dtech.custom_alert("Item has added to cart" ,"Add to Cart");
                                                 }',
                                                     ), array('class' => 'add_to_cart')
                                             );
