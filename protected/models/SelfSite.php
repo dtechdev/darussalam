@@ -109,7 +109,7 @@ class SelfSite extends DTActiveRecord {
         $this->getCities();
         parent::afterFind();
     }
-
+    
     public function getSiteInfo($url) {
         $site = Yii::app()->db->createCommand()
                 ->select('*')
