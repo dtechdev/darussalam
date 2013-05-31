@@ -94,9 +94,9 @@ class SiteController extends Controller {
         $body = "You are now registered on " . Yii::app()->name . ", please validate your email";
         // $body.=" going to this url: <br /> \n" . $model->getActivationUrl();
         $email['Body'] = $body;
-        $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email, "heading" => "Dear "), true, false);
-        echo $email['Body'];
-        die;
+        
+        CVarDumper::dump($email,10,true);
+     
         // $email['Body'] = $this->renderPartial('/common/_email_template');
         $this->sendEmail2($email);
     }
