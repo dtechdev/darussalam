@@ -149,10 +149,11 @@ class SiteController extends Controller {
 
                 if (Yii::app()->user->isSuperAdmin) {
                     Yii::app()->session['isSuper'] = 1;
-                    $this->redirect(array('user/index'));
+                   
+                    $this->redirect($this->createUrl('/user/index'));
                 }
                 if (Yii::app()->user->isAdmin) {
-                    $this->redirect(array('product/index'));
+                    $this->redirect($this->createUrl('/product/index'));
                 }
                 if (Yii::app()->user->isCustomer) {
                     $cart = new Cart();
@@ -160,7 +161,8 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
-
+                echo Yii::app()->user->returnUrl;
+                die;
                 //$this->redirect(Yii::app()->user->returnUrl);
                 $this->redirect(Yii::app()->user->returnUrl);
             }
