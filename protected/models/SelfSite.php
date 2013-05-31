@@ -7,8 +7,12 @@
  * @property integer $site_id
  * @property string $site_name
  * @property string $site_descriptoin
+ * @property string $site_headoffice
  */
 class SelfSite extends DTActiveRecord {
+
+    public $country_id;
+    public $_cites = array();
 
     /**
      * Returns the static model of the specified AR class.
@@ -36,11 +40,11 @@ class SelfSite extends DTActiveRecord {
             array('site_name, site_descriptoin', 'required'),
             array('site_name', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            array('activity_log,site_headoffice,_cites,country_id', 'safe'),
             array('site_name, site_descriptoin', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('site_id, site_name, site_descriptoin', 'safe', 'on' => 'search'),
+            array('site_id, site_name, site_descriptoin,country_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -63,6 +67,8 @@ class SelfSite extends DTActiveRecord {
         return array(
             'site_id' => 'Site',
             'site_name' => 'Site Name',
+            'country_id' => 'Country',
+            'site_headoffice' => 'Head Office',
             'site_descriptoin' => 'Site Descriptoin',
         );
     }
@@ -87,11 +93,23 @@ class SelfSite extends DTActiveRecord {
     }
 
     /**
-     * get stie info
-     * for application loading
-     * @param type $url
-     * @return int
+     * get States for particular country
      */
+    public function getCities() {
+
+        $city = City::model()->findByPk($this->site_headoffice);
+        $this->country_id = $city->country->country_id;
+        $criteria = new CDbCriteria();
+        $criteria->select = "city_id,city_name";
+        $criteria->condition = "country_id = ".$this->country_id;
+        $this->_cites = CHtml::listData(City::model()->findAll($criteria), "city_id", "city_name");
+    }
+
+    public function afterFind() {
+        $this->getCities();
+        parent::afterFind();
+    }
+    
     public function getSiteInfo($url) {
         $site = Yii::app()->db->createCommand()
                 ->select('*')
