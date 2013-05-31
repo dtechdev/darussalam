@@ -32,6 +32,10 @@ class SelfSiteController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions' => array('getCity'),
+                'users' => array('*'),
+            ),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'index', 'view',
                 ),
                 'users' => array('@'),
@@ -50,6 +54,27 @@ class SelfSiteController extends Controller {
                 'users' => array('*'),
             ),
         );
+    }
+
+    /**
+     * get cities  for particular country
+     */
+    public function actionGetCity() {
+        // CVarDumper::dump($_POST['city_id'],10,TRUE);die;
+        $country_id = $_POST['SelfSite']['country_id'];
+
+        $cityList = array();
+
+        if (!empty($country_id)) {
+            $cityList = City::model()->findAll('country_id=' . $country_id);
+
+            $cityList = CHtml::listData($cityList, 'city_id', 'city_name');
+
+            echo CHtml::tag('option', array('value' => ''), 'Select State', true);
+            foreach ($cityList as $value => $name) {
+                echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
+            }
+        }
     }
 
     /**
