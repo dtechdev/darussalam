@@ -8,32 +8,28 @@
  * @property string $site_name
  * @property string $site_descriptoin
  */
-class SelfSite extends DTActiveRecord
-{
+class SelfSite extends DTActiveRecord {
 
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
      * @return SelfSite the static model class
      */
-    public static function model($className = __CLASS__)
-    {
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName()
-    {
+    public function tableName() {
         return 'site';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules()
-    {
+    public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
@@ -51,12 +47,10 @@ class SelfSite extends DTActiveRecord
     /**
      * @return array relational rules.
      */
-    public function relations()
-    {
+    public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            
             'country' => array(self::HAS_MANY, 'country', 'site_id'),
             'layout' => array(self::HAS_MANY, 'layout', 'site_id'),
         );
@@ -65,8 +59,7 @@ class SelfSite extends DTActiveRecord
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return array(
             'site_id' => 'Site',
             'site_name' => 'Site Name',
@@ -78,8 +71,7 @@ class SelfSite extends DTActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
@@ -94,20 +86,44 @@ class SelfSite extends DTActiveRecord
         ));
     }
 
-    public function getSiteInfo($url)
-    {
+    /**
+     * get stie info
+     * for application loading
+     * @param type $url
+     * @return int
+     */
+    public function getSiteInfo($url) {
         $site = Yii::app()->db->createCommand()
                 ->select('*')
                 ->from($this->tableName())
                 ->where("LOCATE(site_name,'$url')")
                 ->queryAll();
-        
-        if (isset($site[0]))
-        {
+
+        if (isset($site[0])) {
             return $site[0];
         }
         else
             return 0;
+    }
+
+    /**
+     * city location
+     */
+    public function findCityLocation($city_id) {
+        $criteria = new CDbCriteria(array(
+            'select' => "city_id,t.city_name,t.country_id,".
+                        "t.short_name,layout_id",
+            'condition' => "t.city_id='" . $city_id . "'"
+        ));
+
+        $cityfind = City::model()->with(array(
+                    'country' => array(
+                         'select' => 'c.country_name,c.short_name',
+                        'joinType' => 'INNER JOIN','alias'=>'c'),
+                    'layout' => array('select' => 'layout_name', 'joinType' => 'INNER JOIN'),
+                ))->find($criteria);
+
+        return $cityfind;
     }
 
 }

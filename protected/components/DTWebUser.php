@@ -36,7 +36,7 @@ class DTWebUser extends CWebUser {
     }
 
     function getIpInfo() {
-        $ip = Yii::app()->request->getUserHostAddress();
+        echo $ip = Yii::app()->request->getUserHostAddress();
         $content = @file_get_contents('http://api.hostip.info/?ip=' . $ip);
         if ($content != FALSE) {
             $xml = new SimpleXmlElement($content);
@@ -51,83 +51,78 @@ class DTWebUser extends CWebUser {
 
     function getSiteSessions() {
 
-        $siteUrl = $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+        $siteUrl = Yii::app()->request->hostInfo . Yii::app()->baseUrl;
         $site_info = SelfSite::model()->getSiteInfo($siteUrl);
 
 
+        /**
+         * When site is not in db
+         * and not configured 
+         * although it is configured in vhost
+         * 
+         */
+        if ($site_info == 0) {
+            Yii::app()->controller->redirect(Yii::app()->createUrl("/error/unconfigured"));
+            return true;
+        }
+
+        /**
+         * When is in db
+         * and configured
+         * It is sure every site
+         * has its head office 
+         * which is a unique city in all over the world 
+         * and in application
+         */
         Yii::app()->session['site_id'] = $site_info['site_id'];
         Yii::app()->session['site_headoffice'] = $site_info['site_headoffice'];
 
-        
-
-        if (isset($_REQUEST['city_id']) && $_REQUEST['city_id'] != '') {
-            $city_id = $_REQUEST['city_id'];
-            $criteria = new CDbCriteria(array(
-                'select' => "*",
-                'condition' => "t.city_id='" . $city_id . "'"
-            ));
-     
-            $cityfind = City::model()->with(array(
-                        'country' => array('select' => '*',
-                            'joinType' => 'INNER JOIN',
-                            'condition' => 'country.site_id= "' . Yii::app()->session['site_id'] . '"'),))->findAll($criteria);
-            if ($cityfind == null) {
-                $city_id = Yii::app()->session['site_headoffice'];
-            }
-         
-                   
-                    
-        } else if (isset(Yii::app()->session['city_id']) && Yii::app()->session['city_id'] != '') {
-            $city_id = Yii::app()->session['city_id'];
-        } else {
-            $locationArray = Yii::app()->user->IpInfo;
 
 
-            $city_auto = strtolower($locationArray['citystate']);
-            $country_auto = strtolower($locationArray['country']);
-            $short_country_auto = strtolower($locationArray['short_country']);
-
-            $criteria = new CDbCriteria(array(
-                'select' => "*",
-                'condition' => "LOWER(t.city_name)='" . $city_auto . "'",
-            ));
-
-
-            $cityfind = City::model()->with(array(
-                        'country' => array('select' => '*',
-                            'joinType' => 'INNER JOIN',
-                            'condition' => 'country.site_id= "' . Yii::app()->session['site_id'] . '"'),))->findAll($criteria);
-            //$cityfind = City::model()->find('LOWER(city_name)=?',array($city_auto));
-
-            if ($cityfind != null) {
-                $city_id = $cityfind[0]->city_id;
-            } else {
-                $countryfind = Country::model()->find('LOWER(country_name)="' . $country_auto . '" AND site_id=' . Yii::app()->session['site_id']);
-                if ($countryfind != null) {
-                    $city_find = City::model()->find('country_id=?', array($countryfind->country_id));
-                    $city_id = $city_find->city_id;
-                } else {
-                    $city_id = Yii::app()->session['site_headoffice'];
-                }
-            }
+        /**
+         * when city id in request
+         */
+        if (!empty($_REQUEST['city_id'])) {
+            $cityModel = SelfSite::model()->findCityLocation($_REQUEST['city_id']);
+            $this->saveDTSessions($cityModel);
+        }
+        /**
+         * when city id in session
+         */ else if (!empty(Yii::app()->session['city_id'])) {
+            $cityModel = SelfSite::model()->findCityLocation($_REQUEST['city_id']);
+            $this->saveDTSessions($cityModel);
+        }
+        /**
+         * start from scratch
+         * when application is loading first time
+         */ 
+        else {
+            $cityModel = SelfSite::model()->findCityLocation($site_info['site_headoffice']);
+            $this->saveDTSessions($cityModel);
         }
 
-        $city = City::model()->findByPk($city_id);
-        $countries = Country::model()->findByPk($city['country_id']);
-        $country_short_name = $countries['short_name'];
-        $city_short_name = $city['short_name'];
+        $this->installSocialConfigs();
+    }
 
-        $layout_id = $city['layout_id'];
-        $layout = Layout::model()->findByPk($layout_id);
-        $layout_name = $layout['layout_name'];
+    /**
+     * save darusslam sessions
+     */
+    public function saveDTSessions($cityModel) {
 
-        Yii::app()->session['layout'] = $layout_name;
+        Yii::app()->session['layout'] = $cityModel->layout->layout_name;
 
-        Yii::app()->session['country_short_name'] = $country_short_name;
-        Yii::app()->session['city_short_name'] = $city_short_name;
-        Yii::app()->session['city_id'] = $city['city_id'];
-        Yii::app()->theme = Yii::app()->session['layout'];
-        
+        Yii::app()->session['country_short_name'] = $cityModel->country->short_name;
+        Yii::app()->session['city_short_name'] = $cityModel->short_name;
+        Yii::app()->session['city_id'] = $cityModel->city_id;
+        Yii::app()->theme = $cityModel->layout->layout_name;
+    }
+
+    /**
+     * Install configurations
+     * for soical application
+     */
+    public function installSocialConfigs() {
+
         $criteria = new CDbCriteria();
         $criteria->addCondition("city_id='" . Yii::app()->session['city_id'] . "'");
         $selected = array("fb_key", "fb_secret", "google_key", "google_secret", "twitter_key", 'twitter_secret', 'linkedin_key', 'linkedin_secret');
@@ -138,7 +133,6 @@ class DTWebUser extends CWebUser {
                 Yii::app()->params[$data->param] = $data->value;
             }
         }
-        
     }
 
 }
