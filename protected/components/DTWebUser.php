@@ -53,6 +53,8 @@ class DTWebUser extends CWebUser {
 
         $siteUrl = Yii::app()->request->hostInfo . Yii::app()->baseUrl;
         $site_info = SelfSite::model()->getSiteInfo($siteUrl);
+        
+       
 
 
         /**
@@ -77,21 +79,27 @@ class DTWebUser extends CWebUser {
         Yii::app()->session['site_id'] = $site_info['site_id'];
         Yii::app()->session['site_headoffice'] = $site_info['site_headoffice'];
 
-
+      
 
         /**
          * when city id in request
          */
         if (!empty($_REQUEST['city_id'])) {
             $cityModel = SelfSite::model()->findCityLocation($_REQUEST['city_id']);
+             
             $this->saveDTSessions($cityModel);
         }
         /**
          * when city id in session
-         */ else if (!empty(Yii::app()->session['city_id'])) {
-            $cityModel = SelfSite::model()->findCityLocation($_REQUEST['city_id']);
-            $this->saveDTSessions($cityModel);
+         */ 
+        else if (!empty(Yii::app()->session['city_id'])) {
+             
+            /**
+             * Nothing do session is already saved
+             */
         }
+        
+        
         /**
          * start from scratch
          * when application is loading first time
@@ -115,6 +123,10 @@ class DTWebUser extends CWebUser {
         Yii::app()->session['city_short_name'] = $cityModel->short_name;
         Yii::app()->session['city_id'] = $cityModel->city_id;
         Yii::app()->theme = $cityModel->layout->layout_name;
+        
+        $_REQUEST['city_id'] = $cityModel->city_id;
+        
+        return true;
     }
 
     /**
