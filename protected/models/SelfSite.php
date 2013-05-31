@@ -138,10 +138,16 @@ class SelfSite extends DTActiveRecord {
                     'country' => array(
                          'select' => 'c.country_name,c.short_name',
                         'joinType' => 'INNER JOIN','alias'=>'c'),
-                    'layout' => array('select' => 'layout_name', 'joinType' => 'INNER JOIN'),
+                    //'layout' => array('select' => 'layout_name', 'joinType' => 'INNER JOIN'),
                 ))->find($criteria);
 
         return $cityfind;
+    }
+    
+    public function findLayout($site_id){
+        $layout = Layout::model()->find("site_id=".$site_id);
+        
+        return $layout;
     }
 
 }

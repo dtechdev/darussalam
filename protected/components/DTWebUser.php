@@ -53,8 +53,8 @@ class DTWebUser extends CWebUser {
 
         $siteUrl = Yii::app()->request->hostInfo . Yii::app()->baseUrl;
         $site_info = SelfSite::model()->getSiteInfo($siteUrl);
-        
-       
+
+
 
 
         /**
@@ -79,34 +79,34 @@ class DTWebUser extends CWebUser {
         Yii::app()->session['site_id'] = $site_info['site_id'];
         Yii::app()->session['site_headoffice'] = $site_info['site_headoffice'];
 
-      
+
 
         /**
          * when city id in request
          */
         if (!empty($_REQUEST['city_id'])) {
             $cityModel = SelfSite::model()->findCityLocation($_REQUEST['city_id']);
-             
-            $this->saveDTSessions($cityModel);
+            $layout = SelfSite::model()->findLayout($site_info['site_id']);
+
+            $this->saveDTSessions($cityModel,$layout);
         }
         /**
          * when city id in session
-         */ 
-        else if (!empty(Yii::app()->session['city_id'])) {
-             
+         */ else if (!empty(Yii::app()->session['city_id'])) {
+
             /**
              * Nothing do session is already saved
              */
         }
-        
-        
+
+
         /**
          * start from scratch
          * when application is loading first time
-         */ 
-        else {
+         */ else {
             $cityModel = SelfSite::model()->findCityLocation($site_info['site_headoffice']);
-            $this->saveDTSessions($cityModel);
+            $layout = SelfSite::model()->findLayout($site_info['site_id']);
+            $this->saveDTSessions($cityModel,$layout);
         }
 
         $this->installSocialConfigs();
@@ -115,17 +115,17 @@ class DTWebUser extends CWebUser {
     /**
      * save darusslam sessions
      */
-    public function saveDTSessions($cityModel) {
+    public function saveDTSessions($cityModel,$layout) {
 
-        Yii::app()->session['layout'] = $cityModel->layout->layout_name;
+        Yii::app()->session['layout'] = (!empty($layout)?$layout->layout_name:"default");
 
         Yii::app()->session['country_short_name'] = $cityModel->country->short_name;
         Yii::app()->session['city_short_name'] = $cityModel->short_name;
         Yii::app()->session['city_id'] = $cityModel->city_id;
-        Yii::app()->theme = $cityModel->layout->layout_name;
-        
+        Yii::app()->theme = (!empty($layout)?$layout->layout_name:"default");
+
         $_REQUEST['city_id'] = $cityModel->city_id;
-        
+
         return true;
     }
 
