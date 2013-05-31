@@ -228,6 +228,7 @@ class Controller extends CController {
                 $mailer->Port = Yii::app()->params['mailPort'];
                 $mailer->Username = Yii::app()->params['mailUsername'];
                 $mailer->Password = Yii::app()->params['mailPassword'];
+                //CVarDumper::dump($mailer,10,true);
             }
 
             $mailer->IsHTML(true);
@@ -244,8 +245,8 @@ class Controller extends CController {
 
 
 
-            $mailer->Send();
-            $mailer->ClearAddresses();
+            //$mailer->Send();
+            //$mailer->ClearAddresses();
         }
         return true;
     }
