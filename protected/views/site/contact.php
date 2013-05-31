@@ -89,19 +89,35 @@
             <div class="contact_us_links">
                 <div class="right_left_contact">
                     <h3>Business Development</h3>
-                    <p><a href="#">bizdev@darussalam.com</a></p>
+                    <p>
+                        <?php
+                        echo CHtml::mailto("bizdev@darussalam.com", "bizdev@darussalam.com")
+                        ?>
+                    </p>
                 </div>
                 <div class="right_right_contact">
                     <h3>Public Relations</h3>
-                    <p><a href="#">public@darussalam.com</a></p>
+                    <p>
+                        <?php
+                        echo CHtml::mailto("public@darussalam.com", "public@darussalam.com")
+                        ?>
+                    </p>
                 </div>
                 <div class="right_left_contact">
                     <h3>Careers</h3>
-                    <p><a href="#">jobs@darussalam.com</a></p>
+                    <p>
+                        <?php
+                        echo CHtml::mailto("jobs@darussalam.com", "jobs@darussalam.com")
+                        ?>
+                    </p>
                 </div>
                 <div class="right_right_contact">
                     <h3>Sales, Billing and Support</h3>
-                    <p><a href="#">support@darussalam.com</a></p>
+                    <p>
+                        <?php
+                        echo CHtml::mailto("support@darussalam.com", "support@darussalam.com")
+                        ?>
+                    </p>
                 </div>
             </div>
             <div class="left_under_contact_us">

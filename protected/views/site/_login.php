@@ -15,6 +15,9 @@
                         ),
                     ));
                     ?>
+                    <div id="errors" style="color: red">
+                        <?php echo $form->errorSummary($model); ?>
+                    </div>
                     <tr>
                         <td class="left_login">Email</td>
                         <td class="right_login">
@@ -62,7 +65,7 @@
         </div>
         <div class="login_img">
             <?php
-            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/twitter_img_03.jpg"),$this->createUrl('/web/hybrid/login/', array("provider" => "twitter")));
+            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/twitter_img_03.jpg"), $this->createUrl('/web/hybrid/login/', array("provider" => "twitter")));
             ?>
             <span>Twitter</span>
         </div>
