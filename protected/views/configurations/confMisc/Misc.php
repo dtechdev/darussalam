@@ -66,6 +66,9 @@ $config = array(
     'pagination' => array('pageSize' => 30),
     'sort' => array(
         'defaultOrder' => 'id,city_id ASC',
+    ),
+    'criteria' => array(
+        'condition' => 'misc_type="' . $_GET['type'].'"',
     )
 );
 $provider = new CActiveDataProvider("ConfMisc", $config);
@@ -108,7 +111,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'update' => array
                     (
                     'label' => 'update',
-                    'url' => 'Yii::app()->controller->createUrl("load", array("m" => "' . $m . '", "id"=> $data->id))',
+                    'url' => 'Yii::app()->controller->createUrl("load", array("m" => "' . $m . '", "id"=> $data->id,"type"=>$data->misc_type))',
                 ),
             ),
         ),
