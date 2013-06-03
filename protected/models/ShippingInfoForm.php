@@ -66,7 +66,7 @@ class ShippingInfoForm extends CFormModel {
         if (!empty($this->shipping_country)) {
             $stateList = Subregion::model()->findAll('region_id=' . $this->shipping_country);
 
-            $stateList = CHtml::listData($stateList, 'code', 'name');
+            $stateList = CHtml::listData($stateList, 'name', 'name');
         }
         return $stateList;
     }
