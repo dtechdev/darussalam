@@ -32,13 +32,30 @@
                             echo CHtml::link('BOOKS', $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             echo CHtml::closeTag('li');
                             echo CHtml::openTag('li');
-                            echo CHtml::link('QURAN', $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+
+
+                            $criteria = new CDbCriteria();
+                            $criteria->select = "category_id";
+                            $criteria->addCondition("LOWER(category_name)='quran'");
+                            $catgory_quran_Model = Categories::model()->find($criteria);
+
+                            if (isset($catgory_quran_Model->category_id)) {
+                                echo CHtml::link('QURAN',
+                                $this->createUrl('/web/product/allproducts',
+                                array('country' => Yii::app()->session['country_short_name'],
+                                'city' => Yii::app()->session['city_short_name'],
+                                'city_id' => Yii::app()->session['city_id'])),
+                                    array("cat"=>"#cat=".$catgory_quran_Model->category_id,
+                                        "onclick" => 'dtech.redirectToQuranCategory(this);return false'));
+                                
+                                echo CHtml::closeTag('li');
+                                echo CHtml::openTag('li');
+                            }
+
+                            echo CHtml::link('EDUCATIONAL TOYS', $this->createUrl('/web/educationToys/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             echo CHtml::closeTag('li');
                             echo CHtml::openTag('li');
-                            echo CHtml::link('EDUCATIONAL TOYS', $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
-                            echo CHtml::closeTag('li');
-                            echo CHtml::openTag('li');
-                            echo CHtml::link('OTHERS', $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                            echo CHtml::link('OTHERS', $this->createUrl('/web/others/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             echo CHtml::openTag('li');
                             ?>
                         </ul>
@@ -53,7 +70,7 @@
                         $login_model = new LoginForm;
                         $countriesList = array();
                         $countries = Country::model()->findAll();
-                    
+
                         if ($countries != null) {
                             foreach ($countries as $country) {
                                 foreach ($country->cities as $city) {
