@@ -161,8 +161,7 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
-                echo Yii::app()->user->returnUrl;
-                die;
+              
                 //$this->redirect(Yii::app()->user->returnUrl);
                 $this->redirect(Yii::app()->user->returnUrl);
             }
