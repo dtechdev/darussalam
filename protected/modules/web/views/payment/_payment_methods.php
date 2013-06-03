@@ -4,7 +4,7 @@
  * 
  */
 ?>
-<div class="left_method">
+<div class="left_method" style="display: none;">
     <?php
     $this->renderPartial("_credit_card", array(
         "model" => $model,
