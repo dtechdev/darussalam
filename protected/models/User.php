@@ -273,7 +273,7 @@ class User extends DTActiveRecord {
         $critera->condition = "role_id =2";
         $user = User::model()->find($critera);
         if(!empty($user)){
-            return $user->email;
+            return $user->user_email;
         }
         else {
             return Yii::app()->params['default_admin'];
