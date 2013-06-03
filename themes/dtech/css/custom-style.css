@@ -41,3 +41,12 @@ select#author_id{
 .left_method h3,.left_method div.paypal {
     cursor: pointer;
 }
+
+.full_method {
+    width: 930px !important;
+}
+
+.full_method .under_left_method {
+    margin: 15px 22px 28px;
+    width: 866px;
+}

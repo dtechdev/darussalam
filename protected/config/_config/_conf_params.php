@@ -32,6 +32,7 @@ $params = array(
         'cancelUrl' => 'paypal/cancel/', //regardless of url management component
     ),
     'adminEmail' => 'no_reply@darussalam.com',
+    'default_admin' => 'webmaster@darussalampk.com',
     'dateformat' => 'm/d/y',
     'mailHost' => 'smtp.gmail.com',
     'smtp' => true,

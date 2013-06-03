@@ -58,8 +58,22 @@ class OrderController extends Controller {
      */
     public function actionView($id) {
         $model = $this->loadModel($id);
+
+        /**
+         * order detail part
+         * 
+         */
+        $model_d = new OrderDetail('Search');
+        $model_d->unsetAttributes();  // clear any default values
+        $model_d->order_id = $id;
+        if (isset($_GET['Order'])) {
+            $model_d->attributes = $_GET['Order'];
+        }
+        
         $this->render('view', array(
             'model' => $model,
+            'model_d' => $model_d,
+            
         ));
     }
 
@@ -111,7 +125,7 @@ class OrderController extends Controller {
         $model = new OrderDetail('Search');
         $model->unsetAttributes();  // clear any default values
         $model->order_id = $id;
-        if (isset($_GET['User'])) {
+        if (isset($_GET['Order'])) {
             $model->attributes = $_GET['Order'];
         }
         $this->renderPartial('_order_detail', array(
