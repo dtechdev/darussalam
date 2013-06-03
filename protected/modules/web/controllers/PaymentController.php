@@ -131,7 +131,7 @@ class PaymentController extends Controller {
 
         $this->customer0rderDetailMailer($_POST['ShippingInfoForm']);
         $this->admin0rderDetailMailer($_POST['ShippingInfoForm'], $order_id);
-
+        Yii::app()->user->setFlash('orderMail', 'Dear Customer Thank you...Your Order has been ordered Successfully.');
 
         $this->redirect(array('/web/payment/confirmOrder'));
     }
@@ -149,7 +149,6 @@ class PaymentController extends Controller {
         $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
 
         $this->sendEmail2($email);
-        Yii::app()->user->setFlash('orderMail', 'Dear Customer Thank you...Your Order has been ordered Successfully.');
     }
 
     /*
@@ -163,9 +162,8 @@ class PaymentController extends Controller {
         $email['Subject'] = "Your Order Detail";
         $email['Body'] = $this->renderPartial('_order_email_template_admin', array('customerInfo' => $customerInfo, "order_id" => $order_id), true, false);
         $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
-        
+
         $this->sendEmail2($email);
-        Yii::app()->user->setFlash('orderMail', 'Dear Customer Thank you...Your Order has been ordered Successfully.');
     }
 
     public function actionStatelist() {
