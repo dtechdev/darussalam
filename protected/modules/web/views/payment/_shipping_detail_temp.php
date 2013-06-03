@@ -12,13 +12,15 @@
         <?php
         echo $form->hiddenField($model, 'payment_method', array("value" => "3"));
         ?>
-      
+
 
         <div class="country_option">
             <p><span>*</span> Prefix</p>
             <div class="country_option">
-                <select name="shipping_prefix"><option>Mr. </option><option>Mrs. </option></select>
-                
+                <?php
+                echo $form->dropDownList($model, "shipping_prefix", array("Mr." => "Mr.", "Mrs." => "Mrs."))
+                ?>
+
             </div>
             <p><span>*</span> First Name</p>
             <div class="country_option">
