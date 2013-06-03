@@ -19,8 +19,11 @@
                 $this->widget('zii.widgets.jui.CJuiAccordion', array(
                     'panels' => array(
                         'Settings' => '<ul class="accordion-ul">' .
-                        '<li>' . CHtml::link('Misc', array('/configurations/load', 
-                            "m" => "Misc")) . 
+                        '<li>' . CHtml::link('General Misc', array('/configurations/load', 
+                            "m" => "Misc",'type'=>'general')) . 
+                        '</li>' .
+                        '<li>' . CHtml::link('Branch Misc', array('/configurations/load', 
+                            "m" => "Misc","type"=>'other')) . 
                         '</li>' .
                         '<li>' . CHtml::link('Payment Methods', array('/configurations/load', 
                             "m" => "PaymentMethods")) . '</li>' .
