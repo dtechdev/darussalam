@@ -161,7 +161,7 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
-              
+               
                 //$this->redirect(Yii::app()->user->returnUrl);
                 $this->redirect(Yii::app()->user->returnUrl);
             }
