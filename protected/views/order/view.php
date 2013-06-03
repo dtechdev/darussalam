@@ -6,15 +6,15 @@ $this->breadcrumbs = array(
     'Orders' => array('index'),
     $model->order_id,
 );
-if(!(Yii::app()->user->isGuest)) {
-        $this->renderPartial("/common/_left_single_menu");
+if (!(Yii::app()->user->isGuest)) {
+    $this->renderPartial("/common/_left_single_menu");
 }
 ?>
 
 
 <div class="pading-bottom-5">
     <div class="left_float">
-       <h1>View Order #<?php echo $model->order_id; ?></h1>
+        <h1>View Order #<?php echo $model->order_id; ?></h1>
     </div>
 
     <?php /* Convert to Monitoring Log Buttons */ ?>
@@ -46,3 +46,12 @@ $this->widget('zii.widgets.CDetailView', array(
     ),
 ));
 ?>
+
+<div>
+    <?php
+    $this->renderPartial('_order_detail', array(
+        'model' => $model_d,
+        'user_name' => $model->user->user_email,
+    ));
+    ?>
+</div>

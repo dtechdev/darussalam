@@ -4,14 +4,18 @@
     </div>
 </div>
 <?php
-
-    ?>
-    <div id="shopping_cart" style="height:308px;text-align:center;  ">
-        <div id="main_shopping_cart">
-            <div class="left_right_cart">
-                Your Order successfully completed....
-            </div>
-        </div>                                        
-    </div>
-    <?php
+?>
+<div id="shopping_cart" style="height:308px;text-align:center;  ">
+    <div id="main_shopping_cart">
+        <div class="left_right_cart">
+            Your Order successfully completed....
+            <?php if (Yii::app()->user->hasFlash('orderMail')) { ?>
+                <div class="flash-success" style="color:green">
+                    <?php echo '<br/><tt>' . Yii::app()->user->getFlash('orderMail') . '</tt>'; ?>
+                </div>
+            <?php } ?>
+        </div>
+    </div>                                        
+</div>
+<?php
 ?>

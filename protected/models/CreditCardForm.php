@@ -32,7 +32,7 @@ class CreditCardForm extends CFormModel {
                            ', 'required'),
             array('card_number1,card_number2,card_number3,card_number4', 'numerical', 'integerOnly' => true),
             array('card_number1,card_number2,card_number3,card_number4', 'length', 'max' => 4),
-            array('payment_method','safe'),
+            array('payment_method', 'safe'),
                 // rememberMe needs to be a boolean
                 //array('rememberMe', 'boolean'),
                 // password needs to be authenticated
@@ -104,23 +104,20 @@ class CreditCardForm extends CFormModel {
         }
         return $error;
     }
-    
+
     /**
      * show credit card errors
      */
-    public function showCreditCardErrors($error){
-       
-        if($error['status']){
-            if($error['message'] == "The credit card number is invalid."){
+    public function showCreditCardErrors($error) {
+
+        if ($error['status']) {
+            if ($error['message'] == "The credit card number is invalid.") {
                 $this->addError("card_number1", $error['message']);
-            }
-            else if($error['message'] == "The credit card has expired."){
+            } else if ($error['message'] == "The credit card has expired.") {
                 $this->addError("exp_month", $error['message']);
-            }
-            else {
+            } else {
                 $this->addError("card_number1", $error['message']);
             }
-            
         }
     }
 
@@ -155,7 +152,10 @@ class CreditCardForm extends CFormModel {
 
         $order->setRelationRecords('orderDetails', is_array($ordetail['OrderDetail']) ? $ordetail['OrderDetail'] : array());
 
-        $order->save();
+        if ($order->save()) {
+            return $order->order_id;
+        }
+        return "";
     }
 
 }

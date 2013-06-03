@@ -28,7 +28,11 @@
                 <td class="right_prefix"><span>*</span> First Name</td>
             </tr>
             <tr>
-                <td class="left_prefix"><select name="shipping_prefix"><option>Mr. </option><option>Mrs. </option></select></td>
+                <td class="left_prefix">
+                    <?php
+                    echo $form->dropDownList("shipping_prefix", array("Mr." => "Mr.", "Mrs." => "Mrs."))
+                    ?>
+                </td>
                 <td class="right_prefix">
                     <?php echo $form->textField($model, 'shipping_first_name', array('class' => 'small_right_text')); ?>
                     <?php echo $form->error($model, 'shipping_first_name'); ?>
