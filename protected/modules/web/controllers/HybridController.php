@@ -39,10 +39,10 @@ class HybridController extends Controller {
             $hybridauth = new Hybrid_Auth($config);
 
             $adapter = $hybridauth->authenticate($provider);
-           
+
             $user_profile = $adapter->getUserProfile();
 
-          
+
 
 
 
@@ -54,14 +54,28 @@ class HybridController extends Controller {
             if (!empty($user_profile->email)) {
                 $user = $dtSocial->manageUser($user_profile, $provider);
                 $this->autoLogin($user);
-                $this->redirect($this->createUrl("/site/index"));
+                /**
+                 * saving cart information
+                 */
+                $cart = new Cart();
+                $cart->addCartByUser();
+                $wishlist = new WishList();
+                $wishlist->addWishlistByUser();
+                $this->redirect(Yii::app()->user->returnUrl);
             } else {
 
                 $user = $dtSocial->manageNonEmailUser($user_profile, $provider);
 
                 if (!empty($user)) {
                     $this->autoLogin($user);
-                    $this->redirect($this->createUrl("/site/index"));
+                    /**
+                     * saving cart information
+                     */
+                    $cart = new Cart();
+                    $cart->addCartByUser();
+                    $wishlist = new WishList();
+                    $wishlist->addWishlistByUser();
+                    $this->redirect(Yii::app()->user->returnUrl);
                 } else {
                     $this->redirect($this->createUrl("/web/hybrid/registerSocial", array("provider" => $provider)));
                 }

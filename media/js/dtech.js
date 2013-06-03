@@ -158,7 +158,7 @@ var dtech = {
             resizable: false,
             modal: true,
             open: function(event, ui) {
-                setTimeout(function() { 
+                setTimeout(function() {
                     jQuery(".ui-button").trigger("click");
                 }, 3000);
 
@@ -172,7 +172,15 @@ var dtech = {
         });
 
     },
-
+    /**
+     * for redirecting to quran cate
+     */
+    redirectToQuranCategory: function(obj) {
+        url = jQuery(obj).attr("href")+jQuery(obj).attr("cat");
+        window.location.href = url;
+        window.location.reload();
+        return true;
+    },
     showPaymentMethods: function(obj) {
         if ($(obj).val() == "1") {
             $(".pay_list").show();
