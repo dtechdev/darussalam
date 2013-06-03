@@ -6,11 +6,8 @@
     <div id="main_header">
         <h1><?php echo $email['Subject'] ?></h1>
         <hr>
-        <p>From: 
-            <?php
-            echo $email['From'];
-            ?>
-        </p>
+        
+        
         <p>
             <?php
             echo $email['Body'];
@@ -19,7 +16,7 @@
 
     </div>
     <hr>
-    <ul>
+    <ul style='display: none'>
         <li style="display:inline"><a href="#" >About Us</a></li>
         <li style="display:inline"><a href="#" style="display:inline">Contact Us</a></li>
         <li style="display:inline"><a href="#" style="display:inline">Careers</a></li>
