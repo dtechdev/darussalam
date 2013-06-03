@@ -41,7 +41,7 @@
                 ),
             ));
           
-            $this->renderPartial("_shipping_detail", array("model" => $model,"regionList"=>$regionList,"form"=>$form));
+            $this->renderPartial("_shipping_detail_temp", array("model" => $model,"regionList"=>$regionList,"form"=>$form));
             $this->renderPartial("_payment_methods", array("model" => $model,
                 "form"=>$form,"creditCardModel"=>$creditCardModel));
             ?>
