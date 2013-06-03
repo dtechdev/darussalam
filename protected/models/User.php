@@ -262,5 +262,22 @@ class User extends DTActiveRecord {
         $data = $model->with('orderDetails')->findAll('user_id=' . $id);
         return $data;
     }
+    
+    /**
+     * Get city admin
+     * Temporray
+     */
+    public function getCityAdmin(){
+        $critera = new CDbCriteria();
+        $critera->select = "user_email";
+        $critera->condition = "role_id =2";
+        $user = User::model()->find($critera);
+        if(!empty($user)){
+            return $user->email;
+        }
+        else {
+            return Yii::app()->params['default_admin'];
+        }
+    }
 
 }
