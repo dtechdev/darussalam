@@ -25,9 +25,8 @@ class PaymentController extends Controller {
      */
     public function accessRules() {
         return array(
-            
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('paymentmethod','confirmorder', 'statelist'),
+                'actions' => array('paymentmethod', 'confirmorder', 'statelist', 'customer0rderDetailMailer', 'admin0rderDetailMailer'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -39,7 +38,7 @@ class PaymentController extends Controller {
     public function actionpaymentMethod() {
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
-        
+
         $error = array('status' => false);
         $model = new ShippingInfoForm();
         $model->setAttributeByDefault();
@@ -59,7 +58,7 @@ class PaymentController extends Controller {
                 switch ($model->payment_method) {
                     case 2: // credit card
 
-                        $this->processCreditCard($model,$creditCardModel);
+                        $this->processCreditCard($model, $creditCardModel);
                         break;
                     case 3: // manual
                         $this->processManual($creditCardModel);
@@ -107,7 +106,7 @@ class PaymentController extends Controller {
      * process credit card method
      */
     public function processCreditCard($model, $creditCardModel) {
-       
+
         $error = $creditCardModel->CreditCardPayment($model, $creditCardModel);
         if (empty($error)) {
             //save the shipping information of user
@@ -125,11 +124,48 @@ class PaymentController extends Controller {
      * @param type $creditCardModel
      */
     public function processManual($creditCardModel) {
-        $creditCardModel->saveOrder("");
+        $order_id = $creditCardModel->saveOrder("");
 
         UserProfile::model()->saveShippingInfo($_POST['ShippingInfoForm']);
 
+
+        $this->customer0rderDetailMailer($_POST['ShippingInfoForm']);
+        $this->admin0rderDetailMailer($_POST['ShippingInfoForm'], $order_id);
+
+
         $this->redirect(array('/web/payment/confirmOrder'));
+    }
+
+    /*
+     * method to send order detail to customer
+     */
+
+    public function customer0rderDetailMailer($customerInfo) {
+
+        $email['From'] = Yii::app()->params['adminEmail'];
+        $email['To'] = Yii::app()->user->name;
+        $email['Subject'] = "Your Order Detail";
+        $email['Body'] = $this->renderPartial('_order_email_template', array('customerInfo' => $customerInfo), true, false);
+        $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
+
+        $this->sendEmail2($email);
+        Yii::app()->user->setFlash('orderMail', 'Dear Customer Thank you...Your Order has been ordered Successfully.');
+    }
+
+    /*
+     * method to send order detail to Admin
+     */
+
+    public function admin0rderDetailMailer($customerInfo, $order_id) {
+
+        $email['From'] = Yii::app()->params['adminEmail'];
+        $email['To'] = Yii::app()->user->name;
+        $email['Subject'] = "Your Order Detail";
+        $email['Body'] = $this->renderPartial('_order_email_template_admin', array('customerInfo' => $customerInfo, "order_id" => $order_id), true, false);
+        $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
+        
+        $this->sendEmail2($email);
+        Yii::app()->user->setFlash('orderMail', 'Dear Customer Thank you...Your Order has been ordered Successfully.');
     }
 
     public function actionStatelist() {
