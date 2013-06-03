@@ -50,32 +50,36 @@
             <?php
             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/facebook_img_03.jpg');
             ?>
+            <?php echo CHtml::button('Facebook', array("class" => "f_img")); ?>
         </a>
-        <?php echo CHtml::button('Facebook', array("class" => "f_img")); ?>
+
     </div>
     <div class="sign_in">
         <a href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "linkedin")); ?>">
             <?php
             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/linkedin_img_03.jpg');
             ?>
+            <?php echo CHtml::button('Linkedin', array("class" => "l_img")); ?>
         </a>
-        <?php echo CHtml::button('Linkedin', array("class" => "l_img")); ?>
+
     </div>
     <div class="sign_in">
         <a href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "twitter")); ?>">
             <?php
             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/twitter_img_03.jpg');
             ?>
+            <?php echo CHtml::button('Twitter', array("class" => "t_img")); ?>
         </a>
-        <?php echo CHtml::button('Twitter', array("class" => "t_img")); ?>
+
     </div>
     <div class="sign_in">
         <a href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "google")); ?>">
             <?php
             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/google_img_03.jpg');
             ?>
+            <?php echo CHtml::button('Google', array("class" => "g_img")); ?>
         </a>
-        <?php echo CHtml::button('Google', array("class" => "g_img")); ?>
+
     </div>
     <h3 class="dont">Don't have account?</h3>
     <div class="sign_up_button">
