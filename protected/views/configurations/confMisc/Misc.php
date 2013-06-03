@@ -99,6 +99,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
             'name' => 'city_id',
             'type' => 'Raw',
             'value' => '!empty($data->city)?$data->city->city_name:""',
+            'visible' => isset( $_GET['type']) &&  $_GET['type'] == "general" ?false:true,
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             ),
