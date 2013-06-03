@@ -136,7 +136,7 @@ class DTWebUser extends CWebUser {
     public function installSocialConfigs() {
 
         $criteria = new CDbCriteria();
-        $criteria->addCondition("city_id='" . Yii::app()->session['city_id'] . "'");
+        $criteria->addCondition("misc_type='general'");
         $selected = array("fb_key", "fb_secret", "google_key", "google_secret", "twitter_key", 'twitter_secret', 'linkedin_key', 'linkedin_secret');
         $criteria->addInCondition("param", $selected);
         $conf = ConfMisc::model()->findAll($criteria);

@@ -9,6 +9,7 @@
  * @property string $param
  * @property string $value
  * @property string $field_type
+ * @property string $misc_type
  * @property string $create_time
  * @property string $create_user_id
  * @property string $update_time
@@ -47,7 +48,7 @@ class ConfMisc extends DTActiveRecord {
             array('title, param, value, create_time, create_user_id, update_time, update_user_id', 'required'),
             array('title, param', 'length', 'max' => 255),
             array('create_user_id, update_user_id', 'length', 'max' => 11),
-            array('field_type', 'safe'),
+            array('misc_type,field_type', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, value, create_time, create_user_id, update_time, update_user_id', 'safe', 'on' => 'search'),
@@ -94,6 +95,8 @@ class ConfMisc extends DTActiveRecord {
         $criteria->compare('id', $this->id, true);
         $criteria->compare('title', $this->title, true);
         $criteria->compare('value', $this->value, true);
+        $criteria->compare('field_type', $this->field_type, true);
+        $criteria->compare('misc_type', $this->misc_type, true);
         $criteria->compare('create_time', $this->create_time, true);
         $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_time', $this->update_time, true);

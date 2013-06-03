@@ -61,15 +61,20 @@ class ConfigurationsController extends Controller {
      * @param <string> $m (Model name without Conf)
      * @param <int> $id
      */
-    public function actionLoad($m, $id = 0, $module = '') {
+    public function actionLoad($m, $id = 0, $module = '',$type='') {
 
         /* Complete Model name */
         $model_name = 'Conf' . $m;
 
         $model = new $model_name;
-
+        
+        
         if ($id != 0) {
-            $model = $model->findByPk($id);
+            if($type!=""){
+                $criteria = new CDbCriteria();
+                $criteria->addCondition("misc_type = '".$type."'");
+            }
+            $model = $model->findByPk($id,$criteria);
         }
 
 
