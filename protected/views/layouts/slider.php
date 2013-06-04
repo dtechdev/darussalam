@@ -39,7 +39,7 @@
                             ),
                             'htmlOptions' => array(
                                 'class' => 'txt_bar',
-                                'value'=>(isset($_POST['serach_field'])?$_POST['serach_field']:""),
+                                'value' => (isset($_POST['serach_field']) ? $_POST['serach_field'] : ""),
                             ),
                         ));
                         ?>
@@ -117,7 +117,7 @@
 </div>
 <section>
     <div id="main_section">
-
+   
 
         <?php echo $content; ?>
     </div>
