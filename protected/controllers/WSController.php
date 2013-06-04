@@ -35,7 +35,9 @@ class WSController extends Controller {
      */
 
     public function actionAllCategories() {
-        $categories = Categories::model()->findAll();
+        $criteria = new CDbCriteria();
+        $criteria->select = "category_id,category_name";
+        $categories = CHtml::listData(Categories::model()->findAll($criteria),"category_id","category_name");
 
         try {
             $ret_array = array();
