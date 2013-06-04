@@ -35,13 +35,23 @@ class WSController extends Controller {
      */
 
     public function actionAllCategories() {
-        $categories = Categories::model()->findAll();
+        $criteria = new CDbCriteria();
+        $criteria->select = "category_id,category_name";
+        $categories = Categories_WS::model()->findAll($criteria);
+        
+        $cats = array();
+        foreach($categories as $cat){
+            $cats[] = array(
+                "category_id"=>$cat->category_id,
+                "category_name"=>$cat->category_name,
+            );
+        }
 
         try {
             $ret_array = array();
             $ret_array['error'] = '';
-            $ret_array['data'] = $categories;
-            $ret_array['count'] = count($categories);
+            $ret_array['data'] = $cats;
+            $ret_array['count'] = count($cats);
             echo CJSON::encode($ret_array);
         } Catch (Exception $e) {
             echo CJSON::encode(array("error" => $e->getCode()));
