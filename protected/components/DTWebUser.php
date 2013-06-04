@@ -36,7 +36,7 @@ class DTWebUser extends CWebUser {
     }
 
     function getIpInfo() {
-        echo $ip = Yii::app()->request->getUserHostAddress();
+        $ip = Yii::app()->request->getUserHostAddress();
         $content = @file_get_contents('http://api.hostip.info/?ip=' . $ip);
         if ($content != FALSE) {
             $xml = new SimpleXmlElement($content);

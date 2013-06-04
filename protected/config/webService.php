@@ -6,9 +6,8 @@
  *  seperately
  */
 include '_config/_conf_import.php';
-include '_config/_conf_modules.php';
 include '_config/_conf_component_ws.php';
-include '_config/_conf_url_manager.php';
+include '_config/_conf_url_manager_ws.php';
 include '_config/_conf_db.php';
 include '_config/_conf_logs.php';
 include '_config/_conf_params.php';
@@ -17,6 +16,7 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Darussalam Publishers',
     'defaultController' => 'WS',
+    'controllerMap'=>array('test' => '\mynamespace\controllers\TestController',),
     //'theme' => 'default',
     // preloading 'log' component
     'preload' => array('log'),
@@ -26,7 +26,7 @@ return array(
     // application components
     'components' => array(
         'user' => $conf_component_user,
-        //'urlManager' => $url_manager,
+        'urlManager' => $url_manager,
         'db' => $conf_component_db,
         'errorHandler' => array(
             // use 'site/error' action to display errors

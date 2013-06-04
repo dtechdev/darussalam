@@ -10,7 +10,10 @@ class WSController extends Controller {
     public $layout = '';
 
     public function actionIndex() {
-
+        if(!isset($_REQUEST['record_set'])){
+            echo CJSON::encode(array("No Selection"));
+            return true;
+        }
         if ($_REQUEST['record_set'] == 'product') {
             $model = new Product;
             $allBooks = $model->getWsAllBooks();
