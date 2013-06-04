@@ -22,7 +22,7 @@ return array(
     'preload' => array('log'),
     // autoloading model and component classes
     'import' => $import,
-    'modules' => $modules,
+    //'modules' => $modules,
     // application components
     'components' => array(
         'user' => $conf_component_user,
