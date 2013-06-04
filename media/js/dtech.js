@@ -14,7 +14,7 @@ var dtech = {
 
         var load_div = '<div id="load_subpanel_div" class="overlay" style="display:none">' +
                 '<div class="loadingBar">' +
-                '<span class="lodingString">Fetching</span><span class="loading">. . . .</span>' +
+                '<span class="lodingString">Please Wait....</span><span class="loading">. . . .</span>' +
                 '</div>' +
                 '</div>';
         
