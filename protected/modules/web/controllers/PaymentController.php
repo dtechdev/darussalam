@@ -36,7 +36,7 @@ class PaymentController extends Controller {
     }
 
     public function actionpaymentMethod() {
- 
+
         Yii::app()->theme = Yii::app()->session['layout'];
         Yii::app()->controller->layout = '//layouts/main';
 
@@ -148,7 +148,6 @@ class PaymentController extends Controller {
         $email['Subject'] = "Your Order Detail";
         $email['Body'] = $this->renderPartial('_order_email_template', array('customerInfo' => $customerInfo), true, false);
         $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
-
         $this->sendEmail2($email);
     }
 
@@ -159,9 +158,9 @@ class PaymentController extends Controller {
     public function admin0rderDetailMailer($customerInfo, $order_id) {
 
         $email['From'] = Yii::app()->params['adminEmail'];
-        
+
         $email['To'] = User::model()->getCityAdmin();
-        $email['Subject'] = "Your Order Detail";
+        $email['Subject'] = "New Order Placement";
         $email['Body'] = $this->renderPartial('_order_email_template_admin', array('customerInfo' => $customerInfo, "order_id" => $order_id), true, false);
         $email['Body'] = $this->renderPartial('/common/_email_template', array('email' => $email), true, false);
 
