@@ -11,7 +11,17 @@ var dtech = {
 
     },
     updateProductListing: function(ajax_url, id) {
-        $("#loading").show();
+
+        var load_div = '<div id="load_subpanel_div" class="overlay" style="display:none">' +
+                '<div class="loadingBar">' +
+                '<span class="lodingString">Fetching</span><span class="loading">. . . .</span>' +
+                '</div>' +
+                '</div>';
+        
+        //$("#loading").show();
+        rite_html = $("#right_main_content").html();
+        $("#right_main_content").html(load_div+rite_html);
+        $("#load_subpanel_div").show();
 
         url_hash = window.location.hash;
 
@@ -51,7 +61,7 @@ var dtech = {
                 dtech.updateCategoryStatus(id);
             }
 
-            $("#loading").hide();
+            //$("#loading").hide();
         });
         return false;
     },
@@ -176,7 +186,7 @@ var dtech = {
      * for redirecting to quran cate
      */
     redirectToQuranCategory: function(obj) {
-        url = jQuery(obj).attr("href")+jQuery(obj).attr("cat");
+        url = jQuery(obj).attr("href") + jQuery(obj).attr("cat");
         window.location.href = url;
         window.location.reload();
         return true;
