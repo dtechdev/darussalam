@@ -15,7 +15,7 @@ if (empty($cart)) {
     <div id="shopping_cart">
         <div id="main_shopping_cart">
             <div class="top_cart">
-                <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_img_03.png") ?>
+                <?php //echo CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_img_03.png") ?>
             </div>
             <div id="cart">
                 <div class="left_cart">
