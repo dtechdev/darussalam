@@ -15,13 +15,13 @@ class WSController extends Controller {
             return true;
         }
         if ($_REQUEST['record_set'] == 'product') {
-            $model = new ProductWS;
-            $allBooks = $model->getWsAllBooks();
+         
+            $allBooks = ProductWS::model()->getWsAllBooks();
             $this->layout = "";
             echo CJSON::encode($allBooks);
         } else if ($_REQUEST['record_set'] == 'product_category') {
-            $model = new ProductWS;
-            $allBooks = $model->getWsAllBooksByCategory();
+            
+            $allBooks = ProductWS::model()->getWsAllBooksByCategory();
 
             $this->layout = "";
             echo CJSON::encode($allBooks);
