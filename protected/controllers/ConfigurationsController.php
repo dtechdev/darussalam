@@ -84,7 +84,7 @@ class ConfigurationsController extends Controller {
             $model->attributes = $_POST[$model_name];
             /* Save record */
             if ($model->save())
-                $this->redirect(array('load', 'm' => $m, 'module' => $module));
+                $this->redirect(array('load', 'm' => $m, 'module' => $module,"type"=>$model->misc_type));
         }
 
         $this->render($model->confViewName, array('model' => $model, 'm' => $m, 'module' => $module));
