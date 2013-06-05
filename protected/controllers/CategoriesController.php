@@ -95,7 +95,7 @@ class CategoriesController extends Controller {
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->category_id));
         }
-
+     
         $this->render('create', array(
             'model' => $model,
             'categoriesList' => $categoriesList,
