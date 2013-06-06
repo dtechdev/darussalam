@@ -41,7 +41,7 @@ class CategoriesController extends Controller {
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array('admin', 'delete','update'),
+                'actions' => array('admin', 'delete', 'update'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -73,7 +73,16 @@ class CategoriesController extends Controller {
         $model = new Categories;
 
         global $categotyList;
-        $parentCategories = Categories::model()->findAllByAttributes(array('parent_id' => '0'));
+        
+        $this->changeAdminCity();
+
+        $parentCategories = Categories::model()->findAllByAttributes(
+                array(
+                    'parent_id' => 0,
+                    'city_id' => Yii::app()->session['city_id']
+                )
+        );
+        
         if ($parentCategories != null) {
             foreach ($parentCategories as $category) {
                 $categotyList[] = array('category_id' => $category->category_id, 'category_name' => $category->category_name);
@@ -95,7 +104,7 @@ class CategoriesController extends Controller {
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->category_id));
         }
-     
+
         $this->render('create', array(
             'model' => $model,
             'categoriesList' => $categoriesList,
@@ -122,6 +131,9 @@ class CategoriesController extends Controller {
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
         global $categotyList;
+        
+        $this->changeAdminCity();
+        
         $parentCategories = Categories::model()->findAllByAttributes(array('parent_id' => '0'));
         if ($parentCategories != null) {
             foreach ($parentCategories as $category) {

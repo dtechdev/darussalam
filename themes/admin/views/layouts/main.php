@@ -20,6 +20,8 @@
             var yii_base_url = "<?php echo Yii::app()->baseUrl; ?>";
 
         </script>
+        
+        <script type="text/javascript" src="<?php echo Yii::app()->baseUrl ?>/media/js/dtech.js"></script>
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
 

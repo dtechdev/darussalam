@@ -40,6 +40,12 @@ $this->widget('zii.widgets.CDetailView', array(
         array(
             'name' => 'product_description',
             'value' => $model->product_description,
+            
+        ),
+        array(
+            'name' => 'parent_cateogry_id',
+            'value' => !empty($model->parent_category)?$model->parent_category->category_name:"",
+            
         ),
         array(
             'name' => 'authors',
@@ -57,8 +63,21 @@ $this->widget('zii.widgets.CDetailView', array(
 
     ),
 ));
-
-$this->renderPartial('productProfile/_container', array('model' => $model, "type" => "form"));
+/***
+ * Pcm:
+ * will only be use for some purposes
+ * so dnt delete this line
+ */
+echo CHtml::hiddenField("parent_cat_id",$model->parent_cateogry_id);
+/**
+ * to handle parent cateogry flow
+ */
+if($model->parent_category->category_name == "Others"){
+    $this->renderPartial('other/_container', array('model' => $model, "type" => "form"));
+}
+else if($model->parent_category->category_name == "Books") {
+     $this->renderPartial('productProfile/_container', array('model' => $model, "type" => "form"));
+}
 $this->renderPartial('productCategories/_container', array('model' => $model, "type" => "form"));
 //$this->renderPartial('productImages/_container', array('model' => $model, "type" => "form"));
 ?>

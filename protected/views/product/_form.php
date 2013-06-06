@@ -29,6 +29,25 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/f
         <?php echo $form->error($model, 'product_name'); ?>
     </div>
     <div class="row">
+        <?php echo $form->labelEx($model, 'parent_cateogry_id'); ?>
+        <?php
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("parent_id = 0");
+        $criteria->select = "category_id,category_name";
+        $criteria->addCondition("city_id =" . Yii::app()->session['city_id']);
+        $criteria->order = " FIELD(category_name ,'Books') DESC ";
+        $categories = Categories::model()->findAll($criteria);
+        echo $form->dropDownList($model, 'parent_cateogry_id', array(""=>"Select")+CHtml::listData($categories, "category_id", "category_name"), 
+                array(
+                        "onchange" => "dtech.showProductChildren(this)",
+                        "onclick" =>"dtech.preserveOldVal(this)"
+                        
+                    )
+        );
+        ?>
+        <?php echo $form->error($model, 'parent_cateogry_id'); ?>
+    </div>
+    <div class="row">
         <?php echo $form->labelEx($model, 'product_description'); ?>
         <?php echo $form->textArea($model, 'product_description', array('cols' => 81, 'maxlength' => 255)); ?>
         <?php echo $form->error($model, 'product_description'); ?>
@@ -53,9 +72,9 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/f
 
     <?php
     if ($this->action->id != "update") {
+        $this->renderPartial('other/_container', array('model' => $model, "type" => "field"));
         $this->renderPartial('productProfile/_container', array('model' => $model, "type" => "field"));
         $this->renderPartial('productCategories/_container', array('model' => $model, "type" => "field"));
-        //$this->renderPartial('productImages/_container', array('model' => $model, "type" => "field"));
     }
     ?>
 
