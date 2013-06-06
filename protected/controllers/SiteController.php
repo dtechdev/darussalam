@@ -110,7 +110,10 @@ class SiteController extends Controller {
 
         if (isset($_POST['LandingModel'])) {
             $model->attributes = $_POST['LandingModel'];
-
+            if (empty($model->country)) {
+                Yii::app()->user->SiteSessions;
+                $this->redirect($this->createUrl('/site/storehome'));
+            }
             if (!empty($model->city)) {
                 $_REQUEST['city_id'] = $model->city;
                 Yii::app()->user->SiteSessions;
@@ -119,9 +122,6 @@ class SiteController extends Controller {
             /**
              * if city id is null then no frenchise
              */ else {
-                $this->redirect($this->createUrl('/site/storehome'));
-            }
-            if (!empty($model->country)) {
                 $this->redirect($this->createUrl('/error/nofrenchise'));
             }
         } else {
