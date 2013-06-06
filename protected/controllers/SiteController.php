@@ -23,20 +23,25 @@ class SiteController extends Controller {
     /**
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.
+     * New landing page
      */
     public function actionIndex() {
+        Yii::app()->theme = 'landing_page_theme';
+        Yii::app()->controller->layout = "";
         Yii::app()->user->SiteSessions;
 
-        $this->redirect($this->createUrl('/site/storehome'));
+        $model = new LandingModel();
+        $this->countryLanding($model);
+        $this->render('landing_page', array("model" => $model));
     }
-    
+
     /**
      * configure app
      */
-    public function actionConfigureSite(){
-        $host =  Yii::app()->request->hostInfo."/".Yii::app()->baseUrl;
+    public function actionConfigureSite() {
+        $host = Yii::app()->request->hostInfo . "/" . Yii::app()->baseUrl;
         $site = SelfSite::model()->getSiteInfo($host);
-        $columns = array("site_id"=>$site['site_id']);
+        $columns = array("site_id" => $site['site_id']);
         Yii::app()->db->createCommand()->update("country", $columns);
         Yii::app()->db->createCommand()->update("user", $columns);
         Yii::app()->db->createCommand()->update("layout", $columns);
@@ -49,7 +54,6 @@ class SiteController extends Controller {
      *  
      */
     public function actionStoreHome() {
-
         Yii::app()->user->SiteSessions;
         $order_detail = new OrderDetail;
         $limit = 3;
@@ -69,6 +73,58 @@ class SiteController extends Controller {
             'best_sellings' => $bestSellings,
             'segments_footer_cats' => $segments_footer_cats,
         ));
+    }
+
+    /**
+     * use to change the store and on ajax call
+     * and redirect ot particular path
+     */
+    public function actionStorechange($city_id = 0) {
+
+
+        $city_id = $_REQUEST['city_id'];
+        $city = City::model()->findByPk($city_id);
+        $countries = Country::model()->findByPk($city['country_id']);
+        $country_short_name = $countries['short_name'];
+        $city_short_name = $city['short_name'];
+
+        $layout_id = $city['layout_id'];
+        $layout = Layout::model()->findByPk($layout_id);
+        $layout_name = $layout['layout_name'];
+
+        Yii::app()->session['layout'] = $layout_name;
+        Yii::app()->session['country_short_name'] = $country_short_name;
+        Yii::app()->session['city_short_name'] = $city_short_name;
+        Yii::app()->session['city_id'] = $city['city_id'];
+        Yii::app()->theme = Yii::app()->session['layout'];
+        echo CJSON::encode(array('redirect' => $this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']))));
+    }
+
+    /*
+     * Method to handle landing page 
+     * country wise application loading
+     */
+
+    public function countryLanding($model) {
+
+
+        if (isset($_POST['LandingModel'])) {
+            $model->attributes = $_POST['LandingModel'];
+           
+            if (!empty($model->city)) {
+                $_REQUEST['city_id'] = $model->city;
+                Yii::app()->user->SiteSessions;
+                $this->redirect($this->createUrl('/site/storehome'));
+            } 
+            /**
+             * if city id is null then no frenchise
+             */
+            else {
+                $this->redirect($this->createUrl('/error/nofrenchise'));
+            }
+        } else {
+             //$this->redirect($this->createUrl('/site/storehome'));
+        }
     }
 
     /**
@@ -94,9 +150,9 @@ class SiteController extends Controller {
         $body = "You are now registered on " . Yii::app()->name . ", please validate your email";
         // $body.=" going to this url: <br /> \n" . $model->getActivationUrl();
         $email['Body'] = $body;
-        
-        CVarDumper::dump($email,10,true);
-     
+
+        CVarDumper::dump($email, 10, true);
+
         // $email['Body'] = $this->renderPartial('/common/_email_template');
         $this->sendEmail2($email);
     }
@@ -149,7 +205,7 @@ class SiteController extends Controller {
 
                 if (Yii::app()->user->isSuperAdmin) {
                     Yii::app()->session['isSuper'] = 1;
-                   
+
                     $this->redirect($this->createUrl('/user/index'));
                 }
                 if (Yii::app()->user->isAdmin) {
@@ -161,7 +217,7 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
-               
+
                 //$this->redirect(Yii::app()->user->returnUrl);
                 $this->redirect(Yii::app()->user->returnUrl);
             }
@@ -178,30 +234,6 @@ class SiteController extends Controller {
         Yii::app()->user->logout();
 
         $this->redirect(Yii::app()->homeUrl);
-    }
-
-    /**
-     * use to change the store and on ajax call
-     * and redirect ot particular path
-     */
-    public function actionStorechange() {
-
-        $city_id = $_POST['city_id'];
-        $city = City::model()->findByPk($city_id);
-        $countries = Country::model()->findByPk($city['country_id']);
-        $country_short_name = $countries['short_name'];
-        $city_short_name = $city['short_name'];
-
-        $layout_id = $city['layout_id'];
-        $layout = Layout::model()->findByPk($layout_id);
-        $layout_name = $layout['layout_name'];
-
-        Yii::app()->session['layout'] = $layout_name;
-        Yii::app()->session['country_short_name'] = $country_short_name;
-        Yii::app()->session['city_short_name'] = $city_short_name;
-        Yii::app()->session['city_id'] = $city['city_id'];
-        Yii::app()->theme = Yii::app()->session['layout'];
-        echo CJSON::encode(array('redirect' => $this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']))));
     }
 
     public function actionTestauth() {

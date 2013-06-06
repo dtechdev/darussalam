@@ -262,8 +262,25 @@ class Controller extends CController {
 
         $conCate = array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']);
         $params = array_merge($params, $conCate);
-       
+
         return parent::createUrl($route, $params, $ampersand);
+    }
+
+    /**
+     * 
+     * @param type $route
+     * @param type $params
+     * @param type $ampersand
+     * @return My own simple Url redirctor
+     */
+    public function createDTUrl($route, $params = array(), $ampersand = '&') {
+        if ($route === '')
+            $route = $this->getId() . '/' . $this->getAction()->getId();
+        elseif (strpos($route, '/') === false)
+            $route = $this->getId() . '/' . $route;
+        if ($route[0] !== '/' && ($module = $this->getModule()) !== null)
+            $route = $module->getId() . '/' . $route;
+        return Yii::app()->createUrl(trim($route, '/'), $params, $ampersand);
     }
 
 }

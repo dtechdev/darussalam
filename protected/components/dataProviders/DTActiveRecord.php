@@ -185,7 +185,7 @@ class DTActiveRecord extends CActiveRecord {
     public function makeCityAdminCondition($condition) {
        
         $controller =  Yii::app()->controller->id;
-        $controllers = array("search","site","wS","error");
+        $controllers = array("search","site","wS","error","commonSystem");
         
         $actions = array("login", "logout","storehome","activate");
 
@@ -210,7 +210,7 @@ class DTActiveRecord extends CActiveRecord {
     public function makeCriteriaCityAdmin($criteria) {
 
         $controller =  Yii::app()->controller->id;
-        $controllers = array("search","site","wS","error");
+        $controllers = array("search","site","wS","error","commonSystem");
         $actions = array("login", "logout","storehome","activate"); // apply the criteria to all dtActiveRec execpt these methods..Ub
 
         if (!in_array($controller,$controllers)  && !in_array($this->_action, $actions) && !empty(Yii::app()->session['city_id'])) {

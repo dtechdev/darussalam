@@ -29,8 +29,6 @@ class ErrorController extends Controller {
      */
 
     public function actionNoFrenchise() {
-        Yii::app()->theme = 'admin';
-        Yii::app()->layout = '';
         $error = Yii::app()->errorHandler->error;
         if (!$error) {
             $error['message'] = " NO Frenchise in current country...!";

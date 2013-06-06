@@ -17,10 +17,10 @@ var dtech = {
                 '<span class="lodingString">Please Wait....</span><span class="loading">. . . .</span>' +
                 '</div>' +
                 '</div>';
-        
+
         //$("#loading").show();
         rite_html = $("#right_main_content").html();
-        $("#right_main_content").html(load_div+rite_html);
+        $("#right_main_content").html(load_div + rite_html);
         $("#load_subpanel_div").show();
 
         url_hash = window.location.hash;
@@ -219,6 +219,27 @@ var dtech = {
     },
     isNumber: function(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
-    }
+    },
+    /**
+     * to update element on ajax all
+     * @param {type} ajax_url
+     * @param {type} update_element_id
+     * @param {type} resource_elem_id
+     * @returns {undefined}
+     */
+    updateElementAjax: function(ajax_url, update_element_id, resource_elem_id) {
 
+        if (jQuery("#" + resource_elem_id).val() != "") {
+            jQuery.ajax({
+                type: "POST",
+                url: ajax_url,
+                data:
+                        {
+                            resource_elem_id: jQuery("#" + resource_elem_id).val(),
+                        }
+            }).done(function(response) {
+                jQuery("#" + update_element_id).html(response);
+            });
+        }
+    },
 }
