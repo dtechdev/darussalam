@@ -1,5 +1,6 @@
 // JavaScript Document
 var dtech = {
+    old_drop_val : "",
     getmultiplechecboxValue: function(elem_id) {
         var sel_ar = new Array();
         $("." + elem_id).each(function() {
@@ -220,26 +221,34 @@ var dtech = {
     isNumber: function(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     },
-    /**
-     * to update element on ajax all
-     * @param {type} ajax_url
-     * @param {type} update_element_id
-     * @param {type} resource_elem_id
-     * @returns {undefined}
-     */
-    updateElementAjax: function(ajax_url, update_element_id, resource_elem_id) {
+    changeAdminCity: function(url, obj) {
+        window.location.href = url + "?change_city_id=" + $(obj).val();
+    },
+    showProductChildren: function(obj) {
 
-        if (jQuery("#" + resource_elem_id).val() != "") {
-            jQuery.ajax({
-                type: "POST",
-                url: ajax_url,
-                data:
-                        {
-                            resource_elem_id: jQuery("#" + resource_elem_id).val(),
-                        }
-            }).done(function(response) {
-                jQuery("#" + update_element_id).html(response);
-            });
+        if (confirm("Your Child data will be lost in case of doing , are you sure you want to do this")) {
+            $("#productProfile").hide();
+            $("#other").hide();
+            $(".grid_fields").remove();
+            
+            //dtech.old_drop_val = $(obj).val();
+
+            if ($("#Product_parent_cateogry_id option:selected").text() == "Others") {
+                $("#other").show();
+                $("#other .plus_bind").trigger('click');
+            }
+            else if ($("#Product_parent_cateogry_id option:selected").text() == 'Books') {
+                $("#productProfile").show();
+                $("#productProfile .plus_bind").trigger('click');
+            }
         }
+        else {
+            $(obj).val(dtech.old_drop_val);
+            return false;
+        }
+    },
+    preserveOldVal: function(obj) {
+        dtech.old_drop_val = $(obj).val();
+        
     },
 }

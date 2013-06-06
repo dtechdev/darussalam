@@ -76,7 +76,14 @@ $mName = "ProductProfile";
                         (
                         'label' => 'update',
 //                                'url' => 'Yii::app()->controller->createUrl("laborForm",array("id"=> $data->id, "daily_report_id"=>' . $model->id . '))',
-                        'url' => 'Yii::app()->controller->createUrl("editChild", array("id"=> $data->primaryKey, "mName"=>get_class($data), "dir" => "' . $dir . '"))',
+                        'url' => 'Yii::app()->controller->createUrl("editChild", array(
+                                        "id"=> $data->primaryKey, 
+                                        "mName"=>get_class($data), 
+                                        "dir" => "' . $dir . '",
+                                        
+                                        ))
+                                        
+                                        ',
                         'click' => "js:function() {
                                             $('#loading').toggle();
                                             $.ajax({

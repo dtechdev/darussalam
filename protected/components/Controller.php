@@ -265,6 +265,17 @@ class Controller extends CController {
 
         return parent::createUrl($route, $params, $ampersand);
     }
+    
+    /**
+     * to change admin city for
+     */
+    public function changeAdminCity(){
+        if(isset($_REQUEST['change_city_id'])){
+            $_REQUEST['city_id'] = $_REQUEST['change_city_id'];
+            Yii::app()->user->SiteSessions;
+            $this->redirect($this->createUrl($this->route));
+        }
+    }
 
     /**
      * 
