@@ -84,6 +84,7 @@ class Product extends DTActiveRecord {
             'categories' => array(self::MANY_MANY, 'Categories', 'product_categories(product_id, product_category_id)'),
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
             'other' => array(self::HAS_MANY, 'Other', 'product_id'),
+            'educationToys' => array(self::HAS_MANY, 'EducationToys', 'product_id'),
             /**
              * only for ajax views
              */

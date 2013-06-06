@@ -229,6 +229,7 @@ var dtech = {
         if (confirm("Your Child data will be lost in case of doing , are you sure you want to do this")) {
             $("#productProfile").hide();
             $("#other").hide();
+            $("#educationToys").hide();
             $(".grid_fields").remove();
             
             //dtech.old_drop_val = $(obj).val();
@@ -240,6 +241,10 @@ var dtech = {
             else if ($("#Product_parent_cateogry_id option:selected").text() == 'Books') {
                 $("#productProfile").show();
                 $("#productProfile .plus_bind").trigger('click');
+            }
+            else if ($("#Product_parent_cateogry_id option:selected").text() == 'Educational Toys') {
+                $("#educationToys").show();
+                $("#educationToys .plus_bind").trigger('click');
             }
         }
         else {
