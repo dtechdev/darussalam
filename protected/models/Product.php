@@ -9,6 +9,7 @@
  * @property integer $city_id
  * @property string $is_featured
  * @property string $product_price
+ * @property string $parent_cateogry_id
  *
  * The followings are the available model relations:
  * @property Cart[] $carts
@@ -22,6 +23,7 @@
 class Product extends DTActiveRecord {
 
     public $no_image;
+ 
 
     public function __construct($scenario = 'insert') {
         $this->no_image = Yii::app()->baseUrl . "/images/product_images/noimages.jpeg";
@@ -51,11 +53,11 @@ class Product extends DTActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('product_name, city_id, is_featured,product_description', 'required'),
+            array('parent_cateogry_id,product_name, city_id, is_featured,product_description', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('activity_log', 'safe'),
             array('authors', 'safe'),
-            array('no_image,authors', 'safe'),
+            array('parent_cateogry_id,no_image,authors', 'safe'),
             array('city_id', 'numerical', 'integerOnly' => true),
             array('product_name', 'length', 'max' => 255),
             array('is_featured', 'length', 'max' => 1),
@@ -77,9 +79,13 @@ class Product extends DTActiveRecord {
             'carts' => array(self::HAS_MANY, 'Cart', 'product_id'),
             'discount' => array(self::HAS_MANY, 'ProductDiscount', 'product_id'),
             'city' => array(self::BELONGS_TO, 'City', 'city_id'),
+            'parent_category' => array(self::BELONGS_TO, 'Categories', 'parent_cateogry_id'),
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
             'categories' => array(self::MANY_MANY, 'Categories', 'product_categories(product_id, product_category_id)'),
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
+            'quranProfile' => array(self::HAS_MANY, 'Quran', 'product_id'),
+            'other' => array(self::HAS_MANY, 'Other', 'product_id'),
+            'educationToys' => array(self::HAS_MANY, 'EducationToys', 'product_id'),
             /**
              * only for ajax views
              */
@@ -115,6 +121,8 @@ class Product extends DTActiveRecord {
         return array(
             'product_id' => 'Product',
             'product_name' => 'Product Name',
+            'parent_cateogry_id' => 'Parent Category',
+            '_parent_category' => 'Category',
             'product_description' => 'Product Description',
             'city_id' => 'City',
             'authors' => 'Author',

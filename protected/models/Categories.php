@@ -136,7 +136,7 @@ class Categories extends DTActiveRecord {
         $criteria->compare('added_date', $this->added_date, true);
         $criteria->compare('parent_id', $this->parent_id);
         $criteria->compare('city_id', $this->city_id);
-
+        $criteria->addCondition("parent_id <> 0");
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
