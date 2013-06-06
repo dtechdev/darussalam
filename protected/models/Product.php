@@ -83,6 +83,7 @@ class Product extends DTActiveRecord {
             'productCategories' => array(self::HAS_MANY, 'ProductCategories', 'product_id'),
             'categories' => array(self::MANY_MANY, 'Categories', 'product_categories(product_id, product_category_id)'),
             'productProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id'),
+            'quranProfile' => array(self::HAS_MANY, 'Quran', 'product_id'),
             'other' => array(self::HAS_MANY, 'Other', 'product_id'),
             'educationToys' => array(self::HAS_MANY, 'EducationToys', 'product_id'),
             /**
