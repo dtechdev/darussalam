@@ -1,6 +1,7 @@
 <div id="landing_content">
     <p>Darussalam is a multilingual international Islamic publishing house, with headquarters in Riyadh, Kingdom of Saudi Arabia, and branches &amp; agents in major cities of the world. The foremost obligation of Darussalam is to publish most authentic Islamic books in the light of the Quran and the Sahih Ahadith in all major international languages. To impart and impel the above mentioned sacred obligation, Darussalam has been engaged from its very inception, in producing books on Islam in the Arabic, English, Urdu, Spanish, French, Hindi, Persian, Malayalam, Turkish, Indonesian, Russian, Albanian and Bangla languages. The main theme of these books is to present the fundamentals of Islam as explained by the most recognized Islamic scholars of the Muslim world.</p>
     <div class="landing_main_div">
+        <?php echo CVarDumper::dump($model,10,TRUE);die; ?>
         <div class="landing_div">
             <?php
             echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/quran_img_03.png"), $this->createUrl('/web/product/allproducts'));
