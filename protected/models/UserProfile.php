@@ -61,7 +61,7 @@ class UserProfile extends DTActiveRecord {
         return array(
             array('first_name, last_name', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            
             array('avatar', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
             //array('user_id', 'numerical', 'integerOnly'=>true),
             array('first_name, last_name, address,  contact_number', 'length', 'max' => 255),

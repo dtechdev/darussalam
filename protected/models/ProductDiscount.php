@@ -42,7 +42,7 @@ class ProductDiscount extends DTActiveRecord
         return array(
             array('discount_type, discount_value', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            
             array('discount_type, discount_value', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

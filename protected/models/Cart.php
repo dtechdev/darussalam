@@ -38,7 +38,7 @@ class Cart extends DTActiveRecord {
         return array(
             array('product_profile_id, added_date', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            
             array('product_profile_id', 'numerical', 'integerOnly' => true),
             array('added_date', 'length', 'max' => 255),
             // The following rule is used by search().

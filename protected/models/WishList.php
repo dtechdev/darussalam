@@ -14,7 +14,6 @@
  * @property string $create_user_id
  * @property string $update_time
  * @property string $update_user_id
- * @property string $activity_log
  *
  * The followings are the available model relations:
  * @property User $user
@@ -50,10 +49,10 @@ class WishList extends CActiveRecord {
             array('product_profile_id, user_id, city_id', 'numerical', 'integerOnly' => true),
             array('session_id', 'length', 'max' => 255),
             array('create_user_id, update_user_id', 'length', 'max' => 11),
-            array('activity_log,create_time, create_user_id, update_time, update_user_id', 'safe'),
+            array('create_time, create_user_id, update_time, update_user_id', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, product_profile_id, user_id, city_id, added_date, session_id, create_time, create_user_id, update_time, update_user_id, activity_log', 'safe', 'on' => 'search'),
+            array('id, product_profile_id, user_id, city_id, added_date, session_id, create_time, create_user_id, update_time, update_user_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -85,7 +84,7 @@ class WishList extends CActiveRecord {
             'create_user_id' => 'Create User',
             'update_time' => 'Update Time',
             'update_user_id' => 'Update User',
-            'activity_log' => 'Activity Log',
+           
         );
     }
 
@@ -109,7 +108,6 @@ class WishList extends CActiveRecord {
         $criteria->compare('create_user_id', $this->create_user_id, true);
         $criteria->compare('update_time', $this->update_time, true);
         $criteria->compare('update_user_id', $this->update_user_id, true);
-        $criteria->compare('activity_log', $this->activity_log, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

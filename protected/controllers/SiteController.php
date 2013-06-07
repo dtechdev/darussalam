@@ -54,7 +54,13 @@ class SiteController extends Controller {
      *  
      */
     public function actionStoreHome() {
+        
         Yii::app()->user->SiteSessions;
+        
+//        Yii::app()->controller->layout = "";
+//        Yii::app()->user->SiteSessions;
+//        Yii::app()->theme = 'new_theme';
+        
         $order_detail = new OrderDetail;
         $limit = 3;
         /** featured products * */

@@ -60,7 +60,7 @@ class User extends DTActiveRecord {
         return array(
             array('user_password,user_email', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            
             array('role_id, status_id, city_id, site_id', 'numerical', 'integerOnly' => true),
             array('user_password, activation_key', 'length', 'max' => 255),
             array('is_active', 'length', 'max' => 8),

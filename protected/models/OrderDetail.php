@@ -50,7 +50,7 @@ class OrderDetail extends DTActiveRecord {
         return array(
             array('product_profile_id, product_price', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            
             array('order_id, product_profile_id', 'numerical', 'integerOnly' => true),
             array('product_price', 'length', 'max' => 10),
             // The following rule is used by search().

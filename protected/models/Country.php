@@ -43,7 +43,7 @@ class Country extends DTActiveRecord {
             array('country_name, short_name, site_id', 'required'),
             array('country_name', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            
             array('site_id', 'numerical', 'integerOnly' => true),
             array('country_name, short_name', 'length', 'max' => 255),
             // The following rule is used by search().

@@ -40,7 +40,7 @@ class SelfSite extends DTActiveRecord {
             array('site_name, site_descriptoin', 'required'),
             array('site_name', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log,site_headoffice,_cites,country_id', 'safe'),
+            array('site_headoffice,_cites,country_id', 'safe'),
             array('site_name, site_descriptoin', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

@@ -83,7 +83,8 @@ class DTDbMigration extends CDbMigration {
      */
     public function getcolumns($table) {
         $connection = Yii::app()->db;
-        $sql = "show columns from " . $table;
+       
+        $sql = "SHOW columns FROM " . $this->getDBName().".".$table;
         $command = $connection->createCommand($sql);
         $rows = $command->queryAll();
         $fields = array();
@@ -92,6 +93,8 @@ class DTDbMigration extends CDbMigration {
         }
         return $fields;
     }
+    
+
 
     /**
      * Builds and executes a SQL statement for creating a new DB table.

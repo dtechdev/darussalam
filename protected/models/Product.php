@@ -55,7 +55,7 @@ class Product extends DTActiveRecord {
         return array(
             array('parent_cateogry_id,product_name, city_id, is_featured,product_description', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            
             array('authors', 'safe'),
             array('parent_cateogry_id,no_image,authors', 'safe'),
             array('city_id', 'numerical', 'integerOnly' => true),

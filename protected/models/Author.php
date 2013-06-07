@@ -40,7 +40,7 @@ class Author extends DTActiveRecord
 		return array(
 			array('author_name', 'required'),
                         array('create_time,create_user_id,update_time,update_user_id','required'),
-                        array('activity_log','safe'),
+                       
 			array('author_name', 'length', 'max'=>255),
                     
 			// The following rule is used by search().

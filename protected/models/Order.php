@@ -46,7 +46,7 @@ class Order extends DTActiveRecord
             array('payment_method_id,user_id, total_price, order_date', 'required'),
             array('user_id', 'numerical', 'integerOnly' => true),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            
             array('total_price', 'length', 'max' => 10),
             array('order_date', 'length', 'max' => 255),
             array('transaction_id,status','safe'),

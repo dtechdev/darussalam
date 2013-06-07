@@ -54,7 +54,7 @@ class ProductProfile extends DTActiveRecord {
             array('size,language_id,item_code', 'required'),
             array('item_code', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('product_id,activity_log', 'safe'),
+            array('product_id', 'safe'),
             array('id,size,no_of_pages,binding,printing,paper,edition,upload_index', 'safe'),
             array('price,discount_type,discount_type', 'safe'),
             array('isbn', 'length', 'max' => 255),

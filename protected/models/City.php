@@ -50,7 +50,7 @@ class City extends DTActiveRecord
             array('country_id, city_name, short_name, address, layout_id', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('city_name', 'unique'),
-            array('activity_log', 'safe'),
+            
             array('country_id, layout_id', 'numerical', 'integerOnly' => true),
             array('city_name, short_name, address', 'length', 'max' => 255),
             // The following rule is used by search().

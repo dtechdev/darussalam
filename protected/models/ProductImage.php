@@ -66,7 +66,7 @@ class ProductImage extends DTActiveRecord {
             //array('product_profile_id, image_small, image_large', 'required'),
             array('product_profile_id', 'numerical', 'integerOnly' => true),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('upload_index,no_image,image_url,oldLargeImg,oldSmallImg,upload_key,is_default,activity_log', 'safe'),
+            array('upload_index,no_image,image_url,oldLargeImg,oldSmallImg,upload_key,is_default', 'safe'),
             array('image_small, image_large', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

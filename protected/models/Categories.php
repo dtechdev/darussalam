@@ -43,7 +43,7 @@ class Categories extends DTActiveRecord {
         return array(
             array('category_name, added_date, city_id', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            array('activity_log', 'safe'),
+            
             array('parent_id, city_id', 'numerical', 'integerOnly' => true),
             array('category_name, added_date', 'length', 'max' => 255),
             // The following rule is used by search().
