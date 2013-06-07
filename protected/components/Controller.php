@@ -265,12 +265,21 @@ class Controller extends CController {
 
         return parent::createUrl($route, $params, $ampersand);
     }
-    
+
+    /**
+     * set Total amount in session
+     */
+    public function setTotalAmountSession($grand_total, $total_quantity, $description) {
+        Yii::app()->session['total_price'] = round($grand_total, 2);
+        Yii::app()->session['quantity'] = $total_quantity;
+        Yii::app()->session['description'] = $description;
+    }
+
     /**
      * to change admin city for
      */
-    public function changeAdminCity(){
-        if(isset($_REQUEST['change_city_id'])){
+    public function changeAdminCity() {
+        if (isset($_REQUEST['change_city_id'])) {
             $_REQUEST['city_id'] = $_REQUEST['change_city_id'];
             Yii::app()->user->SiteSessions;
             $this->redirect($this->createUrl($this->route));

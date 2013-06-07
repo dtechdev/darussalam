@@ -1,6 +1,6 @@
 <div id="book_content">
     <div id="book_main_content">
-        <?php $this->renderPartial("_subheader"); ?>
+        <?php $this->renderPartial("/product/_subheader"); ?>
     </div>
 </div>
 <div id="wishList_container">

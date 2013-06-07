@@ -125,7 +125,7 @@
                         }
                         $wishlistCount = ($tot['total_pro'] > 0) ? $tot['total_pro'] : "";
 
-                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg', "heart img", array("class" => "heart_img")) . '<p id="wishlist_counter" style="margin-left: 0px;">' . $wishlistCount . '</p>', $this->createUrl('/web/product/viewwishlist'));
+                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg', "heart img", array("class" => "heart_img")) . '<p id="wishlist_counter" style="margin-left: 0px;">' . $wishlistCount . '</p>', $this->createUrl('/web/wishList/viewwishlist'));
 
                         //count total added products in cart
                         if (isset(Yii::app()->user->id)) {
@@ -144,7 +144,7 @@
                         $cartCount = $tot['cart_total'];
 
 
-                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/simple_cart_img_03.jpg', "cart img", array("class" => "cart_img")) . '<p id="cart_counter">' . $cartCount . '</p>', $this->createUrl('/web/product/viewcart', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/images/simple_cart_img_03.jpg', "cart img", array("class" => "cart_img")) . '<p id="cart_counter">' . $cartCount . '</p>', $this->createUrl('/web/cart/viewcart', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                         ?>
                     </div>
                     <div id="text">

@@ -1,10 +1,10 @@
 <?php
-if (empty($wishList)) {
+if (empty($cart)) {
     ?>
     <div id="shopping_cart" style="height:308px;text-align:center;  ">
         <div id="main_shopping_cart">
             <div class="left_right_cart">
-                Your Wishlist IS empty
+                Your Cart IS empty
             </div>
         </div>                                        
     </div>
@@ -15,7 +15,6 @@ if (empty($wishList)) {
     <div id="shopping_cart">
         <div id="main_shopping_cart">
             <div class="top_cart">
-                <h1>Wishlist</h1>
                 <?php //echo CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_img_03.png") ?>
             </div>
             <div id="cart">
@@ -24,7 +23,9 @@ if (empty($wishList)) {
                     $grand_total = 0;
                     $total_quantity = 0;
                     $description = '';
-                    foreach ($wishList as $pro) {
+                    foreach ($cart as $pro) {
+                        $grand_total = $grand_total + ($pro->quantity * $pro->productProfile->price);
+                        $total_quantity+=$pro->quantity;
                         $description.=$pro->productProfile->product->product_name . ' , ';
                         ?>
 
@@ -36,8 +37,9 @@ if (empty($wishList)) {
                                 if (isset($images[0]['image_small'])) {
                                     $image = $images[0]['image_small'];
                                 }
+
                                 echo CHtml::link(CHtml::image($image, 'image', array('title' => $pro->productProfile->product->product_name)), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
-                                //echo CHtml::image($image);
+                                // 
                                 ?>
                             </div>
                             <div class="left_right_cart">
@@ -54,26 +56,28 @@ if (empty($wishList)) {
                                                 Yii::app()->theme->baseUrl . "/images/close_img_03.png", "Publish", array("title" => "Delete",
                                             "class" => "close_img",
                                                 )
-                                        ), $this->createUrl("/web/product/editwishlist"), array(
+                                        ), $this->createUrl("/web/cart/editcart"), array(
                                     "type" => "POST",
                                     'dataType' => 'json',
                                     "data" => array(
-                                        "type" => 'delete_wishlist',
-                                        "id" => $pro->id,
+                                        "type" => 'delete_cart',
+                                        "cart_id" => $pro->cart_id,
                                     ),
                                     "success" => "function(data) {
-                                                    $('#loading').hide();
-                                                    jQuery('#wishList_container').html(data._view_list); 
-                                                    jQuery('#wishlist_counter').html(data.wish_list_count);
-                                               }",
+                                                                  $('#loading').hide();
+                                                                 
+                                                                 jQuery('#cart_container').html(data._view_cart);
+                                                                 jQuery('#cart_counter').html(data.cart_list_count.cart_total);
+                                                           }",
                                         ), array(
                                     "onclick" => "
-                                                if(confirm('Are you want to remove this item from wish list')){
-                                                   $('#loading').show();
-                                                 }
-                                                 else {
-                                                   return  false;
-                                                 }
+                                                        if(confirm('Are you want to remove this item from cart')){
+
+                                                           $('#loading').show();
+                                                         }
+                                                         else {
+                                                           return  false;
+                                                         }
                                                 "
                                         )
                                 );
@@ -93,42 +97,66 @@ if (empty($wishList)) {
                                             ?></td>
                                     </tr>
                                     <tr class="cart_tr">
-                                        <td class="cart_left_td">Price</td>
-                                        <td class="cart_right_td">
-                                            $<?php echo round($pro->productProfile->price, 2); ?>
-                                        </td>
-                                    </tr>
-                                    <tr class="cart_tr">
-                                        <td></td>
-                                        <td class="add_cart">
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . '/images/add_to_cart_img.png');
-                                            ?>
-
-                                            <?php
-                                            echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart'), array('data' => array(
-                                                    'product_profile_id' => $pro->product_profile_id,
-                                                    'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
-                                                    'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
-                                                    'quantity' => '1'
-                                                ),
-                                                'type' => 'POST',
-                                                'dataType' => 'json',
-                                                'success' => 'function(data){
-                                                    jQuery("#cart_counter").html(data.cart_counter);
-                                                    dtech.custom_alert("Item has added to cart" ,"Add to Cart");
-                                                }',
-                                                    ), array('class' => 'add_to_cart')
-                                            );
-                                            ?>
-                                        </td>
                                     </tr>
                                 </table>
+                                <div class="quantity_cart">
+                                    <p>$<?php echo round($pro->productProfile->price, 2); ?></p>
+                                    <span>Quantity</span> 
+                                    <?php
+                                    $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
+                                    echo CHtml::dropDownList('quantity' . $pro->cart_id, '', $quantities, array(
+                                        'options' => array($pro->quantity => array('selected' => true)),
+                                        'ajax' => array(
+                                            'type' => 'POST',
+                                            'url' => $this->createUrl('/web/cart/editcart'),
+                                            'data' => array('quantity' => 'js:jQuery(this).val()', 'type' => 'update_quantity', 'cart_id' => $pro->cart_id),
+                                            'dataType' => 'json',
+                                            'success' => 'function(data) {
+                                                   
+                                                    $("#loading").hide();
+                                                    $("#cart_container").html(data._view_cart);
+                                                    $("#cart_counter").html(data.cart_list_count.cart_total);
+                                                }',
+                                        ))
+                                    );
+                                    ?>
+                                    <h3>$<?php echo round($pro->quantity * $pro->productProfile->price, 2); ?></h3>
+                                </div>
                             </div>
                         </div>
                     <?php } ?>
+
+
+                </div>
+                <div class="right_right_cart">
+                    <div class="right_top_cart">
+                        <h1>Your Order</h1>
+                        <table width="100%">
+                            <tr class="right_cart_tr">
+                                <td class="left_cart_td">Order Subtotal</td>
+                                <td class="right_cart_td">$<?php echo $grand_total; ?></td>
+                            </tr>
+                            <tr class="right_cart_tr">
+                                <td class="left_cart_td">Shipping</td>
+                                <td class="right_cart_td">FREE</td>
+                            </tr>
+                            <tr class="right_cart_tr">
+                                <td class="left_left_cart_td">Total</td>
+                                <td class="right_right_cart_td">$<?php echo $grand_total; ?></td>
+                            </tr>
+                        </table>
+                       <?php
+                       /**
+                        * Pcm temporary save session
+                        */
+                       $this->setTotalAmountSession($grand_total,$total_quantity,$description);
+                       ?>
+                        <a href="<?php echo $this->createUrl('/web/payment/paymentmethod'); ?>">
+                            <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div><?php
-}?>
+    </div><?php }
+                        ?>
