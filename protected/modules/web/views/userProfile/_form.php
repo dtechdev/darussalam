@@ -61,7 +61,10 @@
                                     <table width="90%">
                                         <tr class="account_row">
                                             <td class="account_left">Email:</td>
-                                            <td class="account_right"><span>zoomarts@gmail.com</span></td>
+                                            <td class="account_right">
+                                                <span>
+                                                    <?php echo Yii::app()->user->name; ?>
+                                                </span></td>
                                         </tr>
 
                                         <tr class="account_row">

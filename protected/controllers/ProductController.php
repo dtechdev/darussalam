@@ -282,6 +282,9 @@ class ProductController extends Controller {
         if (isset($_POST['Quran'])) {
             $model->setRelationRecords('quranProfile', is_array($_POST['Quran']) ? $_POST['Quran'] : array());
         }
+        if (isset($_POST['EducationToys'])) {
+            $model->setRelationRecords('educationToys', is_array($_POST['EducationToys']) ? $_POST['EducationToys'] : array());
+        }
       
         return true;
     }
@@ -294,6 +297,9 @@ class ProductController extends Controller {
     private function manageChildrens($model) {
 
         $this->manageChild($model, "productProfile", "product");
+        $this->manageChild($model, "educationToys", "product");
+        $this->manageChild($model, "quranProfile", "product");
+        $this->manageChild($model, "other", "product");
         $this->manageChild($model, "productCategories", "product");
     }
 
