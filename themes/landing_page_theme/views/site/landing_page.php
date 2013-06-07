@@ -4,8 +4,8 @@
         <title>Darussalam Landing Page</title>
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style.css" />
         <script src="<?php echo Yii::app()->baseUrl; ?>/media/js/dtech.js"></script>
-       <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-
+        <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
+        <link href='<?php echo Yii::app()->theme->baseUrl; ?>/images/favicon.ico' rel='icon' type='image/x-icon'/>
         <style type="text/css"> 
 
             .ribbon-wrapper {
