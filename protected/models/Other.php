@@ -57,8 +57,8 @@ class Other extends DTActiveRecord {
             ),
         );
     }
-    
-       /**
+
+    /**
      * @return array relational rules.
      */
     public function relations() {

@@ -78,6 +78,12 @@ if($model->parent_category->category_name == "Others"){
 else if($model->parent_category->category_name == "Books") {
      $this->renderPartial('productProfile/_container', array('model' => $model, "type" => "form"));
 }
+else if($model->parent_category->category_name == "Quran") {
+     $this->renderPartial('quranProfile/_container', array('model' => $model, "type" => "form"));
+}
+else if($model->parent_category->category_name == "Educational Toys") {
+     $this->renderPartial('educationToys/_container', array('model' => $model, "type" => "form"));
+}
 $this->renderPartial('productCategories/_container', array('model' => $model, "type" => "form"));
 //$this->renderPartial('productImages/_container', array('model' => $model, "type" => "form"));
 ?>

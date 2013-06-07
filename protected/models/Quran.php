@@ -15,13 +15,24 @@ class Quran extends ProductProfile {
         return parent::model($className);
     }
 
-
-
     /**
      * @return string the associated database table name
      */
     public function tableName() {
         return 'product_profile';
+    }
+
+    /**
+     * @return array relational rules.
+     */
+    public function relations() {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
+            'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'product_profile_id'),
+            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_profile_id', 'order' => 'is_default DESC'),
+        );
     }
 
 }
