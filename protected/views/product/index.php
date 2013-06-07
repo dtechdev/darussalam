@@ -61,6 +61,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'style' => "text-align:left"
             )
         ),
+         array(
+            'name' => 'parent_cateogry_id',
+            'value' => '!empty($data->parent_category)?$data->parent_category->category_name:""',
+            
+        ),
         array(
             'name' => 'city_id',
             'type' => 'Raw',
