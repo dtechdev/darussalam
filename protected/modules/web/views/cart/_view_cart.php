@@ -83,22 +83,12 @@ if (empty($cart)) {
                                 );
                                 ?>
                                 <h2><?php echo $pro->productProfile->product->product_description; ?></h2>
-                                <table width="100%">
-                                    <tr class="cart_tr">
-                                        <td class="cart_left_td">Author</td>
-                                        <td class="cart_right_td"><?php
-                                            echo isset($pro->productProfile->product->author->author_name) ? $pro->productProfile->product->author->author_name : "";
-                                            ?></td>
-                                    </tr>
-                                    <tr class="cart_tr">
-                                        <td class="cart_left_td">Language</td>
-                                        <td class="cart_right_td"><?php
-                                            echo isset($pro->productProfile->productLanguage->language_name) ? $pro->productProfile->productLanguage->language_name : "";
-                                            ?></td>
-                                    </tr>
-                                    <tr class="cart_tr">
-                                    </tr>
-                                </table>
+                                <?php
+                                    if(isset($pro->productProfile->product->parent_category->category_name) && 
+                                            $pro->productProfile->product->parent_category->category_name == "Books"){
+                                        $this->renderPartial("_book_info");
+                                    }
+                                ?>
                                 <div class="quantity_cart">
                                     <p>$<?php echo round($pro->productProfile->price, 2); ?></p>
                                     <span>Quantity</span> 
