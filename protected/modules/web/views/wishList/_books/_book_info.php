@@ -11,6 +11,5 @@
             echo isset($pro->productProfile->productLanguage->language_name) ? $pro->productProfile->productLanguage->language_name : "";
             ?></td>
     </tr>
-    <tr class="cart_tr">
-    </tr>
+
 </table>

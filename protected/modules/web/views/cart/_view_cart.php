@@ -70,7 +70,7 @@ if (empty($cart)) {
                                 }
 
                                 echo CHtml::link(CHtml::image($image, 'image', array('title' => $pro->productProfile->product->product_name)), $this->createUrl('/web/' . $view_array[$parent_cat]['controller'] . '/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
-                                // 
+                                
                                 ?>
                             </div>
                             <div class="left_right_cart">
@@ -113,11 +113,7 @@ if (empty($cart)) {
                                 );
                                 ?>
                                 <h2><?php echo $pro->productProfile->product->product_description; ?></h2>
-                                <?php
-                                if (isset($view_array[$parent_cat]['view'])) {
-                                    $this->renderPartial($view_array[$parent_cat]['view'], array("pro" => $pro));
-                                }
-                                ?>
+                               
                                 <div class="quantity_cart">
                                     <p>$<?php echo round($pro->productProfile->price, 2); ?></p>
                                     <span>Quantity</span> 
