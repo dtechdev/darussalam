@@ -10,6 +10,9 @@
             <input type="button" value="Shop Now" class="shop_now" />
         </div>
         <div class="landing_div">
+            <div class="ribbon-wrapper">
+                <div class="ribbon-wrapper-green"><div class="ribbon-green">Popular</div></div>
+            </div>
             <?php
             echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/books_img_03.png"), $this->createUrl('/web/product/allproducts'));
             ?>
