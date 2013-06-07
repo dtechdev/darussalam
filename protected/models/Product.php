@@ -135,7 +135,7 @@ class Product extends DTActiveRecord {
      * @param type $limit
      * @return type 
      */
-    public function allProducts($product_array = array(), $limit = 30) {
+    public function allProducts($product_array = array(), $limit = 30,$parent_category = "Books") {
 
 
 
@@ -161,7 +161,14 @@ class Product extends DTActiveRecord {
                     //'with'=>'commentCount' 
             ));
         }
-
+        
+        /**
+         * that should only be book
+         */      
+        $parent_cat = Categories::model()->getParentCategoryId($parent_category);
+        
+        $criteria->addCondition('parent_cateogry_id = '.$parent_cat);
+       
         if (isset($_POST['ajax'])) {
 
 

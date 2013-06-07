@@ -143,7 +143,12 @@ class ProductController extends Controller {
             $dataProvider = Product::model()->allProducts();
             $all_products = Product::model()->returnProducts($dataProvider);
 
-            $allCategories = Categories::model()->allCategories();
+            /**
+             * Temporary solution
+             */
+            $parent_cat = Categories::model()->getParentCategoryId("Books");
+
+            $allCategories = Categories::model()->allCategories("", $parent_cat);
 
 
             $this->render('all_products', array(

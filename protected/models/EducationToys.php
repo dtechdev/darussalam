@@ -58,8 +58,8 @@ class EducationToys extends DTActiveRecord {
             ),
         );
     }
-    
-       /**
+
+    /**
      * @return array relational rules.
      */
     public function relations() {
@@ -71,5 +71,7 @@ class EducationToys extends DTActiveRecord {
             'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_profile_id', 'order' => 'is_default DESC'),
         );
     }
+
+  
 
 }
