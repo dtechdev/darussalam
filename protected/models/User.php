@@ -67,7 +67,6 @@ class User extends DTActiveRecord {
             array('user_password2', 'compare', 'compareAttribute' => 'user_password'),
             array('user_email', 'email'),
             array('user_email', 'unique'),
-            array('user_name', 'unique'),
             array('user_password', 'passwordStrength', 'strength' => self::STRONG),
             array('join_date,social_id', 'safe'),
             array('agreement_status', 'compare', 'compareValue' => '1', 'message' => "You must accept the Darusslam Terms and conditions"),

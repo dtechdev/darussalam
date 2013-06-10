@@ -16,6 +16,10 @@ class ChangePassword extends CFormModel {
     public function rules() {
         return array(
             array('user_password, user_conf_password', 'required'),
+            array('old_password', 'compare','operator'=>'!=', 
+                'compareAttribute' => 'user_password',
+                'message'=>"Old and New password should not be same"
+                ),
             array('user_conf_password', 'compare', 'compareAttribute' => 'user_password'),
             array('user_password, user_conf_password,old_password', 'safe'),
             array('old_password', 'validateOldPassword'),
