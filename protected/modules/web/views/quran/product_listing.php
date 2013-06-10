@@ -4,7 +4,7 @@
 
         <?php
         if (Yii::app()->controller->action->id != "getSearch") {
-            $this->renderPartial("/others/_product_side_bar", array("allCate" => $allCate));
+            $this->renderPartial("/quran/_product_side_bar", array("allCate" => $allCate));
         }
         else {
             echo CHtml::openTag("div");
@@ -12,12 +12,12 @@
                 //echo (isset($_POST['serach_field'])?$_POST['serach_field']:"");
             echo CHtml::closeTag("div");
             
-            $this->renderPartial("/others/_product_side_bar", array("allCate" => $allCate));
+            $this->renderPartial("/quran/_product_side_bar", array("allCate" => $allCate));
             
         }
         ?>
         <div id="right_main_content">
-            <?php $this->renderPartial("/others/_product_list", 
+            <?php $this->renderPartial("/quran/_product_list", 
                     array(
                         "products" => $products,
                         'dataProvider'=>$dataProvider,

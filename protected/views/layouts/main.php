@@ -32,29 +32,15 @@
                             echo CHtml::openTag('li');
                             echo CHtml::link('BOOKS', $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             echo CHtml::closeTag('li');
+
                             echo CHtml::openTag('li');
-
-
-                            $criteria = new CDbCriteria();
-                            $criteria->select = "category_id";
-                            $criteria->addCondition("LOWER(category_name)='quran'");
-                            $catgory_quran_Model = Categories::model()->find($criteria);
-
-                            if (isset($catgory_quran_Model->category_id)) {
-                                echo CHtml::link('QURAN',
-                                $this->createUrl('/web/product/allproducts',
-                                array('country' => Yii::app()->session['country_short_name'],
-                                'city' => Yii::app()->session['city_short_name'],
-                                'city_id' => Yii::app()->session['city_id'])),
-                                    array("cat"=>"#cat=".$catgory_quran_Model->category_id,
-                                        "onclick" => 'dtech.redirectToQuranCategory(this);return false'));
-                                
-                                echo CHtml::closeTag('li');
-                                echo CHtml::openTag('li');
-                            }
-
+                            echo CHtml::link('Quran', $this->createUrl('/web/quran/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                            echo CHtml::closeTag('li');
+                            
+                            echo CHtml::openTag('li');
                             echo CHtml::link('EDUCATIONAL TOYS', $this->createUrl('/web/educationToys/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             echo CHtml::closeTag('li');
+                            
                             echo CHtml::openTag('li');
                             echo CHtml::link('OTHERS', $this->createUrl('/web/others/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             echo CHtml::openTag('li');
@@ -162,7 +148,7 @@
             </div>
         </div>
     </header>
-        
+
     <?php echo $content; ?> 
     <footer>
         <div id="under_footer">

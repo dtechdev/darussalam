@@ -3,7 +3,7 @@
 /**
  * rendering all products listing
  */
-echo $this->renderPartial('/others/product_listing', array(
+echo $this->renderPartial('/quran/product_listing', array(
     'products' => $products,
     'dataProvider'=>$dataProvider,
     'allCate' => $allCate)
@@ -19,6 +19,6 @@ echo $this->renderPartial('/others/product_listing', array(
         $page = $_REQUEST['Product_page'];
     }
     Yii::app()->clientScript->registerScript('change_cat_script', '
-        dtech.loadallPrdoucts_Cat("'.$this->createUrl("/web/others/index",array("Product_page"=>$page)).'");
+        dtech.loadallPrdoucts_Cat("'.$this->createUrl("/web/educationToys/index",array("Product_page"=>$page)).'");
     ', CClientScript::POS_READY);
 ?>

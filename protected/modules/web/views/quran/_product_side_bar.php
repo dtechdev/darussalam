@@ -24,7 +24,7 @@
             }
             if (!empty($allCate)) {
                 echo CHtml::openTag("li");
-                echo CHtml::link("All", $this->createUrl('/web/others/allproducts'), array('onclick' => '
+                echo CHtml::link("All", $this->createUrl('/web/quran/allproducts'), array('onclick' => '
                                             
                                                   dtech.updateProductListing("' . $url . '","all");  
                                                   

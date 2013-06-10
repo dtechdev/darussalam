@@ -167,6 +167,8 @@ class Product extends DTActiveRecord {
          */      
         $parent_cat = Categories::model()->getParentCategoryId($parent_category);
         
+        
+        
         $criteria->addCondition('parent_cateogry_id = '.$parent_cat);
        
         if (isset($_POST['ajax'])) {
