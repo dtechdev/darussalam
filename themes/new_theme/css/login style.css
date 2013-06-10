@@ -1,0 +1,32 @@
+
+#loginContainer { font-size:12px; }
+
+#loginButton { cursor:pointer; }
+
+#loginButton span { border:none; }
+
+#loginBox {}
+
+#loginButton.active em {}
+
+#loginForm { width:270px; height:184px; margin-top: -10px; }
+
+#loginForm fieldset { margin:0 0 12px 0; display:block; border:0; padding:0; }
+
+fieldset#body { background:#e9e4e2; padding:10px 13px; margin:0; }
+
+#loginForm #checkbox { width:auto; margin:1px 9px 0 0; float:left; padding:0; border:0; *margin:-3px 9px 0 0; }
+
+#body label { color:#3a454d; margin:9px 0 0 0; display:block; float:left; }
+
+#loginForm #body fieldset label { display:block; float:none; margin:0 0 6px 0; }
+
+#loginForm input { width:100%; font-weight:bold; padding:8px 0; font-size:12px; }
+
+#loginForm #login { width:auto; float:left; color:#fff; padding:7px 10px 8px 10px; margin:0 12px 0 0; cursor:pointer; }
+
+#loginForm span { text-align:center; display:block; padding:7px 0 4px 0; }
+
+#loginForm span a { color:#3a454d; font-size:12px; }
+
+.user_login_btn { background:url(../images/user_login_background_image_03.png) #10459c no-repeat; width:100%; height:38px; border:none; color:#FFF; display:block; }
