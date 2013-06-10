@@ -42,6 +42,7 @@ class ProductDiscount extends DTActiveRecord {
             array('applied,discount_type, discount_value', 'length', 'max' => 10),
             array('discount_value', 'type', 'type' => 'float'),
             array('discount_value', 'validatePercentage'),
+            array('product_id', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, discount_type, discount_value', 'safe', 'on' => 'search'),
@@ -68,7 +69,7 @@ class ProductDiscount extends DTActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'products' => array(self::HAS_MANY, 'Product', 'id'),
+            'product' => array(self::HAS_MANY, 'Product', 'product_id'),
         );
     }
 
@@ -109,7 +110,7 @@ class ProductDiscount extends DTActiveRecord {
     public function beforeSave() {
         if (!empty($this->product_id)) {
             $connection = Yii::app()->db;
-            $sql = "UPDATE answers t SET t.applied=0 WHERE t.product_id =".$this->product_id;
+            $sql = "UPDATE ".$this->tableName()." t SET t.applied=0 WHERE t.product_id =".$this->product_id;
             $command = $connection->createCommand($sql);
             $command->execute();
         }
