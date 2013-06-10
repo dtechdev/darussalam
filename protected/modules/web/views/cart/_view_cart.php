@@ -20,13 +20,44 @@ if (empty($cart)) {
             <div id="cart">
                 <div class="left_cart">
                     <?php
+                    /**
+                     * to handle the views 
+                     * links becasue every category may have different things
+                     * so 
+                     */
+                    $view_array = array(
+                        "Books" => array(
+                            "controller" => "product",
+                            "view" => "_books/_book_info"
+                        ),
+                        "Educational Toys" => array(
+                            "controller" => "educationToys",
+                        ),
+                        "Quran" => array(
+                            "controller" => "educationToys",
+                            "view" => "_quran/_quran_info"
+                        ),
+                        "Others" => array(
+                            "controller" => "others",
+                        ),
+                    );
+
                     $grand_total = 0;
                     $total_quantity = 0;
                     $description = '';
+
                     foreach ($cart as $pro) {
                         $grand_total = $grand_total + ($pro->quantity * $pro->productProfile->price);
                         $total_quantity+=$pro->quantity;
                         $description.=$pro->productProfile->product->product_name . ' , ';
+
+                        /**
+                         * setting parent category
+                         */
+                        $parent_cat = "Books";
+                        if (!empty($pro->productProfile->product->parent_category->category_name)) {
+                            $parent_cat = $pro->productProfile->product->parent_category->category_name;
+                        }
                         ?>
 
                         <div class="upper_cart">
@@ -38,14 +69,14 @@ if (empty($cart)) {
                                     $image = $images[0]['image_small'];
                                 }
 
-                                echo CHtml::link(CHtml::image($image, 'image', array('title' => $pro->productProfile->product->product_name)), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
-                                // 
+                                echo CHtml::link(CHtml::image($image, 'image', array('title' => $pro->productProfile->product->product_name)), $this->createUrl('/web/' . $view_array[$parent_cat]['controller'] . '/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
+                                
                                 ?>
                             </div>
                             <div class="left_right_cart">
-                                <h1><?php 
-                                echo CHtml::link($pro->productProfile->product->product_name, $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
-                                 ?></h1>
+                                <h1><?php
+                                    echo CHtml::link($pro->productProfile->product->product_name, $this->createUrl('/web/' . $view_array[$parent_cat]['controller'] . '/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
+                                    ?></h1>
 
                                 <?php
                                 /*
@@ -56,7 +87,7 @@ if (empty($cart)) {
                                                 Yii::app()->theme->baseUrl . "/images/close_img_03.png", "Publish", array("title" => "Delete",
                                             "class" => "close_img",
                                                 )
-                                        ), $this->createUrl("/web/product/editcart"), array(
+                                        ), $this->createUrl("/web/cart/editcart"), array(
                                     "type" => "POST",
                                     'dataType' => 'json',
                                     "data" => array(
@@ -64,41 +95,25 @@ if (empty($cart)) {
                                         "cart_id" => $pro->cart_id,
                                     ),
                                     "success" => "function(data) {
-                                                                  $('#loading').hide();
-                                                                 
-                                                                 jQuery('#cart_container').html(data._view_cart);
-                                                                 jQuery('#cart_counter').html(data.cart_list_count.cart_total);
-                                                           }",
+                                                jQuery('#loading').hide();
+                                                jQuery('#cart_container').html(data._view_cart);
+                                                jQuery('#cart_counter').html(data.cart_list_count.cart_total);
+                                          }",
                                         ), array(
                                     "onclick" => "
-                                                        if(confirm('Are you want to remove this item from cart')){
+                                        if(confirm('Are you want to remove this item from cart')){
 
-                                                           $('#loading').show();
-                                                         }
-                                                         else {
-                                                           return  false;
-                                                         }
-                                                "
+                                           jQuery('#loading').show();
+                                         }
+                                         else {
+                                           return  false;
+                                         }
+                                    "
                                         )
                                 );
                                 ?>
                                 <h2><?php echo $pro->productProfile->product->product_description; ?></h2>
-                                <table width="100%">
-                                    <tr class="cart_tr">
-                                        <td class="cart_left_td">Author</td>
-                                        <td class="cart_right_td"><?php
-                                            echo isset($pro->productProfile->product->author->author_name) ? $pro->productProfile->product->author->author_name : "";
-                                            ?></td>
-                                    </tr>
-                                    <tr class="cart_tr">
-                                        <td class="cart_left_td">Language</td>
-                                        <td class="cart_right_td"><?php
-                                            echo isset($pro->productProfile->productLanguage->language_name) ? $pro->productProfile->productLanguage->language_name : "";
-                                            ?></td>
-                                    </tr>
-                                    <tr class="cart_tr">
-                                    </tr>
-                                </table>
+                               
                                 <div class="quantity_cart">
                                     <p>$<?php echo round($pro->productProfile->price, 2); ?></p>
                                     <span>Quantity</span> 
@@ -108,7 +123,7 @@ if (empty($cart)) {
                                         'options' => array($pro->quantity => array('selected' => true)),
                                         'ajax' => array(
                                             'type' => 'POST',
-                                            'url' => $this->createUrl('/web/product/editcart'),
+                                            'url' => $this->createUrl('/web/cart/editcart'),
                                             'data' => array('quantity' => 'js:jQuery(this).val()', 'type' => 'update_quantity', 'cart_id' => $pro->cart_id),
                                             'dataType' => 'json',
                                             'success' => 'function(data) {
@@ -145,12 +160,12 @@ if (empty($cart)) {
                                 <td class="right_right_cart_td">$<?php echo $grand_total; ?></td>
                             </tr>
                         </table>
-                       <?php
-                       /**
-                        * Pcm temporary save session
-                        */
-                       $this->setTotalAmountSession($grand_total,$total_quantity,$description);
-                       ?>
+                        <?php
+                        /**
+                         * Pcm temporary save session
+                         */
+                        $this->setTotalAmountSession($grand_total, $total_quantity, $description);
+                        ?>
                         <a href="<?php echo $this->createUrl('/web/payment/paymentmethod'); ?>">
                             <?php echo CHtml::submitButton('Checkout', array('class' => 'check_out')); ?>
                         </a>

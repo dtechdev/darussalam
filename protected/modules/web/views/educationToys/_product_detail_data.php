@@ -50,64 +50,12 @@
         <h2><?php echo $product->product_description; ?></h2>
     </div>
     <div class="prodcut_table">
-        <tr class="product_tr">
-            <td class="left_td">Author</td>
-            <td class="right_td">
-                <?php
-                echo isset($product->author->author_name) ? $product->author->author_name : "";
-                ?></td>
-        </tr>
-        <tr class="product_tr">
-            <td class="left_td">Available Languages</td>
-            <td class="right_td">
-                <?php
-                $languages = $product->getBookLanguages();
-
-                if (count($languages) > 1) {
-
-                    echo CHtml::dropDownList('language', $product->productProfile[0]->language_id, $languages, array(
-                        'onchange' => '
-                            jQuery("#loading").show();
-                            jQuery.ajax({
-                                type: "POST",
-                                dataType: "json",
-                                url: "' . $this->createUrl("/web/product/productDetailLang", array("id" => $product->product_id)) . '",
-                                data: 
-                                    { 
-                                        lang_id: jQuery("#language").val() 
-                                    }
-                                }).done(function( msg ) {
-                               
-                                jQuery("#loading").hide();
-                                
-                                browser_string = "lang="+jQuery("#language option:selected").text();
-                                dtech.updatehashBrowerUrl(browser_string);
-                                
-                                
-                                jQuery(".left_book").html(msg["left_data"]);
-                                jQuery(".book_data").html(msg["right_data"]);
-                            });    
-                      '));
-                } else {
-
-                    echo $product->productProfile[0]->language_name;
-                }
-                ?>
-            </td>
-        </tr>
-        <tr class="product_tr">
-            <td class="left_td">ISBN No</td>
-            <td class="right_td">
-                <?php
-                echo isset($product->productProfile[0]->isbn) ? $product->productProfile[0]->isbn : "";
-                ?>
-            </td>
-        </tr>
+    
         <tr class="product_tr">
             <td class="left_td">Item Code</td>
             <td class="right_td">
                 <?php
-                echo isset($product->productProfile[0]->item_code) ? $product->productProfile[0]->item_code : "";
+                echo isset($product->educationToys[0]->item_code) ? $product->educationToys[0]->item_code : "";
                 ?>
             </td>
         </tr>
@@ -156,13 +104,13 @@
         <tr class="price_cart">
             <td class="price"  id="price">
                 <?php
-                echo isset($product->productProfile[0]->price) ? '$ ' . round($product->productProfile[0]->price, 2) : "";
+                echo isset($product->educationToys[0]->price) ? '$ ' . round($product->educationToys[0]->price, 2) : "";
                 ?>
 
             </td>
             <td class="quantity">Quantity 
                 <?php
-                
+                $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
                 echo CHtml::textField('quantity', '1', array('onKeyUp' => 'javascript:totalPrice(this.value,"' . $product->productProfile[0]->price . '")', 'style' => 'width:40px', 'maxlength' => '3'));
                 ?>
             </td>
@@ -173,7 +121,7 @@
 
                 <?php
                 echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart'), array('data' => array(
-                        'product_profile_id' => $product->productProfile[0]->id,
+                        'product_profile_id' => $product->educationToys[0]->id,
                         'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                         'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                         'quantity' => 'js:jQuery(\'#quantity\').val()'
@@ -193,7 +141,7 @@
                     echo CHtml::image(Yii::app()->theme->baseUrl . '/images/heart_img_03.jpg');
 
                     echo CHtml::ajaxLink(' Add to wishlist', $this->createUrl('/cart/addtowishlist'), array('data' => array(
-                            'product_profile_id' => $product->productProfile[0]->id,
+                            'product_profile_id' => $product->educationToys[0]->id,
                             'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                             'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
                         ),

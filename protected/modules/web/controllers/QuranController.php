@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Education Toys controller
+ * Quran Controller 
  */
-class EducationToysController extends Controller {
+class QuranController extends Controller {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -25,12 +25,12 @@ class EducationToysController extends Controller {
             Yii::app()->user->SiteSessions;
 
 
-            $dataProvider = Product::model()->allProducts(array(), 30, "Educational Toys");
+            $dataProvider = Product::model()->allProducts(array(), 30, "Quran");
             $all_products = Product::model()->returnProducts($dataProvider);
             /**
              * Temporary solution
              */
-            $parent_cat = Categories::model()->getParentCategoryId("Educational Toys");
+            $parent_cat = Categories::model()->getParentCategoryId("Quran");
 
             $allCategories = Categories::model()->allCategories("", $parent_cat);
 
@@ -47,7 +47,7 @@ class EducationToysController extends Controller {
      *  for filter of category
      */
     public function productfilter() {
-        $dataProvider = Product::model()->allProducts(array(), 30, "Educational Toys");
+        $dataProvider = Product::model()->allProducts(array(), 30, "Quran");
         $all_products = Product::model()->returnProducts($dataProvider);
         $this->renderPartial("_product_list", array('products' => $all_products,
             'dataProvider' => $dataProvider,));
@@ -68,6 +68,35 @@ class EducationToysController extends Controller {
         $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
         $this->render('product_detail', array('product' => $product, "rating_value" => $rating_value));
+    }
+
+    /**
+     * product detail change
+     */
+    public function actionproductDetailLang($id) {
+
+        if (isset($_POST['lang_id'])) {
+
+
+
+            $product = Product::model();
+
+            $product = $product->findByPk($id);
+            $product->productProfile = $product->productSelectedProfile;
+
+
+            /**
+             *  getting value of poduct rating
+             */
+            $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
+            $right_data = $this->renderPartial("_product_detail_data", array('product' => $product, "rating_value" => $rating_value), true, true);
+            $left_data = $this->renderPartial("_product_detail_image", array('product' => $product), true, false);
+
+            echo CJSON::encode(array(
+                "right_data" => $right_data,
+                "left_data" => $left_data,
+            ));
+        }
     }
 
 }

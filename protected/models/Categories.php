@@ -43,7 +43,6 @@ class Categories extends DTActiveRecord {
         return array(
             array('category_name, added_date, city_id', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            
             array('parent_id, city_id', 'numerical', 'integerOnly' => true),
             array('category_name, added_date', 'length', 'max' => 255),
             // The following rule is used by search().
@@ -83,7 +82,7 @@ class Categories extends DTActiveRecord {
      * 
      * @return type
      */
-    public function allCategories($type = "") {
+    public function allCategories($type = "", $parent_cat = 0) {
 
         $criteriaC = new CDbCriteria(array(
             'select' => "COUNT(product_category_id ) as totalStock,t.category_id,t.category_name",
@@ -95,14 +94,20 @@ class Categories extends DTActiveRecord {
         /**
          * in case of featured product
          */
-        if($type == "featured"){
+        if ($type == "featured") {
             $criteriaC->addCondition("product.is_featured = '1'");
-        }
-        else if ($type == "bestselling"){
+        } else if ($type == "bestselling") {
             $criteriaC->addInCondition("product.product_id", $this->getOderedProducts());
         }
-        $cate = $this->with(array('productCategories'=>array("select"=>""), 'productCategories.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ","select"=>"")))->findAll($criteriaC);
-       
+
+        /**
+         * handling parent_category to for books , toys
+         */
+        if ($parent_cat != 0) {
+            $criteriaC->addCondition("t.parent_id=" . $parent_cat);
+        }
+        $cate = $this->with(array('productCategories' => array("select" => ""), 'productCategories.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ", "select" => "")))->findAll($criteriaC);
+
         return $cate;
     }
 
@@ -141,22 +146,22 @@ class Categories extends DTActiveRecord {
             'criteria' => $criteria,
         ));
     }
-    
+
     /**
      * ordered product 
      * to see handle the category count
      * @return type
      */
-    public function getOderedProducts(){
-         $connection = Yii::app()->db;
-        $sql = "SELECT ".
-            " DISTINCT(product_profile.product_id) ".
-          " FROM product_profile ".
-          " INNER JOIN order_detail ".
-          " ON order_detail.product_profile_id = product_profile.id ";
-          $command = $connection->createCommand($sql);
-          $row = $command->queryColumn();
-          return $row;
+    public function getOderedProducts() {
+        $connection = Yii::app()->db;
+        $sql = "SELECT " .
+                " DISTINCT(product_profile.product_id) " .
+                " FROM product_profile " .
+                " INNER JOIN order_detail " .
+                " ON order_detail.product_profile_id = product_profile.id ";
+        $command = $connection->createCommand($sql);
+        $row = $command->queryColumn();
+        return $row;
     }
 
     /**
@@ -172,6 +177,33 @@ class Categories extends DTActiveRecord {
         ));
         $cate = $this->with(array('productCategories' => array("select" => ""), 'productCategories.product' => array('alias' => 'product', 'joinType' => "INNER JOIN ", "select" => "")))->findAll($criteriaC);
         return $cate;
+    }
+
+    /**
+     * 
+     * @param type $cat_name
+     * we having the categry
+     */
+    public function getParentCategoryId($cat_name) {
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("category_name = '" . $cat_name . "'");
+        $criteria->select = "category_id";
+
+        $category = $this->find($criteria);
+        return $category->category_id;
+    }
+
+    /**
+     * retreving parent category for current city
+     * 
+     */
+    public function getParentCategories() {
+        $crtitera = new CDbCriteria();
+        $crtitera->addCondition("parent_id = 0 AND city_id = ".Yii::app()->session['city_id']);
+        $crtitera->select = "category_id,category_name";
+        $categories = CHtml::listData($this->findAll($crtitera), "category_id", "category_name");
+       
+        return $categories;
     }
 
 }

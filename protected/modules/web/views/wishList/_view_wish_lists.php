@@ -21,11 +21,40 @@ if (empty($wishList)) {
             <div id="cart">
                 <div class="left_cart">
                     <?php
+                    /**
+                     * to handle the views 
+                     * links becasue every category may have different things
+                     * so 
+                     */
+                    $view_array = array(
+                        "Books" => array(
+                            "controller" => "product",
+                            "view" => "_books/_book_info"
+                        ),
+                        "Educational Toys" => array(
+                            "controller" => "educationToys",
+                        ),
+                        "Quran" => array(
+                            "controller" => "educationToys",
+                            "view" => "_quran/_quran_info"
+                        ),
+                        "Others" => array(
+                            "controller" => "others",
+                        ),
+                    );
+
                     $grand_total = 0;
                     $total_quantity = 0;
                     $description = '';
                     foreach ($wishList as $pro) {
                         $description.=$pro->productProfile->product->product_name . ' , ';
+                        /**
+                         * setting parent category
+                         */
+                        $parent_cat = "Books";
+                        if (!empty($pro->productProfile->product->parent_category->category_name)) {
+                            $parent_cat = $pro->productProfile->product->parent_category->category_name;
+                        }
                         ?>
 
                         <div class="upper_cart">
@@ -36,14 +65,14 @@ if (empty($wishList)) {
                                 if (isset($images[0]['image_small'])) {
                                     $image = $images[0]['image_small'];
                                 }
-                                echo CHtml::link(CHtml::image($image, 'image', array('title' => $pro->productProfile->product->product_name)), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
+                                echo CHtml::link(CHtml::image($image, 'image', array('title' => $pro->productProfile->product->product_name)), $this->createUrl('/web/' . $view_array[$parent_cat]['controller'] . '/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
                                 //echo CHtml::image($image);
                                 ?>
                             </div>
                             <div class="left_right_cart">
-                                <h1><?php 
-                                echo CHtml::link($pro->productProfile->product->product_name, $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
-                                 ?></h1>
+                                <h1><?php
+                                    echo CHtml::link($pro->productProfile->product->product_name, $this->createUrl('/web/' . $view_array[$parent_cat]['controller'] . '/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id)), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $pro->productProfile->product->product_id));
+                                    ?></h1>
 
                                 <?php
                                 /*
@@ -54,7 +83,7 @@ if (empty($wishList)) {
                                                 Yii::app()->theme->baseUrl . "/images/close_img_03.png", "Publish", array("title" => "Delete",
                                             "class" => "close_img",
                                                 )
-                                        ), $this->createUrl("/web/product/editwishlist"), array(
+                                        ), $this->createUrl("/web/wishList/editwishlist"), array(
                                     "type" => "POST",
                                     'dataType' => 'json',
                                     "data" => array(
@@ -79,19 +108,13 @@ if (empty($wishList)) {
                                 );
                                 ?>
                                 <h2><?php echo $pro->productProfile->product->product_description; ?></h2>
+
+                                <?php
+                                if (isset($view_array[$parent_cat]['view'])) {
+                                    $this->renderPartial($view_array[$parent_cat]['view'], array("pro" => $pro));
+                                }
+                                ?>
                                 <table width="100%">
-                                    <tr class="cart_tr">
-                                        <td class="cart_left_td">Author</td>
-                                        <td class="cart_right_td"><?php
-                                            echo isset($pro->productProfile->product->author->author_name) ? $pro->productProfile->product->author->author_name : "";
-                                            ?></td>
-                                    </tr>
-                                    <tr class="cart_tr">
-                                        <td class="cart_left_td">Language</td>
-                                        <td class="cart_right_td"><?php
-                                            echo isset($pro->productProfile->productLanguage->language_name) ? $pro->productProfile->productLanguage->language_name : "";
-                                            ?></td>
-                                    </tr>
                                     <tr class="cart_tr">
                                         <td class="cart_left_td">Price</td>
                                         <td class="cart_right_td">
