@@ -7,6 +7,8 @@ class CategoriesController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/column2';
+    
+    public $filters;
 
     /**
      * @return array action filters
@@ -22,6 +24,18 @@ class CategoriesController extends Controller {
         Yii::app()->theme = "admin";
         parent::beforeAction($action);
         return true;
+    }
+
+    /**
+     * Initialize Project Report
+     */
+    public function init() {
+        parent::init();
+
+        /* Set filters and default active */
+        $this->filters = array(
+            'parent_id' => Categories::model()->getParentCategories(),
+        );
     }
 
     /**
@@ -73,7 +87,7 @@ class CategoriesController extends Controller {
         $model = new Categories;
 
         global $categotyList;
-        
+
         $this->changeAdminCity();
 
         $parentCategories = Categories::model()->findAllByAttributes(
@@ -82,7 +96,7 @@ class CategoriesController extends Controller {
                     'city_id' => Yii::app()->session['city_id']
                 )
         );
-        
+
         if ($parentCategories != null) {
             foreach ($parentCategories as $category) {
                 $categotyList[] = array('category_id' => $category->category_id, 'category_name' => $category->category_name);
@@ -131,9 +145,9 @@ class CategoriesController extends Controller {
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
         global $categotyList;
-        
+
         $this->changeAdminCity();
-        
+
         $parentCategories = Categories::model()->findAllByAttributes(array('parent_id' => '0'));
         if ($parentCategories != null) {
             foreach ($parentCategories as $category) {
@@ -182,6 +196,7 @@ class CategoriesController extends Controller {
      */
     public function actionIndex() {
         $model = new Categories('search');
+        $this->init();
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Categories']))
             $model->attributes = $_GET['Categories'];
