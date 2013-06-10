@@ -70,6 +70,35 @@ class QuranController extends Controller {
         $this->render('product_detail', array('product' => $product, "rating_value" => $rating_value));
     }
 
+    /**
+     * product detail change
+     */
+    public function actionproductDetailLang($id) {
+
+        if (isset($_POST['lang_id'])) {
+
+
+
+            $product = Product::model();
+
+            $product = $product->findByPk($id);
+            $product->productProfile = $product->productSelectedProfile;
+
+
+            /**
+             *  getting value of poduct rating
+             */
+            $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
+            $right_data = $this->renderPartial("_product_detail_data", array('product' => $product, "rating_value" => $rating_value), true, true);
+            $left_data = $this->renderPartial("_product_detail_image", array('product' => $product), true, false);
+
+            echo CJSON::encode(array(
+                "right_data" => $right_data,
+                "left_data" => $left_data,
+            ));
+        }
+    }
+
 }
 
 ?>

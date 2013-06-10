@@ -71,7 +71,7 @@
                             jQuery.ajax({
                                 type: "POST",
                                 dataType: "json",
-                                url: "' . $this->createUrl("/web/product/productDetailLang", array("id" => $product->product_id)) . '",
+                                url: "' . $this->createUrl("/web/quran/productDetailLang", array("id" => $product->product_id)) . '",
                                 data: 
                                     { 
                                         lang_id: jQuery("#language").val() 
