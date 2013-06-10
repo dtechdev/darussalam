@@ -37,23 +37,7 @@ $relationName = "productProfile";
     </div>
 
     <div class="clear"></div>
-    <div class="row">
-        <?php echo CHtml::activeLabelEx($model, 'discount_type'); ?>
-        <?php
-       echo CHtml::activeDropDownList($model, '[' . $index . ']discount_type', array("fixed" => "fixed", "percentage" => "percentage"));
-        ?>
-        <?php echo CHtml::error($model, 'discount_type'); ?>
-    </div>
 
-    <div class="row">
-        <?php echo CHtml::activeLabelEx($model, 'discount_value'); ?>
-        <?php
-        echo CHtml::activeTextField($model, '[' . $index . ']discount_value')
-        ?>
-        <?php echo CHtml::error($model, 'discount_value'); ?>
-    </div>
-
-    <div class="clear"></div>
     <div class="row">
         <?php echo CHtml::activeLabelEx($model, 'size'); ?>
         <?php

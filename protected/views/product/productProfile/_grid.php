@@ -27,16 +27,6 @@ $mName = "ProductProfile";
                 "type" => "raw",
             ),
             array(
-                'name' => 'discount_type',
-                'value' => '$data->discount_type',
-                "type" => "raw",
-            ),
-            array(
-                'name' => 'discount_value',
-                'value' => '$data->discount_value',
-                "type" => "raw",
-            ),
-            array(
                 'name' => 'size',
                 'value' => '$data->size',
                 "type" => "raw",

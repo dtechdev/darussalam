@@ -85,5 +85,5 @@ else if($model->parent_category->category_name == "Educational Toys") {
      $this->renderPartial('educationToys/_container', array('model' => $model, "type" => "form"));
 }
 $this->renderPartial('productCategories/_container', array('model' => $model, "type" => "form"));
-//$this->renderPartial('productImages/_container', array('model' => $model, "type" => "form"));
+$this->renderPartial('discount/_container', array('model' => $model, "type" => "form"));
 ?>

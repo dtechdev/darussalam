@@ -23,7 +23,7 @@
 class Product extends DTActiveRecord {
 
     public $no_image;
- 
+
 
     public function __construct($scenario = 'insert') {
         $this->no_image = Yii::app()->baseUrl . "/images/product_images/noimages.jpeg";
@@ -55,9 +55,8 @@ class Product extends DTActiveRecord {
         return array(
             array('parent_cateogry_id,product_name, city_id, is_featured,product_description', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            
             array('authors', 'safe'),
-            array('parent_cateogry_id,no_image,authors', 'safe'),
+            array('discount_type,discount_type,parent_cateogry_id,no_image,authors', 'safe'),
             array('city_id', 'numerical', 'integerOnly' => true),
             array('product_name', 'length', 'max' => 255),
             array('is_featured', 'length', 'max' => 1),
@@ -124,6 +123,7 @@ class Product extends DTActiveRecord {
             'parent_cateogry_id' => 'Parent Category',
             '_parent_category' => 'Category',
             'product_description' => 'Product Description',
+     
             'city_id' => 'City',
             'authors' => 'Author',
             'is_featured' => 'Is Featured',
@@ -135,7 +135,7 @@ class Product extends DTActiveRecord {
      * @param type $limit
      * @return type 
      */
-    public function allProducts($product_array = array(), $limit = 30,$parent_category = "Books") {
+    public function allProducts($product_array = array(), $limit = 30, $parent_category = "Books") {
 
 
 
@@ -161,16 +161,16 @@ class Product extends DTActiveRecord {
                     //'with'=>'commentCount' 
             ));
         }
-        
+
         /**
          * that should only be book
-         */      
+         */
         $parent_cat = Categories::model()->getParentCategoryId($parent_category);
-        
-        
-        
-        $criteria->addCondition('parent_cateogry_id = '.$parent_cat);
-       
+
+
+
+        $criteria->addCondition('parent_cateogry_id = ' . $parent_cat);
+
         if (isset($_POST['ajax'])) {
 
 

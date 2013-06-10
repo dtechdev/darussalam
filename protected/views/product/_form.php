@@ -77,6 +77,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/f
         $this->renderPartial('other/_container', array('model' => $model, "type" => "field"));
         $this->renderPartial('productProfile/_container', array('model' => $model, "type" => "field"));
         $this->renderPartial('productCategories/_container', array('model' => $model, "type" => "field"));
+        $this->renderPartial('discount/_container', array('model' => $model, "type" => "field"));
     }
     ?>
 
