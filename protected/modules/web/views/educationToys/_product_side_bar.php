@@ -10,6 +10,17 @@
         <h2>VIEW BY CATEGORY</h2>
         <ul>
             <?php
+            $url = $this->createUrl("/web/educationToys/index");
+            if (Yii::app()->controller->action->id == "getSearch") {
+
+                $url = $this->createUrl("/web/search/getSearch");
+            } else if (Yii::app()->controller->action->id == "bestSellings") {
+
+                $url = $this->createUrl("/web/product/bestSellings");
+            } else if (Yii::app()->controller->action->id == "featuredProducts") {
+
+                $url = $this->createUrl("/web/product/featuredProducts");
+            }
             foreach ($allCate as $allCatego) {
 
                 echo CHtml::openTag("li");
@@ -24,7 +35,7 @@
             }
             if (!empty($allCate)) {
                 echo CHtml::openTag("li");
-                echo CHtml::link("All", $this->createUrl('/web/product/allproducts'), array('onclick' => '
+                echo CHtml::link("All", $this->createUrl('/web/educationToys/index'), array('onclick' => '
                                             
                                                   dtech.updateProductListing("' . $url . '","all");  
                                                   
