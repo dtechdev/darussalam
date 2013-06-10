@@ -283,4 +283,14 @@ var dtech = {
             });
         }
     },
+    
+    checkApplied : function (obj){
+        if($(obj).is(':checked') == true){
+            $(".applied").each(function(){
+                if($(obj).attr("id")!= $(this).attr("id")){
+                    $(this).prop('checked', false);
+                }
+            })
+        }
+    },
 }
