@@ -16,7 +16,7 @@ $relationName = "discount";
         }
 
 
-        echo CHtml::activeDropDownList($model, '[' . $index . ']discount_type', array("fixed" => "Fixed", "Percentage" => "percentage"));
+        echo CHtml::activeDropDownList($model, '[' . $index . ']discount_type', array("fixed" => "Fixed", "percentage" => "Percentage"));
         ?>
     </div>
 

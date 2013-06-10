@@ -41,10 +41,23 @@ class ProductDiscount extends DTActiveRecord {
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('applied,discount_type, discount_value', 'length', 'max' => 10),
             array('discount_value', 'type', 'type'=>'float'),
+            array('discount_value', 'validatePercentage'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, discount_type, discount_value', 'safe', 'on' => 'search'),
         );
+    }
+    /**
+     * 
+     * @param type $attribute
+     * @param type $params
+     */
+    public function validatePercentage($attribute,$params){
+        if($this->discount_type == "percentage"){
+            if($this->$attribute>100){
+                $this->addError($attribute, "Percentage should'nt be more than 100");
+            }
+        }
     }
 
     /**
