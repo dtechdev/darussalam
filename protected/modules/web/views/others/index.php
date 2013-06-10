@@ -1,20 +1,24 @@
 <?php
-/* @var $this SiteController */
-/* @var $error array */
 
-$this->pageTitle = Yii::app()->name . ' - Others';
-$this->breadcrumbs = array(
-    'Others',
+/**
+ * rendering all products listing
+ */
+echo $this->renderPartial('/others/product_listing', array(
+    'products' => $products,
+    'dataProvider'=>$dataProvider,
+    'allCate' => $allCate)
 );
+
 ?>
-
-<div id="shopping_cart" style="height:308px;text-align:left; color:gray  ">
-    <div id="main_shopping_cart"><h1>Under Construction</h1>
-        <div class="left_right_cart">
-
-            <div>
-                This page is in Under Construction !!!
-            </div>
-        </div>
-    </div>
-</div>
+<?php 
+    /**
+     * for checking ajax based link
+     */
+    $page = 1 ;
+    if(isset($_REQUEST['Product_page'])){
+        $page = $_REQUEST['Product_page'];
+    }
+    Yii::app()->clientScript->registerScript('change_cat_script', '
+        dtech.loadallPrdoucts_Cat("'.$this->createUrl("/web/others/index",array("Product_page"=>$page)).'");
+    ', CClientScript::POS_READY);
+?>
