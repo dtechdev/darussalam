@@ -7,6 +7,7 @@ class ProductController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/column2';
+    public $filters;
 
     /**
      * @return array action filters
@@ -22,6 +23,18 @@ class ProductController extends Controller {
         Yii::app()->theme = "admin";
         parent::beforeAction($action);
         return true;
+    }
+
+    /**
+     * Initialize Project Report
+     */
+    public function init() {
+        parent::init();
+
+        /* Set filters and default active */
+        $this->filters = array(
+            'parent_cateogry_id' => Categories::model()->getParentCategories(),
+        );
     }
 
     /**
@@ -104,7 +117,7 @@ class ProductController extends Controller {
         ));
     }
 
-    /**
+    /**product_id
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
@@ -154,6 +167,7 @@ class ProductController extends Controller {
      * Manages all models.
      */
     public function actionIndex() {
+        $this->init();
         $model = new Product('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Product']))
@@ -285,7 +299,7 @@ class ProductController extends Controller {
         if (isset($_POST['EducationToys'])) {
             $model->setRelationRecords('educationToys', is_array($_POST['EducationToys']) ? $_POST['EducationToys'] : array());
         }
-      
+
         return true;
     }
 

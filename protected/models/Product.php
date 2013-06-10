@@ -264,6 +264,7 @@ class Product extends DTActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('product_id', $this->product_id);
+        $criteria->compare('parent_cateogry_id', $this->parent_cateogry_id);
         $criteria->compare('product_name', $this->product_name, true);
         $criteria->compare('product_description', $this->product_description, true);
         $criteria->compare('city_id', $this->city_id);

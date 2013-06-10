@@ -193,4 +193,17 @@ class Categories extends DTActiveRecord {
         return $category->category_id;
     }
 
+    /**
+     * retreving parent category for current city
+     * 
+     */
+    public function getParentCategories() {
+        $crtitera = new CDbCriteria();
+        $crtitera->addCondition("parent_id = 0 AND city_id = ".Yii::app()->session['city_id']);
+        $crtitera->select = "category_id,category_name";
+        $categories = CHtml::listData($this->findAll($crtitera), "category_id", "category_name");
+       
+        return $categories;
+    }
+
 }
