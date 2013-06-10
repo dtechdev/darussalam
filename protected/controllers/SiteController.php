@@ -59,9 +59,9 @@ class SiteController extends Controller {
         /*
          * uncomment the following code for laoding new theme...
          */
-        Yii::app()->controller->layout = "";
-        Yii::app()->user->SiteSessions;
-        Yii::app()->theme = 'new_theme';
+//        Yii::app()->controller->layout = "";
+//        Yii::app()->user->SiteSessions;
+//        Yii::app()->theme = 'new_theme';
 
         //to laod the new layout bar uncomment this lin
         //Yii::app()->controller->layout = '//layouts/search_bar_slider';
