@@ -29,7 +29,7 @@ $mName="ProductDiscount";
             ),
            array(
                 'name' => 'applied',
-                'value'=>'$data->applied',
+                'value'=>'($data->applied==1)?"Yes":"No"',
                 "type"=>"raw",
             ),
             array

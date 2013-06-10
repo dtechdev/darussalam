@@ -285,10 +285,10 @@ var dtech = {
     },
     
     checkApplied : function (obj){
-        if($(obj).is(':checked') == true){
-            $(".applied").each(function(){
-                if($(obj).attr("id")!= $(this).attr("id")){
-                    $(this).prop('checked', false);
+        if(jQuery(obj).is(':checked') == true){
+            jQuery(".applied").each(function(){
+                if(jQuery(obj).attr("id")!= jQuery(this).attr("id")){
+                    jQuery(this).prop('checked', false);
                 }
             })
         }
