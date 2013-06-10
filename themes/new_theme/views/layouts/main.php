@@ -87,8 +87,14 @@
                             <?php } ?>
                         </div>
                     </span>
-                    <span><a href="#">Contact Us</a></span>
-                    <span><a href="#">Blog</a></span>
+                    <span>
+                        <?php
+                        echo CHtml::link('Contact Us', $this->createUrl('/site/contact'));
+                        ?>
+                    </span>
+                    <span>
+                        <?php echo CHtml::link('Blog', Yii::app()->createUrl('/?r=blog'), array("target" => "_blank")); ?>
+                    </span>
                 </div>
             </header>
             <?php echo $content; ?>

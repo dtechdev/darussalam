@@ -7,8 +7,10 @@
             echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/quran_without_color_07.png"), $this->createUrl('/web/quran/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
             ?>
             <h4>Quran</h4>
-            <article>The Quran is the central religious text of Islam, which Muslims believe to be the verbatim word of God.</article>
-            <input type="button" value="Shop Now" class="shop_now" />
+            <article>Darussalam has stock of Holy Quran with it's tafseers written by Scholars</article>
+            <?php
+            echo CHtml::link(CHtml::button("Shop Now", array("class" => "shop_now")), $this->createUrl('/web/quran/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+            ?>
         </div>
         <div class="landing_div">
             <div class="ribbon-wrapper">
@@ -18,24 +20,31 @@
             echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/books_img_03.png"), $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
             ?>
             <h4>Books</h4>
-            <article>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</article>
-            <input type="button" value="Shop Now" class="shop_now" />
+            <article>Darussalam is Global Islamic Books Publishers and Distributors</article>
+            <?php
+            echo CHtml::link(CHtml::button("Shop Now", array("class" => "shop_now")), $this->createUrl('/web/product/allproducts', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+            ?>
         </div>
         <div class="landing_div">
             <?php
             echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/educational_toys_img_03.png"), $this->createUrl('/web/educationToys/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
             ?>
             <h4>Educationsl Toys</h4>
-            <article>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</article>
-            <input type="button" value="Shop Now" class="shop_now" />
+            <article>Darussalam also provides Eductaional toys for Children promoting islamic soul in them</article>
+            <?php
+            echo CHtml::link(CHtml::button("Shop Now", array("class" => "shop_now")), $this->createUrl('/web/educationToys/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+            ?>
         </div>
         <div class="landing_div">
             <?php
             echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/other_items_img_03.png"), $this->createUrl('/web/others/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
             ?>
             <h4>Other Items</h4>
-            <article>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</article>
-            <input type="button" value="Shop Now" class="shop_now" />
+            <article>In other products of Darussalam there are Electronic pen, quran, DVD and many more</article>
+            <?php
+            echo CHtml::link(CHtml::button("Shop Now", array("class" => "shop_now")), $this->createUrl('/web/others/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+            ?>
+
         </div>
     </div>
 </div>

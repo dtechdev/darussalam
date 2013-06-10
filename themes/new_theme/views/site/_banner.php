@@ -1,6 +1,8 @@
 <div id="banner">
     <div class="logo">
-        <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/logo_img_03.png" /></a>
+        <?php
+        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/logo_img_03.png", 'Logo'), $this->createDTUrl('site/index'));
+        ?>
     </div>
     <div class="search_with_box">
         <div id="search-box">
@@ -131,33 +133,49 @@
                         <div id="div_text">
                             <div id="left_footer">
                                 <h1>Connect to DARUSSALAM</h1>
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/f_img_06.png" /></a>
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/t_img_06.png" /></a>
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/subs_img_06.png" /></a>
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/you_img_06.png" /></a>
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/subs_yellow_img_06.png" /></a>
-                                <a href="#"><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/in_img_06.png" /></a>
-                                <div id="left_under_footer">
-                                    <li><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/phone_img_06.png" /> +(92) 42 35254654 - 54</li>
-                                    <li><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/mail_img_06.png" /> <a href="#">support@darussalam.com</a></li>
+                                <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/f_img_06.png"), $this->createUrl('/web/hybrid/login/', array("provider" => "facebook"))); ?>
+                                <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/t_img_06.png"), $this->createUrl('/web/hybrid/login/', array("provider" => "twitter"))); ?>
+                                <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/in_img_06.png"), $this->createUrl('/web/hybrid/login/', array("provider" => "linkedin"))); ?>
+                                <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/google_img_06.png"), $this->createUrl('/web/hybrid/login/', array("provider" => "google"))); ?>
+                                <div id = "left_under_footer">
+                                    <li><img src = "<?php echo Yii::app()->theme->baseUrl ?>/images/phone_img_06.png" /> +(92) 42 35254654 - 54</li>
+                                    <li><img src = "<?php echo Yii::app()->theme->baseUrl ?>/images/mail_img_06.png" />
+                                        <?php echo CHtml::mailto("support@darussalam.com", "support@darussalam.com");
+                                        ?>
+                                    </li>
                                     <li><img src="<?php echo Yii::app()->theme->baseUrl ?>/images/home_img_06.png" /> Darussalam Publishers</li>
                                 </div>
                                 <p>is a multilingual international Islamic publishing house, with headquarters in Riyadh, Kingdom of Saudi Arabia.</p>
                             </div>
                             <div id="middle_footer">
                                 <h1>Navigation</h1>
-                                <article><a href="#">About Us</a></article>
-                                <article><a href="#">Contact Us</a></article>
-                                <article><a href="#">Careers</a></article>
-                                <article><a href="#">FAQ's</a></article>
-                                <article><a href="#">Terms &amp; Conditions</a></article>
-                                <article><a href="#">Shipping Rates & Policies</a></article>
+                                <?php
+                                $not_required_pages = array("Contact Us");
+                                $pages = Pages::model()->getPages();
+                                foreach ($pages as $page) {
+                                    if (!in_array($page->title, $not_required_pages)) {
+                                        echo CHtml::openTag("article");
+                                        echo CHtml::link($page->title, Yii::app()->createUrl('/web/page/viewPage/', array("id" => $page->id)));
+                                        echo CHtml::closeTag("article");
+                                    }
+                                }
+                                echo CHtml::openTag("article");
+                                echo CHtml::link('Contact Us', $this->createUrl('/site/contact'));
+                                echo CHtml::closeTag("article");
+                                if (!Yii::app()->user->isGuest) {
+                                    echo CHtml::openTag("article");
+                                    echo CHtml::link('User Profile', $this->createUrl('/web/userProfile', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                                    echo '<br>';
+                                    echo CHtml::link('Customer History', $this->createUrl('/web/user/customerHistory', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+                                    echo CHtml::closeTag("article");
+                                }
+                                ?>
                             </div>
                             <div id="right_footer">
                                 <h1>What's New?</h1>
-                                <p><a href="#">D-Tech - Working on technologies</a></p>
+                                <p style='color: #888888;'>D-Tech - Working on technologies</p>
                                 <article><i>iPhone, Android & iPad Islamic apps</i></article>
-                                <p><a href="#">D-Tech - Working on technologies</a></p>
+                                <p style='color: #888888;'>D-Tech - Working on technologies</a></p>
                                 <article><i>iPhone, Android & iPad Islamic apps</i></article>
                                 <section>&copy; 2013 Darussalam, Inc. All Rights Reserved.</section>
                             </div>

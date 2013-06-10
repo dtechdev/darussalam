@@ -132,7 +132,7 @@ header { padding: 0 20px; margin: 0; width:97%; background:#092b71; float:left; 
 
 #search-box input[type="text"] { width: 90%; padding: 11px 0 12px 1em; color: #333; outline: none; }
 
-#search-button { position: absolute; top: 0; right: 0; height: 38px; width: 97px; font-size: 17px; color: #fff; text-align: center; line-height: 30px; border-width: 0; background:url(images/search_bg_img_03.png) no-repeat; -webkit-border-radius: 0px 5px 5px 0px; -moz-border-radius: 0px 5px 5px 0px; border-radius: 0px 5px 5px 0px; cursor: pointer; }
+#search-button { position: absolute; top: 0; right: 0; height: 38px; width: 97px; font-size: 17px; color: #fff; text-align: center; line-height: 30px; border-width: 0; background:url(../images/search_bg_img_03.png) no-repeat; -webkit-border-radius: 0px 5px 5px 0px; -moz-border-radius: 0px 5px 5px 0px; border-radius: 0px 5px 5px 0px; cursor: pointer; }
 
 .cart_part { padding: 0px 0px; margin: 38px 0 0 0; float:right; width:15%; }
 
