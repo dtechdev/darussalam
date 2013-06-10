@@ -54,15 +54,20 @@ class SiteController extends Controller {
      *  
      */
     public function actionStoreHome() {
-        
+
         Yii::app()->user->SiteSessions;
-        
-//        Yii::app()->controller->layout = "";
-//        Yii::app()->user->SiteSessions;
-//        Yii::app()->theme = 'new_theme';
-        
+        /*
+         * uncomment the following code for laoding new theme...
+         */
+        Yii::app()->controller->layout = "";
+        Yii::app()->user->SiteSessions;
+        Yii::app()->theme = 'new_theme';
+
+        //to laod the new layout bar uncomment this lin
+        //Yii::app()->controller->layout = '//layouts/search_bar_slider';
+
         $order_detail = new OrderDetail;
-        $limit = 3;
+        $limit = 8; // 3 limits for old desing 8 limit for new design
         /** featured products * */
         $dataProvider = $order_detail->featuredBooks($limit);
         $featured_products = $order_detail->getFeaturedProducts($dataProvider);
