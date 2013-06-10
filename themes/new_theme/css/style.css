@@ -106,9 +106,9 @@ header { padding: 0 20px; margin: 0; width:97%; background:#092b71; float:left; 
 
 #left_header span { font-family:Helvetical TStd Bold; font-size:11px; color:#FFF; padding: 0; margin: 0px 0 0px 0; float:none; }
 
-#right_header { float:right; padding: 0; margin: 0; }
+#right_header { float:right; padding: 0; margin: 5px 0 0 0; }
 
-#right_header span { font-family:Helvetical TStd Bold; font-size:11px; color:#FFF; border-right:1px solid #FFF; margin: 0px 0 0 0; padding: 0 10px; }
+#right_header span { float:left; font-family:Helvetical TStd Bold; font-size:11px; color:#FFF; border-right:1px solid #FFF; margin: 0px 0 0 0; padding: 0 10px; }
 
 #right_header span a { font-family:Helvetical TStd Bold; font-size:11px; color:#FFF; text-decoration:none; margin: 0px 0 0 0; }
 
@@ -134,21 +134,15 @@ header { padding: 0 20px; margin: 0; width:97%; background:#092b71; float:left; 
 
 #search-button { position: absolute; top: 0; right: 0; height: 38px; width: 97px; font-size: 17px; color: #fff; text-align: center; line-height: 30px; border-width: 0; background:url(images/search_bg_img_03.png) no-repeat; -webkit-border-radius: 0px 5px 5px 0px; -moz-border-radius: 0px 5px 5px 0px; border-radius: 0px 5px 5px 0px; cursor: pointer; }
 
-.cart_part { padding: 0px 0px; margin: 20px 0 0 0; float:right; width:13%; }
+.cart_part { padding: 0px 0px; margin: 38px 0 0 0; float:right; width:15%; }
 
-.add_to_cart { padding: 0; margin: 0; float:left; }
+.add_to_cart { padding: 0; margin: 0px 10px 0 0; float:left; }
 
-.wishlist { padding: 0; margin: 45px 0 0 0; float:left; }
+.wishlist { padding: 0; margin: 0px 0 0 0; float:left; }
 
-.left_bar { padding: 0; margin: 50px 0 0 -100px; width:50%; float:left; }
+.left_bar { padding: 0; margin: 0; width:60%; float:left; }
 
-.left_bar article { height:170px; font-size:45.05px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; color:#323232; }
-
-.left_bar article span { color:#092b71; }
-
-.left_bar article b { color:#f89e00; }
-
-.left_bar p { text-align:right; font-size:19.67px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; color:#393939; }
+.left_bar img { max-width:100%; width:100%; height:506px; }
 
 .activites { padding: 0; margin: 0px 0 0px 0; width:100%; background:url(../images/activites_bg_img_03.png) no-repeat; height:219px; opacity:0.97; }
 
@@ -159,6 +153,8 @@ header { padding: 0 20px; margin: 0; width:97%; background:#092b71; float:left; 
 .best_seller { float:right; padding: 0; margin: -30px 0 0 0; }
 
 #footer_part { padding: 0; margin: 452px 0 0 0; width:100%; position:absolute; float:left; }
+
+#books_footer_part { padding: 0; margin: -60px 0 0 0; width:100%; float:left; position:relative; }
 
 .left_activites { padding: 0; margin: 10px 0 0 0; width:10%; float:left; }
 
@@ -171,6 +167,12 @@ header { padding: 0 20px; margin: 0; width:97%; background:#092b71; float:left; 
 .right_activites section { font-size:16px; color:#f89e00; font-family:Arial, Helvetica, sans-serif; line-height:normal; }
 
 .right_activites article { font-size:11px; color:#FFF; text-align:left; padding: 0; margin: 0; font-family:Arial, Helvetica, sans-serif; line-height:14px; }
+
+.toggleBtnHolder{ position: absolute; display: block; width: 100%; height: 30px; border-bottom: 5px solid #092b71; z-index: 99999; padding: 0; margin: 24px 0 0 0; }
+
+.btnToggle{position: absolute; border:none; float:right; }
+
+#div_img { padding: 0; margin: 0px 0 0 0; }
 
 #content { padding: 0; margin: 30px 0 0 0; width:100%; background:#FFF; float:left; }
 
@@ -226,7 +228,7 @@ header { padding: 0 20px; margin: 0; width:97%; background:#092b71; float:left; 
 
 .right_under_content p { color:#454545; font-size:10px; font-family:Helvetical TStd Bold; }
 
-#dvText { position:fixed; background:#092b71; width:100%; height:290px; margin: -1px 0 0 0; z-index:10; float:left; }
+#dvText { position: absolute; background:#092b71; width:100%; height:290px; margin: -1px 0 0 0; z-index:9998; float:left; bottom: 0px; display: none; }
 
 #div_text { width:980px; margin: 0 auto; padding: 0; }
 
@@ -308,7 +310,17 @@ h5 { font-style:normal; font-size:14px; font-family:Tahoma, Geneva, sans-serif; 
 
 #left_description { padding: 0; margin: 0; width:50%; float:left; }
 
-#right_description { padding: 10px; margin: 0; float:left; width:30%; background:#ededed; border-radius:5px; border: 1px solid #bdbdbd; }
+#right_description { font-family: Helvetical TStd Roman; padding: 10px; margin: 0; float:left; width:30%; background:#ededed; border-radius:5px; border: 1px solid #bdbdbd; }
+
+#right_description h4 { color:#092b71; font-size:16px; font-family: Helvetical TStd Roman; }
+
+#right_description p { color:#000; font-size:14px; }
+
+#right_description article { color:#574b4b; font-size:14px; }
+
+#right_description article a { text-decoration:underline; color:#2c56aa; }
+
+#right_description section { color:#937d7d; font-size:14px; }
 
 .stars_description { padding: 0; margin: 10px 0 0 0; }
 
@@ -329,3 +341,27 @@ h5 { font-style:normal; font-size:14px; font-family:Tahoma, Geneva, sans-serif; 
 #description_content section a { color:#2656a5; font-size:14px; line-height:24px; }
 
 .under_heading h6 { color:#2656a5; font-family: Helvetical TStd Roman; font-size:18px; padding: 0 0 0 30px; text-align:left; }
+
+.add_to_cart_books_arrow { background:#f89e00; border: none; width:50%; height:30px; color:#FFF; border-radius:0 5px 5px 0; font-size:16.35px; font-family: Helvetical TStd Roman; padding: 0; margin: 10px 0 0 0; }
+
+.add_to_cart_for_books { padding: 0; margin: 68px 0 0 0; }
+
+.add_to_cart_for_books a img { padding: 0 10px; margin: 0 0px; border-right: 1px solid #efefef; }
+
+#right_banner { font-family: Helvetical TStd Roman; background:#efefef; width:22%; padding: 10px 0 10px 0; margin: 20px 0 0 0; float:left; border:1px solid #d0d0d0; border-radius:3px; }
+
+#right_banner h2 { color:#2e3192; font-size:18px; padding: 0 0 0 10px; }
+
+#right_banner h1 { color:#1a1a1a; font-size:13px; border-bottom:1px solid #e3e3e3; padding: 0 0 10px 10px; }
+
+.small_book { width:311px; padding: 0 10px 0px 10px; margin: 10px 0 0 0; float:left; }
+
+.small_book_img { width:15%; float:left; padding: 0; margin: 0; }
+
+.small_book_content { width:70%; padding: 0 0 0 7px; margin: 0; float:left; }
+
+.small_book_content p { color:#808080; font-size:11px; padding: 3px 0 0 0; margin: 0; }
+
+.small_book_content p a { color:#3b5998; text-decoration:none; }
+
+.small_book_content .blak { color:#1a1a1a; }
