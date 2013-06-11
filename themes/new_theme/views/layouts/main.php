@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/login style.css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl ?>/js/login.js"></script>
+        <script src="<?php echo Yii::app()->baseUrl; ?>/media/js/dtech.js"></script>    
         <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
