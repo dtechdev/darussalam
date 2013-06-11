@@ -18,14 +18,6 @@ $this->widget('zii.widgets.CDetailView', array(
             'value' => $model->price,
         ),
         array(
-            'name' => 'discount_type',
-            'value' => $model->discount_type,
-        ),
-        array(
-            'name' => 'discount_value',
-            'value' => $model->discount_value,
-        ),
-        array(
             'name' => 'size',
             'value' => $model->size,
         ),
