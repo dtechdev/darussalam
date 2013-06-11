@@ -35,6 +35,7 @@ $url_manager = array(
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/userProfile/' =>'/web/userProfile/index',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/socialLogin/<provider:[\w-\.]+>' =>'/web/hybrid/login',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/socialRegister/<provider:[\w-\.]+>' =>'/web/hybrid/registerSocial',
+        '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/payment/confirmOrder/' =>'/web/payment/confirmOrder',
         /** Product detail * */
        
         /**

@@ -189,22 +189,21 @@ class UserProfile extends DTActiveRecord {
     }
 
     /**
+     * 
+     * @param type $attributes
+     * @param type $order_id
+     * /**
      * Save shipping information in case of payment
      */
-    public function saveShippingInfo($attributes) {
+    public function saveShippingInfo($attributes, $order_id) {
 
-        $userProfile_model = $this->findByPk(Yii::app()->user->id);
-        /**
-         * in case when profile id is exsit thats why to take new
-         * instance
-         */
-        if (empty($userProfile_model)) {
-            $userProfile_model = new UserProfile;
-            $userProfile_model->id = Yii::app()->user->id;
-        }
-        $userProfile_model->attributes = $attributes;
+        $shippingInfo = new UserOrderShipping;
 
-        $userProfile_model->save(false);
+        $shippingInfo->attributes = $attributes;
+        $shippingInfo->user_id = Yii::app()->user->id;
+        $shippingInfo->order_id = $order_id;
+
+        $shippingInfo->save(false);
     }
 
 }

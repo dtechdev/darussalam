@@ -109,10 +109,14 @@ class PaymentController extends Controller {
     public function processCreditCard($model, $creditCardModel) {
 
         $error = $creditCardModel->CreditCardPayment($model, $creditCardModel);
-        if (empty($error)) {
+        /**
+         * if order id is exist then it means 
+         * it has order information
+         */
+        if (!empty($error['order_id'])) {
             //save the shipping information of user
             $userProfile_model = UserProfile::model();
-            $userProfile_model->saveShippingInfo($_POST['ShippingInfoForm']);
+            $userProfile_model->saveShippingInfo($_POST['ShippingInfoForm'],$error['order_id']);
             $this->redirect(array('/web/payment/confirmOrder'));
         } else {
             $creditCardModel->showCreditCardErrors($error);
@@ -127,7 +131,7 @@ class PaymentController extends Controller {
     public function processManual($creditCardModel) {
         $order_id = $creditCardModel->saveOrder("");
 
-        UserProfile::model()->saveShippingInfo($_POST['ShippingInfoForm']);
+        UserProfile::model()->saveShippingInfo($_POST['ShippingInfoForm'],$order_id);
 
 
         $this->customer0rderDetailMailer($_POST['ShippingInfoForm']);

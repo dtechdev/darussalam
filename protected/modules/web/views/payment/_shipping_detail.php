@@ -30,7 +30,12 @@
             <tr>
                 <td class="left_prefix">
                     <?php
-                    echo $form->dropDownList("shipping_prefix", array("Mr." => "Mr.", "Mrs." => "Mrs."))
+                    echo $form->dropDownList("shipping_prefix", 
+                            array(
+                                 "Mr." => "Mr.", 
+                                 "Mrs." => "Mrs.",
+                                 "Ms." =>"Ms.",
+                                ))
                     ?>
                 </td>
                 <td class="right_prefix">
@@ -83,7 +88,7 @@
                     <?php echo $form->error($model, 'shipping_zip'); ?>
             </tr>
         </table>
-        <p><span>*</span> Telephone Number <i>(10 digits only, no dashes)</i></p>
+        <p><span>*</span> Phone No <i>(10 digits only, no dashes)</i></p>
         <?php echo $form->textField($model, 'shipping_phone', array('class' => 'payment_text')); ?>
         <?php echo $form->error($model, 'shipping_phone'); ?>
     </div>
