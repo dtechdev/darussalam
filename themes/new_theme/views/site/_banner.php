@@ -10,8 +10,8 @@
             <form id="search-form" method="post" 
                   action="<?php echo $this->createUrl("/web/search/getSearch") ?>" target='_top'>
 
-                <a href="javascript:void(0)" onclick="dtech.doGloblSearch()">
-                    <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/search_03.png" />
+                <a href="javascript:void(0)" onclick="dtech.doGloblSearch()" >
+                    <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/search_03.png" alt="search img" />
                 </a>
 
                 <?php
