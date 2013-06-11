@@ -195,7 +195,7 @@ class UserProfile extends DTActiveRecord {
      * /**
      * Save shipping information in case of payment
      */
-    public function saveShippingInfo($attributes, $order_id) {
+    public function saveShippingInfo($attributes, $order_id = 0) {
 
         $shippingInfo = new UserOrderShipping;
 

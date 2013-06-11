@@ -107,8 +107,18 @@ class PaypalController extends Controller
                  * 1 ID is belong to pay pall
                  */
                 $creditCardModel->payment_method = 1;
-                $creditCardModel->saveOrder($result['TOKEN']);
-
+                $order_id = $creditCardModel->saveOrder($result['TOKEN']);
+                
+                /**
+                 * Saving information in userShipping model
+                 * Now by retrieving information of most new record
+                 */
+                $criteria = new CDbCriteria();
+                $criteria->select = "id";
+                $criteria->addCondition("user_id = ".Yii::app()->user->id);
+                $criteria->order = "id DESC";
+                $model = UserOrderShipping::model()->find($criteria);
+                $model->updateByPk($model->id,array("order_id"=>$order_id));
                 $this->render('confirm');
             }
         }

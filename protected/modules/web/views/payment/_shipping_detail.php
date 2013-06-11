@@ -30,12 +30,11 @@
             <tr>
                 <td class="left_prefix">
                     <?php
-                    echo $form->dropDownList("shipping_prefix", 
-                            array(
-                                 "Mr." => "Mr.", 
-                                 "Mrs." => "Mrs.",
-                                 "Ms." =>"Ms.",
-                                ))
+                    echo $form->dropDownList($model, "shipping_prefix", array(
+                        "Mr." => "Mr.",
+                        "Mrs." => "Mrs.",
+                        "Ms." => "Ms.",
+                    ));
                     ?>
                 </td>
                 <td class="right_prefix">
