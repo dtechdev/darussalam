@@ -96,18 +96,7 @@
                                                 <?php echo $form->fileField($model, 'avatar'); ?>
                                             </td>
                                         </tr>
-                                        <tr class="account_row">
-                                            <td class="account_left">
-                                                <?php
-                                                echo $model->getAttributeLabel('gender');
-                                                ?>
-                                            </td>
-                                            <td class="account_right">
-                                                <?php
-                                                echo $form->dropDownList($model, 'gender', array('male' => 'Mr', 'female' => 'Mrs'), $htmlOptions = array('class' => 'account_prefix', 'options' => array('1' => array('selected' => true))));
-                                                ?>
-                                            </td>
-                                        </tr>
+
                                         <tr class="account_row">
                                             <td class="account_left">
                                                 <?php
@@ -129,6 +118,18 @@
                                             </td>
                                         </tr>
                                         <tr class="account_row">
+                                            <td class="account_left" >
+                                                <?php
+                                                echo $model->getAttributeLabel('gender');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php
+                                                echo $form->dropDownList($model, 'gender', array('male' => 'Male', 'female' => 'Female'), $htmlOptions = array('class' => 'account_prefix', 'options' => array('1' => array('selected' => true))));
+                                                ?>
+                                            </td>
+                                        </tr>
+                                        <tr class="account_row">
                                             <td class="account_left">
                                                 <?php
                                                 echo $model->getAttributeLabel('date_of_birth');
@@ -142,13 +143,24 @@
                                                     'options' => array(
                                                         'mode' => 'focus',
                                                         'dateFormat' => Yii::app()->params['dateformat'],
+                                                        'buttonImage' => Yii::app()->baseUrl . '/images/date_picker.png',
+                                                        'buttomImageOnly' => true,
+                                                        'buttonText' => '',
+                                                        'showAnim' => 'fold',
+                                                        'showOn' => 'button',
+                                                        'showButtonPanel' => false,
                                                         'showAnim' => 'slideDown',
+                                                        'changeYear' => true,
+                                                        'changeMonth' => true,
+                                                        'yearRange' => '1930',
                                                     ),
                                                     'htmlOptions' => array(
                                                         'size' => '15', // textField size
                                                         //'value' => date("d F, Y"),
                                                         'maxlength' => '10', // textField maxlength
                                                         'class' => 'account_text', // textField maxlength
+                                                        'readOnly' => TRUE,
+                                                        'style' => 'width:210px',
                                                     ),
                                                 ));
                                                 ?>
@@ -227,6 +239,28 @@
                                         </tr>
                                         <tr class="account_row">
                                             <td class="account_left">
+                                                <?php
+                                                echo $model->getAttributeLabel('mobile_number');
+                                                ?>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->textField($model, 'mobile_number', array('class' => 'account_text')); ?>
+                                            </td>
+                                        </tr>
+                                        <tr class="account_row">
+                                            <td class="account_left">
+                                                <b>
+                                                    <?php
+                                                    echo $model->getAttributeLabel('is_shipping_address');
+                                                    ?>
+                                                </b>
+                                            </td>
+                                            <td class="account_right">
+                                                <?php echo $form->checkBox($model, 'is_shipping_address', array('class' => 'account_text')); ?>
+                                            </td>
+                                        </tr>
+                                        <tr class="account_row">
+                                            <td class="account_left">
 
                                             </td>
                                             <td class="account_right">
@@ -240,7 +274,7 @@
                     </div>
 
                 </div>
-                <div class="tab">
+                <div class="tab" style="display: none">
                     <input type="radio" id="tab-2" name="tab-group-1">
                     <label for="tab-2">Shipping Address</label>
                     <div class="conten">
@@ -302,7 +336,7 @@
                         </table>
                     </div> 
                 </div>
-                <div class="tab">
+                <div class="tab" style="display: none">
                     <input type="radio" id="tab-3" name="tab-group-1">
                     <label for="tab-3">Preferences</label>
                     <div class="conten">
@@ -313,3 +347,12 @@
         </div>
     </div>
 </div>
+<style>
+    .ui-datepicker-trigger {
+        width:25px;
+        margin-left: 2px;
+    }
+    #upload-form table td.account_right {
+        width: 240px;
+    }
+</style>
