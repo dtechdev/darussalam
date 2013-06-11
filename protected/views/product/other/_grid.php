@@ -36,7 +36,7 @@ $mName="Other";
             array
                 (
                 'class' => 'CButtonColumn',
-                'template' => '{update} ',
+                'template' => '{update} {viewimage}',
                 'buttons' => array
                     (
                     'update' => array
@@ -68,6 +68,12 @@ $mName="Other";
                     'delete' => array(
                         'label' => 'Delete',
                         'url' => 'Yii::app()->controller->createUrl("deleteChildByAjax",array("id" => $data->primaryKey, "mName" => "'.$mName.'"))',
+                    ),
+                     'viewimage' => array(
+                        'label' => 'View Image',
+                        'url' => 'Yii::app()->controller->createUrl("viewImage",array("id" => $data->id))',
+                        'imageUrl' => Yii::app()->theme->baseUrl . "/images/icons/viewimage.jpeg",
+        
                     ),
                 ),
             ),

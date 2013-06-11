@@ -1,42 +1,40 @@
 <?php
 $relationName = "educationToys";
-$mName="EducationToys";
+$mName = "EducationToys";
 ?>
 
 <div class="<?php echo $relationName; ?> child" style="<?php echo 'display:' . (isset($_POST[$mName]) ? 'block' : 'none'); ?>">
     <?php
-    
     $config = array(
         'criteria' => array(
-           'condition' => 'product_id=' . $model->primaryKey,
+            'condition' => 'product_id=' . $model->primaryKey,
         )
     );
     $mNameobj = new $mName;
     $mName_provider = new CActiveDataProvider($mName, $config);
     $this->widget('zii.widgets.grid.CGridView', array(
-        'id' => $mName.'-grid',
+        'id' => $mName . '-grid',
         'dataProvider' => $mName_provider,
         'columns' => array(
-           array(
+            array(
                 'name' => 'price',
-                'value'=>'$data->price',
-                "type"=>"raw",
+                'value' => '$data->price',
+                "type" => "raw",
             ),
-           array(
+            array(
                 'name' => 'attribute',
-                'value'=>'$data->attribute',
-                "type"=>"raw",
+                'value' => '$data->attribute',
+                "type" => "raw",
             ),
-           array(
+            array(
                 'name' => 'attribute_value',
-                'value'=>'$data->attribute_value',
-                "type"=>"raw",
+                'value' => '$data->attribute_value',
+                "type" => "raw",
             ),
-           
             array
                 (
                 'class' => 'CButtonColumn',
-                'template' => '{update} ',
+                'template' => '{update}{viewimage} ',
                 'buttons' => array
                     (
                     'update' => array
@@ -67,7 +65,12 @@ $mName="EducationToys";
                     ),
                     'delete' => array(
                         'label' => 'Delete',
-                        'url' => 'Yii::app()->controller->createUrl("deleteChildByAjax",array("id" => $data->primaryKey, "mName" => "'.$mName.'"))',
+                        'url' => 'Yii::app()->controller->createUrl("deleteChildByAjax",array("id" => $data->primaryKey, "mName" => "' . $mName . '"))',
+                    ),
+                    'viewimage' => array(
+                        'label' => 'View Image',
+                        'url' => 'Yii::app()->controller->createUrl("viewImage",array("id" => $data->id))',
+                        'imageUrl' => Yii::app()->theme->baseUrl . "/images/icons/viewimage.jpeg",
                     ),
                 ),
             ),
@@ -75,7 +78,7 @@ $mName="EducationToys";
     ));
     ?>
 </div>
-<?php
-$this->widget('ext.lyiightbox.LyiightBox2', array(
-));
-?>
+    <?php
+    $this->widget('ext.lyiightbox.LyiightBox2', array(
+    ));
+    ?>
