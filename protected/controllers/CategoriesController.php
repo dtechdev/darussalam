@@ -89,6 +89,7 @@ class CategoriesController extends Controller {
         global $categotyList;
 
         $this->changeAdminCity();
+        $model->city_id = Yii::app()->session['city_id'];
 
         $parentCategories = Categories::model()->findAllByAttributes(
                 array(
