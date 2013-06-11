@@ -61,14 +61,13 @@ class UserProfile extends DTActiveRecord {
         return array(
             array('first_name, last_name', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            
             array('avatar', 'file', 'types' => 'jpg, gif, png', 'allowEmpty' => true),
             //array('user_id', 'numerical', 'integerOnly'=>true),
             array('first_name, last_name, address,  contact_number', 'length', 'max' => 255),
             array('id, first_name, last_name, address, gender, contact_number,city', 'safe'),
             array('avatar,date_of_birth,state_province,address_2,country,zip_code', 'safe'),
             array('shipping_prefix,shipping_first_name,shipping_last_name,shipping_address1,shipping_address2,shipping_country', 'safe'),
-            array('shipping_state,shipping_city,shipping_zip,shipping_phone', 'safe'),
+            array('shipping_state,shipping_city,shipping_zip,shipping_phone,mobile_number,is_shipping_address', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, first_name, last_name, address, gender, contact_number,city', 'safe', 'on' => 'search'),
@@ -99,9 +98,11 @@ class UserProfile extends DTActiveRecord {
             'city' => 'City',
             'country' => 'Country',
             'state_province' => 'State/Province',
-            'gender' => 'Prefix	',
+            'gender' => 'Gender	',
             'zip_code' => 'Zip Code	',
-            'contact_number' => 'Telephone Number',
+            'contact_number' => 'Phone Number',
+            'mobile_number' => 'Mobile Number',
+            'is_shipping_address' => 'Is Shipping Address Also ?',
             'avatar' => 'Profile Picture',
         );
     }
@@ -123,6 +124,7 @@ class UserProfile extends DTActiveRecord {
         $criteria->compare('contact_number', $this->contact_number, true);
         $criteria->compare('city', $this->city, true);
         $criteria->compare('gender', $this->gender, true);
+        $criteria->compare('mobile_number', $this->mobile_number, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -148,9 +150,22 @@ class UserProfile extends DTActiveRecord {
             $this->date_of_birth = DTFunctions::dateFormatForView($this->date_of_birth);
         }
 
+
         $this->oldImg = $this->avatar;
 
         parent::afterFind();
+    }
+
+    /**
+     * before save to convert 
+     * few things like date
+     */
+    public function beforeSave() {
+        if (!empty($this->date_of_birth)) {
+            $this->date_of_birth = DTFunctions::dateFormatForSave($this->date_of_birth);
+        }
+        parent::beforeSave();
+        return true;
     }
 
     public function afterSave() {
@@ -188,7 +203,7 @@ class UserProfile extends DTActiveRecord {
             $userProfile_model->id = Yii::app()->user->id;
         }
         $userProfile_model->attributes = $attributes;
-       
+
         $userProfile_model->save(false);
     }
 
