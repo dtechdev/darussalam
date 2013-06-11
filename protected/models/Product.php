@@ -215,12 +215,15 @@ class Product extends DTActiveRecord {
         $images = array();
         foreach ($data as $products) {
             $product_id = $products->product_id;
+           
             $criteria2 = new CDbCriteria;
             $criteria2->select = '*';  // only select the 'title' column
-            $criteria2->condition = "product_profile_id='" . $product_id . "'";
+            $criteria2->condition = "product_profile_id='" . $products->productProfile[0]->id . "'";
+         
             $imagedata = ProductImage::model()->findAll($criteria2);
             $images = array();
             foreach ($imagedata as $img) {
+              
                 if ($img->is_default == 1) {
                     $images[] = array('id' => $img->id,
                         'image_large' => $img->image_url['image_large'],
@@ -235,6 +238,7 @@ class Product extends DTActiveRecord {
                     break;
                 }
             }
+     
 
             $all_pro[] = array(
                 'product_id' => $products->product_id,
@@ -249,7 +253,8 @@ class Product extends DTActiveRecord {
                 'image' => $images
             );
         }
-
+    
+           
         return $all_pro;
     }
 
