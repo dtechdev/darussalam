@@ -6,34 +6,8 @@
     </div>
     <div class="search_with_box">
         <div id="search-box">
-            <!--            <form id="search-form" method="post" 
-                              action="<?php //echo $this->createUrl("/web/search/getSearch") ?>" target='_top'>
-                            <a href="javascript:void(0)" onclick="dtech.doGloblSearch()">
-                                <img src="<?php //echo Yii::app()->theme->baseUrl; ?>/images/search_03.png" alt="search img" />
-                            </a>
-            //<?php
-//            $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-//                'name' => 'serach_field',
-//                'source' => $this->createUrl("/web/search/dosearch"),
-//                // additional javascript options for the autocomplete plugin
-//                'options' => array(
-//                    'minLength' => '1',
-//                ),
-//                'htmlOptions' => array(
-//                    'id' => 'search-text',
-//                    'value' => (isset($_POST['serach_field']) ? $_POST['serach_field'] : ""),
-//                    'placeholder' => 'type here',
-//                ),
-//            ));
-//            
-            ?>
-                            <input onclick="dtech.doGloblSearch()" type="submit" value="Search" name="" id= "search-button" />
-                        </form> -->
 
-
-
-
-           
+            <form action='/search' id='search-form' method='get' target='_top'>
                 <?php
                 $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                     'name' => 'serach_field',
@@ -49,11 +23,11 @@
                     ),
                 ));
                 ?>
-                <form action='/search' id='search-form' method='get' target='_top'>
-                    	<button id='search-button' type='submit'><span>Search</span></button>
-                        <input id='search-text' name='q' placeholder='type here' type='text'/>
-                        <img src="images/search_03.png" />
-                    </form>
+
+                <button id='search-button' type='submit'><span>Search</span></button>
+                <input id='search-text' name='q' placeholder='type here' type='text'/>
+                <img src="images/search_03.png" />
+            </form>
         </div>
     </div>
     <div class="cart_part">
