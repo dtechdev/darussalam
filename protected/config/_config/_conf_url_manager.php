@@ -36,6 +36,14 @@ $url_manager = array(
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/socialLogin/<provider:[\w-\.]+>' =>'/web/hybrid/login',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/socialRegister/<provider:[\w-\.]+>' =>'/web/hybrid/registerSocial',
         '<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/payment/confirmOrder/' =>'/web/payment/confirmOrder',
+        
+        /**
+         * Blog links
+         */
+        
+        //'<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/blogtest/' =>'/blog/default/index',
+        //'<country:[\w-\.]+>/<city:[\w-\.]+>/<city_id:[\w-\.]+>/blogindex/' =>'/blog/wp/index',
+        
         /** Product detail * */
        
         /**

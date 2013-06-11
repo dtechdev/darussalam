@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends Controller {
+class WpController extends Controller {
 
     public function init() {
         // note that we disable the layout
