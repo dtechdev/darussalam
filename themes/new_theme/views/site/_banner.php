@@ -7,7 +7,13 @@
     <div class="search_with_box">
         <div id="search-box">
 
-            <form action='/search' id='search-form' method='get' target='_top'>
+            <form id="search-form" method="post" 
+                  action="<?php echo $this->createUrl("/web/search/getSearch") ?>" target='_top'>
+
+                <a href="javascript:void(0)" onclick="dtech.doGloblSearch()">
+                    <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/search_03.png" />
+                </a>
+
                 <?php
                 $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                     'name' => 'serach_field',
@@ -23,10 +29,7 @@
                     ),
                 ));
                 ?>
-
-                <button id='search-button' type='submit'><span>Search</span></button>
-                <input id='search-text' name='q' placeholder='type here' type='text'/>
-                <img src="images/search_03.png" />
+                <button id='search-button' type='submit' onclick="dtech.doGloblSearch()"><span>Search</span></button>
             </form>
         </div>
     </div>
