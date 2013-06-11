@@ -36,11 +36,11 @@
                             echo CHtml::openTag('li');
                             echo CHtml::link('Quran', $this->createUrl('/web/quran/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             echo CHtml::closeTag('li');
-                            
+
                             echo CHtml::openTag('li');
                             echo CHtml::link('EDUCATIONAL TOYS', $this->createUrl('/web/educationToys/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             echo CHtml::closeTag('li');
-                            
+
                             echo CHtml::openTag('li');
                             echo CHtml::link('OTHERS', $this->createUrl('/web/others/index', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
                             echo CHtml::openTag('li');
@@ -134,15 +134,13 @@
                         ?>
                     </div>
                     <div id="text">
-                        <?php if (!Yii::app()->user->isGuest) {
-                            ?>
-                            <h1><a href="<?php echo $this->createUrl('/site/logout') ?>" class="button" style="margin-top: -7px;">Logout</a>
-                                <?php
-                            } else {
-                                $this->renderPartial("application.views.layouts._login_box", array("login_model" => $login_model));
-                                ?>
-
-                            <?php } ?>
+                        <?php
+                        if (!Yii::app()->user->isGuest) {
+                            $this->renderPartial("application.views.layouts._logout_box");
+                        } else {
+                            $this->renderPartial("application.views.layouts._login_box", array("login_model" => $login_model));
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -154,7 +152,7 @@
         <div id="under_footer">
             <div id="left_footer">
                 <h1>Connect to DARUSSALAM</h1>
-                <?php //$this->widget('LoginWidget'); ?>
+                <?php //$this->widget('LoginWidget');   ?>
                 <div id="left_under_footer" >
                     <li>
                         <?php echo CHtml::image(Yii::app()->theme->baseUrl . '/images/phone_img_03.jpg', 'phone'); ?>
