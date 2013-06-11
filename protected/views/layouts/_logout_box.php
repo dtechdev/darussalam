@@ -1,22 +1,34 @@
 <h1>
     <a href="javascript:void(0)" 
        class="button logout-btn" style="margin-top: -7px;">
-        <?php echo Yii::app()->user->name ?>
+           <?php echo Yii::app()->user->name ?>
     </a>
 </h1>
 
 <div class="logoutPopup" >
-    <?php
-    if (!Yii::app()->user->isGuest) {
-        echo CHtml::link('Logout', $this->createUrl('/site/logout'));
-        echo '<br>';
-        echo CHtml::link('My Account', $this->createUrl('/web/userProfile', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
-        echo '<br>';
-        echo CHtml::link('Change Password', $this->createUrl('/web/user/changePass', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
-        echo '<br>';
-        echo CHtml::link('Order History', $this->createUrl('/web/user/customerHistory', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
-    }
-    ?>
+    <table/>
+    <tr>
+        <td>
+            <?php
+            if (isset(UserProfile::model()->findByPk(Yii::app()->user->id)->avatar)) {
+                echo CHtml::image(UserProfile::model()->findByPk(Yii::app()->user->id)->uploaded_img, "");
+            } else {
+                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png", "");
+            }
+            ?>
+        </td>
+    </tr></table>
+<?php
+if (!Yii::app()->user->isGuest) {
+    echo CHtml::link('Logout', $this->createUrl('/site/logout'));
+    echo '<br>';
+    echo CHtml::link('My Account', $this->createUrl('/web/userProfile', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+    echo '<br>';
+    echo CHtml::link('Change Password', $this->createUrl('/web/user/changePass', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+    echo '<br>';
+    echo CHtml::link('Order History', $this->createUrl('/web/user/customerHistory', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+}
+?>
 </div>
 <style>
     .logoutPopup{
