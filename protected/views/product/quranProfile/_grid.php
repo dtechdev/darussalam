@@ -26,16 +26,7 @@ $mName = "Quran";
                 'value' => '!empty($data->productLanguage)?$data->productLanguage->language_name:""',
                 "type" => "raw",
             ),
-            array(
-                'name' => 'discount_type',
-                'value' => '$data->discount_type',
-                "type" => "raw",
-            ),
-            array(
-                'name' => 'discount_value',
-                'value' => '$data->discount_value',
-                "type" => "raw",
-            ),
+
             array(
                 'name' => 'size',
                 'value' => '$data->size',
