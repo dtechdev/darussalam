@@ -207,6 +207,8 @@ class SiteController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+        
+       
 
         // collect user input data
         if (isset($_POST['LoginForm'])) {
@@ -230,11 +232,25 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
+                
+                
+                /**
+                 * for pop up login
+                 * when user want to login 
+                 */
+                if(!empty($model->route)){
+                     $this->redirect($model->route);
+                }
+                else{
+                    $this->redirect(Yii::app()->user->returnUrl);
+                }
+                
 
-                //$this->redirect(Yii::app()->user->returnUrl);
-                $this->redirect(Yii::app()->user->returnUrl);
+                
+                
             }
         }
+        $model->password = "";
         // display the login form
         $this->render('login', array('model' => $model));
     }

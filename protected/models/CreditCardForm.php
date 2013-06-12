@@ -88,9 +88,11 @@ class CreditCardForm extends CFormModel {
 
         if ($response->approved) {
             $transaction_id = $response->transaction_id;
-            $this->saveOrder($transaction_id);
-
-            return array();
+            $order_id = $this->saveOrder($transaction_id);
+            /**
+             * saving order information
+             */
+            return array("order_id" => $order_id);
 
             //approved- Your order completed successfully
         } elseif ($response->declined) {
@@ -102,6 +104,8 @@ class CreditCardForm extends CFormModel {
             $error['message'] = $response->response_reason_text;
             //error
         }
+
+      
         return $error;
     }
 

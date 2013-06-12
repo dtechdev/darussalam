@@ -18,7 +18,11 @@
             <p><span>*</span> Prefix</p>
             <div class="country_option">
                 <?php
-                echo $form->dropDownList($model, "shipping_prefix", array("Mr." => "Mr.", "Mrs." => "Mrs."))
+                echo $form->dropDownList($model, "shipping_prefix", array(
+                    "Mr." => "Mr.",
+                    "Mrs." => "Mrs.",
+                    "Ms." => "Ms.",
+                ));
                 ?>
 
             </div>

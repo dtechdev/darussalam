@@ -51,17 +51,7 @@
             <?php $this->endWidget(); ?>
         </div>
     </div>
-    <?php
-    Yii::app()->clientScript->registerScript('trigger_country', '
-           //jQuery(function(){
-        
-           //jQuery("#CreditCardForm_shipping_country").trigger("change");   
-          
-   // })
 
-
-        ', CClientScript::POS_READY);
-    ?>
 <style>
     .credit_card_fields,.pay_list,.manual_list{
         display: none;

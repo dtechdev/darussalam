@@ -164,7 +164,7 @@ class DTDbMigration extends CDbMigration {
      */
     public function getSuperUserId() {
         $con = $this->getConnection();
-        $sql = "Select user_id,user_name from user where user_name='super'";
+        $sql = "Select user_id,user_name from user where user_email='super@yahoo.com'";
         $command = $con->createCommand($sql);
         $row = $command->queryRow();
         return $row;

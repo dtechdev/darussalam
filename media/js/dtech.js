@@ -293,4 +293,10 @@ var dtech = {
             })
         }
     },
+    //
+    doSocial : function (form_id,obj){
+        jQuery('#'+form_id).attr("action",jQuery(obj).attr('href'));
+        jQuery('#'+form_id).submit();
+        
+    }
 }
