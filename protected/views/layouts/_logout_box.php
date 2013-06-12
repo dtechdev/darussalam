@@ -11,7 +11,7 @@
         <td>
             <?php
             if (isset(UserProfile::model()->findByPk(Yii::app()->user->id)->avatar)) {
-                echo CHtml::image(UserProfile::model()->findByPk(Yii::app()->user->id)->uploaded_img, "");
+                echo CHtml::image(UserProfile::model()->findByPk(Yii::app()->user->id)->uploaded_img, "",array('style'=>'width:65px;height:75px;'));
             } else {
                 echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png", "");
             }
