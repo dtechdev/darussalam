@@ -47,7 +47,7 @@
     </div>
     <h2 class="signinp">Sign in with</h2>
     <div class="sign_in">
-        <a href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "facebook")); ?>">
+        <a onclick="dtech.doSocial('login-form',this);return false;" href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "facebook")); ?>">
             <?php
             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/facebook_img_03.jpg');
             ?>
@@ -56,7 +56,7 @@
 
     </div>
     <div class="sign_in">
-        <a href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "linkedin")); ?>">
+        <a onclick="dtech.doSocial('login-form',this);return false;"  href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "linkedin")); ?>">
             <?php
             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/linkedin_img_03.jpg');
             ?>
@@ -65,7 +65,7 @@
 
     </div>
     <div class="sign_in">
-        <a href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "twitter")); ?>">
+        <a onclick="dtech.doSocial('login-form',this);return false;"  href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "twitter")); ?>">
             <?php
             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/twitter_img_03.jpg');
             ?>
@@ -74,7 +74,7 @@
 
     </div>
     <div class="sign_in">
-        <a href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "google")); ?>">
+        <a onclick="dtech.doSocial('login-form',this);return false;"  href="<?php echo $this->createUrl('/web/hybrid/login/', array("provider" => "google")); ?>">
             <?php
             echo CHtml::image(Yii::app()->theme->baseUrl . '/images/google_img_03.jpg');
             ?>
