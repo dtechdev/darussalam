@@ -38,6 +38,7 @@
     <?php echo $form->checkBox($login_model, 'rememberMe', $htmlOptions = array("class" => "check")); ?>
     <span><?php
         echo $login_model->getAttributeLabel('rememberMe');
+        echo $form->hiddenField($login_model,'route',array("value"=>Yii::app()->request->getUrl()));
         ?>
     </span>
     <a href="<?php echo $this->createUrl('/web/user/forgot') ?>" class="forgot"> Forgot Password</a>

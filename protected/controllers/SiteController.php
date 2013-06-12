@@ -230,9 +230,22 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
+                
+                
+                /**
+                 * for pop up login
+                 * when user want to login 
+                 */
+                if(!empty($model->route)){
+                     $this->redirect($model->route);
+                }
+                else{
+                    $this->redirect(Yii::app()->user->returnUrl);
+                }
+                
 
-                //$this->redirect(Yii::app()->user->returnUrl);
-                $this->redirect(Yii::app()->user->returnUrl);
+                
+                
             }
         }
         // display the login form
