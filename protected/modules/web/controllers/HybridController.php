@@ -10,7 +10,7 @@ class HybridController extends Controller {
      * @param type $provider
      * @return boolean
      */
-    public function actionLogin($provider = "facebook") {
+    public function actionLogin($provider = "facebook",$blog = "") {
 
         $this->initConfigurations();
 

@@ -207,6 +207,8 @@ class SiteController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+        
+       
 
         // collect user input data
         if (isset($_POST['LoginForm'])) {
@@ -248,6 +250,7 @@ class SiteController extends Controller {
                 
             }
         }
+        $model->password = "";
         // display the login form
         $this->render('login', array('model' => $model));
     }

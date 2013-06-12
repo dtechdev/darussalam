@@ -5,7 +5,7 @@
             <td>
                 <table>
                     <?php
-                    $login_model = new LoginForm;
+                    
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'login-form',
                         'action' => Yii::app()->createUrl('/site/login'),
@@ -21,13 +21,13 @@
                     <tr>
                         <td class="left_login">Email</td>
                         <td class="right_login">
-                            <?php echo $form->textField($login_model, 'username', array("class" => "login_text")); ?>
+                            <?php echo $form->textField($model, 'username', array("class" => "login_text")); ?>
                         </td>
                     </tr>
                     <tr>
                         <td class="left_login">Password</td>
                         <td class="right_login">
-                            <?php echo $form->passwordField($login_model, 'password', $htmlOptions = array("class" => "login_text")); ?>
+                            <?php echo $form->passwordField($model, 'password', $htmlOptions = array("class" => "login_text")); ?>
                         </td>
                     </tr>
                     <tr>
@@ -41,7 +41,10 @@
                     <tr>
                         <td class="left_login"></td>
                         <td class="right_login">
-                            <?php echo CHtml::submitButton("Sign In", array("class" => "already_account")); ?>
+                            <?php
+                            echo $form->hiddenField($model, 'route');
+                            echo CHtml::submitButton("Sign In", array("class" => "already_account"));
+                            ?>
                         </td>
                     </tr>
                     <?php $this->endWidget(); ?>
