@@ -124,6 +124,13 @@ var dtech_new  = {
 	},
 	closeloading: function () {
 		$("div.loader").fadeOut('normal');  
-	}
+	},
+                
+        showBestSeller : function (){
+            $(".under_best_seller").toggle('fast');
+        },
+        registerCountryDropDown : function (){
+            jQuery("#countries").msDropdown();
+        }        
 	
 }

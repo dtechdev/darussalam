@@ -7,16 +7,21 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/footer_style.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/login_style.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/side_bar.css" />
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/msdropdown/dd.css" />
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/msdropdown/flags.css" />
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/customStyle.css" />
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl ?>/js/jquery-1.8.0.min.js"></script>
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl ?>/js/dtech_new.js"></script>
+        <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl ?>/js/msdropdown/jquery.dd.min.js"></script>
 
-        <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl ?>/js/script.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 dtech_new.toggleLogin();
                 dtech_new.toggleSideBar();
                 dtech_new.footerToggle();
                 dtech_new.changeBookImgHover();
+                dtech_new.registerCountryDropDown();
             });
         </script>
     </head>
@@ -24,15 +29,13 @@
         <div id="wraper">
             <header>
                 <div id="left_header">
-                    <a href="javascript:void(0)">
-                        <?php
-                        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/pak_flag_img_03.png");
-                        ?>
-                        <span>Change Country</span>                       
-                        <?php
-                        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/pak_down_arrow_img_03.png");
-                        ?>
-                    </a>    
+                    <select name="countries" id="countries" style="width:300px;">
+                        <option value='in' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag in" data-title="India" selected="selected">India</option>
+                        <option value='pk' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag pk" data-title="Pakistan">Pakistan</option>
+                        <option value='sa' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag sa" data-title="Saudi Arabia">Saudi Arabia</option>
+                        <option value='uk' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag uk" data-title="United Kingdom">United Kingdom</option>
+                        <option value='us' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag us" data-title="United States">United States</option>
+                    </select>
                 </div>
                 <div id="right_header">
                     <span><a href="#">Sign Up</a></span>
@@ -264,7 +267,7 @@
                             </div>
                         </div>
                         <div class="best_seller">
-                            <a href="javascript:void(0)" onClick="underbestsHow()">
+                            <a href="javascript:void(0)" onClick="dtech_new.showBestSeller()">
 
                                 <?php
                                 echo CHtml::image(Yii::app()->theme->baseUrl . "/images/best_sellers_img_03.png");
@@ -394,48 +397,7 @@
             <?php
             echo $content;
             ?>
-            <script>
-// 2010-03-10, 2010-10-23
-// change the position of a “div#x0648e” element.
 
-            var posY = 300; // verticle position from the top of the page
-            var chasingFactor = .05; // the closing-in factor to desired position per update
-            var updateFrequency = 50; //milisecond
-            var idleCheckFrequency = 1 * 1000; //milisecond
-
-            var yMoveTo = 0;
-            var ydiff = 0;
-
-            var g = document.getElementById("x0648e");
-            g.style.position = "absolute";
-            g.style.zIndex = "2";
-            g.style.top = "34%";
-            g.style.left = "1ex";
-            g.style.fontSize = "7ex";
-            g.style.color = "red";
-
-            function ff() {
-                // compute the distance user has scrolled the window
-                if (navigator.appName == "Microsoft Internet Explorer") {
-                    ydiff = yMoveTo - document.documentElement.scrollTop;
-                } else {
-                    ydiff = yMoveTo - window.pageYOffset;
-                }
-                if (Math.abs(ydiff) > 9) {
-                    yMoveTo -= Math.round(ydiff * chasingFactor);
-                    g.style.top = (yMoveTo + posY).toString() + "px";
-                    setTimeout("ff()", updateFrequency);
-                } else {
-                    setTimeout("ff()", idleCheckFrequency);
-                }
-            }
-
-            window.onload = ff;
-            </script>
-            <script>
-                function underbestsHow() {
-                    $(".under_best_seller").toggle('fast');
-                }
-            </script>
+       
     </body>
 </html>
