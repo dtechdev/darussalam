@@ -1,56 +1,47 @@
 <div class="books_content">
-    <a href="#">
 
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/quran_bw.png", '', array(
-            "hover_img" => Yii::app()->theme->baseUrl . "/images/quran.png",
-            "unhover_img" => Yii::app()->theme->baseUrl . "/images/quran_bw.png"
-        ));
-        ?>
-    </a>
+    <?php
+    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/quran_bw.png", '', array(
+                "hover_img" => Yii::app()->theme->baseUrl . "/images/quran.png",
+                "unhover_img" => Yii::app()->theme->baseUrl . "/images/quran_bw.png"
+            )), $this->createUrl('/web/quran/index'));
+    ?>
+
+
     <h1>Quran</h1>
     <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
     <input type="button" value="Shop Now  >" class="shop_now_arrow" />
 </div>
 <div class="books_content">
-    <a href="#">
-
-
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/books_bw.png", '', array(
-            "hover_img" => Yii::app()->theme->baseUrl . "/images/books.png",
-            "unhover_img" => Yii::app()->theme->baseUrl . "/images/books_bw.png"
-        ));
-        ?>
-    </a>
+    <?php
+    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/books_bw.png", '', array(
+                "hover_img" => Yii::app()->theme->baseUrl . "/images/books.png",
+                "unhover_img" => Yii::app()->theme->baseUrl . "/images/books_bw.png"
+            )), $this->createUrl('/web/product/allproducts'));
+    ?>
     <h1>Books</h1>
     <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
     <input type="button" value="Shop Now  >" class="shop_now_arrow" />
 </div>
 <div class="books_content">
-    <a href="#">
 
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/toys_bw.png", '', array(
-            "hover_img" => Yii::app()->theme->baseUrl . "/images/toys.png",
-            "unhover_img" => Yii::app()->theme->baseUrl . "/images/toys_bw.png"
-        ));
-        ?>
-    </a>
+    <?php
+    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/toys_bw.png", '', array(
+                "hover_img" => Yii::app()->theme->baseUrl . "/images/toys.png",
+                "unhover_img" => Yii::app()->theme->baseUrl . "/images/toys_bw.png"
+            )), $this->createUrl('/web/educationToys/index'));
+    ?>
     <h1>Educational Toys</h1>
     <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
     <input type="button" value="Shop Now  >" class="shop_now_arrow" />
 </div>
 <div class="books_content">
-    <a href="#">
-
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/other_bw.png", '', array(
-            "hover_img" => Yii::app()->theme->baseUrl . "/images/other.png",
-            "unhover_img" => Yii::app()->theme->baseUrl . "/images/other_bw.png"
-        ));
-        ?>
-    </a>
+    <?php
+    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/other_bw.png", '', array(
+                "hover_img" => Yii::app()->theme->baseUrl . "/images/other.png",
+                "unhover_img" => Yii::app()->theme->baseUrl . "/images/other_bw.png"
+            )), $this->createUrl('/web/others/index'));
+    ?>
     <h1>Other Products</h1>
     <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
     <input type="button" value="Shop Now  >" class="shop_now_arrow" />
