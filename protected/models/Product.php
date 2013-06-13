@@ -195,7 +195,7 @@ class Product extends DTActiveRecord {
 
         $dataProvider = new CActiveDataProvider($this, array(
             'pagination' => array(
-                'pageSize' => 16,
+                'pageSize' => 12,
             ),
             'criteria' => $criteria,
         ));
