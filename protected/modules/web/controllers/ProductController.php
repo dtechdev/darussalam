@@ -9,6 +9,12 @@ class ProductController extends Controller {
     public $layout = '//layouts/column2';
 
     /**
+     * for category filter
+     * @var type 
+     */
+    public $is_cat_filter = false;
+
+    /**
      * @return array action filters
      */
     public function filters() {
@@ -45,13 +51,16 @@ class ProductController extends Controller {
     //front site actions
     public function actionallProducts() {
 
+        $this->is_cat_filter = true;
+
+
         /*
          * setting new themes...
          */
-        
+
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = 'dtech_second';
-       // Yii::app()->controller->layout = "//layouts/column2";
+        // Yii::app()->controller->layout = "//layouts/column2";
 
         /**
          * ajax based

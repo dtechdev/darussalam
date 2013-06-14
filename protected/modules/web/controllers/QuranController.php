@@ -10,10 +10,16 @@ class QuranController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/main';
+    /**
+     * for category filter
+     * @var type 
+     */
+    public $is_cat_filter = false;
 
     //front site actions
     public function actionIndex() {
 
+        $this->is_cat_filter = true; 
         /**
          * ajax based
          */

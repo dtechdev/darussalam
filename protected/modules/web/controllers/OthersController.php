@@ -11,9 +11,16 @@ class OthersController extends Controller {
      */
     public $layout = '//layouts/main';
 
+    /**
+     * for category filter
+     * @var type 
+     */
+    public $is_cat_filter = false;
+
     //front site actions
     public function actionIndex() {
 
+        $this->is_cat_filter = true;
         /**
          * ajax based
          */

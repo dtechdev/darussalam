@@ -1,5 +1,6 @@
 var dtech_new = {
     popupStatus: 0,
+    is_filter : "",
     toggleLogin: function() {
         var button = jQuery('#login_btn');
         var box = jQuery('#login_bx');
@@ -55,11 +56,11 @@ var dtech_new = {
             jQuery('#dvText').slideToggle(300);
             return false;
         });
-        
+
     },
     /*********** Listing page detail PopUp *****************************/
     registerPopUp: function() {
-        $("a.topopup").live('click',function() {
+        $("a.topopup").live('click', function() {
             dtech_new.loading(); // loading
             setTimeout(function() { // then show popup, deley in .5 second
                 dtech_new.loadPopup(); // function show popup 
@@ -77,7 +78,7 @@ var dtech_new = {
                 }
         );
 
-        $("div.close").live('click',function() {
+        $("div.close").live('click', function() {
             dtech_new.disablePopup();  // function close pop up
         });
 
@@ -135,8 +136,16 @@ var dtech_new = {
     registerCountryDropDown: function() {
         jQuery("#countries").msDropdown();
     },
-    showCategoryListing : function (obj){
-        window.location.href = $(obj).httr("href");
-    }        
+    showCategoryListing: function(obj) {
+        if (dtech_new.is_filter == 0) {
+            window.location.href = $(obj).attr("href");
+        }
+        else {
+            hash_split = $(obj).attr("href").split("#");
+            hash_split = hash_split[1].split("=");
+            
+            dtech.updateProductListing($(obj).attr("href"),hash_split[1]);
+        }
+    }
 
 }
