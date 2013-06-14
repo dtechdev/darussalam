@@ -199,10 +199,34 @@ class Categories extends DTActiveRecord {
      */
     public function getParentCategories() {
         $crtitera = new CDbCriteria();
-        $crtitera->addCondition("parent_id = 0 AND city_id = ".Yii::app()->session['city_id']);
+        $crtitera->addCondition("parent_id = 0 AND city_id = " . Yii::app()->session['city_id']);
         $crtitera->select = "category_id,category_name";
         $categories = CHtml::listData($this->findAll($crtitera), "category_id", "category_name");
-       
+
+        return $categories;
+    }
+
+    /**
+     * 
+     * @param type $parent_id
+     * @param type $name
+     * @param type $order
+     * @param type $limit
+     * @return type
+     * 
+     * return cateogores for menes
+     * cateogry
+     */
+    public function getchildrenCategory($parent_id = 0, $name = "", $order = "ASC",$limit = 2 ) {
+        $parent_id = ($name!="")?$this->getParentCategoryId($name):$parent_id;
+        $criteria = new CDbCriteria();
+        
+        $criteria->addCondition("parent_id = " . $parent_id);
+        $criteria->select = "category_name,category_id";
+        $criteria->limit = $limit;
+
+        $criteria->order = "category_id " . $order;
+        $categories = $this->findAll($criteria);
         return $categories;
     }
 
