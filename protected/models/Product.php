@@ -133,7 +133,7 @@ class Product extends DTActiveRecord {
     /**
      *  get relavent product info
      * @param type $limit
-     * @return type 
+     * @return type #
      */
     public function allProducts($product_array = array(), $limit = 30, $parent_category = "Books") {
 

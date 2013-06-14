@@ -39,8 +39,12 @@ class SearchController extends Controller {
     }
 
     public function actionGetSearch() {
-        Yii::app()->controller->layout = '//layouts/main';
-        Yii::app()->user->SiteSessions;
+        /*
+         * for new theme....
+         */
+         Yii::app()->user->SiteSessions;
+        Yii::app()->theme = 'dtech_second';
+        Yii::app()->controller->layout = "//layouts/column2";
 
         if (isset($_REQUEST['serach_field'])) {
             $q = $_REQUEST['serach_field'];

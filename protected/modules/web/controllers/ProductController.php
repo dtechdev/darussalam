@@ -45,6 +45,14 @@ class ProductController extends Controller {
     //front site actions
     public function actionallProducts() {
 
+        /*
+         * setting new themes...
+         */
+        
+        Yii::app()->user->SiteSessions;
+        Yii::app()->theme = 'dtech_second';
+       // Yii::app()->controller->layout = "//layouts/column2";
+
         /**
          * ajax based
          */
@@ -52,9 +60,6 @@ class ProductController extends Controller {
             $this->productfilter();
         } else {
             //queries 
-            Yii::app()->controller->layout = '//layouts/main';
-            Yii::app()->user->SiteSessions;
-
             $dataProvider = Product::model()->allProducts();
             $all_products = Product::model()->returnProducts($dataProvider);
 
@@ -66,7 +71,9 @@ class ProductController extends Controller {
             $allCategories = Categories::model()->allCategories("", $parent_cat);
 
 
-            $this->render('all_products', array(
+
+
+            $this->render('//product/all_products', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
@@ -80,7 +87,7 @@ class ProductController extends Controller {
     public function productfilter() {
         $dataProvider = Product::model()->allProducts();
         $all_products = Product::model()->returnProducts($dataProvider);
-        $this->renderPartial("_product_list", array('products' => $all_products,
+        $this->renderPartial("//product/_product_list", array('products' => $all_products,
             'dataProvider' => $dataProvider,));
     }
 
