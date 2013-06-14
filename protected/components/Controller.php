@@ -303,5 +303,14 @@ class Controller extends CController {
         return Yii::app()->createUrl(trim($route, '/'), $params, $ampersand);
     }
 
+    
+    
+    /*
+     * DT dumper for development only just pass the variable...
+     */
+    public function dtdump($var) {
+        return CVarDumper::dump($var,10,TRUE);    
+    }
+
 }
 
