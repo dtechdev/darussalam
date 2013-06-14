@@ -51,6 +51,7 @@
                                 ?>
                             <?php } else {
                                 ?>
+
                                 <a href="#" id="login_btn">
                                     <span>
                                         Login 
@@ -224,7 +225,10 @@
                                     <div id="sideBarForm">
                                         <ul class="makeMenu">
                                             <h1>Browse Through</h1>
-                                            <li class="quran"><a href="#">Quran</a>
+                                            <li class="quran">
+                                                <?php
+                                                echo CHtml::link("Quran", $this->createUrl("/web/quran/index"))
+                                                ?>
                                                 <ul>
                                                     <h2>Islamic Books</h2>
                                                     <li><a href="#">Aqeedah</a>
@@ -244,7 +248,11 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Books</a>
+                                            <li>
+
+                                                <?php
+                                                echo CHtml::link("Books", $this->createUrl("/web/product/allproducts"))
+                                                ?>
                                                 <p><a href="#">Islamic Books</a></p>
                                                 <p><a href="#">General Books</a></p>
                                                 <ul>
@@ -266,7 +274,11 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Educational Toys</a>
+                                            <li>
+
+                                                <?php
+                                                echo CHtml::link("Educational Toys", $this->createUrl("/web/educationToys/index"))
+                                                ?>
                                                 <p><a href="#">Electronic Toys</a></p>
                                                 <p><a href="#">Wooden Blocks</a></p>
                                                 <ul>
@@ -288,7 +300,10 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Other Items</a>
+                                            <li>
+                                                <?php
+                                                echo CHtml::link("Other Items", $this->createUrl("/web/others/index"))
+                                                ?>
                                                 <p><a href="#">Islamic Gifts</a></p>
                                                 <p><a href="#">Hijab and Sacarfs</a></p>
                                                 <ul>

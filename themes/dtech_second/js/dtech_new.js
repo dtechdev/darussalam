@@ -104,7 +104,7 @@ var dtech_new = {
                 function() {
                     $(this).attr("src", $(this).attr("unhover_img"));
                 }
-        );loadPopup
+        );
 
     },
     loadPopup: function() {
