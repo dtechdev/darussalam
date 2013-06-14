@@ -59,7 +59,7 @@ var dtech_new = {
     },
     /*********** Listing page detail PopUp *****************************/
     registerPopUp: function() {
-        $("a.topopup").click(function() {
+        $("a.topopup").live('click',function() {
             dtech_new.loading(); // loading
             setTimeout(function() { // then show popup, deley in .5 second
                 dtech_new.loadPopup(); // function show popup 
@@ -68,7 +68,7 @@ var dtech_new = {
         }); // end of event
 
 
-        $("div.close").hover(
+        $("div.close").live('hover',
                 function() {
                     $('span.ecs_tooltip').show();
                 },
@@ -77,7 +77,7 @@ var dtech_new = {
                 }
         );
 
-        $("div.close").click(function() {
+        $("div.close").live('click',function() {
             dtech_new.disablePopup();  // function close pop up
         });
 
@@ -104,7 +104,7 @@ var dtech_new = {
                 function() {
                     $(this).attr("src", $(this).attr("unhover_img"));
                 }
-        );
+        );loadPopup
 
     },
     loadPopup: function() {

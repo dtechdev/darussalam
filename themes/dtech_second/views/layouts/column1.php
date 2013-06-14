@@ -76,6 +76,6 @@
     
     <div id="content">
         <?php echo $content; ?>
-        <?php echo $this->renderPartial("/layouts/_footer") ?>
+        <?php echo $this->renderPartial("//layouts/_footer") ?>
     </div>
 <?php $this->endContent(); ?>
