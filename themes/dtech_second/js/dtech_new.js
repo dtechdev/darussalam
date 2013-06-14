@@ -134,6 +134,9 @@ var dtech_new = {
     },
     registerCountryDropDown: function() {
         jQuery("#countries").msDropdown();
-    }
+    },
+    showCategoryListing : function (obj){
+        window.location.href = $(obj).httr("href");
+    }        
 
 }
