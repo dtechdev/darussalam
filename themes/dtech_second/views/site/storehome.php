@@ -3,6 +3,7 @@ $this->webPcmWidget['filter'] = array('name' => 'DtechSecondSidebar',
     'attributes' => array(
         'cObj' => $this,
         'cssFile' => Yii::app()->theme->baseUrl . "/css/side_bar.css",
+        'is_cat_filter' => 0,
         ));
 ?>
 <div class="books_content">

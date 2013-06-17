@@ -357,7 +357,5 @@
             echo $content;
             ?>
     </body>
-    <script type="text/javascript">
-            dtech_new.is_filter = <?php echo isset($this->is_cat_filter) ? 1 : 0 ?>
-    </script>
+   
 </html>
