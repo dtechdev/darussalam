@@ -140,13 +140,11 @@
                             </form>
                         </div>
                     </div>
-
                     <div class="cart_part">
                         <div class="add_to_cart">
                             <ul>
                                 <li>
                                     <a href="#">
-
                                         <?php
                                         echo CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_03.png");
                                         ?>
@@ -186,7 +184,6 @@
                                             <span>5,96 PKR</span>
                                         </div>
                                         <div class="total">
-                                            <img src="" />
                                             <?php
                                             echo CHtml::image(Yii::app()->theme->baseUrl . "/images/total_little_img_03.png");
                                             ?>
@@ -202,7 +199,6 @@
                         </div>
                         <div class="wishlist">
                             <a href="#">
-
                                 <?php
                                 echo CHtml::image(Yii::app()->theme->baseUrl . "/images/wishlist_img_03.png");
                                 ?>
@@ -210,6 +206,8 @@
                             <span>500</span>
                         </div>
                     </div>
+                    <div class="clear"></div>
+                    <hr class="style-two">	
                 </div>
                 <div id="below_banner">
                     <div id="bar">
