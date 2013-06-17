@@ -63,6 +63,8 @@ var dtech = {
             }
 
             //$("#loading").hide();
+            jQuery("#sideBarBox").hide();
+            jQuery(".under_best_seller").hide();
         });
         return false;
     },

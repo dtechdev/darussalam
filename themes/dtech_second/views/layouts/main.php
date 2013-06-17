@@ -26,8 +26,11 @@
                 dtech_new.registerCountryDropDown();
                 jQuery("#countries").msDropdown();
                 dtech_new.registerPopUp();
+
             });
         </script>
+
+
     </head>
     <body>
         <div id="wraper">
@@ -227,103 +230,131 @@
                                             <h1>Browse Through</h1>
                                             <li class="quran">
                                                 <?php
-                                                echo CHtml::link("Quran", $this->createUrl("/web/quran/index"))
+                                                echo CHtml::link("Quran", $this->createUrl("/web/quran/index"));
+                                                $quranCategories = Categories::model()->getchildrenCategory(0, "Quran", "ASC", 9);
+                                                $count = 0;
+                                                foreach ($quranCategories as $cat) {
+                                                    if ($count <= 1) {
+                                                        echo CHtml::openTag("p");
+                                                        echo CHtml::link(
+                                                                $cat->category_name, $this->createUrl("/web/quran/index") . "#cat=" . $cat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                                        );
+                                                        echo CHtml::closeTag("p");
+                                                    }
+                                                    $count++;
+                                                }
+
+                                                echo CHtml::openTag("ul");
+                                                echo CHtml::openTag("h2");
+                                                echo "Quran";
+                                                echo CHtml::closeTag("h2");
+
+                                                foreach ($quranCategories as $subcat) {
+                                                    echo CHtml::openTag("li");
+                                                    echo CHtml::link(
+                                                            $subcat->category_name, $this->createUrl("/web/quran/index") . "#cat=" . $subcat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                                    );
+                                                    echo CHtml::closeTag("li");
+                                                }
+                                                echo CHtml::closeTag("ul");
                                                 ?>
-                                                <ul>
-                                                    <h2>Islamic Books</h2>
-                                                    <li><a href="#">Aqeedah</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Biography of the Prophet</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Biography</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a 500href="#">Fatawa</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Fiqh</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                </ul>
+
                                             </li>
                                             <li>
 
                                                 <?php
-                                                echo CHtml::link("Books", $this->createUrl("/web/product/allproducts"))
+                                                echo CHtml::link("Books", $this->createUrl("/web/product/allproducts"));
+                                                $booksCategories = Categories::model()->getchildrenCategory(0, "Books", "ASC", 9);
+                                                $count = 0;
+                                                foreach ($booksCategories as $cat) {
+                                                    if ($count <= 1) {
+                                                        echo CHtml::openTag("p");
+                                                        echo CHtml::link(
+                                                                $cat->category_name, $this->createUrl("/web/product/allproducts") . "#cat=" . $cat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                                        );
+                                                        echo CHtml::closeTag("p");
+                                                    }
+                                                    $count++;
+                                                }
+
+
+                                                echo CHtml::openTag("ul");
+                                                echo CHtml::openTag("h2");
+                                                echo "Books";
+                                                echo CHtml::closeTag("h2");
+
+                                                foreach ($booksCategories as $subcat) {
+                                                    echo CHtml::openTag("li");
+                                                    echo CHtml::link(
+                                                            $subcat->category_name, $this->createUrl("/web/product/allproducts") . "#cat=" . $subcat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                                    );
+                                                    echo CHtml::closeTag("li");
+                                                }
+                                                echo CHtml::closeTag("ul");
                                                 ?>
-                                                <p><a href="#">Islamic Books</a></p>
-                                                <p><a href="#">General Books</a></p>
-                                                <ul>
-                                                    <h2>Islamic Books</h2>
-                                                    <li><a href="#">Aqeedah</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Biography of the Prophet</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Biography</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Fatawa</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Fiqh</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                </ul>
+
+
                                             </li>
                                             <li>
 
                                                 <?php
-                                                echo CHtml::link("Educational Toys", $this->createUrl("/web/educationToys/index"))
+                                                echo CHtml::link("Educational Toys", $this->createUrl("/web/educationToys/index"));
+                                                $eduCategories = Categories::model()->getchildrenCategory(0, "Educational Toys", "ASC", 9);
+                                                $count = 0;
+                                                foreach ($eduCategories as $cat) {
+                                                    if ($count <= 1) {
+                                                        echo CHtml::openTag("p");
+                                                        echo CHtml::link(
+                                                                $cat->category_name, $this->createUrl("/web/educationToys/index") . "#cat=" . $cat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                                        );
+                                                        echo CHtml::closeTag("p");
+                                                    }
+
+                                                    $count++;
+                                                }
+                                                echo CHtml::openTag("ul");
+                                                echo CHtml::openTag("h2");
+                                                echo "Educational Toys";
+                                                echo CHtml::closeTag("h2");
+
+                                                foreach ($eduCategories as $subcat) {
+                                                    echo CHtml::openTag("li");
+                                                    echo CHtml::link(
+                                                            $subcat->category_name, $this->createUrl("/web/educationToys/index") . "#cat=" . $subcat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                                    );
+                                                    echo CHtml::closeTag("li");
+                                                }
+                                                echo CHtml::closeTag("ul");
                                                 ?>
-                                                <p><a href="#">Electronic Toys</a></p>
-                                                <p><a href="#">Wooden Blocks</a></p>
-                                                <ul>
-                                                    <h2>Islamic Books</h2>
-                                                    <li><a href="#">Aqeedah</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Biography of the Prophet</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Biography</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Fatawa</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Fiqh</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                </ul>
                                             </li>
                                             <li>
                                                 <?php
-                                                echo CHtml::link("Other Items", $this->createUrl("/web/others/index"))
+                                                echo CHtml::link("Other Items", $this->createUrl("/web/others/index"));
+                                                $otherCategories = Categories::model()->getchildrenCategory(0, "Others", "ASC", 9);
+                                                $count = 0;
+                                                foreach ($otherCategories as $cat) {
+                                                    if ($count <= 1) {
+                                                        echo CHtml::openTag("p");
+                                                        echo CHtml::link(
+                                                                $cat->category_name, $this->createUrl("/web/others/index") . "#cat=" . $cat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;"));
+                                                        echo CHtml::closeTag("p");
+                                                    }
+                                                    $count++;
+                                                }
+                                                echo CHtml::openTag("ul");
+                                                echo CHtml::openTag("h2");
+                                                echo "Other Items";
+                                                echo CHtml::closeTag("h2");
+
+                                                foreach ($otherCategories as $subcat) {
+                                                    echo CHtml::openTag("li");
+                                                    echo CHtml::link(
+                                                            $subcat->category_name, $this->createUrl("/web/others/index") . "#cat=" . $subcat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                                    );
+                                                    echo CHtml::closeTag("li");
+                                                }
+                                                echo CHtml::closeTag("ul");
                                                 ?>
-                                                <p><a href="#">Islamic Gifts</a></p>
-                                                <p><a href="#">Hijab and Sacarfs</a></p>
-                                                <ul>
-                                                    <h2>Islamic Books</h2>
-                                                    <li><a href="#">Aqeedah</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Biography of the Prophet</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Biography</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Fatawa</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                    <li><a href="#">Fiqh</a>
-                                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-                                                    </li>
-                                                </ul>
                                             </li>
                                             <li class="full_storage"><a href="#">Full Store Cateloge</a><span> > </span></li>
                                         </ul>
@@ -460,7 +491,12 @@
                 </div>
             </div>
             <?php
+         
             echo $content;
+            
             ?>
     </body>
+    <script type="text/javascript">
+            dtech_new.is_filter = <?php echo isset($this->is_cat_filter)?1:0 ?>
+   </script>
 </html>
