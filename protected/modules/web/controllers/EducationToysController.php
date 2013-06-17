@@ -9,7 +9,7 @@ class EducationToysController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/main';
 
     /**
      * for category filter
@@ -31,7 +31,7 @@ class EducationToysController extends Controller {
         } else {
             //queries 
             Yii::app()->user->SiteSessions;
-            Yii::app()->theme = 'dtech_second';
+            
 
 
             $dataProvider = Product::model()->allProducts(array(), 30, "Educational Toys");
@@ -42,9 +42,9 @@ class EducationToysController extends Controller {
             $parent_cat = Categories::model()->getParentCategoryId("Educational Toys");
 
             $allCategories = Categories::model()->allCategories("", $parent_cat);
-
-
-            $this->render('//educationToys/index', array(
+            
+            
+            $this->render($this->slash.'/educationToys/index', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
@@ -58,25 +58,25 @@ class EducationToysController extends Controller {
     public function productfilter() {
         $dataProvider = Product::model()->allProducts(array(), 30, "Educational Toys");
         $all_products = Product::model()->returnProducts($dataProvider);
-        $this->renderPartial("_product_list", array('products' => $all_products,
+        $this->renderPartial($this->slash."/educationToys/_product_list", array('products' => $all_products,
             'dataProvider' => $dataProvider,));
     }
 
     public function actionProductDetail() {
         Yii::app()->user->SiteSessions;
-        Yii::app()->theme = Yii::app()->session['layout'];
-
+        
+        
 
         $product = Product::model()->findByPk($_REQUEST['product_id']);
 
-        Yii::app()->controller->layout = '//layouts/main';
+      
 
         /**
          *  getting value of poduct rating
          */
         $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-        $this->render('product_detail', array('product' => $product, "rating_value" => $rating_value));
+        $this->render($this->slash.'/educationToys/product_detail', array('product' => $product, "rating_value" => $rating_value));
     }
 
 }

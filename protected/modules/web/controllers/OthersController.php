@@ -28,7 +28,7 @@ class OthersController extends Controller {
             $this->productfilter();
         } else {
             //queries 
-            Yii::app()->controller->layout = '//layouts/main';
+           
             Yii::app()->user->SiteSessions;
 
 
@@ -62,12 +62,12 @@ class OthersController extends Controller {
 
     public function actionProductDetail() {
         Yii::app()->user->SiteSessions;
-        Yii::app()->theme = Yii::app()->session['layout'];
+        
 
 
         $product = Product::model()->findByPk($_REQUEST['product_id']);
 
-        Yii::app()->controller->layout = '//layouts/main';
+       
 
         /**
          *  getting value of poduct rating

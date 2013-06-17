@@ -10,13 +10,6 @@ class WishListController extends Controller {
      */
     public function actionViewwishlist() {
 
-
-        Yii::app()->user->SiteSessions;
-
-        Yii::app()->theme = Yii::app()->session['layout'];
-        Yii::app()->controller->layout = '//layouts/main';
-
-
         $wishlist = WishList::model()->getWishLists();
 
         $this->render('viewwishlist', array('wishList' => $wishlist));

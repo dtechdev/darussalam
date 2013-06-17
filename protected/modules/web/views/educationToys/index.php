@@ -3,7 +3,8 @@
 /**
  * rendering all products listing
  */
-echo $this->renderPartial('/educationToys/product_listing', array(
+
+ $this->renderPartial('/educationToys/product_listing', array(
     'products' => $products,
     'dataProvider'=>$dataProvider,
     'allCate' => $allCate)

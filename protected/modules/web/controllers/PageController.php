@@ -10,7 +10,7 @@ class PageController extends Controller {
     //$models=new Pages();
 
     public function actionViewPage($id) {
-        Yii::app()->controller->layout = '//layouts/main';
+      
         $page = Pages::model()->findByPk($id);
         if ($page->title == "FAQ's" ) {
            

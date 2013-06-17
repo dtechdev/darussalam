@@ -1,10 +1,10 @@
 <div id="book_content">
     <div id="book_main_content">
-        <?php $this->renderPartial("/product/_subheader"); ?>
+        <?php //$this->renderPartial("/product/_subheader"); ?>
 
         <?php
         if (Yii::app()->controller->action->id != "getSearch") {
-            $this->renderPartial("/educationToys/_product_side_bar", array("allCate" => $allCate));
+            //$this->renderPartial("/educationToys/_product_side_bar", array("allCate" => $allCate));
         }
         else {
             echo CHtml::openTag("div");

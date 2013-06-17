@@ -16,8 +16,7 @@ class WebModule extends CWebModule {
         if (parent::beforeControllerAction($controller, $action)) {
             // this method is called before any module controller action is performed
             // you may place customized code here
-            Yii::app()->theme = 'dtech_second';
-            Yii::app()->controller->layout = "//layouts/column2";
+            
             return true;
         }
         else

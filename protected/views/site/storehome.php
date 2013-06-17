@@ -27,7 +27,7 @@
     <h2>FEATURED PRODUCTS <span><?php echo CHtml::link('( VIEW ALL )', array('/web/product/featuredProducts', 'country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']), array('class' => 'blue-title-link')); ?></span></h2>
 
     <?php
-    foreach ($product as $featured) {
+    foreach ($featured_products as $featured) {
         $name = $featured['product_name'];
 
         $image = $featured['no_image'];
