@@ -196,14 +196,16 @@ class ProductController extends Controller {
 
         $product = Product::model()->findByPk($_REQUEST['product_id']);
 
-        Yii::app()->controller->layout = '//layouts/main';
+        Yii::app()->controller->layout = "//layouts/column2";
+        Yii::app()->user->SiteSessions;
+        Yii::app()->theme = 'dtech_second';
 
         /**
          *  getting value of poduct rating
          */
         $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-        $this->render('product_detail', array('product' => $product, "rating_value" => $rating_value));
+        $this->render('//product/product_detail', array('product' => $product, "rating_value" => $rating_value));
     }
 
     /**
