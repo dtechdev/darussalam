@@ -147,7 +147,9 @@ class UserController extends Controller {
     }
 
     public function actionForgot() {
-        Yii::app()->controller->layout = '//layouts/main';
+        Yii::app()->controller->layout = "//layouts/column2";
+        Yii::app()->user->SiteSessions;
+        Yii::app()->theme = 'dtech_second';
         if (isset($_POST['User'])) {
             $record = User::model()->find(array(
                 'select' => '*',
