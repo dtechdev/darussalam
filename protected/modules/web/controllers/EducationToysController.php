@@ -9,7 +9,7 @@ class EducationToysController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/main';
+    public $layout = '//layouts/column2';
 
     /**
      * for category filter
@@ -21,6 +21,8 @@ class EducationToysController extends Controller {
     public function actionIndex() {
 
         $this->is_cat_filter = true;
+
+
         /**
          * ajax based
          */
@@ -28,8 +30,8 @@ class EducationToysController extends Controller {
             $this->productfilter();
         } else {
             //queries 
-            Yii::app()->controller->layout = '//layouts/main';
             Yii::app()->user->SiteSessions;
+            Yii::app()->theme = 'dtech_second';
 
 
             $dataProvider = Product::model()->allProducts(array(), 30, "Educational Toys");
@@ -42,7 +44,7 @@ class EducationToysController extends Controller {
             $allCategories = Categories::model()->allCategories("", $parent_cat);
 
 
-            $this->render('index', array(
+            $this->render('//educationToys/index', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
