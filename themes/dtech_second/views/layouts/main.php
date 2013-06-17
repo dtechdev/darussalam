@@ -79,7 +79,7 @@
                                             <label for="email">User Name</label>
                                             <?php
                                             echo $form->textField($login_model, 'username', array("id" => "email"));
-                                            echo $form->hiddenField($login_model,'route',array("value"=>Yii::app()->request->getUrl()));
+                                            echo $form->hiddenField($login_model, 'route', array("value" => Yii::app()->request->getUrl()));
                                             ?>
                                         </fieldset>
                                         <fieldset>
@@ -199,12 +199,9 @@
                             </ul>
                         </div>
                         <div class="wishlist">
-                            <a href="#">
-                                <?php
-                                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/wishlist_img_03.png");
-                                ?>
-                            </a>
-                            <span>500</span>
+                            <?php
+                                $this->renderPartial("//layouts/_wishlist");
+                            ?>
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -214,12 +211,11 @@
                     <div id="bar">
                         <div id="container">
                             <div id="sideBarContainer">
-            
+
                                 <?php
                                 if (isset($this->webPcmWidget['filter'])) {
-                                   
+
                                     $this->widget($this->webPcmWidget['filter']['name'], $this->webPcmWidget['filter']['attributes']);
-                                    
                                 }
                                 ?>
                             </div>
@@ -356,5 +352,5 @@
             echo $content;
             ?>
     </body>
-   
+
 </html>

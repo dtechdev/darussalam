@@ -6,7 +6,7 @@ class ProductController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/main';
 
     /**
      * for category filter
@@ -189,6 +189,7 @@ class ProductController extends Controller {
      * product detail
      */
     public function actionproductDetail() {
+   
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = Yii::app()->session['layout'];
 
