@@ -3,6 +3,9 @@
  * 
  */
 ?>
+<script type="text/javascript">
+    dtech_new.is_filter = <?php echo $this->is_cat_filter; ?>
+</script>
 <a href="#" id="sideBarButton">
 
     <?php
@@ -20,7 +23,7 @@
                 echo CHtml::link("Quran", $this->cObj->createUrl("/web/quran/index"));
                 $quranCategories = Categories::model()->getchildrenCategory(0, "Quran", "ASC", 9);
                 $count = 0;
-                
+
                 foreach ($quranCategories as $cat) {
                     if ($count <= 1) {
                         echo CHtml::openTag("p");
@@ -31,7 +34,7 @@
                     }
                     $count++;
                 }
-               
+
                 echo CHtml::openTag("ul");
                 echo CHtml::openTag("h2");
                 echo "Quran";
