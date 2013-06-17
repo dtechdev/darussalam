@@ -87,3 +87,6 @@ select#author_id{
     height:50px;
     display: block;
 }
+.btnToggle,#div_img {
+    cursor: pointer;
+}
