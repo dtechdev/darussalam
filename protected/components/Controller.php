@@ -37,6 +37,13 @@ class Controller extends CController {
      * @var type 
      */
     public $PcmWidget;
+    
+    /**
+     *
+     * @var type 
+     */
+    public $webPcmWidget;
+    
     public $webPages = array();
 
     public function beforeAction($action) {
