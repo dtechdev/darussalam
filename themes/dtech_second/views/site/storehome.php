@@ -47,7 +47,14 @@
     <input type="button" value="Shop Now  >" class="shop_now_arrow" />
 </div>
 <?php
-$this->renderPartial("//product/_featured_products");
+
+$this->renderPartial("//product/_featured_products", array('featured_products' => $featured_products,
+    'best_sellings' => $bestSellings,
+    'segments_footer_cats' => $segments_footer_cats,
+    'dataProvider' => $dataProvider,
+));
+
+
 ?>
 <div class="under_content">
     <div class="left_under_content">
