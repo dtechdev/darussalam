@@ -59,15 +59,15 @@ class SiteController extends Controller {
         /*
          * uncomment the following code for laoding new theme...
          */
-//        Yii::app()->controller->layout = "";
-//        Yii::app()->user->SiteSessions;
-//        Yii::app()->theme = 'new_theme';
+        Yii::app()->controller->layout = "//layouts/column1";
+        Yii::app()->user->SiteSessions;
+        Yii::app()->theme = 'dtech_second';
 
         //to laod the new layout bar uncomment this lin
         //Yii::app()->controller->layout = '//layouts/search_bar_slider';
 
         $order_detail = new OrderDetail;
-        $limit = 8; // 3 limits for old desing 8 limit for new design
+        $limit = 18; // 3 limits for old desing 8 limit for new design
         /** featured products * */
         $dataProvider = $order_detail->featuredBooks($limit);
         $featured_products = $order_detail->getFeaturedProducts($dataProvider);
@@ -79,10 +79,12 @@ class SiteController extends Controller {
         $bestSellings = $order_detail->getBestSelling($dataProvider);
 
         $segments_footer_cats = Categories::model()->getCategoriesInSegment(5);
+        $dataProviderAll = Product::model()->allProducts();
         $this->render('storehome', array(
-            'product' => $featured_products,
+            'featured_products' => $featured_products,
             'best_sellings' => $bestSellings,
             'segments_footer_cats' => $segments_footer_cats,
+            'dataProvider' => $dataProviderAll,
         ));
     }
 
@@ -198,8 +200,9 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
-        Yii::app()->controller->layout = '//layouts/main';
+         Yii::app()->controller->layout = "//layouts/column2";
         Yii::app()->user->SiteSessions;
+        Yii::app()->theme = 'dtech_second';
         $model = new LoginForm;
         $ip = getenv("REMOTE_ADDR");
         // if it is ajax validation request
