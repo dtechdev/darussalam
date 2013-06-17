@@ -5,82 +5,35 @@
     echo CHtml::image(Yii::app()->theme->baseUrl . "/images/under_heading_07.png");
     ?>
 </div>
-<div class="featured_books">
-    <a href="#">
 
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/moon_split_img_03.png");
-        ?>
-    </a>
-    <h3>Moon Split</h3>
-    <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
+<div class="pagingdiv">
+    <?php
+    $this->widget('DTPager', array(
+        'pages' => $dataProvider->pagination,
+        'ajax' => true,
+        'append_param' => (!empty($_REQUEST['serach_field'])) ? "serach_field=" . $_REQUEST['serach_field'] : "",
+        'jsMethod' => 'dtech.updatePaginationFilter(this);return false;',
+            )
+    );
+    ?>
 </div>
-<div class="featured_books">
-    <a href="#">
+<div class="clear"></div>
+<?php
+foreach ($featured_products as $featured) {
+    $name = $featured['product_name'];
 
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/gems_and_jewels_img_03.png");
-        ?>
-    </a>
-    <h3>Gems and Jewels</h3>
-    <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-</div>
-<div class="featured_books">
-    <a href="#">
-
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/oceans_and_animals_img_03.png");
-        ?>
-    </a>
-    <h3>Oceans and Animals</h3>
-    <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-</div>
-<div class="featured_books">
-    <a href="#">
-
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/glimpse_img_03.png");
-        ?>
-    </a>
-    <h3>Glimpses</h3>
-    <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-</div>
-<div class="featured_books">
-    <a href="#">
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/pearsl_img_07.png");
-        ?>
-
-    </a>
-    <h3>The Precious Pearls</h3>
-    <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-</div>
-<div class="featured_books">
-    <a href="#">
-
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/trifle_img_03.png");
-        ?>
-    </a>
-    <h3>Charity Even With a Trifle</h3>
-    <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-</div>
-<div class="featured_books">
-    <a href="#">
-
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/friendship_img_03.png");
-        ?>
-    </a>
-    <h3>Friendship</h3>
-    <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-</div>
-<div class="featured_books">
-    <a href="#">
-        <?php
-        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/happiness_img_03.png");
-        ?>
-    </a>
-    <h3>Happiness</h3>
-    <p>Lorem ipsum color sit bla bla thhm ipoum deona</p>
-</div>
+    $image = $featured['no_image'];
+    if (isset($featured['image'][0]['image_small'])) {
+        $image = $featured['image'][0]['image_small'];
+    }
+    echo CHtml::openTag("div", array("class" => "featured_books", 'style' => 'padding:28px 50px'));
+    echo CHtml::link(CHtml::image($image, $name, array('style' => 'width:92px; height:138px;margin:0 0 17px 0px; box-shadow: 0 0 5px 5px #888; padding:2px 2px')), $this->createUrl('/web/product/productDetail', array('product_id' => $featured['product_id'])), array('title' => $name));
+    echo CHtml::openTag("h3");
+    echo implode(' ', array_slice(explode(' ', $name), 0, 4));
+    echo CHtml::closeTag("h3");
+    echo CHtml::openTag("p");
+    echo $featured['product_description'];
+    echo CHtml::closeTag("p");
+    echo CHtml::closeTag("div");
+}
+?>
