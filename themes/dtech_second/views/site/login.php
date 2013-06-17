@@ -25,14 +25,18 @@ $this->webPcmWidget['filter'] = array('name' => 'DtechSecondSidebar',
     </div>
     <div class="login_part">
         <p>User Name</p>
-        <input type="text" class="text" />
+        <?php echo $form->textField($model, 'username', array("class" => "text")); ?>
         <p>Password</p>
-        <input type="password" class="text" />
-        <article><a href="#">Forget Password?</a></article>
+        <?php echo $form->passwordField($model, 'password', $htmlOptions = array("class" => "text")); ?>
+        <article> <?php echo CHtml::link('Forgot password?', $this->createUrl('/web/user/forgot')); ?></article>
         <div id="main_login_pointer">
         </div>
-        <input type="button" value="User Login" class="user_login_button" />
+        <?php
+        echo $form->hiddenField($model, 'route');
+        echo CHtml::submitButton("User Login", array("class" => "user_login_button"));
+        ?>
     </div>
+    <?php $this->endWidget(); ?>
     <div class="login_with_images">
         <h4>Login with</h4>
 
