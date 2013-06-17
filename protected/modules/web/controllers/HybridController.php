@@ -45,7 +45,7 @@ class HybridController extends Controller {
                 Yii::app()->user->returnUrl = $logINmodel->route;
             }
         }
-
+      
         try {
             $hybridauth = new Hybrid_Auth($config);
 

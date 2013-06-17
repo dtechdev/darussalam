@@ -95,6 +95,8 @@ var dtech = {
     load_languageDetail: function() {
 
         hash_str = window.location.hash;
+        
+        
         if (hash_str != "") {
             hash_str = hash_str.split("=");
 
@@ -130,7 +132,13 @@ var dtech = {
      */
     loadallPrdoucts_Cat: function(url) {
         hash_str = window.location.hash;
-
+        /**
+         * hybrid auth used hash sign
+         * dats y made this check
+         */
+        if(hash_str == "#_=_"){
+            return true;
+        }
         if (hash_str != "") {
             hash_str = hash_str.split("=");
 

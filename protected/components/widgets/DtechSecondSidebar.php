@@ -30,7 +30,7 @@ class DtechSecondSidebar extends CPortlet {
      * isfilter through js
      * @var type 
      */
-    public $is_cat_filter;
+    public $is_cat_filter = 0;
 
     /**
      * by default it ajax based

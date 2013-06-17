@@ -9,7 +9,8 @@ class QuranController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/main';
+    public $layout = '//layouts/column2';
+
     /**
      * for category filter
      * @var type 
@@ -19,7 +20,10 @@ class QuranController extends Controller {
     //front site actions
     public function actionIndex() {
 
-        $this->is_cat_filter = true; 
+        $this->is_cat_filter = true;
+
+        Yii::app()->user->SiteSessions;
+        Yii::app()->theme = 'dtech_second';
         /**
          * ajax based
          */
@@ -27,8 +31,8 @@ class QuranController extends Controller {
             $this->productfilter();
         } else {
             //queries 
-            Yii::app()->controller->layout = '//layouts/main';
-            Yii::app()->user->SiteSessions;
+            //Yii::app()->controller->layout = '//layouts/main';
+            //Yii::app()->user->SiteSessions;
 
 
             $dataProvider = Product::model()->allProducts(array(), 30, "Quran");
@@ -41,7 +45,7 @@ class QuranController extends Controller {
             $allCategories = Categories::model()->allCategories("", $parent_cat);
 
 
-            $this->render('index', array(
+            $this->render('//quran/index', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
@@ -55,7 +59,7 @@ class QuranController extends Controller {
     public function productfilter() {
         $dataProvider = Product::model()->allProducts(array(), 30, "Quran");
         $all_products = Product::model()->returnProducts($dataProvider);
-        $this->renderPartial("_product_list", array('products' => $all_products,
+        $this->renderPartial("//quran/_product_list", array('products' => $all_products,
             'dataProvider' => $dataProvider,));
     }
 

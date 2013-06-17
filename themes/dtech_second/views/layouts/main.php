@@ -79,6 +79,7 @@
                                             <label for="email">User Name</label>
                                             <?php
                                             echo $form->textField($login_model, 'username', array("id" => "email"));
+                                            echo $form->hiddenField($login_model,'route',array("value"=>Yii::app()->request->getUrl()));
                                             ?>
                                         </fieldset>
                                         <fieldset>
