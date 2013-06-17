@@ -145,62 +145,19 @@
                         <div class="add_to_cart">
                             <ul>
                                 <li>
-                                    <a href="#">
-                                        <?php
-                                        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_03.png");
-                                        ?>
-                                    </a>
-                                    <ul class="sub-menu">
-                                        <div id="pointer">
-                                        </div>
-                                        <h1>My Shopping Bag</h1>
-                                        <div class="sub-sub-menu">
-                                            <select>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
-                                            <h2>Moon Split</h2>
-                                            <span>5,96 PKR</span>
-                                        </div>
-                                        <div class="sub-sub-menu">
-                                            <select>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
-                                            <h2>Moon Split</h2>
-                                            <span>5,96 PKR</span>
-                                        </div>
-                                        <div class="sub-sub-menu">
-                                            <select>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
-                                            <h2>Moon Split</h2>
-                                            <span>5,96 PKR</span>
-                                        </div>
-                                        <div class="total">
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . "/images/total_little_img_03.png");
-                                            ?>
-                                            <h3>TOTAL:</h3>
-                                            <h4>16,39 PKR</h4>
-                                        </div>
-                                        <div id="check_out_pointer">
-                                        </div>
-                                        <input type="button" value="CHECKOUT" class="check_out" />
-                                    </ul>
+                                    <?php
+                                    $cart = Cart::model()->getCartLists();
+                                    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_03.png"), $this->createUrl("/web/cart/viewcart"));
+                                    echo "<div id='cart_control'>";
+                                        $this->renderPartial("//cart/_cart",array("cart"=>$cart));
+                                    echo "</div>";
+                                    ?>
                                 </li>
                             </ul>
                         </div>
                         <div class="wishlist">
                             <?php
-                                $this->renderPartial("//layouts/_wishlist");
+                            $this->renderPartial("//layouts/_wishlist");
                             ?>
                         </div>
                     </div>
