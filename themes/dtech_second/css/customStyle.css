@@ -87,6 +87,6 @@ select#author_id{
     height:50px;
     display: block;
 }
-.btnToggle,#div_img {
+.btnToggle,#div_img,.add_to_cart_arrow {
     cursor: pointer;
 }
