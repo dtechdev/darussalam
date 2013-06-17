@@ -192,6 +192,14 @@ class Product extends DTActiveRecord {
             }
             $criteria->distinct = "t.product_id";
         }
+        /**
+         * 
+         */
+        if(!empty($_GET['category'])){
+                $criteria->join.= ' LEFT JOIN product_categories  ON ' .
+                        't.product_id=product_categories.product_id';
+                $criteria->addCondition("product_categories.category_id='" . $_GET['category'] . "'");
+        }
 
         $dataProvider = new CActiveDataProvider($this, array(
             'pagination' => array(

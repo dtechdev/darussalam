@@ -28,7 +28,7 @@
                     if ($count <= 1) {
                         echo CHtml::openTag("p");
                         echo CHtml::link(
-                                $cat->category_name, $this->cObj->createUrl("/web/quran/index") . "#cat=" . $cat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                $cat->category_name, $this->cObj->createUrl("/web/quran/index",array("category"=>$cat->category_id)) 
                         );
                         echo CHtml::closeTag("p");
                     }
@@ -43,7 +43,7 @@
                 foreach ($quranCategories as $subcat) {
                     echo CHtml::openTag("li");
                     echo CHtml::link(
-                            $subcat->category_name, $this->cObj->createUrl("/web/quran/index") . "#cat=" . $subcat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                            $subcat->category_name, $this->cObj->createUrl("/web/quran/index",array("category"=>$cat->category_id))
                     );
                     echo CHtml::closeTag("li");
                 }
@@ -61,7 +61,7 @@
                     if ($count <= 1) {
                         echo CHtml::openTag("p");
                         echo CHtml::link(
-                                $cat->category_name, $this->cObj->createUrl("/web/product/allproducts") . "#cat=" . $cat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                $cat->category_name, $this->cObj->createUrl("/web/product/allproducts",array("category"=>$cat->category_id))
                         );
                         echo CHtml::closeTag("p");
                     }
@@ -77,7 +77,7 @@
                 foreach ($booksCategories as $subcat) {
                     echo CHtml::openTag("li");
                     echo CHtml::link(
-                            $subcat->category_name, $this->cObj->createUrl("/web/product/allproducts") . "#cat=" . $subcat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                            $subcat->category_name, $this->cObj->createUrl("/web/product/allproducts",array("category"=>$cat->category_id))
                     );
                     echo CHtml::closeTag("li");
                 }
@@ -96,7 +96,7 @@
                     if ($count <= 1) {
                         echo CHtml::openTag("p");
                         echo CHtml::link(
-                                $cat->category_name, $this->cObj->createUrl("/web/educationToys/index") . "#cat=" . $cat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                                $cat->category_name, $this->cObj->createUrl("/web/educationToys/index",array("category"=>$cat->category_id)) 
                         );
                         echo CHtml::closeTag("p");
                     }
@@ -111,7 +111,7 @@
                 foreach ($eduCategories as $subcat) {
                     echo CHtml::openTag("li");
                     echo CHtml::link(
-                            $subcat->category_name, $this->cObj->createUrl("/web/educationToys/index") . "#cat=" . $subcat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                            $subcat->category_name, $this->cObj->createUrl("/web/educationToys/index",array("category"=>$cat->category_id)) 
                     );
                     echo CHtml::closeTag("li");
                 }
@@ -127,7 +127,8 @@
                     if ($count <= 1) {
                         echo CHtml::openTag("p");
                         echo CHtml::link(
-                                $cat->category_name, $this->cObj->createUrl("/web/others/index") . "#cat=" . $cat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;"));
+                                $cat->category_name, $this->cObj->createUrl("/web/others/index",array("category"=>$cat->category_id))
+                                ); 
                         echo CHtml::closeTag("p");
                     }
                     $count++;
@@ -140,7 +141,7 @@
                 foreach ($otherCategories as $subcat) {
                     echo CHtml::openTag("li");
                     echo CHtml::link(
-                            $subcat->category_name, $this->cObj->createUrl("/web/others/index") . "#cat=" . $subcat->category_id, array("onclick" => "dtech_new.showCategoryListing(this);return false;")
+                            $subcat->category_name, $this->cObj->createUrl("/web/others/index",array("category"=>$cat->category_id)) 
                     );
                     echo CHtml::closeTag("li");
                 }
