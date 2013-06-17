@@ -6,7 +6,6 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/popup_style.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/footer_style.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/login_style.css" />
-        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/side_bar.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/msdropdown/dd.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/msdropdown/flags.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/customStyle.css" />

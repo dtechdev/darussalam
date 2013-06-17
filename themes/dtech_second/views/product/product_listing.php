@@ -1,8 +1,8 @@
 <?php
-
 $this->webPcmWidget['filter'] = array('name' => 'DtechSecondSidebar',
     'attributes' => array(
         'cObj' => $this,
+        'cssFile' => Yii::app()->theme->baseUrl . "/css/side_bar.css",
         ));
 ?>
 <div class="general_content">
