@@ -20,13 +20,13 @@ foreach ($products as $product) {
     }
     echo CHtml::openTag("div", array("class" => "featured_books", 'style' => 'padding:28px 50px'));
 
-    echo CHtml::link(CHtml::image($image, $name, array('style' => 'width:92px; height:138px;margin:0 0 17px 0px; box-shadow: 0 0 5px 5px #888; padding:2px 2px')), $this->createDTUrl('', array("pid" => $product['product_id'])), array("class" => "topopup"));
+    echo CHtml::link(CHtml::image($image, $name, array('style' => 'width:92px; height:138px;margin:0 0 17px 0px; box-shadow: 0 0 5px 5px #888; padding:2px 2px','title' => $product['product_name'])), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id']));
 
     echo CHtml::openTag("h3");
     echo implode(' ', array_slice(explode(' ', $name), 0, 4));
     echo CHtml::closeTag("h3");
     echo CHtml::openTag("p");
-    echo $product['product_description'];
+    echo $featured['product_description'];
     echo CHtml::closeTag("p");
     /*
      * 
@@ -36,7 +36,7 @@ foreach ($products as $product) {
      */
 
 
-    $this->renderPartial('//product/_popup_product', array('image' => $image));
+    //$this->renderPartial('//product/_popup_product', array('image' => $image));
     ?>
 
     <div class = "loader"></div>
