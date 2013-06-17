@@ -10,6 +10,19 @@ $this->webPcmWidget['filter'] = array('name' => 'DtechSecondSidebar',
     echo CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_img_03.png");
     ?>
     <h6>Already a member?</h6>
+    <?php
+    $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'login-form',
+        'action' => Yii::app()->createUrl('/site/login'),
+        'enableClientValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+        ),
+    ));
+    ?>
+    <div id="errors" style="color: red">
+        <?php echo $form->errorSummary($model); ?>
+    </div>
     <div class="login_part">
         <p>User Name</p>
         <input type="text" class="text" />
