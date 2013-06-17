@@ -1,3 +1,10 @@
+<?php
+$this->webPcmWidget['filter'] = array('name' => 'DtechSecondSidebar',
+    'attributes' => array(
+        'cObj' => $this,
+        'cssFile' => Yii::app()->theme->baseUrl . "/css/side_bar.css",
+        ));
+?>
 <div id="login_content">
     <?php
     echo CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_img_03.png");
