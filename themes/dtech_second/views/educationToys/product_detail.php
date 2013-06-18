@@ -29,4 +29,4 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
     </div>
 </div>
 <?php $this->renderPartial("//educationToys/_product_comments", array("product" => $product, "rating_value" => $rating_value)); ?>
-<?php $this->renderPartial("//educationToys/_editorial_reviews", array("product" => $product, "rating_value" => $rating_value)); ?>
+<?php //$this->renderPartial("//educationToys/_editorial_reviews", array("product" => $product, "rating_value" => $rating_value)); ?>

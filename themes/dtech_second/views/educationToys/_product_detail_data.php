@@ -43,14 +43,16 @@
         ?>
     </section>
     <section>Category: <?php
-        $cat_count = 0;
-        foreach ($product->productCategories as $cat) {
-            if ($cat_count == 0) {
-                echo $cat->category->category_name;
-            } else {
-                echo ' / ' . $cat->category->category_name;
+        if (!empty($product->productCategories)) {
+            $cat_count = 0;
+            foreach ($product->productCategories as $cat) {
+                if ($cat_count == 0) {
+                    echo $cat->category->category_name;
+                } else {
+                    echo ' / ' . $cat->category->category_name;
+                }
+                $cat_count++;
             }
-            $cat_count++;
         }
         ?>
     </section>
