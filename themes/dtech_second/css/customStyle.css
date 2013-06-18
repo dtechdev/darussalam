@@ -90,3 +90,7 @@ select#author_id{
 .btnToggle,#div_img,.add_to_cart_arrow {
     cursor: pointer;
 }
+.product_detail .section_1 {
+    margin-top: 20px;
+    
+}

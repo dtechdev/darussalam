@@ -13,9 +13,6 @@ class CartController extends Controller {
 
         Yii::app()->user->SiteSessions;
 
-        Yii::app()->theme = Yii::app()->session['layout'];
-        Yii::app()->controller->layout = '//layouts/main';
-
         $cart = Cart::model()->getCartLists();
 
         $this->render('viewcart', array('cart' => $cart));

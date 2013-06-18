@@ -123,7 +123,16 @@ class DTWebUser extends CWebUser {
         Yii::app()->session['city_short_name'] = $cityModel->short_name;
         Yii::app()->session['city_id'] = $cityModel->city_id;
         Yii::app()->theme = (!empty($layout)?$layout->layout_name:"default");
-
+        
+        /**
+         * Pcm temporary
+         */
+        if(Yii::app()->params['theme'] == 'dtech_second'){
+            
+            Yii::app()->session['layout'] = Yii::app()->params['theme'];
+            Yii::app()->theme = Yii::app()->params['theme'];
+        }
+       
         $_REQUEST['city_id'] = $cityModel->city_id;
 
         return true;
@@ -143,6 +152,7 @@ class DTWebUser extends CWebUser {
         if (!empty($conf)) {
             foreach ($conf as $data) {
                 Yii::app()->params[$data->param] = $data->value;
+            
             }
         }
     }

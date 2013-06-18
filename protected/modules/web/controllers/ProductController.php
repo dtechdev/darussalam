@@ -54,13 +54,6 @@ class ProductController extends Controller {
         $this->is_cat_filter = true;
 
 
-        /*
-         * setting new themes...
-         */
-
-        Yii::app()->user->SiteSessions;
-        Yii::app()->theme = 'dtech_second';
-        // Yii::app()->controller->layout = "//layouts/column2";
 
         /**
          * ajax based
@@ -82,7 +75,7 @@ class ProductController extends Controller {
 
 
 
-            $this->render('//product/all_products', array(
+            $this->render($this->slash.'/product/all_products', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
@@ -96,7 +89,7 @@ class ProductController extends Controller {
     public function productfilter() {
         $dataProvider = Product::model()->allProducts();
         $all_products = Product::model()->returnProducts($dataProvider);
-        $this->renderPartial("//product/_product_list", array('products' => $all_products,
+        $this->renderPartial($this->slash."/product/_product_list", array('products' => $all_products,
             'dataProvider' => $dataProvider,));
     }
 
@@ -109,7 +102,7 @@ class ProductController extends Controller {
         $order_detail = new OrderDetail;
         $dataProvider = $order_detail->bestSellings();
         $best_sellings = $order_detail->getBestSelling($dataProvider);
-        $this->renderPartial("_product_list", array('products' => $best_sellings,
+        $this->renderPartial($this->slash."/product/_product_list", array('products' => $best_sellings,
             'dataProvider' => $dataProvider,));
     }
 
@@ -121,7 +114,7 @@ class ProductController extends Controller {
             $this->productFeaturedfilter();
         } else {
             Yii::app()->user->SiteSessions;
-            Yii::app()->theme = Yii::app()->session['layout'];
+            
             //queries 
             $order_detail = new OrderDetail;
             $dataProvider = $order_detail->featuredBooks();
@@ -130,8 +123,8 @@ class ProductController extends Controller {
             $categories = new Categories();
             $allCategories = $categories->allCategories("featured");
 
-            Yii::app()->controller->layout = '//layouts/main';
-            $this->render('featured_products', array(
+            
+            $this->render($this->slash.'/product/featured_products', array(
                 'products' => $featured_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
@@ -148,7 +141,7 @@ class ProductController extends Controller {
         $order_detail = new OrderDetail;
         $dataProvider = $order_detail->featuredBooks();
         $featured_products = $order_detail->getFeaturedProducts($dataProvider);
-        $this->renderPartial("_product_list", array('products' => $featured_products,
+        $this->renderPartial($this->slash."/product/_product_list", array('products' => $featured_products,
             'dataProvider' => $dataProvider,));
     }
 
@@ -178,12 +171,7 @@ class ProductController extends Controller {
         }
     }
 
-    public function actionproductListing() {
-        Yii::app()->theme = Yii::app()->session['layout'];
-        Yii::app()->controller->layout = '//layouts/main';
 
-        $this->render('product_listing');
-    }
 
     /**
      * product detail
@@ -205,7 +193,7 @@ class ProductController extends Controller {
          */
         $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-        $this->render('//product/product_detail', array('product' => $product, "rating_value" => $rating_value));
+        $this->render($this->slash.'/product/product_detail', array('product' => $product, "rating_value" => $rating_value));
     }
 
     /**
@@ -227,8 +215,8 @@ class ProductController extends Controller {
              *  getting value of poduct rating
              */
             $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
-            $right_data = $this->renderPartial("_product_detail_data", array('product' => $product, "rating_value" => $rating_value), true, true);
-            $left_data = $this->renderPartial("_product_detail_image", array('product' => $product), true, false);
+            $right_data = $this->renderPartial($this->slash."/product/_product_detail_data", array('product' => $product, "rating_value" => $rating_value), true, true);
+            $left_data = $this->renderPartial($this->slash."/product/_product_detail_image", array('product' => $product), true, false);
 
             echo CJSON::encode(array(
                 "right_data" => $right_data,

@@ -21,6 +21,7 @@ class ConfMisc extends DTActiveRecord {
     public $paramsOptions = array(
         "dateformat" => array("m/d/y" => "m/d/y", "Y-m-d", "Y-m-d"),
         "smtp" => array("1" => "Enabled", "0" => "Disabled"),
+        "theme" => array("null" => "Old", "dtech_second" => "Dtech New"),
     );
 
     /**
@@ -105,6 +106,20 @@ class ConfMisc extends DTActiveRecord {
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
         ));
+    }
+
+    /**
+     * 
+     */
+    public function afterFind() {
+        if ($this->_controller == "conf") {
+            if ($this->value == "null") {
+                $this->value = "Old";
+            } else if ($this->value == "dtech_second") {
+                $this->value = "Dtech New";
+            }
+        }
+        parent::afterFind();
     }
 
 }

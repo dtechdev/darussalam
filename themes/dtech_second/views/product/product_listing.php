@@ -16,7 +16,7 @@ $this->webPcmWidget['filter'] = array('name' => 'DtechSecondSidebar',
 
     <div id="right_main_content">
         <?php
-        $this->renderPartial("//product/_product_list", array(
+        $this->renderPartial($this->slash."/product/_product_list", array(
             'products' => $products,
             'dataProvider' => $dataProvider,
             'allCate' => $allCate));

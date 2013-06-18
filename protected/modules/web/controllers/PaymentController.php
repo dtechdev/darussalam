@@ -37,8 +37,6 @@ class PaymentController extends Controller {
 
     public function actionpaymentMethod() {
 
-        Yii::app()->theme = Yii::app()->session['layout'];
-        Yii::app()->controller->layout = '//layouts/main';
 
         $error = array('status' => false);
         $model = new ShippingInfoForm();

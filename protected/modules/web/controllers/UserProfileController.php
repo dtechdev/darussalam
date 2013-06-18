@@ -52,9 +52,6 @@ class UserProfileController extends Controller {
      */
     public function actionIndex() {
 
-
-        Yii::app()->user->SiteSessions;
-        Yii::app()->controller->layout = '//layouts/main';
         $model = UserProfile::model()->findByPk(Yii::app()->user->id);
         /**
          * to persist old pic for this

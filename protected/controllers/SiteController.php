@@ -26,6 +26,11 @@ class SiteController extends Controller {
      * New landing page
      */
     public function actionIndex() {
+       
+        if(Yii::app()->params['theme'] =="null"){
+           $this->redirect($this->createUrl("/site/storeHome"));
+        }
+        
         Yii::app()->controller->layout = "";
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = 'landing_page_theme';
@@ -56,12 +61,8 @@ class SiteController extends Controller {
     public function actionStoreHome() {
 
         Yii::app()->user->SiteSessions;
-        /*
-         * uncomment the following code for laoding new theme...
-         */
-        Yii::app()->controller->layout = "//layouts/column1";
-        Yii::app()->user->SiteSessions;
-        Yii::app()->theme = 'dtech_second';
+    
+        
 
         //to laod the new layout bar uncomment this lin
         //Yii::app()->controller->layout = '//layouts/search_bar_slider';
@@ -80,7 +81,7 @@ class SiteController extends Controller {
 
         $segments_footer_cats = Categories::model()->getCategoriesInSegment(5);
         $dataProviderAll = Product::model()->allProducts();
-        $this->render('storehome', array(
+        $this->render($this->slash.'/site/storehome', array(
             'featured_products' => $featured_products,
             'best_sellings' => $bestSellings,
             'segments_footer_cats' => $segments_footer_cats,

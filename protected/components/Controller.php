@@ -39,11 +39,17 @@ class Controller extends CController {
     public $PcmWidget;
     
     /**
+     * to get the themes 
+     * inside
+     * @var type 
+     */
+    public $slash ;
+
+    /**
      *
      * @var type 
      */
     public $webPcmWidget;
-    
     public $webPages = array();
 
     public function beforeAction($action) {
@@ -68,8 +74,34 @@ class Controller extends CController {
         if ($this->id == "site" || get_class($module) == "WebModule") {
 
             $this->webPages = Pages::model()->getPages();
+            $this->configureTheme();
         }
     }
+
+    /**
+     * configure Web site theme
+     */
+    public function configureTheme() {
+        /**
+         * PCM temprory
+         */
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("misc_type='general'");
+        $selected = array('theme');
+        $criteria->addInCondition("param", $selected);
+        $conf = ConfMisc::model()->find($criteria);
+        Yii::app()->params[$conf->param] = $conf->value;
+        
+        
+        if (Yii::app()->params['theme'] == 'dtech_second') {
+            Yii::app()->theme = Yii::app()->params['theme'];
+            Yii::app()->controller->layout = "//layouts/column2";
+            $this->slash = "/";
+        }
+
+
+    }
+    
 
     /**
      * register widget
@@ -310,13 +342,12 @@ class Controller extends CController {
         return Yii::app()->createUrl(trim($route, '/'), $params, $ampersand);
     }
 
-    
-    
     /*
      * DT dumper for development only just pass the variable...
      */
+
     public function dtdump($var) {
-        return CVarDumper::dump($var,10,TRUE);    
+        return CVarDumper::dump($var, 10, TRUE);
     }
 
 }
