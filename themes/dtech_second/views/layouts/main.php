@@ -59,7 +59,7 @@
                                 echo $this->renderPartial("//layouts/_logout_box")
                                 ?>
                             <?php } else {
-                                $this->renderPartial("//layouts/_login_box");
+                               $this->renderPartial("//layouts/_login_box");
                             } ?>
                         </div>
                     </span>
