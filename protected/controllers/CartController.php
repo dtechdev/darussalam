@@ -12,7 +12,6 @@ class CartController extends Controller {
     public function actionAddtocart() {
 
         $ip = Yii::app()->request->getUserHostAddress();
-       
         $cart_model = new Cart();
         if (isset(Yii::app()->user->id)) {
             $cart = $cart_model->find('product_profile_id=' . $_REQUEST['product_profile_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
@@ -34,7 +33,6 @@ class CartController extends Controller {
         }
 
         $cart_model->save();
-        
 
 
         //count total added products in cart

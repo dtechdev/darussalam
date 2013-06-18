@@ -71,7 +71,7 @@ class QuranController extends Controller {
          */
         $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-        $this->render($this->slash.'/quran/product_detail', array('product' => $product, "rating_value" => $rating_value));
+        $this->render('product_detail', array('product' => $product, "rating_value" => $rating_value));
     }
 
     /**

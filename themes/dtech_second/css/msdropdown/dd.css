@@ -45,9 +45,9 @@ img.fnone{float:none !important}
 /*************** default theme **********************/
 .dd{cursor: pointer}
 .dd .divider{ right:24px;}
-.dd .arrow{width:16px;height:16px; margin-top:-8px; }
+.dd .arrow{width:16px;height:16px; margin-top:-8px; background:url(../../images/msdropdown/skin1/dd_arrow.gif) no-repeat;}
 .dd .arrow:hover{background-position:0 100%;}
-.dd .ddTitle{color:#fff;}
+.dd .ddTitle{color:#fff;background: url(../../images/msdropdown/skin1/title-bg.gif) repeat-x left top;}
 .dd .ddTitle .ddTitleText{padding:5px 20px 5px 5px;}
 .dd .ddTitle .ddTitleText .ddTitleText{padding:0;}
 .dd .ddTitle .description{font-size:12px; color:#666}

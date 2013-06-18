@@ -1,6 +1,6 @@
 var dtech_new = {
     popupStatus: 0,
-    is_filter: "",
+    is_filter : "",
     toggleLogin: function() {
         var button = jQuery('#login_btn');
         var box = jQuery('#login_bx');
@@ -143,43 +143,9 @@ var dtech_new = {
         else {
             hash_split = $(obj).attr("href").split("#");
             hash_split = hash_split[1].split("=");
-
-            dtech.updateProductListing($(obj).attr("href"), hash_split[1]);
+            
+            dtech.updateProductListing($(obj).attr("href"),hash_split[1]);
         }
-    },
-    loadCartAgain: function(ajax_url) {
-        jQuery.ajax({
-            type: "POST",
-            url: ajax_url,
-            dataType : 'json',
-            data:
-                    {
-                     
-                    }
-        }).done(function(response) {
-            
-            jQuery("#cart_control").html(response._view_cart);
-        });
-    },
-    updateCart : function(ajax_url,obj,cart_id){
-        
-         jQuery.ajax({
-            type: "POST",
-            url: ajax_url,
-            dataType : 'json',
-            data:
-                    {
-                     'quantity':jQuery(obj).val(),
-                     'type' : 'update_quantity',
-                     'from' : 'main',
-                      'cart_id' : cart_id
-                    }
-        }).done(function(response) {
-            
-            jQuery("#cart_control").html(response._view_cart);
-        });
-        
-
     }
 
 }

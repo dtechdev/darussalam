@@ -20,7 +20,7 @@ foreach ($products as $product) {
     }
     echo CHtml::openTag("div", array("class" => "featured_books", 'style' => 'padding:28px 50px'));
 
-    echo CHtml::link(CHtml::image($image, $name, array('style' => 'width:92px; height:138px;margin:0 0 17px 0px; box-shadow: 0 0 5px 5px #888; padding:2px 2px')), $this->createUrl('/web/others/productDetail', array("product_id" => $product['product_id'])));
+    echo CHtml::link(CHtml::image($image, $name, array('style' => 'width:92px; height:138px;margin:0 0 17px 0px; box-shadow: 0 0 5px 5px #888; padding:2px 2px')), $this->createDTUrl('', array("pid" => $product['product_id'])), array("class" => "topopup"));
 
     echo CHtml::openTag("h3");
     echo implode(' ', array_slice(explode(' ', $name), 0, 4));
@@ -36,7 +36,7 @@ foreach ($products as $product) {
      */
 
 
-    //$this->renderPartial('//product/_popup_product', array('image' => $image));
+    $this->renderPartial('//product/_popup_product', array('image' => $image));
     ?>
 
     <div class = "loader"></div>

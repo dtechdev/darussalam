@@ -6,7 +6,7 @@
     <p>
         <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/stars_img_03.png"); ?>
         (7)</p>
-
+   
     <article>
         <?php
         echo CHtml::textField('quantity', '1', array('onKeyUp' => 'javascript:totalPrice(this.value,"' . $product->productProfile[0]->price . '")', 'style' => 'width:40px', 'maxlength' => '3'));
@@ -29,7 +29,6 @@
                                
                                 jQuery("#loading").hide();
                                 dtech.custom_alert("Item has added to cart" ,"Add to Cart");
-                                dtech_new.loadCartAgain("'.$this->createUrl("/web/cart/loadCart").'")
                                
                             });    
                       ', 'class' => 'add_to_cart_arrow'));

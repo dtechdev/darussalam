@@ -31,44 +31,33 @@ class CartController extends Controller {
      * edit or delete cart
      */
     public function actionEditcart() {
-
+        
         $view = "_view_cart";
         if ($_REQUEST['type'] == 'delete_cart') {
             $cart_model = new Cart();
 
             Cart::model()->deleteByPk($_REQUEST['cart_id']);
-        } else {
+        }
+        
+        else {
             $cart_model = new Cart();
             $cart = $cart_model->find('cart_id=' . $_REQUEST['cart_id']);
             $cart_model = $cart;
             $cart_model->quantity = $_REQUEST['quantity'];
             $cart_model->save();
         }
-        /*         * -
+        /**-
          * handling for cart on front page
          */
-
-        if (isset($_REQUEST['from'])) {
-            $view = "//cart/_cart";
+        
+        if(isset($_REQUEST['from'])){
+             $view = "//cart/_cart";
         }
         $cart = Cart::model()->getCartLists();
         $cart_list_count = Cart::model()->getCartListCount();
 
 
         $_view_cart = $this->renderPartial($view, array('cart' => $cart), true, true);
-        echo CJSON::encode(array("_view_cart" => $_view_cart, "cart_list_count" => $cart_list_count));
-    }
-    
-    /**
-     * load cart again
-     */
-    public function actionLoadCart() {
-      
-        $cart = Cart::model()->getCartLists();
-        $cart_list_count = Cart::model()->getCartListCount();
-
-
-        $_view_cart = $this->renderPartial("//cart/_cart", array('cart' => $cart), true, false);
         echo CJSON::encode(array("_view_cart" => $_view_cart, "cart_list_count" => $cart_list_count));
     }
 

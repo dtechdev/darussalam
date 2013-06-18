@@ -17,30 +17,16 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
 <div id="left_description">
     <div id="image_detail">
         <div class="left_detail" id="img_detail">
-            <?php echo $this->renderPartial("//quran/_product_detail_image", array("product" => $product)) ?>
+            <?php echo $this->renderPartial("//educationToys/_product_detail_image", array("product" => $product)) ?>
         </div>
         <div id="prod_detail">
             <?php
-            echo $this->renderPartial("//quran/_product_detail_data", array("product" => $product, "rating_value" => $rating_value));
+            echo $this->renderPartial("//educationToys/_product_detail_data", array("
+                " => $product, "rating_value" => $rating_value));
             ?>
         </div>
 
     </div>
 </div>
-<?php $this->renderPartial("//product/_product_comments", array("product" => $product, "rating_value" => $rating_value)); ?>
-
-<?php
-Yii::app()->clientScript->registerScript('image_change_function', "
-                    jQuery('.small_product img').live('click',function(){
-                        dtech.detailImagechange(this)
-                    })
-                  
-                ", CClientScript::POS_READY);
-?>
-
-<?php
-Yii::app()->clientScript->registerScript('change_lang_script', '
-        dtech.load_languageDetail();
-    ', CClientScript::POS_READY);
-?>
-
+<?php $this->renderPartial("//educationToys/_product_comments", array("product" => $product, "rating_value" => $rating_value)); ?>
+<?php //$this->renderPartial("//educationToys/_editorial_reviews", array("product" => $product, "rating_value" => $rating_value)); ?>
