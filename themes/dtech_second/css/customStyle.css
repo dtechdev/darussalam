@@ -101,3 +101,7 @@ select#author_id{
     width: 20px;
     float: left;
 }
+#cart_control ul{
+    height: 500px;
+    overflow: scroll;
+}
