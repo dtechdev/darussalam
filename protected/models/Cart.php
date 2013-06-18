@@ -139,12 +139,14 @@ class Cart extends DTActiveRecord {
         $ip = Yii::app()->request->getUserHostAddress();
 
         if (isset(Yii::app()->user->id)) {
+          
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')
                     ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
                     ->queryRow();
         } else {
+           
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')

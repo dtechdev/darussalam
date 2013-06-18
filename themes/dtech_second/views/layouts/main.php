@@ -146,7 +146,10 @@
                             <ul>
                                 <li>
                                     <?php
+                                     
                                     $cart = Cart::model()->getCartLists();
+                                    //CVarDumper::dump($cart,10,true);
+                                    //die;
                                     echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_03.png"), $this->createUrl("/web/cart/viewcart"));
                                     echo "<div id='cart_control'>";
                                     $this->renderPartial("//cart/_cart", array("cart" => $cart));
