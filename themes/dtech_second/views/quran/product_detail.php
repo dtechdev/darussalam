@@ -17,16 +17,15 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
 <div id="left_description">
     <div id="image_detail">
         <div class="left_detail" id="img_detail">
-            <?php echo $this->renderPartial("//educationToys/_product_detail_image", array("product" => $product)) ?>
+            <?php echo $this->renderPartial("//quran/_product_detail_image", array("product" => $product)) ?>
         </div>
         <div id="prod_detail">
             <?php
-            echo $this->renderPartial("//educationToys/_product_detail_data", array("
-                " => $product, "rating_value" => $rating_value));
+            echo $this->renderPartial("//quran/_product_detail_data", array("product" => $product, "rating_value" => $rating_value));
             ?>
         </div>
 
     </div>
 </div>
-<?php $this->renderPartial("//educationToys/_product_comments", array("product" => $product, "rating_value" => $rating_value)); ?>
+<?php $this->renderPartial("//quran/_product_comments", array("product" => $product, "rating_value" => $rating_value)); ?>
 <?php //$this->renderPartial("//educationToys/_editorial_reviews", array("product" => $product, "rating_value" => $rating_value)); ?>
