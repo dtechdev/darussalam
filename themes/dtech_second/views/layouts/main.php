@@ -109,7 +109,7 @@
                 <div id="upper_banner">
                     <div class="logo">
                         <?php
-                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/logo_img_03.png", 'Logo'), $this->createDTUrl('site/index'));
+                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/logo_img_03.png", 'Logo'), $this->createDTUrl('/site/index'));
                         ?>
                     </div>
                     <div class="search_with_box">
