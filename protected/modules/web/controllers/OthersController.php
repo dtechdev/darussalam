@@ -9,7 +9,7 @@ class OthersController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/main';
+    public $layout = '//layouts/column2';
 
     /**
      * for category filter
@@ -42,7 +42,7 @@ class OthersController extends Controller {
             $allCategories = Categories::model()->allCategories("", $parent_cat);
 
 
-            $this->render('index', array(
+            $this->render($this->slash.'/others/index', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
@@ -56,8 +56,7 @@ class OthersController extends Controller {
     public function productfilter() {
         $dataProvider = Product::model()->allProducts(array(), 30, "Others");
         $all_products = Product::model()->returnProducts($dataProvider);
-        $this->renderPartial("_product_list", array('products' => $all_products,
-            'dataProvider' => $dataProvider,));
+        $this->renderPartial($this->slash."/others/_product_list", array('products' => $all_products, 'dataProvider' => $dataProvider,));
     }
 
     public function actionProductDetail() {
@@ -74,7 +73,7 @@ class OthersController extends Controller {
          */
         $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-        $this->render('product_detail', array('product' => $product, "rating_value" => $rating_value));
+        $this->render($this->slash.'/others/product_detail', array('product' => $product, "rating_value" => $rating_value));
     }
 
 }
