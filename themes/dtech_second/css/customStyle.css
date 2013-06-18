@@ -94,3 +94,6 @@ select#author_id{
     margin-top: 20px;
     
 }
+.shop_now_arrow {
+    cursor: pointer;
+}
