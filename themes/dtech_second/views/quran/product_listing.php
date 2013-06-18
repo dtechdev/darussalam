@@ -6,6 +6,14 @@ $this->webPcmWidget['filter'] = array('name' => 'DtechSecondSidebar',
         'is_cat_filter' => 1,
         ));
 ?>
+<?php
+$this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
+    'attributes' => array(
+        'cObj' => $this,
+        'cssFile' => Yii::app()->theme->baseUrl . "/css/side_bar.css",
+        'is_cat_filter' => 0,
+        ));
+?>
 <div class="general_content">
     <div class="under_heading">
         <h2 id="heading_filter">Quran Books</h2>

@@ -149,7 +149,7 @@
                                     $cart = Cart::model()->getCartLists();
                                     echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_03.png"), $this->createUrl("/web/cart/viewcart"));
                                     echo "<div id='cart_control'>";
-                                        $this->renderPartial("//cart/_cart",array("cart"=>$cart));
+                                    $this->renderPartial("//cart/_cart", array("cart" => $cart));
                                     echo "</div>";
                                     ?>
                                 </li>
@@ -178,129 +178,13 @@
                             </div>
                         </div>
                         <div class="best_seller">
-                            <a href="javascript:void(0)" onClick="dtech_new.showBestSeller()">
+                            <?php
+                            if (isset($this->webPcmWidget['best'])) {
 
-                                <?php
-                                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/best_sellers_img_03.png");
-                                ?>
-                            </a>
-                            <div class="under_best_seller">
+                                $this->widget($this->webPcmWidget['best']['name'], $this->webPcmWidget['best']['attributes']);
+                            }
+                            ?>
 
-                                <?php
-                                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/crown_img_03.png", '', array("class" => "crown_img"));
-                                ?>
-                                <h1>Best Sellers</h1>
-                                <div class="quran_pen">
-                                    <div class="quran_img">
-
-                                        <?php
-                                        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/quran_pen_img_03.png");
-                                        ?>
-                                    </div>
-                                    <div class="quran_text">
-                                        <h2>Quran Pen</h2>
-                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
-                                        <article>
-
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . "/images/good_stars_img_03.png");
-                                            ?>
-                                            (7)
-                                        </article>
-                                    </div>
-                                </div>
-                                <div class="shop_up">
-                                    <input class="shop_now_arrow" type="button" value="Shop Now >" />
-                                </div>
-                                <div class="quran_pen">
-                                    <div class="quran_img">
-
-                                        <?php
-                                        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/quran_pen_img_03.png");
-                                        ?>
-                                    </div>
-                                    <div class="quran_text">
-                                        <h2>Quran Pen</h2>
-                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
-                                        <article>
-
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . "/images/good_stars_img_03.png");
-                                            ?>
-                                            (7)
-                                        </article>
-                                    </div>
-                                </div>
-                                <div class="shop_up">
-                                    <input class="shop_now_arrow" type="button" value="Shop Now >" />
-                                </div>
-                                <div class="quran_pen">
-                                    <div class="quran_img">
-
-                                        <?php
-                                        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/quran_pen_img_03.png");
-                                        ?>
-                                    </div>
-                                    <div class="quran_text">
-                                        <h2>Quran Pen</h2>
-                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
-                                        <article>
-
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . "/images/good_stars_img_03.png");
-                                            ?>
-                                            (7)
-                                        </article>
-                                    </div>
-                                </div>
-                                <div class="shop_up">
-                                    <input class="shop_now_arrow" type="button" value="Shop Now >" />
-                                </div>
-                                <div class="quran_pen">
-                                    <div class="quran_img">
-
-                                        <?php
-                                        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/quran_pen_img_03.png");
-                                        ?>
-                                    </div>
-                                    <div class="quran_text">
-                                        <h2>Quran Pen</h2>
-                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
-                                        <article>
-
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . "/images/good_stars_img_03.png");
-                                            ?>
-                                            (7)
-                                        </article>
-                                    </div>
-                                </div>
-                                <div class="shop_up">
-                                    <input class="shop_now_arrow" type="button" value="Shop Now >" />
-                                </div>
-                                <div class="quran_pen">
-                                    <div class="quran_img">
-
-                                        <?php
-                                        echo CHtml::image(Yii::app()->theme->baseUrl . "/images/quran_pen_img_03.png");
-                                        ?>
-                                    </div>
-                                    <div class="quran_text">
-                                        <h2>Quran Pen</h2>
-                                        <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
-                                        <article>
-
-                                            <?php
-                                            echo CHtml::image(Yii::app()->theme->baseUrl . "/images/good_stars_img_03.png");
-                                            ?>
-                                            (7)
-                                        </article>
-                                    </div>
-                                </div>
-                                <div class="shop_up">
-                                    <input class="shop_now_arrow" type="button" value="Shop Now >" />
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
