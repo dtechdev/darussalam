@@ -37,13 +37,13 @@ class Controller extends CController {
      * @var type 
      */
     public $PcmWidget;
-    
+
     /**
      * to get the themes 
      * inside
      * @var type 
      */
-    public $slash ;
+    public $slash;
 
     /**
      *
@@ -85,23 +85,21 @@ class Controller extends CController {
         /**
          * PCM temprory
          */
-        $criteria = new CDbCriteria();
-        $criteria->addCondition("misc_type='general'");
-        $selected = array('theme');
-        $criteria->addInCondition("param", $selected);
-        $conf = ConfMisc::model()->find($criteria);
-        Yii::app()->params[$conf->param] = $conf->value;
+        $theme = Yii::app()->db->createCommand()
+                ->select('*')
+                ->from("conf_misc")
+                ->where("misc_type='general' AND param ='theme'")
+                ->queryRow();
         
-        
+        Yii::app()->params['theme'] = $theme['value'];
+
         if (Yii::app()->params['theme'] == 'dtech_second') {
             Yii::app()->theme = Yii::app()->params['theme'];
             Yii::app()->controller->layout = "//layouts/column2";
+            Yii::app()->session['layout'] = Yii::app()->params['theme'];
             $this->slash = "/";
         }
-
-
     }
-    
 
     /**
      * register widget
