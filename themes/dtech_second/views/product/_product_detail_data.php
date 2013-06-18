@@ -10,21 +10,24 @@
     <div class="add_to_cart_button">
 
         <?php
-        echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart'), array('data' => array(
-                'product_profile_id' => $product->productProfile[0]->id,
-                'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
-                'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
-                'quantity' => 'js:jQuery(\'#quantity\').val()'
-            ),
-            'type' => 'POST',
-            'dataType' => 'json',
-            'success' => 'function(data){
-                                           //jQuery(".cart_quantity").trigger("change");
-                                           dtech.custom_alert("Item has added to cart" ,"Add to Cart");
-                                           
-                                      }',
-                ), array('class' => 'add_to_cart_arrow')
-        );
+        echo CHtml::button('Add to Cart',array( 'onclick' => '
+                            jQuery("#loading").show();
+                            jQuery.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: "' . $this->createUrl("/cart/addtocart", array("product_profile_id" => $product->productProfile[0]->id)) . '",
+                                data: 
+                                    { 
+                                        quantity: jQuery("#quantity").val()
+                                    }
+                                }).done(function( msg ) {
+                               
+                                jQuery("#loading").hide();
+                                dtech.custom_alert("Item has added to cart" ,"Add to Cart");
+                               
+                            });    
+                      ','class' => 'add_to_cart_arrow'));
+      
         ?>
 
     </div>
@@ -32,7 +35,7 @@
 <div class="product_detail">
 
 
-    <section>
+    <section class="section_1">
         Available Languages: 
         <?php
         $languages = $product->getBookLanguages();

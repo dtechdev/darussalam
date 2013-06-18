@@ -128,9 +128,11 @@ class DTWebUser extends CWebUser {
          * Pcm temporary
          */
         if(Yii::app()->params['theme'] == 'dtech_second'){
+            
+            Yii::app()->session['layout'] = Yii::app()->params['theme'];
             Yii::app()->theme = Yii::app()->params['theme'];
         }
-
+       
         $_REQUEST['city_id'] = $cityModel->city_id;
 
         return true;

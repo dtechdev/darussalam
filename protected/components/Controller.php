@@ -91,7 +91,8 @@ class Controller extends CController {
         $criteria->addInCondition("param", $selected);
         $conf = ConfMisc::model()->find($criteria);
         Yii::app()->params[$conf->param] = $conf->value;
-       
+        
+        
         if (Yii::app()->params['theme'] == 'dtech_second') {
             Yii::app()->theme = Yii::app()->params['theme'];
             Yii::app()->controller->layout = "//layouts/column2";
