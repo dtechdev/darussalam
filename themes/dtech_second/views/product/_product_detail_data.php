@@ -6,11 +6,16 @@
     <p>
         <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/stars_img_03.png"); ?>
         (7)</p>
-    <article>Length :500 Pages</article>
+   
+    <article>
+        <?php
+        echo CHtml::textField('quantity', '1', array('onKeyUp' => 'javascript:totalPrice(this.value,"' . $product->productProfile[0]->price . '")', 'style' => 'width:40px', 'maxlength' => '3'));
+        ?>
+    </article>
     <div class="add_to_cart_button">
 
         <?php
-        echo CHtml::button('Add to Cart',array( 'onclick' => '
+        echo CHtml::button('Add to Cart', array('onclick' => '
                             jQuery("#loading").show();
                             jQuery.ajax({
                                 type: "POST",
@@ -18,7 +23,7 @@
                                 url: "' . $this->createUrl("/cart/addtocart", array("product_profile_id" => $product->productProfile[0]->id)) . '",
                                 data: 
                                     { 
-                                        quantity: jQuery("#quantity").val()
+                                        quantity: jQuery("#quantity").val(),
                                     }
                                 }).done(function( msg ) {
                                
@@ -26,8 +31,7 @@
                                 dtech.custom_alert("Item has added to cart" ,"Add to Cart");
                                
                             });    
-                      ','class' => 'add_to_cart_arrow'));
-      
+                      ', 'class' => 'add_to_cart_arrow'));
         ?>
 
     </div>
@@ -95,3 +99,19 @@
         ?></section>
 
 </div>
+
+<script>
+    function totalPrice(quantity, price)
+    {
+        if (dtech.isNumber(quantity))
+        {
+            //total_price = quantity * price;
+            //jQuery('#price').html('$ ' + total_price);
+        }
+        else
+        {
+            dtech.custom_alert('Quantity should be Numeric....!');
+            jQuery('#quantity').val('1');
+        }
+    }
+</script>

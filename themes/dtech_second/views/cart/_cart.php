@@ -9,6 +9,8 @@
     foreach ($cart as $pro) {
         $grand_total = $grand_total + ($pro->quantity * $pro->productProfile->price);
         $total_quantity+=$pro->quantity;
+        
+      
         ?>
         <div class="sub-sub-menu">
             <?php

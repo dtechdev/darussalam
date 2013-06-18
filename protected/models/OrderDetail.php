@@ -315,6 +315,7 @@ class OrderDetail extends DTActiveRecord {
             $best_products[$product_id] = array('product_id' => $product_id,
                 'product_name' => $product_name,
                 'product_description' => $product_description,
+                'product_description' => $product_description,
                 'product_price' => $product_price,
                 'totalOrder' => $product_totalOrder,
                 'no_image' => $best_join[$i]->product_profile->product->no_image,
