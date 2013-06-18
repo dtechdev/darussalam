@@ -1,68 +1,32 @@
-<div id="book_content">
-    <div id="book_main_content">
-        <?php $this->renderPartial("/product/_subheader"); ?>
-        <?php
-        $this->widget('ext.lyiightbox.LyiightBox2', array(
+<?php
+$this->webPcmWidget['filter'] = array('name' => 'DtechSecondSidebar',
+    'attributes' => array(
+        'cObj' => $this,
+        'cssFile' => Yii::app()->theme->baseUrl . "/css/side_bar.css",
+        'is_cat_filter' => 1,
         ));
-        ?>
-    </div>
-</div>
-<div id="descritpion">
-    <div id="booked_content">
-        <div class="left_book">
-            <?php echo $this->renderPartial("_product_detail_image", array("product" => $product)) ?>
+?>
+<?php
+$this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
+    'attributes' => array(
+        'cObj' => $this,
+        'cssFile' => Yii::app()->theme->baseUrl . "/css/side_bar.css",
+        'is_cat_filter' => 0,
+        ));
+?>
+<div id="left_description">
+    <div id="image_detail">
+        <div class="left_detail" id="img_detail">
+            <?php echo $this->renderPartial("//educationToys/_product_detail_image", array("product" => $product)) ?>
         </div>
-    </div>
-    <div class="right_book">
-        <div class="book_data">
+        <div id="prod_detail">
             <?php
-            echo $this->renderPartial(
-                    "_product_detail_data", array("product" => $product,
-                "rating_value" => $rating_value));
+            echo $this->renderPartial("//educationToys/_product_detail_data", array("
+                " => $product, "rating_value" => $rating_value));
             ?>
         </div>
 
-        <div id="product_comments">
-
-
-            <?php
-            /* get comments here * */
-            $this->renderPartial("_product_comments", array("product" => $product));
-            /**
-             *  add product comments
-             */
-            $this->renderPartial("_product_add_comments", array("product" => $product));
-            ?>
-        </div>
     </div>
 </div>
-<?php
-Yii::app()->clientScript->registerScript('image_change_function', "
-                    jQuery('.small_product img').live('click',function(){
-                        dtech.detailImagechange(this)
-                    })
-                  
-                ", CClientScript::POS_READY);
-?>
-<script>
-    function totalPrice(quantity, price)
-    {
-        if (dtech.isNumber(quantity))
-        {
-            total_price = quantity * price;
-            jQuery('#price').html('$ ' + total_price);
-        }
-        else
-        {
-            dtech.custom_alert('Quantity should be Numeric....!');
-            jQuery('#quantity').val('1');
-        }
-    }
-</script>
-
-<?php
-Yii::app()->clientScript->registerScript('change_lang_script', '
-        dtech.load_languageDetail();
-    ', CClientScript::POS_READY);
-?>
-
+<?php $this->renderPartial("//educationToys/_product_comments", array("product" => $product, "rating_value" => $rating_value)); ?>
+<?php $this->renderPartial("//educationToys/_editorial_reviews", array("product" => $product, "rating_value" => $rating_value)); ?>
