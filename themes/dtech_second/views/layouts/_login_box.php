@@ -6,6 +6,7 @@
 <div style="clear:both"></div>
 <div id="login_bx">  
     <?php
+   
     $login_model = new LoginForm;
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'login_frm',
