@@ -36,7 +36,7 @@ foreach ($products as $product) {
      */
 
 
-    $this->renderPartial('//product/_popup_product', array('image' => $image));
+    //$this->renderPartial('//product/_popup_product', array('image' => $image));
     ?>
 
     <div class = "loader"></div>

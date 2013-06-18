@@ -92,8 +92,12 @@ select#author_id{
 }
 .product_detail .section_1 {
     margin-top: 20px;
-    
+
 }
 .shop_now_arrow {
     cursor: pointer;
 }
+#img_detail a img {
+    width:124px; 
+    height:181px
+} 
