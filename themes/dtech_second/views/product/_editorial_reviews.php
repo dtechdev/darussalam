@@ -5,7 +5,7 @@
     </p>
 
 </div>
-<div class="general_content">
+<!--<div class="general_content">
     <div class="under_heading">
         <h6>Customers Who Bought This Item Also Bought</h6>
     </div>
@@ -15,4 +15,4 @@
         <p>Lorem ipsum color sit bla bla thhm ipoum deona</p> 
 
     </div>
-</div>
+</div>-->
