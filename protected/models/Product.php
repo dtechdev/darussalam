@@ -89,7 +89,7 @@ class Product extends DTActiveRecord {
              * only for ajax views
              */
             'productSelectedProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id', 'condition' => 'language_id=' . $lang_id),
-            'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id'),
+            'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id','limit'=>4), // to display only 4 reviews 
             'author' => array(self::BELONGS_TO, 'Author', 'authors'),
             'language' => array(self::BELONGS_TO, 'Language', 'languages'),
         );
