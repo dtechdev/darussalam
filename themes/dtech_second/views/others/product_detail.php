@@ -21,8 +21,7 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
         </div>
         <div id="prod_detail">
             <?php
-            echo $this->renderPartial("//others/_product_detail_data", array("
-                " => $product, "rating_value" => $rating_value));
+            echo $this->renderPartial("//others/_product_detail_data", array("product" => $product, "rating_value" => $rating_value));
             ?>
         </div>
 
