@@ -128,7 +128,7 @@ class SearchController extends Controller {
      */
     public function productfilter($dataProvider, $all_products) {
 
-        $this->renderPartial("/product/_product_list", array('products' => $all_products,
+        $this->renderPartial($this->slash ."/product/_product_list", array('products' => $all_products,
             'dataProvider' => $dataProvider,));
     }
 
