@@ -42,7 +42,7 @@ class SearchController extends Controller {
         /*
          * for new theme....
          */
-         Yii::app()->user->SiteSessions;
+        Yii::app()->user->SiteSessions;
         Yii::app()->theme = 'dtech_second';
         Yii::app()->controller->layout = "//layouts/column2";
 
@@ -109,7 +109,7 @@ class SearchController extends Controller {
                 $this->productfilter($dataProvider, $all_products);
             } else {
 
-                $this->render('/product/all_products', array('products' => $all_products, 'allCate' => $allCategories, "dataProvider" => $dataProvider));
+                $this->render($this->slash . '/product/all_products', array('products' => $all_products, 'allCate' => $allCategories, "dataProvider" => $dataProvider));
             }
         } else {
 
