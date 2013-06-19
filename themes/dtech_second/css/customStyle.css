@@ -101,3 +101,15 @@ select#author_id{
     width:124px; 
     height:181px
 } 
+.add_to_wish_list{
+    background: none repeat scroll 0 0 #F89E00;
+    border: medium none;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    font-size: 16.35px;
+    height: 30px;
+    margin: 10px 0 0 10px;
+    padding: 0;
+    width: 19%;
+    cursor:pointer;
+}
