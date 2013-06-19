@@ -45,22 +45,24 @@
                 </div>
                 <div id="right_header">
                     <?php
-                    if (Yii::app()->user->isGuest){
+                    if (Yii::app()->user->isGuest) {
                         echo CHtml::openTag("span");
-                        echo '<a href="#">Sign Up</a>';
+                        echo CHtml::link("Sign Up", $this->createUrl('/web/user/register'));
                         echo CHtml::closeTag("span");
                     }
                     ?>
-                    
+
                     <span>
                         <div id="login_contain">
                             <?php
                             if (!Yii::app()->user->isGuest) {
                                 echo $this->renderPartial("//layouts/_logout_box")
                                 ?>
-                            <?php } else {
-                               $this->renderPartial("//layouts/_login_box");
-                            } ?>
+                            <?php
+                            } else {
+                                $this->renderPartial("//layouts/_login_box");
+                            }
+                            ?>
                         </div>
                     </span>
                     <span>
@@ -69,7 +71,7 @@
                         ?>
                     </span>
                     <span>
-                        <?php echo CHtml::link('Blog', Yii::app()->createUrl('/?r=blog'), array("target" => "_blank")); ?>
+<?php echo CHtml::link('Blog', Yii::app()->createUrl('/?r=blog'), array("target" => "_blank")); ?>
                     </span>
                 </div>
             </header>
@@ -114,7 +116,6 @@
                             <ul>
                                 <li>
                                     <?php
-                                     
                                     $cart = Cart::model()->getCartLists();
                                     //CVarDumper::dump($cart,10,true);
                                     //die;
