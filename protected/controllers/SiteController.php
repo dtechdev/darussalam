@@ -26,8 +26,9 @@ class SiteController extends Controller {
      * New landing page
      */
     public function actionIndex() {
-       
+     
         if(Yii::app()->params['theme'] =="null"){
+            Yii::app()->user->SiteSessions;        
            $this->redirect($this->createUrl("/site/storeHome"));
         }
         

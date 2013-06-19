@@ -29,7 +29,7 @@ class Status extends DTActiveRecord
      */
     public function tableName()
     {
-        return 'user_status';
+        return 'status';
     }
 
     /**

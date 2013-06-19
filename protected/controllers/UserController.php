@@ -27,7 +27,7 @@ class UserController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 
+                'actions' => array('create',
                     'index', 'view',
                 ),
                 'users' => array('@'),
@@ -38,7 +38,7 @@ class UserController extends Controller {
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
             array('allow',
-                'actions' => array('delete', 'update','toggleEnabled'),
+                'actions' => array('delete', 'update', 'toggleEnabled'),
                 'expression' => 'Yii::app()->user->isSuperAdmin',
             //the 'user' var in an accessRule expression is a reference to Yii::app()->user
             ),
@@ -70,8 +70,7 @@ class UserController extends Controller {
      */
     public function actionCreate() {
         $model = new User;
-        $user_profile = new UserProfile('create');
-        $selfSite = new SelfSite();
+
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -79,9 +78,9 @@ class UserController extends Controller {
         if (isset($_POST['User'])) {
 
             $model->attributes = $_POST['User'];
-         
+
             if ($model->save()) {
-        
+
                 $this->redirect(array('view', 'id' => $model->user_id));
             }
         }
@@ -97,13 +96,13 @@ class UserController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
-        $model = $this->loadModel($id);
+        $model = UserUpdate::model()->findByPk($id);
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-        $model->user_password = "";
-        if (isset($_POST['User'])) {
-            $model->attributes = $_POST['User'];
+       
+        if (isset($_POST['UserUpdate'])) {
+            $model->attributes = $_POST['UserUpdate'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->user_id));
         }
@@ -145,12 +144,12 @@ class UserController extends Controller {
         $model = $this->loadModel($id);
         $this->layout = "";
         if ($model->status_id == 1) {
-            $model->status_id = 0;
+            $model->status_id = 2;
         } else {
             $model->status_id = 1;
         }
         echo $id;
-        User::model()->updateByPk($id,array("status_id"=>$model->status_id));
+        User::model()->updateByPk($id, array("status_id" => $model->status_id));
     }
 
     /**

@@ -32,11 +32,14 @@ $this->widget('zii.widgets.CDetailView', array(
     'data' => $model,
     'attributes' => array(
         'user_email',
-        'user_password',
-        'role_id',
-        'status_id',
-        'city_id',
-        'is_active',
+         array(
+             'name'=>'status_id',
+             'value'=>$model->status->title,
+         ),
+        array(
+            'name'=>'city_id',
+            'value'=>!empty($model->city)?$model->city->city_name:"",
+        ),
         'site_id',
     ),
 ));
