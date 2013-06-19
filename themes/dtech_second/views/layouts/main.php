@@ -23,8 +23,12 @@
                 dtech_new.footerToggle();
                 dtech_new.changeBookImgHover();
                 dtech_new.registerCountryDropDown();
+                jQuery("#LandingModel_country").msDropdown();
                 jQuery("#countries").msDropdown();
                 dtech_new.registerPopUp();
+                if (jQuery("#LandingModel_city").attr("type") != "hidden") {
+                    jQuery("#LandingModel_city").msDropdown();
+                }
 
             });
         </script>
@@ -35,13 +39,14 @@
         <div id="wraper">
             <header>
                 <div id="left_header">
-                    <select name="countries" id="countries" style="width:300px;">
-                        <option value='in' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag in" data-title="India" selected="selected">India</option>
-                        <option value='pk' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag pk" data-title="Pakistan">Pakistan</option>
-                        <option value='sa' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag sa" data-title="Saudi Arabia">Saudi Arabia</option>
-                        <option value='uk' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag uk" data-title="United Kingdom">United Kingdom</option>
-                        <option value='us' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag us" data-title="United States">United States</option>
-                    </select>
+                    <?php
+                    /**
+                     * will perform the store change
+                     * 
+                     * 
+                     */
+                    $this->renderPartial("//layouts/_change_city");
+                    ?>
                 </div>
                 <div id="right_header">
                     <?php
@@ -56,9 +61,7 @@
                         <div id="login_contain">
                             <?php
                             if (!Yii::app()->user->isGuest) {
-                                echo $this->renderPartial("//layouts/_logout_box")
-                                ?>
-                            <?php
+                                echo $this->renderPartial("//layouts/_logout_box");
                             } else {
                                 $this->renderPartial("//layouts/_login_box");
                             }
@@ -66,9 +69,9 @@
                         </div>
                     </span>
                     <span>
-                        <?php
-                        echo CHtml::link('Contact Us', $this->createUrl('/site/contact'));
-                        ?>
+<?php
+echo CHtml::link('Contact Us', $this->createUrl('/site/contact'));
+?>
                     </span>
                     <span>
 <?php echo CHtml::link('Blog', Yii::app()->createUrl('/?r=blog'), array("target" => "_blank")); ?>
@@ -78,9 +81,9 @@
             <div id="banner">
                 <div id="upper_banner">
                     <div class="logo">
-                        <?php
-                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/logo_img_03.png", 'Logo'), $this->createDTUrl('/site/index'));
-                        ?>
+<?php
+echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/logo_img_03.png", 'Logo'), $this->createDTUrl('/site/index'));
+?>
                     </div>
                     <div class="search_with_box">
                         <div id="search-box">
@@ -92,21 +95,21 @@
                                     <img src="<?php echo Yii::app()->theme->baseUrl; ?>/images/search_03.png" alt="search img" />
                                 </a>
 
-                                <?php
-                                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                                    'name' => 'serach_field',
-                                    'source' => $this->createUrl("/web/search/dosearch"),
-                                    // additional javascript options for the autocomplete plugin
-                                    'options' => array(
-                                        'minLength' => '1',
-                                    ),
-                                    'htmlOptions' => array(
-                                        'id' => 'search-text',
-                                        'value' => (isset($_POST['serach_field']) ? $_POST['serach_field'] : ""),
-                                        'placeholder' => 'type here',
-                                    ),
-                                ));
-                                ?>
+<?php
+$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+    'name' => 'serach_field',
+    'source' => $this->createUrl("/web/search/dosearch"),
+    // additional javascript options for the autocomplete plugin
+    'options' => array(
+        'minLength' => '1',
+    ),
+    'htmlOptions' => array(
+        'id' => 'search-text',
+        'value' => (isset($_POST['serach_field']) ? $_POST['serach_field'] : ""),
+        'placeholder' => 'type here',
+    ),
+));
+?>
                                 <button id='search-button' type='submit' onclick="dtech.doGloblSearch()"><span>Search</span></button>
                             </form>
                         </div>
@@ -115,22 +118,22 @@
                         <div class="add_to_cart">
                             <ul>
                                 <li>
-                                    <?php
-                                    $cart = Cart::model()->getCartLists();
-                                    //CVarDumper::dump($cart,10,true);
-                                    //die;
-                                    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_03.png"), $this->createUrl("/web/cart/viewcart"));
-                                    echo "<div id='cart_control'>";
-                                    $this->renderPartial("//cart/_cart", array("cart" => $cart));
-                                    echo "</div>";
-                                    ?>
+<?php
+$cart = Cart::model()->getCartLists();
+//CVarDumper::dump($cart,10,true);
+//die;
+echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_03.png"), $this->createUrl("/web/cart/viewcart"));
+echo "<div id='cart_control'>";
+$this->renderPartial("//cart/_cart", array("cart" => $cart));
+echo "</div>";
+?>
                                 </li>
                             </ul>
                         </div>
                         <div class="wishlist">
-                            <?php
-                            $this->renderPartial("//layouts/_wishlist");
-                            ?>
+<?php
+$this->renderPartial("//layouts/_wishlist");
+?>
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -141,29 +144,29 @@
                         <div id="container">
                             <div id="sideBarContainer">
 
-                                <?php
-                                if (isset($this->webPcmWidget['filter'])) {
+<?php
+if (isset($this->webPcmWidget['filter'])) {
 
-                                    $this->widget($this->webPcmWidget['filter']['name'], $this->webPcmWidget['filter']['attributes']);
-                                }
-                                ?>
+    $this->widget($this->webPcmWidget['filter']['name'], $this->webPcmWidget['filter']['attributes']);
+}
+?>
                             </div>
                         </div>
                         <div class="best_seller">
-                            <?php
-                            if (isset($this->webPcmWidget['best'])) {
+<?php
+if (isset($this->webPcmWidget['best'])) {
 
-                                $this->widget($this->webPcmWidget['best']['name'], $this->webPcmWidget['best']['attributes']);
-                            }
-                            ?>
+    $this->widget($this->webPcmWidget['best']['name'], $this->webPcmWidget['best']['attributes']);
+}
+?>
 
                         </div>
                     </div>
                 </div>
             </div>
-            <?php
-            echo $content;
-            ?>
+<?php
+echo $content;
+?>
     </body>
 
 </html>

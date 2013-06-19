@@ -26,12 +26,12 @@ class SiteController extends Controller {
      * New landing page
      */
     public function actionIndex() {
-     
-        if(Yii::app()->params['theme'] =="null"){
-            Yii::app()->user->SiteSessions;        
-           $this->redirect($this->createUrl("/site/storeHome"));
+
+        if (Yii::app()->params['theme'] == "null") {
+            Yii::app()->user->SiteSessions;
+            $this->redirect($this->createUrl("/site/storeHome"));
         }
-        
+
         Yii::app()->controller->layout = "";
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = 'landing_page_theme';
@@ -62,8 +62,8 @@ class SiteController extends Controller {
     public function actionStoreHome() {
 
         Yii::app()->user->SiteSessions;
-    
-        
+
+
 
         //to laod the new layout bar uncomment this lin
         //Yii::app()->controller->layout = '//layouts/search_bar_slider';
@@ -82,7 +82,7 @@ class SiteController extends Controller {
 
         $segments_footer_cats = Categories::model()->getCategoriesInSegment(5);
         $dataProviderAll = Product::model()->allProducts();
-        $this->render($this->slash.'/site/storehome', array(
+        $this->render($this->slash . '/site/storehome', array(
             'featured_products' => $featured_products,
             'best_sellings' => $bestSellings,
             'segments_footer_cats' => $segments_footer_cats,
@@ -112,8 +112,15 @@ class SiteController extends Controller {
         Yii::app()->session['city_short_name'] = $city_short_name;
         Yii::app()->session['city_id'] = $city['city_id'];
         Yii::app()->theme = Yii::app()->session['layout'];
+        /**
+         * in case of no ajax
+         */
+        if (isset($_REQUEST['no_ajax'])) {
+            $this->redirect($this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
+        }
         echo CJSON::encode(array('redirect' => $this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']))));
     }
+
 
     /*
      * Method to handle landing page 
@@ -127,12 +134,12 @@ class SiteController extends Controller {
             $model->attributes = $_POST['LandingModel'];
             if (empty($model->country)) {
                 Yii::app()->user->SiteSessions;
-                $this->redirect($this->createUrl('/site/storehome'));
+                $this->redirect($this->createUrl('/site/storeHome'));
             }
             if (!empty($model->city)) {
                 $_REQUEST['city_id'] = $model->city;
                 Yii::app()->user->SiteSessions;
-                $this->redirect($this->createUrl('/site/storehome'));
+                $this->redirect($this->createUrl('/site/storeHome'));
             }
             /**
              * if city id is null then no frenchise
@@ -202,7 +209,7 @@ class SiteController extends Controller {
      * Displays the login page
      */
     public function actionLogin() {
-         Yii::app()->controller->layout = "//layouts/column2";
+        Yii::app()->controller->layout = "//layouts/column2";
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = 'dtech_second';
         $model = new LoginForm;
@@ -212,8 +219,8 @@ class SiteController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-        
-       
+
+
 
         // collect user input data
         if (isset($_POST['LoginForm'])) {
@@ -237,22 +244,17 @@ class SiteController extends Controller {
                     $wishlist = new WishList();
                     $wishlist->addWishlistByUser();
                 }
-                
-                
+
+
                 /**
                  * for pop up login
                  * when user want to login 
                  */
-                if(!empty($model->route)){
-                     $this->redirect($model->route);
-                }
-                else{
+                if (!empty($model->route)) {
+                    $this->redirect($model->route);
+                } else {
                     $this->redirect(Yii::app()->user->returnUrl);
                 }
-                
-
-                
-                
             }
         }
         $model->password = "";
