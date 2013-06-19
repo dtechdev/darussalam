@@ -53,7 +53,7 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
         echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/facebook_login_03.png"), $this->createUrl('/web/hybrid/login/', array("provider" => "facebook")),array("onclick"=>"dtech.doSocial('login-form',this);return false;"));
         echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/bird_login_03.png"), $this->createUrl('/web/hybrid/login/', array("provider" => "twitter")),array("onclick"=>"dtech.doSocial('login-form',this);return false;"));
         echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/google_login_03.png"), $this->createUrl('/web/hybrid/login/', array("provider" => "google")),array("onclick"=>"dtech.doSocial('login-form',this);return false;"));
-        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/in_img_06.png"), $this->createUrl('/web/hybrid/login/', array("provider" => "linkden")),array("onclick"=>"dtech.doSocial('login-form',this);return false;"));
+        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/in_img_06.png"), $this->createUrl('/web/hybrid/login/', array("provider" => "linkedin")),array("onclick"=>"dtech.doSocial('login-form',this);return false;"));
         ?>
     </div>
 </div>
