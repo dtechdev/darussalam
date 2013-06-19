@@ -81,7 +81,7 @@ class UserController extends Controller {
             }
         }
 
-        $this->render('register', array(
+        $this->render($this->slash.'/user/register', array(
             'model' => $model,
         ));
     }
@@ -182,7 +182,7 @@ class UserController extends Controller {
             }
         }
 
-        $this->render('forgot_password', array('model' => User::model()));
+        $this->render($this->slash.'/user/forgot_password', array('model' => User::model()));
     }
 
     /*
@@ -191,7 +191,7 @@ class UserController extends Controller {
      */
 
     public function actionChangePass() {
-        Yii::app()->controller->layout = '//layouts/main';
+        //Yii::app()->controller->layout = '//layouts/main';
         $model = new ChangePassword;
         if (Yii::app()->user->id) {
             if (isset($_POST['ChangePassword'])) {
@@ -205,7 +205,7 @@ class UserController extends Controller {
                     }
                 }
             }
-            $this->render('change_password', array('model' => $model));
+            $this->render($this->slash.'/user/change_password', array('model' => $model));
         }
     }
 
