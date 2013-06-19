@@ -73,7 +73,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'name' => 'status_id',
             'type' => 'Raw',
-            'value' => '($data->status_id==1)?"Active":"Inactive"',
+            'value' => '($data->status_id==1)?$data->status->title:"Inactive"',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
@@ -114,7 +114,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'disable' => array(
                     'label' => '[ Enable ]',
                     'url' => 'Yii::app()->controller->createUrl("/user/toggleEnabled",array("id"=>$data->user_id))',
-                    'visible' => '$data->status_id==0',
+                    'visible' => '$data->status_id==2',
                     'click' => "function(event){
                                 event.preventDefault();
                                 $.ajax({
@@ -133,7 +133,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'disableimg' => array(
                     'label' => 'Disabled',
                     'imageUrl' => Yii::app()->request->baseUrl . '/images/disable.png',
-                    'visible' => '$data->status_id==0',
+                    'visible' => '$data->status_id==2',
                 ),
                 
             ),

@@ -145,7 +145,7 @@ class UserController extends Controller {
         $model = $this->loadModel($id);
         $this->layout = "";
         if ($model->status_id == 1) {
-            $model->status_id = 0;
+            $model->status_id = 2;
         } else {
             $model->status_id = 1;
         }
