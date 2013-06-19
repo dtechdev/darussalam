@@ -24,7 +24,14 @@
             );
             ?>
             <h2><?php echo substr($pro->productProfile->product->product_name, 0, 10) . ".."; ?></h2>
-            <span><?php echo round($pro->productProfile->price, 2); ?> PKR</span>
+            <span>
+                <span class="unit_price">
+                     <?php echo round($pro->productProfile->price, 2); ?> =
+                </span>
+               
+                <span class="sub_total"><?php echo round($pro->quantity * $pro->productProfile->price, 2); ?> </span>
+            </span>
+            
         </div>
         <?php
     }
@@ -34,7 +41,7 @@
         echo CHtml::image(Yii::app()->theme->baseUrl . "/images/total_little_img_03.png");
         ?>
         <h3>TOTAL:</h3>
-        <h4><?php echo $grand_total; ?> PKR</h4>
+        <h4><?php echo $grand_total; ?> USD</h4>
     </div>
     <div id="check_out_pointer">
     </div>

@@ -29,7 +29,7 @@
                                
                                 jQuery("#loading").hide();
                                 dtech.custom_alert("Item has added to cart" ,"Add to Cart");
-                                dtech_new.loadCartAgain("'.$this->createUrl("/web/cart/loadCart").'");
+                                dtech_new.loadCartAgain("' . $this->createUrl("/web/cart/loadCart") . '");
                                
                             });    
                       ', 'class' => 'add_to_cart_arrow'));
@@ -121,8 +121,13 @@
             $cat_count++;
         }
         ?></section>
+    <section>Price: <?php
+        echo isset($product->educationToys[0]->price) ? '$ ' . round($product->educationToys[0]->price, 2) : "";
+        ?>
+    </section>
 
 </div>
+
 
 <script>
     function totalPrice(quantity, price)

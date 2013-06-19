@@ -123,3 +123,15 @@ select#author_id{
     width: 25px;
     float: left;
 }
+.unit_price {
+    float: left;
+    width: 45% !important;
+}
+.sub_total {
+    font-weight: bold;
+}
+#cart_control .sub-menu{
+    height: 500px;
+    min-height: 200px;
+    overflow-y: scroll;
+}
