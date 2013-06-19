@@ -59,7 +59,7 @@
             <?php echo $form->error($model, 'activation_key'); ?>
         </div>
 
-  
+
 
 
         <div class="row">
@@ -81,8 +81,12 @@
         <div class="row">
             <?php echo $form->labelEx($model, 'status_id'); ?>
             <?php
+            $criteria = new CDbCriteria();
+            $criteria->select = "id,title";
+            $criteria->addCondition("module = 'User'");
+            $status = CHtml::listData(Status::model()->findAll(), "id", "title");
             echo $form->dropDownList(
-                    $model, 'status_id', array("0" => "Disabled", "1" => "Enabled")
+                    $model, 'status_id', $status
             );
             ?>
             <?php echo $form->error($model, 'status_id'); ?>
