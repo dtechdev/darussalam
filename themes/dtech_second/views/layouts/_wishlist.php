@@ -1,9 +1,6 @@
-<a href="#">
-    <?php
-    echo CHtml::image(Yii::app()->theme->baseUrl . "/images/wishlist_img_03.png");
-    ?>
-</a>
 <?php
+echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/wishlist_img_03.png"), $this->createUrl('/web/wishList/viewwishlist'));
+
 $ip = Yii::app()->request->getUserHostAddress();
 if (isset(Yii::app()->user->id)) {
     $tot = Yii::app()->db->createCommand()
@@ -20,4 +17,4 @@ if (isset(Yii::app()->user->id)) {
 }
 $wishlistCount = ($tot['total_pro'] > 0) ? $tot['total_pro'] : 0;
 ?>
-<span><?php echo $wishlistCount; ?></span>
+<span id="wishlist_counter"><?php echo $wishlistCount; ?></span>
