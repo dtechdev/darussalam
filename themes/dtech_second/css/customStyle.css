@@ -177,3 +177,35 @@ div.country_submit .btn-submit {
     background: #28597a;
     color: #ccc;
 }
+
+.chang_pass_content {
+
+    background: none repeat scroll 0 0 #E1DDE1;
+    border-radius: 10px 10px 10px 10px;
+    float: left;
+    height: 218px;
+    padding: 8px 3px 1px 4px;
+    width: 346px;
+}
+.chang_password_button{
+
+    background: none repeat scroll 0 0 #10459C;
+    border: medium none;
+    border-radius: 10px 10px 10px 10px;
+    color: #FFFFFF;
+    font-size: 13px;
+    height: 32px;
+    margin: 12px 5px 10px 145px;
+    padding: 7px 3px 11px 7px;
+    width: 50%;
+}
+.chang_pass_content p {
+    color: #493C37;
+    font-size: 14px;
+    line-height: 25px;
+    padding: 0 15px;
+    margin: 0;
+}
+.flash-done{
+    color: green;
+}
