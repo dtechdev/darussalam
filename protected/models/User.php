@@ -39,7 +39,6 @@ class User extends DTActiveRecord {
     public $user_password2;
     public $old_password;
 
-
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
@@ -60,7 +59,6 @@ class User extends DTActiveRecord {
         return array(
             array('user_password,user_email', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            
             array('role_id, status_id, city_id, site_id', 'numerical', 'integerOnly' => true),
             array('user_password, activation_key', 'length', 'max' => 255),
             array('is_active', 'length', 'max' => 8),
@@ -216,7 +214,9 @@ class User extends DTActiveRecord {
             /** in case of form is filling this value * */
             $this->join_date = DTFunctions::dateFormatForSave($this->join_date);
         }
-        $this->user_password = md5($this->user_password);
+        if (!empty($this->user_password)) {
+            $this->user_password = md5($this->user_password);
+        }
         parent::beforeSave();
         return true;
     }
@@ -261,20 +261,19 @@ class User extends DTActiveRecord {
         $data = $model->with('orderDetails')->findAll('user_id=' . $id);
         return $data;
     }
-    
+
     /**
      * Get city admin
      * Temporray
      */
-    public function getCityAdmin(){
+    public function getCityAdmin() {
         $critera = new CDbCriteria();
         $critera->select = "user_email";
         $critera->condition = "role_id =2";
         $user = User::model()->find($critera);
-        if(!empty($user)){
+        if (!empty($user)) {
             return $user->user_email;
-        }
-        else {
+        } else {
             return Yii::app()->params['default_admin'];
         }
     }

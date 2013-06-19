@@ -23,7 +23,9 @@
         <?php echo $form->textField($model, 'user_email'); ?>
         <?php echo $form->error($model, 'user_email'); ?>
     </div>
-
+    <?php
+        if($model->isNewRecord):
+    ?>
     <div class="row">
         <?php echo $form->labelEx($model, 'user_password'); ?>
         <?php echo $form->passwordField($model, 'user_password', array('size' => 60, 'maxlength' => 255)); ?>
@@ -35,7 +37,9 @@
         <?php echo $form->passwordField($model, 'user_password2', array('size' => 60, 'maxlength' => 255)); ?>
         <?php echo $form->error($model, 'user_password2'); ?>
     </div>
-
+    <?php
+        endif;
+    ?>
     <?php
     if (!Yii::app()->user->isGuest) {
         ?>
