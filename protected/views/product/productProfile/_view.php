@@ -1,3 +1,22 @@
+<div class="pading-bottom-5">
+    <div class="left_float">
+        <h1>View Profile <?php echo $model->item_code; ?></h1>
+    </div>
+
+    <?php /* Convert to Monitoring Log Buttons */ ?>
+    <div class = "right_float">
+        <span class="creatdate">
+            <?php
+            echo CHtml::link("Update Book", $this->createUrl("update",array("id"=>$model->product->product_id)), array('class' => "print_link_btn"))
+            ?>
+        </span>
+        <span class="creatdate">
+            <?php
+            echo CHtml::link("View Book", $this->createUrl("view",array("id"=>$model->product->product_id)), array('class' => "print_link_btn"))
+            ?>
+        </span>
+    </div>
+</div>
 <?php
 
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/gridform.css');
