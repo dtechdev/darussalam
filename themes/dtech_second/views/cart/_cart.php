@@ -14,25 +14,16 @@
         ?>
         <div class="sub-sub-menu">
             <?php
-            $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
-            echo CHtml::dropDownList('quantity' . $pro->cart_id, '', $quantities, array(
-                'options' => array($pro->quantity => array('selected' => true)),
-                'ajax' => array(
-                    'type' => 'POST',
-                    'url' => $this->createUrl('/web/cart/editcart'),
-                    'data' => array('quantity' => 'js:jQuery(this).val()', 'type' => 'update_quantity', 
-                        'cart_id' => $pro->cart_id,'from'=>"main"),
-                    'dataType' => 'json',
-                    'success' => 'function(data) {
-                                                   
-                                                    $("#loading").hide();
-                                                    $("#cart_control").html(data._view_cart);
-                                                    
-                                                }',
-                ))
+            
+            echo CHtml::textField('quantity' . $pro->cart_id, $pro->quantity,
+               array(
+                   "class"=>"_small_cart_text",
+                   "onkeyup"=>"
+                            dtech_new.updateCart('".$this->createUrl('/web/cart/editcart')."',this,'".$pro->cart_id."');
+                    ")     
             );
             ?>
-            <h2><?php echo substr($pro->productProfile->product->product_name, 0, 5) . ".."; ?></h2>
+            <h2><?php echo substr($pro->productProfile->product->product_name, 0, 10) . ".."; ?></h2>
             <span><?php echo round($pro->productProfile->price, 2); ?> PKR</span>
         </div>
         <?php

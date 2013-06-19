@@ -29,6 +29,7 @@
                                
                                 jQuery("#loading").hide();
                                 dtech.custom_alert("Item has added to cart" ,"Add to Cart");
+                                dtech_new.loadCartAgain("'.$this->createUrl("/web/cart/loadCart").'");
                                
                             });    
                       ', 'class' => 'add_to_cart_arrow'));

@@ -119,3 +119,7 @@ select#author_id{
 .add_to_cart_arrow {
     float: left;
 }
+._small_cart_text {
+    width: 25px;
+    float: left;
+}
