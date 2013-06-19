@@ -41,7 +41,7 @@ class UserProfile extends DTActiveRecord {
     }
 
     public function __construct($scenario = 'insert') {
-        $this->uploaded_img = Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png";
+        $this->uploaded_img = Yii::app()->baseUrl . "/images/noImage.png";
         parent::__construct($scenario);
     }
 
@@ -143,7 +143,7 @@ class UserProfile extends DTActiveRecord {
         if (!empty($this->avatar)) {
             $this->uploaded_img = Yii::app()->baseUrl . "/uploads/user_profile/" . $this->user->primaryKey . "/" . $this->avatar;
         } else {
-            $this->uploaded_img = Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png";
+            $this->uploaded_img = Yii::app()->baseUrl . "/images/noImage.png";
         }
 
         if (!empty($this->date_of_birth)) {

@@ -83,8 +83,8 @@ class UserProfileController extends Controller {
                 $this->redirect($this->createUrl("index"));
             }
         }
-
-        $this->render('update', array(
+      
+        $this->render($this->slash.'/userProfile/update', array(
             'model' => $model,
         ));
     }

@@ -10,9 +10,7 @@ $this->breadcrumbs=array(
 
 
 $this->menu=array(
-
-	array('label'=>'View UserProfile', 'url'=>array('view', 'id'=>$model->id)),
-	
+	array('label'=>'View UserProfile', 'url'=>array('view', 'id'=>$model->id)),	
 );
 ?>
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('//userProfile/_form', array('model'=>$model)); ?>
