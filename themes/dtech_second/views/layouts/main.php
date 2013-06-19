@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl ?>/js/jquery-1.8.0.min.js"></script>
         <title>Darussalam</title>
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/style.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/popup_style.css" />
@@ -10,7 +11,7 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/msdropdown/flags.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/customStyle.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl ?>/media/css/overlay.css" />
-        <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl ?>/js/jquery-1.8.0.min.js"></script>
+        
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl ?>/js/dtech_new.js"></script>
         <script src="<?php echo Yii::app()->baseUrl; ?>/media/js/dtech.js"></script>
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl ?>/js/msdropdown/jquery.dd.min.js"></script>

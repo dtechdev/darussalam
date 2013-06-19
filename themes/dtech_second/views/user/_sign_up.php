@@ -1,13 +1,22 @@
 <?php
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/form.css');
+Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/media/css/password_strength.css');
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/media/js/password_strength_plugin.js');
 ?>
+<script>
+    jQuery(function() {
+        jQuery(".password_test").passStrength({
+            userid: "#User_user_name"
+        });
+    })
 
+</script>    
 <div class="form_container">
-    <div class="row_left_form row_center_form" style="min-height: 430px;" >
+    <div class="row_left_form row_center_form row_signup_form" style="min-height: 430px;" >
         <?php
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'user-form',
-            'enableClientValidation' => TRUE,
+            'enableClientValidation' => false,
         ));
         ?>
         <div class="shipping_address_heading">
@@ -22,7 +31,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/for
                 <article></article>
             </div>
             <div class="row_input_type">
-                <div style="color: red;font-size:13px;">
+                <div class="errorSummary-custom">
                     <?php echo $form->errorSummary($model); ?>
                 </div>
             </div>
@@ -37,7 +46,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/for
                 <?php echo $form->textField($model, 'user_name', array('class' => 'row_text_type')); ?>
             </div>
             <div class="row_text">
-                <article><?php // echo $form->error($model, 'user_name');      ?></article>
+                <article><?php // echo $form->error($model, 'user_name');        ?></article>
             </div>
         </div>
 
@@ -49,7 +58,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/for
                 <?php echo $form->textField($model, 'user_email', array('class' => 'row_text_type')); ?>
             </div>
             <div class="row_text">
-                <article><?php //echo $form->error($model, 'user_email');      ?></article>
+                <article><?php //echo $form->error($model, 'user_email');        ?></article>
             </div>
         </div>
 
@@ -58,11 +67,11 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/for
                 <article><?php echo $form->labelEx($model, 'user_password'); ?></article>
             </div>
             <div class="row_input_type">
-                <?php echo $form->passwordField($model, 'user_password', array('class' => 'row_text_type')); ?>
+                <?php echo $form->passwordField($model, 'user_password', array('class' => 'row_text_type password_test')); ?>
                 <?php //echo $form->passwordField($model, 'user_password', array('class' => 'row_text_type', 'onKeyUp' => 'javascript:validata_password(this.value)')); ?>
             </div>
             <div class="row_text">
-                <article><?php //echo $form->error($model, 'user_password');      ?></article>
+                <article><?php //echo $form->error($model, 'user_password');        ?></article>
             </div>
         </div>
 
@@ -74,7 +83,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/for
                 <?php echo $form->passwordField($model, 'user_password2', array('class' => 'row_text_type')); ?>
             </div>
             <div class="row_text">
-                <article><?php //echo $form->error($model, 'user_password2');      ?></article>
+                <article><?php //echo $form->error($model, 'user_password2');        ?></article>
             </div>
         </div>
 
@@ -91,7 +100,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/for
                 </span>
             </div>
             <div class="row_text">
-                <article><?php // echo $form->error($model, 'special_offer');      ?></article>
+                <article><?php // echo $form->error($model, 'special_offer');        ?></article>
             </div>
         </div>
 
@@ -106,7 +115,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/for
                 </span>
             </div>
             <div class="row_text">
-                <article><?php // echo $form->error($model, 'agreement_status');      ?></article>
+                <article><?php // echo $form->error($model, 'agreement_status');        ?></article>
             </div>
         </div>
         <div class="row_input">

@@ -59,7 +59,10 @@ hr.style-two {
     float: none !important;
     min-height:710px;
 }
-
+.row_signup_form div.row_input div.row_input_type input.row_text_type{
+   width: 60% !important;
+   float: left;
+}
 .row_left_form h2 { padding: 0; margin: 0; float:left; color:#003366; font-size:17px; font-weight:normal; }
 
 .row_left_form article { color:#333333; font-size:12px; padding: 0; margin: 4px 0px 0 30px; float:left; }
@@ -108,4 +111,7 @@ hr.style-two {
 span.flash {
     color:green;
     font-size: 12px;
+}
+.errorSummary-custom{
+    color: red;font-size:13px;
 }

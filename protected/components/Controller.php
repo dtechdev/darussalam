@@ -13,6 +13,13 @@ class Controller extends CController {
     public $layout = '//layouts/slider';
 
     /**
+     * Register script/css files
+     * @var array
+     */
+    public $cs;
+    public $scriptMap = array();
+
+    /**
      * @var array context menu items. This property will be assigned to {@link CMenu::items}.
      */
     public $menu = array();
@@ -62,6 +69,16 @@ class Controller extends CController {
         if (strstr($this->basePath, "protected")) {
             $this->basePath = realPath($this->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR);
         }
+
+        /**
+         * Check if script is already loaded then not reload it.
+         * This is used in case of ajax calls.
+         */
+        Yii::app()->clientScript->scriptMap = array(
+            (YII_DEBUG ? 'jquery.js' : 'jquery.min.js') => false,
+            //'jquery-ui.min.js' => false,
+            //'jquery-ui.css' => false
+        );
         return true;
     }
 
@@ -90,7 +107,7 @@ class Controller extends CController {
                 ->from("conf_misc")
                 ->where("misc_type='general' AND param ='theme'")
                 ->queryRow();
-        
+
         Yii::app()->params['theme'] = $theme['value'];
 
         if (Yii::app()->params['theme'] == 'dtech_second') {
