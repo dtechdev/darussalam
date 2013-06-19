@@ -6,7 +6,7 @@
     <p>
         <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/stars_img_03.png"); ?>
         (7)</p>
-   
+
     <article>
         <?php
         echo CHtml::textField('quantity', '1', array('onKeyUp' => 'javascript:totalPrice(this.value,"' . $product->productProfile[0]->price . '")', 'style' => 'width:40px', 'maxlength' => '3'));
@@ -32,6 +32,29 @@
                                
                             });    
                       ', 'class' => 'add_to_cart_arrow'));
+        ?>
+
+
+        <?php
+        echo CHtml::ajaxLink(' Add to wishlist', $this->createUrl('/cart/addtowishlist'), array('data' => array(
+                'product_profile_id' => $product->productProfile[0]->id,
+                'city_id' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
+                'city' => !empty($_REQUEST['city_id']) ? $_REQUEST['city_id'] : Yii::app()->session['city_id'],
+            ),
+            'type' => 'POST',
+            'dataType' => 'json',
+            'success' => 'function(data){
+                                           old_counter = jQuery.trim(jQuery("#wishlist_counter").html());
+                                           jQuery("#wishlist_counter").html(data.wishlist_counter);
+                                           if(old_counter < data.wishlist_counter){
+                                                 dtech.custom_alert("Item has added to Wishlist","Add to Wishlist");
+                                           }
+                                           else {
+                                                dtech.custom_alert("Already in Wishlist", "Add to Wishlist");
+                                           }
+                                      }',
+                ), array('id' => 'add-wish-list' . uniqid(), 'class' => 'add_to_wish_list')
+        );
         ?>
 
     </div>
