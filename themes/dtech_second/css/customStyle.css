@@ -130,11 +130,12 @@ select#author_id{
 .sub_total {
     font-weight: bold;
 }
-#cart_control .sub-menu{
-    height: 500px;
-    min-height: 200px;
+#cart_control .sub-menu .sub-menu-child{
+    height: 100px;
+    min-height: 100px;
     overflow-y: scroll;
 }
+
 #country_container {
     float: left;
 }
