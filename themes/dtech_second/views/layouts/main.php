@@ -23,8 +23,12 @@
                 dtech_new.footerToggle();
                 dtech_new.changeBookImgHover();
                 dtech_new.registerCountryDropDown();
+                jQuery("#LandingModel_country").msDropdown();
                 jQuery("#countries").msDropdown();
                 dtech_new.registerPopUp();
+                if (jQuery("#LandingModel_city").attr("type") != "hidden") {
+                    jQuery("#LandingModel_city").msDropdown();
+                }
 
             });
         </script>
@@ -35,32 +39,35 @@
         <div id="wraper">
             <header>
                 <div id="left_header">
-                    <select name="countries" id="countries" style="width:300px;">
-                        <option value='in' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag in" data-title="India" selected="selected">India</option>
-                        <option value='pk' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag pk" data-title="Pakistan">Pakistan</option>
-                        <option value='sa' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag sa" data-title="Saudi Arabia">Saudi Arabia</option>
-                        <option value='uk' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag uk" data-title="United Kingdom">United Kingdom</option>
-                        <option value='us' data-image="<?php echo Yii::app()->theme->baseUrl ?>/images/msdropdown/icons/blank.gif" data-imagecss="flag us" data-title="United States">United States</option>
-                    </select>
+                    <?php
+                    /**
+                     * will perform the store change
+                     * 
+                     * 
+                     */
+                    $this->renderPartial("//layouts/_change_city");
+                    ?>
                 </div>
                 <div id="right_header">
                     <?php
-                    if (Yii::app()->user->isGuest){
+                    if (Yii::app()->user->isGuest) {
                         echo CHtml::openTag("span");
                         echo '<a href="#">Sign Up</a>';
                         echo CHtml::closeTag("span");
                     }
                     ?>
-                    
+
                     <span>
                         <div id="login_contain">
                             <?php
                             if (!Yii::app()->user->isGuest) {
                                 echo $this->renderPartial("//layouts/_logout_box")
                                 ?>
-                            <?php } else {
-                               $this->renderPartial("//layouts/_login_box");
-                            } ?>
+                                <?php
+                            } else {
+                                $this->renderPartial("//layouts/_login_box");
+                            }
+                            ?>
                         </div>
                     </span>
                     <span>
@@ -114,7 +121,6 @@
                             <ul>
                                 <li>
                                     <?php
-                                     
                                     $cart = Cart::model()->getCartLists();
                                     //CVarDumper::dump($cart,10,true);
                                     //die;

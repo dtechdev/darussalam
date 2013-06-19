@@ -95,8 +95,8 @@ var dtech = {
     load_languageDetail: function() {
 
         hash_str = window.location.hash;
-        
-        
+
+
         if (hash_str != "") {
             hash_str = hash_str.split("=");
 
@@ -136,7 +136,7 @@ var dtech = {
          * hybrid auth used hash sign
          * dats y made this check
          */
-        if(hash_str == "#_=_"){
+        if (hash_str == "#_=_") {
             return true;
         }
         if (hash_str != "") {
@@ -293,20 +293,45 @@ var dtech = {
             });
         }
     },
-    
-    checkApplied : function (obj){
-        if(jQuery(obj).is(':checked') == true){
-            jQuery(".applied").each(function(){
-                if(jQuery(obj).attr("id")!= jQuery(this).attr("id")){
+    /**
+     * 
+     * @param {type} ajax_url
+     * @param {type} update_element_id
+     * @param {type} resource_elem_id
+     * @param {type} callback function
+     * 
+     */
+    updateElementCountry: function(ajax_url, update_element_id, resource_elem_id) {
+        if (jQuery("#" + resource_elem_id).val() != "") {
+            jQuery.ajax({
+                type: "POST",
+                url: ajax_url,
+                data:
+                        {
+                            resource_elem_id: jQuery("#" + resource_elem_id).val(),
+                        }
+            }).done(function(response) {
+                jQuery("#" + update_element_id).html(response);
+                if (jQuery("#LandingModel_city").attr("type") != "hidden") {
+                    jQuery("#LandingModel_city").msDropdown();
+                }
+
+            });
+        }
+    },
+    checkApplied: function(obj) {
+        if (jQuery(obj).is(':checked') == true) {
+            jQuery(".applied").each(function() {
+                if (jQuery(obj).attr("id") != jQuery(this).attr("id")) {
                     jQuery(this).prop('checked', false);
                 }
             })
         }
     },
     //
-    doSocial : function (form_id,obj){
-        jQuery('#'+form_id).attr("action",jQuery(obj).attr('href'));
-        jQuery('#'+form_id).submit();
-        
+    doSocial: function(form_id, obj) {
+        jQuery('#' + form_id).attr("action", jQuery(obj).attr('href'));
+        jQuery('#' + form_id).submit();
+
     }
 }
