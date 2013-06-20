@@ -62,7 +62,7 @@ class SiteController extends Controller {
     public function actionStoreHome() {
 
         Yii::app()->user->SiteSessions;
-
+        Yii::app()->controller->layout = '//layouts/column1';
 
 
         //to laod the new layout bar uncomment this lin
