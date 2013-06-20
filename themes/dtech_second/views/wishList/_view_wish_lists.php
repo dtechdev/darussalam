@@ -7,6 +7,22 @@
      * links becasue every category may have different things
      * so 
      */
+    $view_array = array(
+        "Books" => array(
+            "controller" => "product",
+            "view" => "_books/_book_info"
+        ),
+        "Educational Toys" => array(
+            "controller" => "educationToys",
+        ),
+        "Quran" => array(
+            "controller" => "quran",
+            "view" => "_quran/_quran_info"
+        ),
+        "Others" => array(
+            "controller" => "others",
+        ),
+    );
 
 
     foreach ($wishList as $pro) {
@@ -54,10 +70,10 @@
                     <section>Price   :<?php echo round($pro->productProfile->price, 2); ?> PKR
                         <div class="clear"></div>
                         <div class="quantity_text">
-                          
+
                             <?php
-                              echo CHtml::textField("cart_".$pro->id,1);
-                              ?>
+                            echo CHtml::textField("cart_" . $pro->id, 1);
+                            ?>
                         </div>
                         <div class="up_down">
                             <?php
@@ -110,10 +126,8 @@
 
 
                         <?php
-                        echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart',array('product_profile_id' => $pro->product_profile_id)), 
-                           array(
-                             'data' => 'js:{quantity:jQuery("#cart_'.$pro->id.'").val()}',
-                           
+                        echo CHtml::ajaxButton('Add to Cart', $this->createUrl('/cart/addtocart', array('product_profile_id' => $pro->product_profile_id)), array(
+                            'data' => 'js:{quantity:jQuery("#cart_' . $pro->id . '").val()}',
                             'type' => 'POST',
                             'dataType' => 'json',
                             'success' => 'function(data){
@@ -127,5 +141,5 @@
                 </div>
             </div>
         </div>
-    <?php } ?>
+<?php } ?>
 </div>
