@@ -38,6 +38,7 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
     </div>
     <div class="secure_form">
         <?php
+        
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'card-form',
             'enableClientValidation' => true,
@@ -46,13 +47,12 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
             ),
         ));
 
-        $this->renderPartial("_shipping_detail_temp", array("model" => $model, "regionList" => $regionList, "form" => $form));
-        $this->renderPartial("_payment_methods", array("model" => $model,
-            "form" => $form, "creditCardModel" => $creditCardModel));
-        echo CHtml::submitButton('continue', array('class' => 'continue'));
+        $this->renderPartial("//payment/_shipping_detail_temp", array("model" => $model, "regionList" => $regionList, "form" => $form));
+        $this->renderPartial("//payment/_payment_methods", array("model" => $model, "form" => $form, "creditCardModel" => $creditCardModel));
+        //echo CHtml::submitButton('continue', array('class' => 'continue'));
         $this->endWidget();
         ?>
-        <div class="secure_right_form">
+<!--        <div class="secure_right_form">
             <article><span>*</span>Payment Method</article>
             <img src="images/norton_secured_03.png" />
             <div class="secure_input">
@@ -66,6 +66,6 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
                 </div>
                 <input type="button" class="shipping_btn" value="Shipping" />
             </div>
-        </div>
+        </div>-->
     </div>
 </div>
