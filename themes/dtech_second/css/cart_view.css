@@ -35,7 +35,7 @@
 
 .up_down a img { padding: 0; margin: 0; height:10px; }
 
-.remove_shipping { border:none; background:#f89e00; height:30px; border-radius:5px; color:#f8f8f8; font-size:16.35px; cursor:pointer; width:150px; margin: 30px 0 0 0; }
+.remove_shipping { border:none; background:#f89e00; height:30px; border-radius:5px; color:#f8f8f8; font-size:16.35px; cursor:pointer; width:200px; margin: 30px 0 0 0; }
 
 .shopping_bag { width:270px; float:right; padding: 0px; margin: 40px 50px 0 0; background:#e0e3df; border-radius:5px; }
 
@@ -52,3 +52,9 @@
 .shopping_scroller { overflow-y:scroll; height:150px; width:240px; overflow-x:hidden; padding: 10px; margin: 0 0 10px 0; }
 
 #cart_check { border:solid 10px transparent; border-bottom-color:#10459c; position: absolute; margin: 28px 0 0 125px; }
+
+.add_shipping { border:none; background:#f89e00; height:30px; border-radius:5px; color:#f8f8f8; font-size:16.35px; cursor:pointer; width:200px; margin: 0px 0 0 20px; }
+
+.shipping_button { padding: 0; margin: 0; float:left; }
+
+.under_view_heading h2 { padding: 0 0 0 15px; margin: 0; }
