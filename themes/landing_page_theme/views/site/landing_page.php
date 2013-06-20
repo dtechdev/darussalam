@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Darussalam Landing Page</title>
+        <script type="text/javascript" src="<?php echo Yii::app()->baseUrl ?>/packages/jui/js/jquery.js"></script>
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/style.css" />
         <script src="<?php echo Yii::app()->baseUrl; ?>/media/js/dtech.js"></script>
         <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
