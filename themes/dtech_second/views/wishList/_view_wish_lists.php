@@ -79,6 +79,11 @@
         /**
          * setting parent category
          */
+        $parent_cat = "Books";
+        if (!empty($pro->productProfile->product->parent_category->category_name)) {
+            $parent_cat = $pro->productProfile->product->parent_category->category_name;
+        }
+
         $images = $pro->productProfile->getImage();
         $image = $pro->productProfile->product['no_image'];
         if (isset($images[0]['image_small'])) {
