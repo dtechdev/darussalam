@@ -15,7 +15,7 @@ class CartController extends Controller {
 
         $cart = Cart::model()->getCartLists();
 
-        $this->render('viewcart', array('cart' => $cart));
+        $this->render($this->slash.'/cart/viewcart', array('cart' => $cart));
     }
 
     /**
