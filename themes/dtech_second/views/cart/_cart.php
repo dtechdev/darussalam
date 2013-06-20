@@ -51,7 +51,7 @@
             "class" => "check_out",
             "onclick" => "window.location = '" . $this->createUrl('/web/payment/paymentmethod') . "'"));
     } else {
-        echo CHtml::button("CHECKOUT", array(
+         echo CHtml::button("CHECKOUT", array(
             "class" => "check_out",
             "onclick" => "window.location = '" . $this->createUrl('/web/cart/viewcart') . "'"));
     }
