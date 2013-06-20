@@ -174,10 +174,14 @@ div.country_submit .btn-submit {
     cursor: pointer;
 }
 div.country_submit .btn-submit {
-    border-top-color: #28597a;
-    background: #28597a;
-    color: #ccc;
+    background:#F49E08;
+    border: medium none;
+    color:#888888;
+    height: 34px;
+    margin: -3px 0 0;
+    cursor: pointer;
 }
+div.country_submit .btn-submit:hover { color:#FFF; }
 
 .chang_pass_content {
 
@@ -209,4 +213,16 @@ div.country_submit .btn-submit {
 }
 .flash-done{
     color: green;
+}
+#upper_banner {
+    z-index: 2;
+}
+#search-button {
+    z-index: 30;
+}
+.add_to_cart {
+    z-index: -10;
+}
+#search-box {
+     
 }

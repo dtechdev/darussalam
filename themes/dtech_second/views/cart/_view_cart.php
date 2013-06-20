@@ -19,16 +19,12 @@
 
                             <div class="clear"></div>
                             <div class="quantity_text">
-                                <input type="text" value="<?php echo $pro->quantity ?>" />
-                            </div>
-                            <div class="up_down">
+
                                 <?php
-                                echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/up_img_03.png", "", array("class" => "shipping_up_img")), $this->createUrl(''));
-                                ?>
-                                <?php
-                                echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/down_img_03.png", "", array("class" => "shipping_down_img")), $this->createUrl(''));
+                                echo CHtml::textField("cart_bag_" . $pro->cart_id, $pro->quantity, array("readOnly" => "readOnly"));
                                 ?>
                             </div>
+
                             <span><?php echo substr($pro->productProfile->product->product_name, 0, 10) . ".."; ?></span>
                         </section>
                     </div>
@@ -44,16 +40,17 @@
             ?>
             <h3>TOTAL:</h3>
             <h4>
-                <?php
-                $grand_total = 0;
-                $total_quantity = 0;
-                foreach ($cart as $pro) {
-                    $grand_total = $grand_total + ($pro->quantity * $pro->productProfile->price);
-                    $total_quantity+=$pro->quantity;
-                }
-                echo $grand_total;
-                ?>
-
+                <span class="grand_total_bag">
+                    <?php
+                    $grand_total = 0;
+                    $total_quantity = 0;
+                    foreach ($cart as $pro) {
+                        $grand_total = $grand_total + ($pro->quantity * $pro->productProfile->price);
+                        $total_quantity+=$pro->quantity;
+                    }
+                    echo $grand_total;
+                    ?>
+                </span>   
                 PKR
             </h4>
         </div>
@@ -78,7 +75,7 @@
             "controller" => "educationToys",
         ),
         "Quran" => array(
-            "controller" => "educationToys",
+            "controller" => "quran",
             "view" => "_quran/_quran_info"
         ),
         "Others" => array(
@@ -130,14 +127,12 @@
 
                     <h4>
                         <?php
-//                        $this->dtdump($cart);
-//                        die;
-                        echo substr($pro->productProfile->product->product_name, 0, 10) . "..";
+                        echo $pro->productProfile->product->product_name;
                         ?>
                     </h4>
                     <p>Item Code: 
                         <span>
-                            <?php echo isset($pro->productProfile->item_code) ? $product->productProfile[0]->item_code : ""; ?>
+                            <?php echo isset($pro->productProfile->item_code) ? $pro->productProfile->item_code : ""; ?>
                         </span>
                     </p>
 
@@ -147,22 +142,68 @@
                         ?>
                         (7)
                     </article>
-                    <section>Price   :<?php echo round($pro->productProfile->price, 2); ?> PKR
+                    <section>Price   :<?php echo round($pro->productProfile->price, 2); ?> 
                         <div class="clear"></div>
                         <div class="quantity_text">
-                            <input type="text" value="1" />
+                            <?php
+                            echo CHtml::textField("cart_list_" . $pro->cart_id, $pro->quantity, array("readOnly" => "readOnly"));
+                            ?>
                         </div>
                         <div class="up_down">
                             <?php
-                            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/up_img_03.png", "", array("class" => "shipping_up_img")), $this->createUrl(''));
+                            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/up_img_03.png", "", array("class" => "shipping_up_img")), 'javascript:void(0)', array(
+                                "onclick" => "
+                                        dtech.increaseQuantity(this);
+                                        var txt_obj = jQuery(this).parent().prev().children().eq(0);
+                                        dtech_new.updateCart('" . $this->createUrl('/web/cart/editcart') . "',txt_obj,'" . $pro->cart_id . "');
+                                        "
+                            ));
                             ?>
                             <?php
-                            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/down_img_03.png", "", array("class" => "shipping_down_img")), $this->createUrl(''));
+                            echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/down_img_03.png", "", array("class" => "shipping_down_img")), 'javascript:void(0)', array(
+                                "onclick" => "
+                                            dtech.decreaseQuantity(this);
+                                            var txt_obj = jQuery(this).parent().prev().children().eq(0);
+                                            dtech_new.updateCart('" . $this->createUrl('/web/cart/editcart') . "',txt_obj,'" . $pro->cart_id . "');
+                                            "
+                            ));
                             ?>
                         </div>
 
                     </section>
-                    <input type="button" class="remove_shipping" value="Remove" />
+                  
+                    <?php
+                    /*
+                      ajax link for for delete cart data / cart management /card edit
+                     */
+                    echo CHtml::ajaxButton("Remove"
+                            , $this->createUrl("/web/cart/editcart"), array(
+                        "type" => "POST",
+                        'dataType' => 'json',
+                        "data" => array(
+                            "type" => 'delete_cart',
+                            "cart_id" => $pro->cart_id,
+                        ),
+                        "success" => "function(data) {
+                                                jQuery('#loading').hide();
+                                                jQuery('#cart_container').html(data._view_cart);
+                                                dtech_new.loadCartAgain('".$this->createUrl("/web/cart/loadCart")."');
+                                                
+                                          }",
+                            ), array(
+                        "onclick" => "
+                                        if(confirm('Are you want to remove this item from cart')){
+
+                                           jQuery('#loading').show();
+                                           
+                                         }
+                                         else {
+                                           return  false;
+                                         }
+                                    ","class"=>'remove_shipping'
+                            )
+                    );
+                    ?>
                 </div>
             </div>
         </div>

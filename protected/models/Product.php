@@ -24,7 +24,6 @@ class Product extends DTActiveRecord {
 
     public $no_image;
 
-
     public function __construct($scenario = 'insert') {
         $this->no_image = Yii::app()->baseUrl . "/images/product_images/noimages.jpeg";
         parent::__construct($scenario);
@@ -89,7 +88,7 @@ class Product extends DTActiveRecord {
              * only for ajax views
              */
             'productSelectedProfile' => array(self::HAS_MANY, 'ProductProfile', 'product_id', 'condition' => 'language_id=' . $lang_id),
-            'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id','limit'=>4), // to display only 4 reviews 
+            'product_reviews' => array(self::HAS_MANY, 'ProductReviews', 'product_id', 'limit' => 4), // to display only 4 reviews 
             'author' => array(self::BELONGS_TO, 'Author', 'authors'),
             'language' => array(self::BELONGS_TO, 'Language', 'languages'),
         );
@@ -123,7 +122,6 @@ class Product extends DTActiveRecord {
             'parent_cateogry_id' => 'Parent Category',
             '_parent_category' => 'Category',
             'product_description' => 'Product Description',
-     
             'city_id' => 'City',
             'authors' => 'Author',
             'is_featured' => 'Is Featured',
@@ -195,10 +193,10 @@ class Product extends DTActiveRecord {
         /**
          * 
          */
-        if(!empty($_GET['category'])){
-                $criteria->join.= ' LEFT JOIN product_categories  ON ' .
-                        't.product_id=product_categories.product_id';
-                $criteria->addCondition("product_categories.category_id='" . $_GET['category'] . "'");
+        if (!empty($_GET['category'])) {
+            $criteria->join.= ' LEFT JOIN product_categories  ON ' .
+                    't.product_id=product_categories.product_id';
+            $criteria->addCondition("product_categories.category_id='" . $_GET['category'] . "'");
         }
 
         $dataProvider = new CActiveDataProvider($this, array(
@@ -223,15 +221,15 @@ class Product extends DTActiveRecord {
         $images = array();
         foreach ($data as $products) {
             $product_id = $products->product_id;
-           
+
             $criteria2 = new CDbCriteria;
             $criteria2->select = '*';  // only select the 'title' column
             $criteria2->condition = "product_profile_id='" . $products->productProfile[0]->id . "'";
-         
+
             $imagedata = ProductImage::model()->findAll($criteria2);
             $images = array();
             foreach ($imagedata as $img) {
-              
+
                 if ($img->is_default == 1) {
                     $images[] = array('id' => $img->id,
                         'image_large' => $img->image_url['image_large'],
@@ -246,7 +244,7 @@ class Product extends DTActiveRecord {
                     break;
                 }
             }
-     
+
 
             $all_pro[] = array(
                 'product_id' => $products->product_id,
@@ -261,8 +259,8 @@ class Product extends DTActiveRecord {
                 'image' => $images
             );
         }
-    
-           
+
+
         return $all_pro;
     }
 
@@ -283,8 +281,17 @@ class Product extends DTActiveRecord {
         $criteria->compare('city_id', $this->city_id);
         $criteria->compare('is_featured', $this->is_featured, true);
 
+
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'sort' => array(
+                'defaultOrder' => array(
+                    'product_id' => true,
+                ),
+            ),
+            'pagination' => array(
+                'pageSize' => 40,
+            ),
         ));
     }
 

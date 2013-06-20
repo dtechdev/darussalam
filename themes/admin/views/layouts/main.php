@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="en" />
-
+        <script type="text/javascript" src="<?php echo Yii::app()->baseUrl ?>/packages/jui/js/jquery.js"></script>
         <!-- blueprint CSS framework -->
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/screen-override.css" media="screen, projection" />
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/print.css" media="print" />
@@ -20,7 +20,7 @@
             var yii_base_url = "<?php echo Yii::app()->baseUrl; ?>";
 
         </script>
-        
+
         <script type="text/javascript" src="<?php echo Yii::app()->baseUrl ?>/media/js/dtech.js"></script>
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -76,7 +76,7 @@
                                 'items' => array(
                                     // array('label' => "Change Password", 'url' => array('/users/changepass'),'visible'=>(Yii::app()->user->isGuest)?0:1),
                                     //array('label' => (Yii::app()->user->theme == "Night" ? "Day" : "Night"), 'url' => array('/user/changeTheme')),
-                                    array('label' => 'Configuration', 'url' => $this->createUrl('/configurations/load', array('m' => 'Misc','type'=>'general')), 'visible' => (Yii::app()->user->isGuest) ? 0 : 1, 'itemOptions' => array('class' => '')),
+                                    array('label' => 'Configuration', 'url' => $this->createUrl('/configurations/load', array('m' => 'Misc', 'type' => 'general')), 'visible' => (Yii::app()->user->isGuest) ? 0 : 1, 'itemOptions' => array('class' => '')),
                                     array('label' => 'Logout', 'url' => array('/site/logout'), 'visible' => (Yii::app()->user->isGuest) ? 0 : 1, 'itemOptions' => array('class' => 'logout border-none')),
                                     array('label' => 'Login', 'url' => array('/site/login'), 'visible' => (Yii::app()->user->isGuest) ? 1 : 0, 'itemOptions' => array('class' => 'logout border-none')),
                                 ),

@@ -104,7 +104,7 @@ header { padding: 0 20px; margin: 0; width:97%; background:#092b71; float:left; 
 
 #banner { border-top: 1px solid #000; padding: 0 0px 0 0px; margin: 0 0px 0 0px; width:100%; float:left; background:#FFF; }
 
-#upper_banner { position:fixed; width:100%; top: 35px; background:#FFF; }
+#upper_banner { width:100%; margin-top: 35px; background:#FFF; }
 
 .logo { width:30%; padding: 0; margin: 10px 0 0 0; float:left; }
 

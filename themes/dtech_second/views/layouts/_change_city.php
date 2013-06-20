@@ -12,6 +12,7 @@ $model = new LandingModel();
 
 <div id="country_container">
     <?php
+    $model->country = Yii::app()->session['country_id'];
     echo $form->dropDownList($model, 'country', CHtml::listData(Country::model()->findAll(), 'country_id', 'country_name'), array(
         'onchange' => '
                             dtech.updateElementCountry("' . $this->createDTUrl('/CommonSystem/getCity') . '","cities","LandingModel_country")',
@@ -27,6 +28,7 @@ $model = new LandingModel();
         echo CHtml::activeHiddenField($model, 'city', array("value" => $cityList[0]['city_id']));
     } else {
         $cityList = CHtml::listData($cityList, 'city_id', 'city_name');
+        $model->city = Yii::app()->session['city_id'];
         echo CHtml::activeDropDownList($model, 'city', $cityList, array('style' => 'width:100px'));
     }
     ?>

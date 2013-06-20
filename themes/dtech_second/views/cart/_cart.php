@@ -41,7 +41,7 @@
         echo CHtml::image(Yii::app()->theme->baseUrl . "/images/total_little_img_03.png");
         ?>
         <h3>TOTAL:</h3>
-        <h4><?php echo $grand_total; ?> USD</h4>
+        <h4><span class="grand_total"><?php echo $grand_total; ?></span> USD</h4>
     </div>
     <div id="check_out_pointer">
     </div>

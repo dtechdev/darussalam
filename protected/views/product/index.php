@@ -52,7 +52,11 @@ $this->PcmWidget['filter'] = array('name' => 'ItstLeftFilter',
 $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'product-grid',
     'dataProvider' => $model->search(),
+    
     'filter' => $model,
+    'pager' => array(
+        'cssFile' => Yii::app()->theme->baseUrl . '/css/pager.css',
+     ),
     'columns' => array(
         array(
             'name' => 'product_name',

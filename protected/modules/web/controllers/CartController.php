@@ -32,7 +32,7 @@ class CartController extends Controller {
      */
     public function actionEditcart() {
 
-        $view = "_view_cart";
+        $view = $this->slash."/cart/_view_cart";
         if ($_REQUEST['type'] == 'delete_cart') {
             $cart_model = new Cart();
 
@@ -49,7 +49,7 @@ class CartController extends Controller {
          */
 
         if (isset($_REQUEST['from'])) {
-            $view = "//cart/_cart";
+            $view = $this->slash."/cart/_cart";
         }
         $cart = Cart::model()->getCartLists();
         $cart_list_count = Cart::model()->getCartListCount();
