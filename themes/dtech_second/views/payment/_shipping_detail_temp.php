@@ -2,14 +2,14 @@
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/form.css');
 ?>
 <div class="form_container">
-    <div class="row_left_form row_center_form row_signup_form" style="min-height: 450px;" >
+    <div class="row_left_form row_center_form row_signup_form" style="min-height: 500px;" >
         <?php
         echo $form->hiddenField($model, 'payment_method', array("value" => "3"));
         ?>
         <div class="shipping_address_heading">
             <h2>Shipping Address</h2><article><span>*</span>Mandatory Fields</article>
         </div>
-        
+
         <?php echo CHtml::submitButton('Submit', array('class' => 'secure_button')); ?>
         <div class="secure_input">
             <div class="secure_text">
@@ -103,6 +103,20 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/for
                 <?php echo $form->error($model, 'shipping_country'); ?>
             </div>
         </div>
+        <div class="secure_input">
+            <div class="secure_text">
+                <article>
+                    <?php
+                    echo $form->labelEx($model, "shipping_state");
+                    ?>
+                </article>
+            </div>
+            <div class="secure_input_type">
+                <?php echo $form->dropDownList($model, 'shipping_state', $model->_states); ?>
+                <?php echo $form->error($model, 'shipping_state'); ?>
+            </div>
+        </div>
+
         <div class="secure_input">
             <div class="secure_text">
                 <article>
