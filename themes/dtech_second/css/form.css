@@ -115,3 +115,6 @@ span.flash {
 .errorSummary-custom{
     color: red;font-size:13px;
 }
+.secure_button {
+    cursor: pointer;
+}

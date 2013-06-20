@@ -49,23 +49,9 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
 
         $this->renderPartial("//payment/_shipping_detail_temp", array("model" => $model, "regionList" => $regionList, "form" => $form));
         $this->renderPartial("//payment/_payment_methods", array("model" => $model, "form" => $form, "creditCardModel" => $creditCardModel));
-        //echo CHtml::submitButton('continue', array('class' => 'continue'));
+     
         $this->endWidget();
         ?>
-<!--        <div class="secure_right_form">
-            <article><span>*</span>Payment Method</article>
-            <img src="images/norton_secured_03.png" />
-            <div class="secure_input">
-                <select>
-                    <option></option>
-                    <option>1</option>
-                    <option>2</option>
-                </select>
-                <div class="payment_checkbox">
-                    <input type="checkbox" /><span> Save your payment method for any future transactions</span>
-                </div>
-                <input type="button" class="shipping_btn" value="Shipping" />
-            </div>
-        </div>-->
+
     </div>
 </div>

@@ -45,9 +45,23 @@ class ShippingInfoForm extends CFormModel {
     /**
      * Declares attribute labels.
      */
+
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
     public function attributeLabels() {
         return array(
-                //'rememberMe'=>'Remember me next time',
+            'shipping_prefix' => 'Prefix',
+            'shipping_first_name' => 'First Name',
+            'shipping_last_name' => 'Last Name',
+            'shipping_address1' => 'Address 1',
+            'shipping_address2' => 'Address 2',
+            'shipping_country' => 'Country',
+            'shipping_city' => 'City',
+            'shipping_state' => 'State',
+            'shipping_zip' => 'Zip Code',
+            'shipping_phone' => 'Phone',
+            'payment_method' => 'Payment Method',
         );
     }
 
@@ -94,7 +108,7 @@ class ShippingInfoForm extends CFormModel {
             $criteria->order = "id DESC";
 
             $user_order_shipping = UserOrderShipping::model()->find($criteria);
-          
+
             if (!empty($user_order_shipping)) {
                 $this->shipping_first_name = $user_order_shipping->shipping_first_name;
                 $this->shipping_last_name = $user_order_shipping->shipping_last_name;

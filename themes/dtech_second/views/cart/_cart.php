@@ -45,5 +45,9 @@
     </div>
     <div id="check_out_pointer">
     </div>
-    <input type="button" value="CHECKOUT" class="check_out" />
+    <?php
+        echo CHtml::button("CHECKOUT",array(
+                    "class"=>"check_out",
+                    "onclick"=>"window.location = '".$this->createUrl('/web/payment/paymentmethod')."'"));
+    ?>
 </ul>

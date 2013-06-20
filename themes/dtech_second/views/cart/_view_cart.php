@@ -56,7 +56,11 @@
         </div>
         <div id="cart_check">
         </div>
-        <input type="button" value="CHECKOUT" class="check_out" />
+        <?php
+        echo CHtml::button("CHECKOUT", array(
+            "class" => "check_out",
+            "onclick" => "window.location = '" . $this->createUrl('/web/payment/paymentmethod') . "'"));
+        ?>
     </div>
 
 
@@ -171,7 +175,7 @@
                         </div>
 
                     </section>
-                  
+
                     <?php
                     /*
                       ajax link for for delete cart data / cart management /card edit
@@ -187,7 +191,7 @@
                         "success" => "function(data) {
                                                 jQuery('#loading').hide();
                                                 jQuery('#cart_container').html(data._view_cart);
-                                                dtech_new.loadCartAgain('".$this->createUrl("/web/cart/loadCart")."');
+                                                dtech_new.loadCartAgain('" . $this->createUrl("/web/cart/loadCart") . "');
                                                 
                                           }",
                             ), array(
@@ -200,7 +204,7 @@
                                          else {
                                            return  false;
                                          }
-                                    ","class"=>'remove_shipping'
+                                    ", "class" => 'remove_shipping'
                             )
                     );
                     ?>
