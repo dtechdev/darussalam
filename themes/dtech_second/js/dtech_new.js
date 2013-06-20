@@ -15,11 +15,13 @@ var dtech_new = {
                 jQuery("#upper_banner").removeAttr("style");
                 jQuery("button#search-button").hide();
                 jQuery(".add_to_cart").hide();
+                jQuery("#search-box").css("z-index","-1");
             }
             else {
                 jQuery("#upper_banner").css("position", "fixed");
                 jQuery("button#search-button").show();
                 jQuery(".add_to_cart").show();
+                jQuery("#search-box").removeAttr("style");
             }
             button.toggleClass('active');
 

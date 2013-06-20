@@ -7,7 +7,7 @@
 
 #login_btn span { border:none; }
 
-#login_bx { position:absolute; padding: 0; margin: 30px 0 0 -130px; z-index:2;display:none; }
+#login_bx { position:absolute; padding: 0; margin: 30px 0 0 -130px; z-index:1000;display:none; }
 
 #login_btn.active em {}
 

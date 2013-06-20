@@ -174,13 +174,14 @@ div.country_submit .btn-submit {
     cursor: pointer;
 }
 div.country_submit .btn-submit {
-    background: none repeat scroll 0 0 #000000;
+    background:#F49E08;
     border: medium none;
-    color: #FFFFFF;
+    color:#888888;
     height: 34px;
     margin: -3px 0 0;
     cursor: pointer;
 }
+div.country_submit .btn-submit:hover { color:#FFF; }
 
 .chang_pass_content {
 
@@ -223,5 +224,5 @@ div.country_submit .btn-submit {
     z-index: -10;
 }
 #search-box {
-  z-index: -1;   
+     
 }
