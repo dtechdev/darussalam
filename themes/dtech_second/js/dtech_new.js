@@ -6,16 +6,27 @@ var dtech_new = {
         var box = jQuery('#login_bx');
         var form = jQuery('#login_frm');
         button.removeAttr('href');
+        
         button.mouseup(function(ev) {
             box.toggle();
+            if(box.is(':visible') == true){
+                 jQuery("#upper_banner").css("position","relative");
+            }
+            else{
+                jQuery("#upper_banner").css("position","fixed");
+            }
             button.toggleClass('active');
+           
         });
         form.mouseup(function() {
+            
             return false;
         });
         jQuery(this).mouseup(function(login) {
             if (!(jQuery(login.target).parent('#login_btn').length > 0)) {
                 button.removeClass('active');
+                $("#upper_banner").css("position","fixed");
+               
                 box.hide();
             }
         });
