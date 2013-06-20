@@ -174,9 +174,12 @@ div.country_submit .btn-submit {
     cursor: pointer;
 }
 div.country_submit .btn-submit {
-    border-top-color: #28597a;
-    background: #28597a;
-    color: #ccc;
+    background: none repeat scroll 0 0 #000000;
+    border: medium none;
+    color: #FFFFFF;
+    height: 34px;
+    margin: -3px 0 0;
+    cursor: pointer;
 }
 
 .chang_pass_content {
