@@ -12,9 +12,18 @@
                 <h2 style="font-size:17px; color:#003366;margin: 20px 0 0 15px;">Your Wish List is empty.....</h2>
             </div>
         </div>
-        <?php
-    } else {
+    <?php } else {
+        ?>
 
+        <div class="shipping_books_and_content">
+            <div class="under_view_heading">
+                <h2>Wishlist</h2>
+                <?php
+                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/under_heading_07.png");
+                ?>
+            </div>
+        </div>
+        <?php
         /**
          * to handle the views 
          * links becasue every category may have different things
@@ -56,6 +65,7 @@
             }
             ?>
             <div class="shipping_books_and_content">
+
                 <div class="shipping_books">
                     <div class="shipping_book">
                         <?php

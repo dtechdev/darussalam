@@ -72,7 +72,14 @@
             </div>
             <input type="button" value="CHECKOUT" class="check_out" />
         </div>
-
+        <div class="shipping_books_and_content">
+            <div class="under_view_heading">
+                <h3>Shopping Cart</h3>
+                <?php
+                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/under_heading_07.png");
+                ?>
+            </div>
+        </div>
 
         <?php
         /**
@@ -124,12 +131,7 @@
 
 
             <div class="shipping_books_and_content">
-                <div class="under_view_heading">
-                    <h3>Shopping Cart</h3>
-                    <?php
-                    echo CHtml::image(Yii::app()->theme->baseUrl . "/images/under_heading_07.png");
-                    ?>
-                </div>
+
                 <div class="shipping_books">
                     <div class="shipping_book">
                         <?php
