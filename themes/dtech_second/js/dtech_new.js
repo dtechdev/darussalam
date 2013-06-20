@@ -15,7 +15,7 @@ var dtech_new = {
                 jQuery("#upper_banner").removeAttr("style");
                 jQuery("button#search-button").hide();
                 jQuery(".add_to_cart").hide();
-                jQuery("#search-box").css("z-index","-1");
+                jQuery("#search-box").css("z-index", "-1");
             }
             else {
                 jQuery("#upper_banner").css("position", "fixed");
@@ -195,6 +195,9 @@ var dtech_new = {
         }).done(function(response) {
 
             jQuery("#cart_control").html(response._view_cart);
+            if (jQuery(".grand_total_bag").length > 0) {
+                jQuery(".grand_total_bag").html(jQuery(".grand_total").html());
+            }
         });
 
 

@@ -333,5 +333,46 @@ var dtech = {
         jQuery('#' + form_id).attr("action", jQuery(obj).attr('href'));
         jQuery('#' + form_id).submit();
 
+    },
+    increaseQuantity: function(obj) {
+        /**
+         * accessing text field
+         */
+        field_val = jQuery(obj).parent().prev().children().eq(0).val();
+        if (field_val == "") {
+            field_val = 1;
+        }
+        field_val = parseInt(field_val);
+        field_val = field_val + 1;
+        jQuery(obj).parent().prev().children().eq(0).val(field_val);
+        dtech.updateShoppingBag(jQuery(obj).parent().prev().children().eq(0));
+
+    },
+    decreaseQuantity: function(obj) {
+        /**
+         * accessing text field
+         */
+        field_val = jQuery(obj).parent().prev().children().eq(0).val();
+        if (field_val == "") {
+            field_val = 1;
+        }
+
+        field_val = parseInt(field_val);
+        field_val = field_val - 1;
+        if (field_val < 0) {
+            field_val = 0;
+        }
+        jQuery(obj).parent().prev().children().eq(0).val(field_val);
+        dtech.updateShoppingBag(jQuery(obj).parent().prev().children().eq(0));
+    },
+    /**
+     * 
+     * @param {type} obj
+     * @returns {undefined}
+     */
+    updateShoppingBag: function(field_obj) {
+
+        field_id = field_obj.attr("id").replace("cart_list_", "");
+        jQuery("#cart_bag_" + field_id).val(field_obj.val());
     }
 }
