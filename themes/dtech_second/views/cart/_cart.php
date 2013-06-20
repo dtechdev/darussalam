@@ -46,8 +46,14 @@
     <div id="check_out_pointer">
     </div>
     <?php
-        echo CHtml::button("CHECKOUT",array(
-                    "class"=>"check_out",
-                    "onclick"=>"window.location = '".$this->createUrl('/web/payment/paymentmethod')."'"));
+    if (!empty($cart)) {
+        echo CHtml::button("CHECKOUT", array(
+            "class" => "check_out",
+            "onclick" => "window.location = '" . $this->createUrl('/web/payment/paymentmethod') . "'"));
+    } else {
+        echo CHtml::button("CHECKOUT", array(
+            "class" => "check_out",
+            "onclick" => "window.location = '" . $this->createUrl('/web/cart/viewcart') . "'"));
+    }
     ?>
 </ul>
