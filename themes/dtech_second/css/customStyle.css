@@ -213,3 +213,15 @@ div.country_submit .btn-submit {
 .flash-done{
     color: green;
 }
+#upper_banner {
+    z-index: 2;
+}
+#search-button {
+    z-index: 30;
+}
+.add_to_cart {
+    z-index: -10;
+}
+#search-box {
+  z-index: -1;   
+}
