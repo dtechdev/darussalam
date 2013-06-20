@@ -84,7 +84,7 @@
                 <div id="upper_banner">
                     <div class="logo">
                         <?php
-                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/logo_img_03.png", 'Logo'), $this->createDTUrl('/site/index'));
+                        echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/logo_img_03.png", 'Logo'), $this->createUrl('/site/storeHome'));
                         ?>
                     </div>
                     <div class="search_with_box">
@@ -122,8 +122,7 @@
                                 <li>
                                     <?php
                                     $cart = Cart::model()->getCartLists();
-//CVarDumper::dump($cart,10,true);
-//die;
+
                                     echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/shopping_cart_03.png"), $this->createUrl("/web/cart/viewcart"));
                                     echo "<div id='cart_control'>";
                                     $this->renderPartial("//cart/_cart", array("cart" => $cart));
