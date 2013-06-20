@@ -209,3 +209,7 @@ div.country_submit .btn-submit:hover { color:#FFF; }
 #search-box {
      
 }
+
+.check_out{
+    cursor: pointer;
+}
