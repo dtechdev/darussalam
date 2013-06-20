@@ -12,7 +12,7 @@ class WishListController extends Controller {
 
         $wishlist = WishList::model()->getWishLists();
 
-        $this->render('viewwishlist', array('wishList' => $wishlist));
+        $this->render($this->slash . '/wishList/viewwishlist', array('wishList' => $wishlist));
     }
 
     /**
@@ -28,9 +28,8 @@ class WishListController extends Controller {
              */
             $wishlist = WishList::model()->getWishLists();
             $wish_list_count = WishList::model()->getWishListCount();
-            $_view_list = $this->renderPartial("_view_wish_lists", array('wishList' => $wishlist), true, true);
-
-            echo CJSON::encode(array("_view_list" => $_view_list, "wish_list_count" => $wish_list_count));
+            $_view_list = $this->renderPartial("//wishList/_view_wish_lists", array('wishList' => $wishlist), true, true);
+            echo CJSON::encode(array("_view_list" => $_view_list, "wish_list_count" => $wish_list_count['total_pro']));
         }
     }
 
