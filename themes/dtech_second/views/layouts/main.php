@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/msdropdown/flags.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/customStyle.css" />
         <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl ?>/media/css/overlay.css" />
+        <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl ?>/css/cart_view.css" />
         
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl ?>/js/dtech_new.js"></script>
         <script src="<?php echo Yii::app()->baseUrl; ?>/media/js/dtech.js"></script>
