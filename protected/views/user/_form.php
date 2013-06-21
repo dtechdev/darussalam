@@ -54,18 +54,6 @@
             <?php echo $form->error($model, 'city_id'); ?>
         </div>
 
-
-
-
-        <div class="row">
-            <?php echo $form->labelEx($model, 'activation_key'); ?>
-            <?php echo $form->textField($model, 'activation_key', array('size' => 60, 'maxlength' => 255)); ?>
-            <?php echo $form->error($model, 'activation_key'); ?>
-        </div>
-
-
-
-
         <div class="row">
             <?php echo $form->labelEx($model, 'site_id'); ?>
             <?php $ld = CHtml::listData(SelfSite::model()->findAll(), 'site_id', 'site_name'); ?>

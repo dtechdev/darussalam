@@ -6,7 +6,7 @@
 $user_id = Yii::app()->user->id;
 //$this->layout='column2';
 if (Yii::app()->user->isAdmin || Yii::app()->user->isSuperAdmin) {
-   $this->renderPartial("/common/_left_menu");
+    $this->renderPartial("/common/_left_menu");
 }
 
 Yii::app()->clientScript->registerScript('search', "
@@ -56,8 +56,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'name' => 'status_id',
             'type' => 'Raw',
-            //'value' => 'if($data->status_id="1")?Active:"Inactive"',
-            'value' => '$data->status_id',
+            'value' => '($data->status_id==1)?$data->status->title:"Inactive"',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )
@@ -71,8 +70,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'style' => "text-align:left"
             )
         ),
-        
-     
         /*
           'activation_key',
           'is_active',
@@ -81,7 +78,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'class' => 'CLinkColumn',
             'label' => 'view',
-            'urlExpression' =>'Yii::app()->createUrl("/customer/ordersList",array("id"=>$data->user_id,"country" => Yii::app()->session["country_short_name"], "city" => Yii::app()->session["city_short_name"], "city_id" => Yii::app()->session["city_id"]))',
+            'urlExpression' => 'Yii::app()->createUrl("/customer/ordersList",array("id"=>$data->user_id,"country" => Yii::app()->session["country_short_name"], "city" => Yii::app()->session["city_short_name"], "city_id" => Yii::app()->session["city_id"]))',
             'header' => 'Purchase History',
         ),
         array(

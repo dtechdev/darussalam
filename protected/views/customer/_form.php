@@ -41,17 +41,23 @@
         <?php echo $form->error($model, 'user_email'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'user_password'); ?>
-        <?php echo $form->passwordField($model, 'user_password', array('size' => 60, 'maxlength' => 255)); ?>
-        <?php echo $form->error($model, 'user_password'); ?>
-    </div>
+    <?php
+    if ($model->isNewRecord):
+        ?>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'user_password'); ?>
+            <?php echo $form->passwordField($model, 'user_password', array('size' => 60, 'maxlength' => 255)); ?>
+            <?php echo $form->error($model, 'user_password'); ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'user_password2'); ?>
-        <?php echo $form->passwordField($model, 'user_password2', array('size' => 60, 'maxlength' => 255)); ?>
-        <?php echo $form->error($model, 'user_password2'); ?>
-    </div>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'user_password2'); ?>
+            <?php echo $form->passwordField($model, 'user_password2', array('size' => 60, 'maxlength' => 255)); ?>
+            <?php echo $form->error($model, 'user_password2'); ?>
+        </div>
+        <?php
+    endif;
+    ?>
 
     <?php
     if (!Yii::app()->user->isGuest) {
@@ -93,21 +99,20 @@
             <?php echo $form->error($model, 'site_id'); ?>
         </div>
 
-        <div class="row">
-            <?php echo $form->labelEx($model, 'role_id'); ?>
-            <?php $rolels = CHtml::listData(UserRole::model()->findAll(), 'role_id', 'role_title'); ?>
-            <?php //echo  $form->dropDownList($model,'role_id',$rolels,array('prompt'=>'Select a Role'));?>
-            <?php // showing data from the webuser class AND the user getAccesslevellist method  ?>
-            <?php echo $form->dropDownList($model, 'role_id', $model->accessLevelList); ?>
-            <?php echo $form->error($model, 'role_id'); ?>
-        </div>
-
+        <?php echo $form->hiddenField($model, 'role_id', array("value" => 3)); ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'status_id'); ?>
-            <?php echo $form->textField($model, 'status_id'); ?>
+            <?php
+            $criteria = new CDbCriteria();
+            $criteria->select = "id,title";
+            $criteria->addCondition("module = 'User'");
+            $status = CHtml::listData(Status::model()->findAll(), "id", "title");
+            echo $form->dropDownList(
+                    $model, 'status_id', $status
+            );
+            ?>
             <?php echo $form->error($model, 'status_id'); ?>
         </div>
-
 
 
         <div class="row">

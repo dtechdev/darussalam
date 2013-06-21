@@ -31,11 +31,15 @@ $this->widget('zii.widgets.CDetailView', array(
     'attributes' => array(
         'user_email',
         'user_password',
-        'role_id',
-        'status_id',
-        'city_id',
-        'is_active',
-        'site_id',
+        array(
+             'name'=>'status_id',
+             'value'=>$model->status->title,
+         ),
+        array(
+            'name'=>'city_id',
+            'value'=>!empty($model->city)?$model->city->city_name:"",
+        ),
+
     ),
 ));
 ?>

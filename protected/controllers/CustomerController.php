@@ -103,7 +103,8 @@ class CustomerController extends Controller {
      */
     public function actionIndex() {
 
-        $model = new User('search');
+        $model = new User('searchCustomer');
+     
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['User'])) {
             $model->attributes = $_GET['User'];
