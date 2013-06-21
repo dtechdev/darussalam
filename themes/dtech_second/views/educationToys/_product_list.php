@@ -1,32 +1,34 @@
 <div class="pagingdiv">
-<?php
-$this->widget('DTPager', array(
-    'pages' => $dataProvider->pagination,
-    'ajax' => true,
-    'append_param' => (!empty($_REQUEST['serach_field'])) ? "serach_field=" . $_REQUEST['serach_field'] : "",
-    'jsMethod' => 'dtech.updatePaginationFilter(this);return false;',
-        )
-);
-?>
+    <?php
+    $this->widget('DTPager', array(
+        'pages' => $dataProvider->pagination,
+        'ajax' => true,
+        'append_param' => (!empty($_REQUEST['serach_field'])) ? "serach_field=" . $_REQUEST['serach_field'] : "",
+        'jsMethod' => 'dtech.updatePaginationFilter(this);return false;',
+            )
+    );
+    ?>
 </div>
 <div class="clear"></div>
 <?php
 foreach ($products as $product) {
-    $name = $product['product_name'];
+    $name = substr($product['product_name'], 0, 19) . "..";
 
     $image = $product['no_image'];
+
     if (isset($product['image'][0]['image_small'])) {
         $image = $product['image'][0]['image_small'];
     }
     echo CHtml::openTag("div", array("class" => "featured_books", 'style' => 'padding:28px 50px'));
 
-    echo CHtml::link(CHtml::image($image, $name, array('style' => 'width:92px; height:138px;margin:0 0 17px 0px; box-shadow: 0 0 5px 5px #888; padding:2px 2px')),$this->createUrl('/web/educationToys/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id']));
+    echo CHtml::link(CHtml::image($image, $name, array('title'=>$product['product_name'],'style' => 'width:92px; height:138px;margin:0 0 17px 0px; box-shadow: 0 0 5px 5px #888; padding:2px 2px')), $this->createUrl('/web/educationToys/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id']));
 
     echo CHtml::openTag("h3");
     echo implode(' ', array_slice(explode(' ', $name), 0, 4));
     echo CHtml::closeTag("h3");
     echo CHtml::openTag("p");
-    echo $product['product_description'];
+    //echo implode(' ', array_slice(explode(' ', $product['product_description']), 0, 15));
+    echo substr($product['product_description'],0,90).'...';
     echo CHtml::closeTag("p");
     /*
      * 
