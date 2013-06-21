@@ -121,7 +121,6 @@ class SiteController extends Controller {
         echo CJSON::encode(array('redirect' => $this->createUrl('/site/storehome', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id']))));
     }
 
-
     /*
      * Method to handle landing page 
      * country wise application loading
@@ -186,7 +185,7 @@ class SiteController extends Controller {
      */
     public function actionContact() {
         Yii::app()->user->SiteSessions;
-        Yii::app()->controller->layout = '//layouts/main';
+        // Yii::app()->controller->layout = '//layouts/main';
         $model = new ContactForm;
         if (isset($_POST['ContactForm'])) {
             $model->attributes = $_POST['ContactForm'];
@@ -202,7 +201,7 @@ class SiteController extends Controller {
                 $this->redirect($this->createUrl('/site/contact', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'])));
             }
         }
-        $this->render('contact', array('model' => $model));
+        $this->render($this->slash . '/site/contact', array('model' => $model));
     }
 
     /**
