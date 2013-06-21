@@ -52,7 +52,7 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
             </div>
             <div class="contact_form">
                 <p><?php echo $form->labelEx($model, 'body'); ?></p>
-                <?php echo $form->textArea($model, 'body', array('rows' => 5, 'cols' => 31)); ?>
+                <?php echo $form->textArea($model, 'body', array('rows' => 5, 'cols' => 31, 'style' => 'resize:none')); ?>
                 <?php echo CHtml::submitButton('Submit', array('class' => 'submit_btn')); ?>
             </div>
 
