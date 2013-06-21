@@ -168,8 +168,11 @@ class User extends DTActiveRecord {
         $criteria->compare('site_id', $this->site_id);
 
         $criteria->addCondition("user_id<>" . Yii::app()->user->id);
+        $criteria->compare('role_id', '2');
 
-
+        /**
+         * 
+         */
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
