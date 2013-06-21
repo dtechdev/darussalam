@@ -1,3 +1,4 @@
+<div class="clear"></div>
 <?php
 /**
  * product comments will be called from here
@@ -14,12 +15,10 @@ $form = $this->beginWidget('CActiveForm', array(
 ?>
 <div class="comments">
     <div class="left_comments">
-        <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png"); ?>
+        <?php echo CHtml::image(Yii::app()->baseUrl . "/images/noImage.png"); ?>
     </div>
     <div class="right_comments">
-        <div>
-            <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/right_arrow_img_03.png", '', array("class" => "comment_arrow")); ?>
-        </div>
+
 
 
         <?php
@@ -30,26 +29,35 @@ $form = $this->beginWidget('CActiveForm', array(
         } else {
             echo $form->textArea($modelC, 'reviews', $htmlOptions = array('maxlength' => 300, 'rows' => '2', 'cols' => '59', 'readonly' => 'readonly'));
         }
-        $this->widget('CStarRating', array(
-            'name' => 'ratingUser',
-            'minRating' => 1,
-            'maxRating' => 5,
-            'starCount' => 5,
-            'value' => 3,
-            'readOnly' => false,
-        ));
+
         echo $form->hiddenField($modelC, 'product_id', array('value' => $pid));
         ?>
 
-        <?php echo $form->checkBox($modelC, 'is_email', $htmlOptions = array('class' => 'comments_checkbox')); ?>
-        <span>Send me an email for each new comment.</span>
-        <?php
-        if (Yii::app()->user->id != NUll) {
-            echo CHtml::submitButton('Add Comments', array('class' => 'add_comment'));
-        } else {
-            echo CHtml::submitButton('Add Comments', $htmlOptions = array('class' => 'add_comment', 'disabled' => 'disabled'));
-        }
-        ?>
+        <div class="clear"></div>
+        <div>
+            <?php
+            if (Yii::app()->user->id != NUll) {
+                echo CHtml::submitButton('Add Comments', array('class' => 'add_comment'));
+            } else {
+                echo CHtml::submitButton('Add Comments', $htmlOptions = array('class' => 'add_comment', 'disabled' => 'disabled'));
+            }
+            ?>
+        </div>
+        <div>
+            <?php
+            $this->widget('CStarRating', array(
+                'name' => 'ratingUser',
+                'minRating' => 1,
+                'maxRating' => 5,
+                'starCount' => 5,
+                'value' => 3,
+                'readOnly' => false,
+            ));
+            ?>
+        </div>
+
+
     </div>
 </div>
+<div class="clear"></div>
 <?php $this->endWidget(); ?>
