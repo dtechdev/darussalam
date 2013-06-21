@@ -86,9 +86,9 @@ class DTWebUser extends CWebUser {
          */
         if (!empty($_REQUEST['city_id'])) {
             $cityModel = SelfSite::model()->findCityLocation($_REQUEST['city_id']);
-            $layout = SelfSite::model()->findLayout($site_info['site_id']);
+              $layout = SelfSite::model()->findLayout($cityModel->layout_id);
 
-            $this->saveDTSessions($cityModel,$layout);
+            $this->saveDTSessions($cityModel, $layout);
         }
         /**
          * when city id in session
@@ -105,8 +105,9 @@ class DTWebUser extends CWebUser {
          * when application is loading first time
          */ else {
             $cityModel = SelfSite::model()->findCityLocation($site_info['site_headoffice']);
-            $layout = SelfSite::model()->findLayout($site_info['site_id']);
-            $this->saveDTSessions($cityModel,$layout);
+            $layout = SelfSite::model()->findLayout($cityModel->layout_id);
+            
+            $this->saveDTSessions($cityModel, $layout);
         }
 
         $this->installSocialConfigs();
@@ -115,25 +116,27 @@ class DTWebUser extends CWebUser {
     /**
      * save darusslam sessions
      */
-    public function saveDTSessions($cityModel,$layout) {
+    public function saveDTSessions($cityModel, $layout) {
+        
 
-        Yii::app()->session['layout'] = (!empty($layout)?$layout->layout_name:"default");
+        Yii::app()->session['layout'] = (!empty($layout) ? $layout->layout_name : "default");
 
         Yii::app()->session['country_short_name'] = $cityModel->country->short_name;
         Yii::app()->session['city_short_name'] = $cityModel->short_name;
         Yii::app()->session['city_id'] = $cityModel->city_id;
         Yii::app()->session['country_id'] = $cityModel->country_id;
-        Yii::app()->theme = (!empty($layout)?$layout->layout_name:"default");
-        
+        Yii::app()->theme = (!empty($layout) ? $layout->layout_name : "default");
+
         /**
          * Pcm temporary
          */
-        if(Yii::app()->params['theme'] == 'dtech_second'){
-            
-            Yii::app()->session['layout'] = Yii::app()->params['theme'];
-            Yii::app()->theme = Yii::app()->params['theme'];
-        }
-       
+        /*
+          if(Yii::app()->params['theme'] == 'dtech_second'){
+
+          Yii::app()->session['layout'] = Yii::app()->params['theme'];
+          Yii::app()->theme = Yii::app()->params['theme'];
+          }
+         */
         $_REQUEST['city_id'] = $cityModel->city_id;
 
         return true;
@@ -153,7 +156,6 @@ class DTWebUser extends CWebUser {
         if (!empty($conf)) {
             foreach ($conf as $data) {
                 Yii::app()->params[$data->param] = $data->value;
-            
             }
         }
     }

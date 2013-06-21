@@ -50,7 +50,7 @@ class Controller extends CController {
      * inside
      * @var type 
      */
-    public $slash;
+    public $slash="/";
 
     /**
      *
@@ -91,7 +91,7 @@ class Controller extends CController {
         if ($this->id == "site" || get_class($module) == "WebModule") {
 
             $this->webPages = Pages::model()->getPages();
-            $this->configureTheme();
+            //$this->configureTheme();
         }
     }
 

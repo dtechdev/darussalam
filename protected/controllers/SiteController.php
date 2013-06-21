@@ -27,7 +27,7 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
 
-        if (Yii::app()->params['theme'] == "null") {
+        if (Yii::app()->params['theme'] != "dtech_second") {
             Yii::app()->user->SiteSessions;
             $this->redirect($this->createUrl("/site/storeHome"));
         }
@@ -62,7 +62,9 @@ class SiteController extends Controller {
     public function actionStoreHome() {
 
         Yii::app()->user->SiteSessions;
+        
         Yii::app()->controller->layout = '//layouts/column1';
+       
 
 
         //to laod the new layout bar uncomment this lin
@@ -82,7 +84,7 @@ class SiteController extends Controller {
 
         $segments_footer_cats = Categories::model()->getCategoriesInSegment(5);
         $dataProviderAll = Product::model()->allProducts();
-        $this->render($this->slash . '/site/storehome', array(
+        $this->render('//site/storehome', array(
             'featured_products' => $featured_products,
             'best_sellings' => $bestSellings,
             'segments_footer_cats' => $segments_footer_cats,

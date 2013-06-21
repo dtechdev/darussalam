@@ -132,7 +132,7 @@ class SelfSite extends DTActiveRecord {
      */
     public function findCityLocation($city_id) {
         $criteria = new CDbCriteria(array(
-            'select' => "city_id,t.city_name,t.country_id," .
+            'select' => "city_id,t.city_name,t.country_id,layout_id" .
             "t.short_name,layout_id",
             'condition' => "t.city_id='" . $city_id . "'"
         ));
@@ -147,8 +147,8 @@ class SelfSite extends DTActiveRecord {
         return $cityfind;
     }
 
-    public function findLayout($site_id) {
-        $layout = Layout::model()->find("site_id=" . $site_id);
+    public function findLayout($layout_id) {
+        $layout = Layout::model()->find("layout_id=" . $layout_id);
 
         return $layout;
     }
