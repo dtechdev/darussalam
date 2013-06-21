@@ -207,9 +207,29 @@ div.country_submit .btn-submit:hover { color:#FFF; }
     z-index: -10;
 }
 #search-box {
-     
+
 }
 
 .check_out{
     cursor: pointer;
+}
+.add_comment {
+    background: none repeat scroll 0 0 #F89E00;
+    border: medium none;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    font-size: 16.35px;
+    height: 30px;
+    margin: 10px 0 0;
+    padding: 0;
+    width: 30%;
+    cursor: pointer;
+}
+.left_comments {
+    float: left;
+    padding-left: 30px;
+}
+.right_comments {
+    float: left;
+    padding-left: 30px;
 }
