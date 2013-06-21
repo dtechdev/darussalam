@@ -14,6 +14,14 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/media/js/pa
 <div class="form_container">
     <div class="row_left_form row_center_form row_signup_form" style="min-height: 430px;" >
         <?php
+        if (Yii::app()->user->hasFlash('hybrid')) {
+            ?>
+            <div class="flash-done">
+                <?php echo Yii::app()->user->getFlash('hybrid'); ?>
+            </div>
+
+        <?php } ?>
+        <?php
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'user-form',
             'enableClientValidation' => false,
@@ -46,7 +54,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/media/js/pa
                 <?php echo $form->textField($model, 'user_name', array('class' => 'row_text_type')); ?>
             </div>
             <div class="row_text">
-                <article><?php // echo $form->error($model, 'user_name');        ?></article>
+                <article><?php // echo $form->error($model, 'user_name');         ?></article>
             </div>
         </div>
 
@@ -58,7 +66,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/media/js/pa
                 <?php echo $form->textField($model, 'user_email', array('class' => 'row_text_type')); ?>
             </div>
             <div class="row_text">
-                <article><?php //echo $form->error($model, 'user_email');        ?></article>
+                <article><?php //echo $form->error($model, 'user_email');         ?></article>
             </div>
         </div>
 
@@ -71,7 +79,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/media/js/pa
                 <?php //echo $form->passwordField($model, 'user_password', array('class' => 'row_text_type', 'onKeyUp' => 'javascript:validata_password(this.value)')); ?>
             </div>
             <div class="row_text">
-                <article><?php //echo $form->error($model, 'user_password');        ?></article>
+                <article><?php //echo $form->error($model, 'user_password');         ?></article>
             </div>
         </div>
 
@@ -83,7 +91,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/media/js/pa
                 <?php echo $form->passwordField($model, 'user_password2', array('class' => 'row_text_type')); ?>
             </div>
             <div class="row_text">
-                <article><?php //echo $form->error($model, 'user_password2');        ?></article>
+                <article><?php //echo $form->error($model, 'user_password2');         ?></article>
             </div>
         </div>
 
@@ -100,7 +108,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/media/js/pa
                 </span>
             </div>
             <div class="row_text">
-                <article><?php // echo $form->error($model, 'special_offer');        ?></article>
+                <article><?php // echo $form->error($model, 'special_offer');         ?></article>
             </div>
         </div>
 
@@ -115,7 +123,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/media/js/pa
                 </span>
             </div>
             <div class="row_text">
-                <article><?php // echo $form->error($model, 'agreement_status');        ?></article>
+                <article><?php // echo $form->error($model, 'agreement_status');         ?></article>
             </div>
         </div>
         <div class="row_input">

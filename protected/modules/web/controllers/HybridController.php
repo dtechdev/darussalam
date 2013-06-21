@@ -32,7 +32,7 @@ class HybridController extends Controller {
 
 
         $config = realPath(Yii::app()->basePath . '/extensions/hybridauth/config.php');
-        
+
         /**
          * To preserve
          */
@@ -45,7 +45,7 @@ class HybridController extends Controller {
                 Yii::app()->user->returnUrl = $logINmodel->route;
             }
         }
-      
+
         try {
             $hybridauth = new Hybrid_Auth($config);
 
@@ -88,7 +88,8 @@ class HybridController extends Controller {
                     $wishlist->addWishlistByUser();
                     $this->redirect(Yii::app()->user->returnUrl);
                 } else {
-                    $this->redirect($this->createUrl("/web/hybrid/registerSocial", array("provider" => $provider)));
+                    Yii::app()->user->setFlash('hybrid', "Please signup , your social network didn't provide the email");
+                    $this->redirect($this->createUrl("/web/user/register", array("provider" => $provider)));
                 }
             }
 
