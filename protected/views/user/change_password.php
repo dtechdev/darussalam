@@ -10,8 +10,15 @@
     <p class="note">Fields with <span class="required">*</span> are required.</p>
 
     <?php echo $form->errorSummary($model); ?>
+    <?php
+    if (Yii::app()->user->hasFlash('changPass')) {
+        ?>
+        <div class="flash-success" align="center">
+            <?php echo Yii::app()->user->getFlash('changPass'); ?>
+        </div>
 
-    
+    <?php } ?>
+
     <div class="row">
         <?php echo $form->labelEx($model, '_user_name'); ?>
         <?php echo Yii::app()->user->name ?>
