@@ -26,7 +26,13 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
 
     <h1>Quran</h1>
     <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
-    <input type="button" value="Shop Now  >" class="shop_now_arrow" />
+
+    <?php
+    echo CHtml::button("Shop Now", array(
+        "class" => "shop_now_arrow",
+        "onclick" => "window.location ='" . $this->createUrl('/web/quran/index') . "'"
+    ));
+    ?>
 </div>
 <div class="books_content">
     <?php
@@ -37,7 +43,13 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
     ?>
     <h1>Books</h1>
     <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
-    <input type="button" value="Shop Now  >" class="shop_now_arrow" />
+
+    <?php
+    echo CHtml::button("Shop Now", array(
+        "class" => "shop_now_arrow",
+        "onclick" => "window.location ='" . $this->createUrl('/web/product/allproducts') . "'"
+    ));
+    ?>
 </div>
 <div class="books_content">
 
@@ -49,7 +61,13 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
     ?>
     <h1>Educational Toys</h1>
     <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
-    <input type="button" value="Shop Now  >" class="shop_now_arrow" />
+
+    <?php
+    echo CHtml::button("Shop Now", array(
+        "class" => "shop_now_arrow",
+        "onclick" => "window.location ='" . $this->createUrl('/web/educationToys/index') . "'"
+    ));
+    ?>
 </div>
 <div class="books_content">
     <?php
@@ -60,7 +78,13 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
     ?>
     <h1>Other Products</h1>
     <p>Lorem ipsum color sit bla bla thhm ipoum deona eio a ea sho moxnt</p>
-    <input type="button" value="Shop Now  >" class="shop_now_arrow" />
+
+    <?php
+    echo CHtml::button("Shop Now", array(
+        "class" => "shop_now_arrow",
+        "onclick" => "window.location ='" . $this->createUrl('/web/others/index') . "'"
+    ));
+    ?>
 </div>
 <?php
 $this->renderPartial("//product/_featured_products", array('featured_products' => $featured_products,
