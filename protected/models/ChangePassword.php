@@ -7,7 +7,7 @@
 class ChangePassword extends CFormModel {
 
     public $old_password;
-    public $_email;
+    public $_user_name;
     public $user_password;
     public $user_conf_password;
 

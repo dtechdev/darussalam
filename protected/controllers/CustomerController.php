@@ -69,7 +69,7 @@ class CustomerController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionUpdate($id) {
-        $model = $this->loadModel($id);
+        $model = UserUpdate::model()->findByPk($id);
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);

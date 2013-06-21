@@ -13,7 +13,7 @@
 
     
     <div class="row">
-        <?php echo $form->labelEx($model, '_email'); ?>
+        <?php echo $form->labelEx($model, '_user_name'); ?>
         <?php echo Yii::app()->user->name ?>
     </div>
     <div class="row">
