@@ -128,7 +128,6 @@
                 ),
                 'htmlOptions' => array(
                     'size' => '15', // textField size
-                    
                     'maxlength' => '10', // textField maxlength
                 ),
             ));
@@ -140,6 +139,10 @@
 
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => "btn")); ?>
+        <?php
+        echo " or ";
+        echo CHtml::link('Cancel', '#', array('onclick' => 'dtech.go_history()'));
+        ?>
     </div>
 
     <?php $this->endWidget(); ?>

@@ -24,21 +24,21 @@
         <?php echo $form->error($model, 'user_email'); ?>
     </div>
     <?php
-        if($model->isNewRecord):
-    ?>
-    <div class="row">
-        <?php echo $form->labelEx($model, 'user_password'); ?>
-        <?php echo $form->passwordField($model, 'user_password', array('size' => 60, 'maxlength' => 255)); ?>
-        <?php echo $form->error($model, 'user_password'); ?>
-    </div>
+    if ($model->isNewRecord):
+        ?>
+        <div class="row">
+            <?php echo $form->labelEx($model, 'user_password'); ?>
+            <?php echo $form->passwordField($model, 'user_password', array('size' => 60, 'maxlength' => 255)); ?>
+            <?php echo $form->error($model, 'user_password'); ?>
+        </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'user_password2'); ?>
-        <?php echo $form->passwordField($model, 'user_password2', array('size' => 60, 'maxlength' => 255)); ?>
-        <?php echo $form->error($model, 'user_password2'); ?>
-    </div>
-    <?php
-        endif;
+        <div class="row">
+            <?php echo $form->labelEx($model, 'user_password2'); ?>
+            <?php echo $form->passwordField($model, 'user_password2', array('size' => 60, 'maxlength' => 255)); ?>
+            <?php echo $form->error($model, 'user_password2'); ?>
+        </div>
+        <?php
+    endif;
     ?>
     <?php
     if (!Yii::app()->user->isGuest) {
@@ -125,6 +125,10 @@
 
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => "btn")); ?>
+        <?php
+        echo " or ";
+        echo CHtml::link('Cancel', '#', array('onclick' => 'dtech.go_history()'));
+        ?>
     </div>
 
     <?php $this->endWidget(); ?>

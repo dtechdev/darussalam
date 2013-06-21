@@ -374,5 +374,10 @@ var dtech = {
 
         field_id = field_obj.attr("id").replace("cart_list_", "");
         jQuery("#cart_bag_" + field_id).val(field_obj.val());
+    },
+    /* Goi to history page -1. */
+    go_history: function() {
+        var previous_page = document.referrer;
+        window.location = previous_page;
     }
 }
