@@ -75,23 +75,6 @@
 
 
 
-
-        <div class="row">
-            <?php echo $form->labelEx($model, 'activation_key'); ?>
-            <?php echo $form->textField($model, 'activation_key', array('size' => 60, 'maxlength' => 255)); ?>
-            <?php echo $form->error($model, 'activation_key'); ?>
-        </div>
-
-        <div class="row">
-            <?php //$listd=CHtml::listData(User::model()->findAll(),'user_id','is_active'); ?>
-            <?php echo $form->labelEx($model, 'is_active'); ?>
-            <?php // echo $form->activeDropDownList($model,'is_active',$listd, array('prompt'=>'Select status'));   ?>
-            <?php echo zHtml::enumDropDownList($model, 'is_active'); ?>
-
-            <?php echo $form->error($model, 'is_active'); ?>
-        </div>
-
-
         <div class="row">
             <?php echo $form->labelEx($model, 'site_id'); ?>
             <?php $ld = CHtml::listData(SelfSite::model()->findAll(), 'site_id', 'site_name'); ?>
