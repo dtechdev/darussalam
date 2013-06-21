@@ -8,7 +8,7 @@ $conf_component_db = array(
     'connectionString' => 'mysql:host=localhost;dbname=darussalam', //myprojectnet
     'emulatePrepare' => true,
     'username' => 'root',
-    'password' => 'admin',
+    'password' => '',
     'charset' => 'utf8',
 );
 ?>

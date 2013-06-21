@@ -39,7 +39,7 @@ var dtech = {
             id = "";
         }
 
-        $.ajax({
+        jQuery.ajax({
             type: "POST",
             url: ajax_url,
             data:
