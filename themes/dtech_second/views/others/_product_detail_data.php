@@ -2,8 +2,19 @@
     <h1><?php echo $product->product_name; ?></h1>
 
     <p>
-        <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/stars_img_03.png"); ?>
-        (7)</p>
+        <?php
+        /** rating value is comming from controller * */
+        $this->widget('CStarRating', array(
+            'name' => 'ratings',
+            'minRating' => 1,
+            'maxRating' => 5,
+            'starCount' => 5,
+            'value' => round($rating_value),
+            'readOnly' => true,
+        ));
+        echo "(" . round($rating_value) . ")";
+        ?>
+    </p>
 
     <article>
         <?php
@@ -27,7 +38,7 @@
                                
                                 jQuery("#loading").hide();
                                 dtech.custom_alert("Item has added to cart" ,"Add to Cart");
-                                dtech_new.loadCartAgain("'.$this->createUrl("/web/cart/loadCart").'");
+                                dtech_new.loadCartAgain("' . $this->createUrl("/web/cart/loadCart") . '");
                                
                             });    
                       ', 'class' => 'add_to_cart_arrow'));

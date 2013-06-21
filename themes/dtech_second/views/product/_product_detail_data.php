@@ -4,8 +4,19 @@
             echo isset($product->author->author_name) ? $product->author->author_name : "";
             ?></span></h2>
     <p>
-        <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/stars_img_03.png"); ?>
-        (7)</p>
+        <?php
+        /** rating value is comming from controller * */
+        $this->widget('CStarRating', array(
+            'name' => 'ratings',
+            'minRating' => 1,
+            'maxRating' => 5,
+            'starCount' => 5,
+            'value' => round($rating_value),
+            'readOnly' => true,
+        ));
+        echo "(".round($rating_value).")";
+        ?>
+    </p>
 
     <article>
         <?php
