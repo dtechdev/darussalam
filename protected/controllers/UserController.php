@@ -28,7 +28,7 @@ class UserController extends Controller {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create',
-                    'index', 'view',
+                    'index', 'view', 'changePassword'
                 ),
                 'users' => array('@'),
             ),
@@ -100,7 +100,7 @@ class UserController extends Controller {
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
-       
+
         if (isset($_POST['UserUpdate'])) {
             $model->attributes = $_POST['UserUpdate'];
             if ($model->save())
@@ -150,6 +150,27 @@ class UserController extends Controller {
         }
         echo $id;
         User::model()->updateByPk($id, array("status_id" => $model->status_id));
+    }
+
+    /**
+     * Change Password
+     */
+    public function actionChangePassword() {
+        $model = new ChangePassword;
+        if (Yii::app()->user->id) {
+            if (isset($_POST['ChangePassword'])) {
+                $model->attributes = $_POST['ChangePassword'];
+                if ($model->validate()) {
+                    if ($model->updatePassword()) {
+                        /*
+                         * here we will add sending email module to inform user for password change..
+                         */
+                        $this->redirect($this->createUrl('/user/changePassword'));
+                    }
+                }
+            }
+            $this->render('change_password', array('model' => $model));
+        }
     }
 
     /**
