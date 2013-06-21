@@ -21,7 +21,6 @@
  */
 class ProductProfile extends DTActiveRecord {
 
-   
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -52,12 +51,11 @@ class ProductProfile extends DTActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('size,language_id,item_code', 'required'),
+            array('price,size,language_id,item_code', 'required'),
             array('item_code', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('product_id', 'safe'),
             array('id,size,no_of_pages,binding,printing,paper,edition,upload_index', 'safe'),
-            array('price', 'safe'),
             array('isbn', 'length', 'max' => 255),
             array('language_id', 'UniqueLanguage'),
             // The following rule is used by search().
@@ -156,7 +154,6 @@ class ProductProfile extends DTActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
-            
             'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'product_profile_id'),
             'productLanguage' => array(self::BELONGS_TO, 'Language', 'language_id'),
             'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_profile_id', 'order' => 'is_default DESC'),
@@ -176,7 +173,6 @@ class ProductProfile extends DTActiveRecord {
             'binding' => 'Binding',
             'printing' => 'Printing',
             'paper' => 'Paper',
-          
             'language_id' => 'Language',
             'edition' => 'Edition',
         );
