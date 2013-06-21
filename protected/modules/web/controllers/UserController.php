@@ -201,7 +201,7 @@ class UserController extends Controller {
                         /*
                          * here we will add sending email module to inform user for password change..
                          */
-                        $this->redirect($this->createUrl('user/changePass'));
+                        $this->redirect($this->createUrl('/web/user/changePass'));
                     }
                 }
             }

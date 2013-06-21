@@ -13,7 +13,7 @@
             if (isset(UserProfile::model()->findByPk(Yii::app()->user->id)->avatar)) {
                 echo CHtml::image(UserProfile::model()->findByPk(Yii::app()->user->id)->uploaded_img, "", array('style' => 'width:65px;height:75px;'));
             } else {
-                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png", "");
+                echo CHtml::image(Yii::app()->baseUrl . "/images/noImage.png", "");
             }
             ?>
         </td>
@@ -45,6 +45,15 @@ if (!Yii::app()->user->isGuest) {
         jQuery('.logout-btn').hover(function() {
             mouse_is_inside_logout = true;
             jQuery('.logoutPopup').toggle();
+            
+            if (jQuery(".logoutPopup").is(':visible') == true) {
+
+                dtech_new.onShowLogin();
+            }
+            else {
+                dtech_new.onHideLogin();
+            }
+            
         }, function() {
             mouse_is_inside_logout = false;
             //jQuery('.logoutPopup').hide();

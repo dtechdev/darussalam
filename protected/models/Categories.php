@@ -42,6 +42,7 @@ class Categories extends DTActiveRecord {
         // will receive user inputs.
         return array(
             array('category_name, added_date, city_id', 'required'),
+            array('category_name','uniqueCategory'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('parent_id, city_id', 'numerical', 'integerOnly' => true),
             array('category_name, added_date', 'length', 'max' => 255),
@@ -49,6 +50,22 @@ class Categories extends DTActiveRecord {
             // Please remove those attributes that should not be searched.
             array('category_id, category_name, added_date, parent_id, city_id', 'safe', 'on' => 'search'),
         );
+    }
+    
+    /**
+     * 
+     */
+    public function uniqueCategory($attribute,$param){
+        $criteria = new CDbCriteria();
+        $criteria->addCondition("category_name ='".$this->$attribute."'");
+        $criteria->addCondition("city_id = ".$this->city_id);
+        if(!$this->isNewRecord){
+            $criteria->addCondition("category_id ='".$this->category_id."'");
+        }
+        
+        if($this->find($criteria)){
+            $this->addError($attribute, "Category already exist");
+        }
     }
 
     /**

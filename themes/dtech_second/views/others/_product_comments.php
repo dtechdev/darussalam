@@ -1,50 +1,54 @@
-<?php
-/**
- * Get all product comments
- */
-foreach ($product->product_reviews as $rev) {
+<div id="description_content">
+    <h4>Most Recent Customer Reviews</h4>
+    <?php
+    if (!empty($product->product_reviews)) {
+        foreach ($product->product_reviews as $rev) {
+            echo CHtml::openTag("div", array("class" => "stars_description"));
+            echo CHtml::openTag("div", array('class' => 'left_comments'));
+            echo CHtml::image(Yii::app()->baseUrl . "/images/noImage.png");
+            echo CHtml::closeTag("div");
+
+            echo CHtml::openTag("div", array('class' => 'right_comments'));
+            echo CHtml::openTag("p");
+            $this->widget('CStarRating', array(
+                'name' => 'rating' . $rev->reviews_id,
+                'minRating' => 1,
+                'maxRating' => 5,
+                'starCount' => 5,
+                'value' => $rev->rating,
+                'readOnly' => TRUE,
+            ));
+
+            echo $rev->reviewType($rev->rating);
+            echo CHtml::closeTag("p");
+            echo CHtml::openTag("article");
+            echo!empty($rev->reviews) ? $rev->reviews : "";
+            echo CHtml::closeTag("article");
+            echo CHtml::openTag("section");
+            echo 'Published ' . $rev->calculateRemTime() . "ago by ";
+            echo!empty($rev->user->userProfiles->last_name) ? $rev->user->userProfiles->last_name : $rev->user->user_email;
+            echo CHtml::closeTag("section");
+
+            echo CHtml::closeTag("div");
+
+            echo CHtml::closeTag("div");
+            
+            echo CHtml::Tag("div",array("class"=>"clear"));
+        }
+    } else {
+        echo CHtml::openTag("div", array("class" => "stars_description"));
+        echo CHtml::openTag("article");
+        echo 'No Reviews Yet';
+        echo CHtml::closeTag("article");
+        echo CHtml::openTag("section");
+        echo 'Be the first person to give the comment for this product';
+        echo CHtml::closeTag("section");
+        echo CHtml::closeTag("div");
+    }
     ?>
-    <div class="comments">
-        <div class="left_comments">
-            <?php
-            if (isset($rev->user->userProfiles)) {
-                echo CHtml::image($rev->user->userProfiles->uploaded_img, "", array("class" => "avtar_image_comment"));
-            } else {
-                echo CHtml::image(Yii::app()->theme->baseUrl . "/images/talha_mujahid_img_03.png", "", array("class" => "avtar_image_comment"));
-            }
-            ?>
 
-            <h3>
-                <?php
-                echo!empty($rev->user->userProfiles->last_name) ? $rev->user->userProfiles->last_name : $rev->user->user_email;
-                ?>
-            </h3>
-        </div>
-
-        <div class="right_comments">
-            <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/right_arrow_img_03.png", '', array("class" => "comment_arrow")) ?>
-            <p>
-                <?php echo!empty($rev->reviews) ? $rev->reviews : ""; ?>
-            </p>
-            <h4>
-                <?php
-                echo $rev->calculateRemTime();
-                echo "ago";
-                echo CHtml::link("- Report as inappropriate", "#");
-                ?>                  
-            </h4>
-            <div class="bottom_border">
-                <?php
-                $this->widget('CStarRating', array(
-                    'name' => 'rating' . $rev->reviews_id,
-                    'minRating' => 1,
-                    'maxRating' => 5,
-                    'starCount' => 5,
-                    'value' => $rev->rating,
-                    'readOnly' => TRUE,
-                ));
-                ?>
-            </div>
-        </div>
-    </div>
-<?php } ?>
+</div>
+<?php
+$this->renderPartial("//others/_product_add_comments", array("product" => $product));
+?>
+<div class="clear"></div>

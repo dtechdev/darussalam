@@ -12,16 +12,10 @@ var dtech_new = {
 
             if (box.is(':visible') == true) {
 
-                jQuery("#upper_banner").removeAttr("style");
-                jQuery("button#search-button").hide();
-                jQuery(".add_to_cart").hide();
-                jQuery("#search-box").css("z-index", "-1");
+                dtech_new.onShowLogin();
             }
             else {
-                jQuery("#upper_banner").css("position", "fixed");
-                jQuery("button#search-button").show();
-                jQuery(".add_to_cart").show();
-                jQuery("#search-box").removeAttr("style");
+                dtech_new.onHideLogin();
             }
             button.toggleClass('active');
 
@@ -38,6 +32,20 @@ var dtech_new = {
                 box.hide();
             }
         });
+    },
+    onShowLogin: function() {
+        jQuery("#upper_banner").removeAttr("style");
+        jQuery("button#search-button").hide();
+        jQuery(".add_to_cart").hide();
+        jQuery("#search-box").css("z-index", "-1");
+        jQuery("#below_banner").css("margin-top", "0");
+    },
+    onHideLogin: function() {
+        jQuery("#upper_banner").css("position", "fixed");
+        jQuery("button#search-button").show();
+        jQuery(".add_to_cart").show();
+        jQuery("#search-box").removeAttr("style");
+        jQuery("#below_banner").removeAttr("style");
     },
     toggleSideBar: function() {
         var button = jQuery('#sideBarButton');

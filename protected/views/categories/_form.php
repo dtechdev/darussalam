@@ -20,8 +20,8 @@
     <div class="row">
         <?php echo $form->labelEx($model, 'parent_id'); ?>
         <?php //echo $form->textField($model,'parent_id'); ?>
-        <?php echo $form->dropDownList($model, 'parent_id', 
-                $categoriesList, array('prompt' => 'Select Parent Category')); ?>
+        <?php echo $form->dropDownList($model, 'parent_id', $categoriesList, array('prompt' => 'Select Parent Category'));
+        ?>
         <?php echo $form->error($model, 'parent_id'); ?>
     </div>
     <div class="row">
@@ -32,15 +32,19 @@
 
     <div class="row">
         <?php echo $form->labelEx($model, 'city_id'); ?>
-        <?php echo $form->dropDownList($model, 'city_id', $cityList, 
-                array('prompt' => 'Select city','onchange'=>'
-         dtech.changeAdminCity("'.$this->createUrl($this->route).'",this)
-                        ')); ?>
+        <?php echo $form->dropDownList($model, 'city_id', $cityList, array('prompt' => 'Select city', 'onchange' => '
+         dtech.changeAdminCity("' . $this->createUrl($this->route) . '",this)
+                        '));
+        ?>
         <?php echo $form->error($model, 'city_id'); ?>
     </div>
 
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => "btn")); ?>
+        <?php
+        echo " or ";
+        echo CHtml::link('Cancel', '#', array('onclick' => 'dtech.go_history()'));
+        ?>
     </div>
 
     <?php $this->endWidget(); ?>
