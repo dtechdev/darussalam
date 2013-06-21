@@ -249,7 +249,7 @@ class MenusController extends Controller {
         $ary[] = array("id" => "1", "pid" => "0", "root_parent" => "1", "controller" => "site", "action" => "index", "default_title" => "Darussalam", "user_title" => "Darussalam", "is_assigned" => "Yes", "min_permission" => "Index", "weight" => "0");
 
         /** for user module * */
-        $ary[] = array("id" => "2", "pid" => "0", "root_parent" => "2", "controller" => "user", "action" => "index", "default_title" => "User", "user_title" => "User", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "2", "pid" => "0", "root_parent" => "2", "controller" => "user", "action" => "index", "default_title" => "Admin Users", "user_title" => "Admin Users", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
         $ary[] = array("id" => "3", "pid" => "2", "root_parent" => "2", "controller" => "user", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
         $ary[] = array("id" => "4", "pid" => "2", "root_parent" => "2", "controller" => "user", "action" => "create", "default_title" => "Create", "user_title" => "Create", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "2");
 
@@ -320,7 +320,7 @@ class MenusController extends Controller {
 
         /* admin module for the Customer managment */
 
-        $ary[] = array("id" => "35", "pid" => "0", "root_parent" => "35", "controller" => "customer", "action" => "index", "default_title" => "Customer Role", "user_title" => "Customer Role", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
+        $ary[] = array("id" => "35", "pid" => "0", "root_parent" => "35", "controller" => "customer", "action" => "index", "default_title" => "Customers", "user_title" => "Customers", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "3");
         $ary[] = array("id" => "36", "pid" => "35", "root_parent" => "35", "controller" => "customer", "action" => "index", "default_title" => "List All", "user_title" => "List All", "is_assigned" => "Yes", "min_permission" => "View", "weight" => "0");
 
 
