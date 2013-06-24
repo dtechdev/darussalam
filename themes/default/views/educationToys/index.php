@@ -4,7 +4,7 @@
  * rendering all products listing
  */
 
- $this->renderPartial('/educationToys/product_listing', array(
+ $this->renderPartial('//educationToys/product_listing', array(
     'products' => $products,
     'dataProvider'=>$dataProvider,
     'allCate' => $allCate)
