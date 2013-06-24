@@ -9,7 +9,6 @@ class EducationToysController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/main';
 
     /**
      * for category filter
@@ -44,7 +43,7 @@ class EducationToysController extends Controller {
             $allCategories = Categories::model()->allCategories("", $parent_cat);
             
             
-            $this->render($this->slash.'/educationToys/index', array(
+            $this->render('//educationToys/index', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
@@ -58,7 +57,7 @@ class EducationToysController extends Controller {
     public function productfilter() {
         $dataProvider = Product::model()->allProducts(array(), 30, "Educational Toys");
         $all_products = Product::model()->returnProducts($dataProvider);
-        $this->renderPartial($this->slash."/educationToys/_product_list", array('products' => $all_products,
+        $this->renderPartial("//educationToys/_product_list", array('products' => $all_products,
             'dataProvider' => $dataProvider,));
     }
 
@@ -76,7 +75,7 @@ class EducationToysController extends Controller {
          */
         $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-        $this->render($this->slash.'/educationToys/product_detail', array('product' => $product, "rating_value" => $rating_value));
+        $this->render('//educationToys/product_detail', array('product' => $product, "rating_value" => $rating_value));
     }
 
 }
