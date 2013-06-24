@@ -147,7 +147,7 @@
             </div>
         </div>
     </header>
-
+        
     <?php echo $content; ?> 
     <footer>
         <div id="under_footer">

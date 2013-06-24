@@ -140,7 +140,7 @@ class Product extends DTActiveRecord {
 
         $city_id = Yii::app()->session['city_id'];
 
-
+        
 
         if (!empty($product_array)) {
             $criteria = new CDbCriteria(array(
@@ -158,16 +158,18 @@ class Product extends DTActiveRecord {
                 'order' => 't.product_id ASC',
                     //'with'=>'commentCount' 
             ));
+
+            /**
+             * that should only be book
+             */
+            $parent_cat = Categories::model()->getParentCategoryId($parent_category);
+
+
+
+            $criteria->addCondition('parent_cateogry_id = ' . $parent_cat);
         }
 
-        /**
-         * that should only be book
-         */
-        $parent_cat = Categories::model()->getParentCategoryId($parent_category);
 
-
-
-        $criteria->addCondition('parent_cateogry_id = ' . $parent_cat);
 
         if (isset($_POST['ajax'])) {
 
@@ -205,6 +207,8 @@ class Product extends DTActiveRecord {
             ),
             'criteria' => $criteria,
         ));
+
+       
 
         return $dataProvider;
     }
@@ -260,7 +264,7 @@ class Product extends DTActiveRecord {
             );
         }
 
-
+        
         return $all_pro;
     }
 

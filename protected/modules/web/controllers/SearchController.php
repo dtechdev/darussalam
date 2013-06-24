@@ -42,9 +42,8 @@ class SearchController extends Controller {
         /*
          * for new theme....
          */
-        Yii::app()->user->SiteSessions;
-        Yii::app()->theme = 'dtech_second';
-        Yii::app()->controller->layout = "//layouts/column2";
+       
+     
 
         if (isset($_REQUEST['serach_field'])) {
             $q = $_REQUEST['serach_field'];
@@ -99,8 +98,11 @@ class SearchController extends Controller {
             foreach ($rows as $row) {
                 $product_array[$row['product_id']] = $row['product_id'];
             }
+           
             $dataProvider = Product::model()->allProducts($product_array);
             $all_products = Product::model()->returnProducts($dataProvider);
+            
+          
 
 
             $allCategories = Categories::model()->allCategories();
@@ -108,8 +110,9 @@ class SearchController extends Controller {
             if (isset($_POST['ajax'])) {
                 $this->productfilter($dataProvider, $all_products);
             } else {
-
-                $this->render($this->slash . '/product/all_products', array('products' => $all_products, 'allCate' => $allCategories, "dataProvider" => $dataProvider));
+                 //Yii::app()->user->SiteSessions;
+                
+                $this->render('//product/all_products', array('products' => $all_products, 'allCate' => $allCategories, "dataProvider" => $dataProvider));
             }
         } else {
 
@@ -128,7 +131,7 @@ class SearchController extends Controller {
      */
     public function productfilter($dataProvider, $all_products) {
 
-        $this->renderPartial($this->slash ."/product/_product_list", array('products' => $all_products,
+        $this->renderPartial("//product/_product_list", array('products' => $all_products,
             'dataProvider' => $dataProvider,));
     }
 

@@ -78,7 +78,7 @@ class ProductController extends Controller {
 
 
 
-            $this->render($this->slash.'/product/all_products', array(
+            $this->render('//product/all_products', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
@@ -182,8 +182,6 @@ class ProductController extends Controller {
     public function actionproductDetail() {
 
         Yii::app()->user->SiteSessions;
-        Yii::app()->theme = Yii::app()->session['layout'];
-
 
         $product = Product::model()->findByPk($_REQUEST['product_id']);
 

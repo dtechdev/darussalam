@@ -15,7 +15,7 @@ class CartController extends Controller {
 
         $cart = Cart::model()->getCartLists();
 
-        $this->render($this->slash.'/cart/viewcart', array('cart' => $cart));
+        $this->render($this->slash . '/cart/viewcart', array('cart' => $cart));
     }
 
     /**
@@ -32,7 +32,7 @@ class CartController extends Controller {
      */
     public function actionEditcart() {
 
-        $view = $this->slash."/cart/_view_cart";
+        $view = $this->slash . "/cart/_view_cart";
         if ($_REQUEST['type'] == 'delete_cart') {
             $cart_model = new Cart();
 
@@ -49,7 +49,7 @@ class CartController extends Controller {
          */
 
         if (isset($_REQUEST['from'])) {
-            $view = $this->slash."/cart/_cart";
+            $view = $this->slash . "/cart/_cart";
         }
         $cart = Cart::model()->getCartLists();
         $cart_list_count = Cart::model()->getCartListCount();
@@ -63,6 +63,8 @@ class CartController extends Controller {
      * load cart again
      */
     public function actionLoadCart() {
+
+        Yii::app()->user->SiteSessions;
 
         $cart = Cart::model()->getCartLists();
         $cart_list_count = Cart::model()->getCartListCount();

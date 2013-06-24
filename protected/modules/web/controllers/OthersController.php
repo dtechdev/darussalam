@@ -9,7 +9,7 @@ class OthersController extends Controller {
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
+    public $layout = '//layouts/main';
 
     /**
      * for category filter
@@ -42,7 +42,7 @@ class OthersController extends Controller {
             $allCategories = Categories::model()->allCategories("", $parent_cat);
 
 
-            $this->render($this->slash.'/others/index', array(
+            $this->render('//others/index', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));

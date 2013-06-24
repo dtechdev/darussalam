@@ -7,6 +7,7 @@
 ?>
 
 <?php
+
 foreach ($products as $product) {
     ?>
     <div class="condition" style="text-align: center">

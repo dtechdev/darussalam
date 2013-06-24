@@ -37,6 +37,7 @@ class PaymentController extends Controller {
 
     public function actionpaymentMethod() {
 
+        Yii::app()->user->SiteSessions;
 
         $error = array('status' => false);
         $model = new ShippingInfoForm();
@@ -71,7 +72,7 @@ class PaymentController extends Controller {
         }
 
         $regionList = CHtml::listData(Region::model()->findAll(), 'id', 'name');
-        $this->render($this->slash.'/payment/payment_method', array(
+        $this->render($this->slash . '/payment/payment_method', array(
             'model' => $model,
             'regionList' => $regionList,
             'creditCardModel' => $creditCardModel,
@@ -114,7 +115,7 @@ class PaymentController extends Controller {
         if (!empty($error['order_id'])) {
             //save the shipping information of user
             $userProfile_model = UserProfile::model();
-            $userProfile_model->saveShippingInfo($_POST['ShippingInfoForm'],$error['order_id']);
+            $userProfile_model->saveShippingInfo($_POST['ShippingInfoForm'], $error['order_id']);
             $this->redirect(array('/web/payment/confirmOrder'));
         } else {
             $creditCardModel->showCreditCardErrors($error);
@@ -129,7 +130,7 @@ class PaymentController extends Controller {
     public function processManual($creditCardModel) {
         $order_id = $creditCardModel->saveOrder("");
 
-        UserProfile::model()->saveShippingInfo($_POST['ShippingInfoForm'],$order_id);
+        UserProfile::model()->saveShippingInfo($_POST['ShippingInfoForm'], $order_id);
 
 
         $this->customer0rderDetailMailer($_POST['ShippingInfoForm']);

@@ -9,10 +9,10 @@ class WishListController extends Controller {
      * For viewing the list of product which add into wishlist
      */
     public function actionViewwishlist() {
-
+        Yii::app()->user->SiteSessions;
         $wishlist = WishList::model()->getWishLists();
-
-        $this->render($this->slash . '/wishList/viewwishlist', array('wishList' => $wishlist));
+       
+        $this->render('//wishList/viewwishlist', array('wishList' => $wishlist));
     }
 
     /**

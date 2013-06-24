@@ -3,7 +3,9 @@
 /**
  * rendering all products listing
  */
-echo $this->renderPartial('/others/product_listing', array(
+
+
+echo $this->renderPartial('//others/product_listing', array(
     'products' => $products,
     'dataProvider'=>$dataProvider,
     'allCate' => $allCate)

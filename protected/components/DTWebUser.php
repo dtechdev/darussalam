@@ -86,6 +86,8 @@ class DTWebUser extends CWebUser {
          */
         if (!empty($_REQUEST['city_id'])) {
             $cityModel = SelfSite::model()->findCityLocation($_REQUEST['city_id']);
+           
+      
               $layout = SelfSite::model()->findLayout($cityModel->layout_id);
 
             $this->saveDTSessions($cityModel, $layout);
