@@ -1,12 +1,10 @@
 <?php
 
 class UserProfileController extends Controller {
-
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    public $layout = '//layouts/column2';
 
     /**
      * @return array action filters
@@ -51,6 +49,7 @@ class UserProfileController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionIndex() {
+
         Yii::app()->user->SiteSessions;
         $model = UserProfile::model()->findByPk(Yii::app()->user->id);
         /**
@@ -84,7 +83,7 @@ class UserProfileController extends Controller {
             }
         }
 
-        $this->render($this->slash . '/userProfile/update', array(
+        $this->render('//userProfile/update', array(
             'model' => $model,
         ));
     }
