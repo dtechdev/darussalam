@@ -43,7 +43,7 @@ class SearchController extends Controller {
          * for new theme....
          */
        
-     
+     Yii::app()->user->SiteSessions;
 
         if (isset($_REQUEST['serach_field'])) {
             $q = $_REQUEST['serach_field'];
