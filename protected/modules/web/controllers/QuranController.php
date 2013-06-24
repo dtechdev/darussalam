@@ -30,8 +30,8 @@ class QuranController extends Controller {
             $this->productfilter();
         } else {
             //queries 
-            //Yii::app()->controller->layout = '//layouts/main';
-            //Yii::app()->user->SiteSessions;
+            
+            Yii::app()->user->SiteSessions;
 
 
             $dataProvider = Product::model()->allProducts(array(), 30, "Quran");

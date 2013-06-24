@@ -118,7 +118,7 @@ class DTWebUser extends CWebUser {
      */
     public function saveDTSessions($cityModel, $layout) {
         
-
+       
         Yii::app()->session['layout'] = (!empty($layout) ? $layout->layout_name : "default");
 
         Yii::app()->session['country_short_name'] = $cityModel->country->short_name;

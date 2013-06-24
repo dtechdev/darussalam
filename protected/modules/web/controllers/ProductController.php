@@ -62,6 +62,9 @@ class ProductController extends Controller {
             $this->productfilter();
         } else {
             //queries 
+            
+            Yii::app()->user->SiteSessions;
+            
             $dataProvider = Product::model()->allProducts();
             $all_products = Product::model()->returnProducts($dataProvider);
 
