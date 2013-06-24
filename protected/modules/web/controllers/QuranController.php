@@ -30,7 +30,7 @@ class QuranController extends Controller {
             $this->productfilter();
         } else {
             //queries 
-            
+
             Yii::app()->user->SiteSessions;
 
 
@@ -44,7 +44,7 @@ class QuranController extends Controller {
             $allCategories = Categories::model()->allCategories("", $parent_cat);
 
 
-            $this->render($this->slash.'/quran/index', array(
+            $this->render('//quran/index', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
                 'allCate' => $allCategories));
@@ -58,12 +58,12 @@ class QuranController extends Controller {
     public function productfilter() {
         $dataProvider = Product::model()->allProducts(array(), 30, "Quran");
         $all_products = Product::model()->returnProducts($dataProvider);
-        $this->renderPartial($this->slash."/quran/_product_list", array('products' => $all_products,
+        $this->renderPartial("//quran/_product_list", array('products' => $all_products,
             'dataProvider' => $dataProvider,));
     }
 
     public function actionProductDetail() {
-   
+
         $product = Product::model()->findByPk($_REQUEST['product_id']);
 
         /**
@@ -71,7 +71,7 @@ class QuranController extends Controller {
          */
         $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-        $this->render($this->slash.'/quran/product_detail', array('product' => $product, "rating_value" => $rating_value));
+        $this->render('//quran/product_detail', array('product' => $product, "rating_value" => $rating_value));
     }
 
     /**
