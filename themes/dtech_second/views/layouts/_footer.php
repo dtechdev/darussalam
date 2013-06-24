@@ -37,7 +37,7 @@
                         foreach ($pages as $page) {
                             if (!in_array($page->title, $not_required_pages)) {
                                 echo CHtml::openTag("article");
-                                echo CHtml::link($page->title, Yii::app()->createUrl('/web/page/viewPage/', array("id" => $page->id)));
+                                echo CHtml::link($page->title, $this->createUrl('/web/page/viewPage/', array("id" => $page->id)));
                                 echo CHtml::closeTag("article");
                             }
                         }
