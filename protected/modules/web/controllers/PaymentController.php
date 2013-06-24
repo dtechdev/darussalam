@@ -72,7 +72,7 @@ class PaymentController extends Controller {
         }
 
         $regionList = CHtml::listData(Region::model()->findAll(), 'id', 'name');
-        $this->render($this->slash . '/payment/payment_method', array(
+        $this->render('//payment/payment_method', array(
             'model' => $model,
             'regionList' => $regionList,
             'creditCardModel' => $creditCardModel,
