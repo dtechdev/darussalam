@@ -52,7 +52,7 @@ class ProductController extends Controller {
     public function actionallProducts() {
 
         $this->is_cat_filter = true;
-
+        Yii::app()->user->SiteSessions;
 
 
         /**
@@ -62,9 +62,8 @@ class ProductController extends Controller {
             $this->productfilter();
         } else {
             //queries 
-            
-            Yii::app()->user->SiteSessions;
-            
+
+
             $dataProvider = Product::model()->allProducts();
             $all_products = Product::model()->returnProducts($dataProvider);
 
@@ -117,7 +116,7 @@ class ProductController extends Controller {
             $this->productFeaturedfilter();
         } else {
             Yii::app()->user->SiteSessions;
-            
+
             //queries 
             $order_detail = new OrderDetail;
             $dataProvider = $order_detail->featuredBooks();
@@ -126,7 +125,7 @@ class ProductController extends Controller {
             $categories = new Categories();
             $allCategories = $categories->allCategories("featured");
 
-            
+
             $this->render('//product/featured_products', array(
                 'products' => $featured_products,
                 'dataProvider' => $dataProvider,
@@ -174,8 +173,6 @@ class ProductController extends Controller {
         }
     }
 
-
-
     /**
      * product detail
      */
@@ -185,9 +182,9 @@ class ProductController extends Controller {
 
         $product = Product::model()->findByPk($_REQUEST['product_id']);
 
-        
+
         Yii::app()->user->SiteSessions;
-        
+
 
         /**
          *  getting value of poduct rating
