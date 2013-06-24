@@ -26,19 +26,25 @@ class SiteController extends Controller {
      * New landing page
      */
     public function actionIndex() {
-
-        if (Yii::app()->getTheme() != "dtech_second") {
+      
+      
+        $model = new LandingModel();
+        $this->countryLanding($model);
+     
+        if (Yii::app()->theme->name != "dtech_second") {
+           
             Yii::app()->user->SiteSessions;
             $this->redirect($this->createUrl("/site/storeHome"));
         }
+        
+        
 
         Yii::app()->controller->layout = "";
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = 'landing_page_theme';
 
 
-        $model = new LandingModel();
-        $this->countryLanding($model);
+        
         $this->render('landing_page', array("model" => $model));
     }
 
@@ -64,9 +70,6 @@ class SiteController extends Controller {
 
         $model = new LandingModel();
         $this->countryLanding($model);
-
-        //CVarDumper::dump($model->attributes,10,true);
-        //die;
 
         Yii::app()->user->SiteSessions;
 
