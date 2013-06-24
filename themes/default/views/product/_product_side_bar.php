@@ -11,7 +11,9 @@
         $url = $this->createUrl("/web/product/allproducts");
         if (Yii::app()->controller->action->id == "getSearch") {
             
-            $url = $this->createUrl("/web/search/getSearch");
+            $url = $this->createUrl("/web/search/getSearch"
+                    );
+            //,array("serach_field"=>isset($_REQUEST['serach_field'])?$_REQUEST['serach_field']:""
         }
         else if (Yii::app()->controller->action->id == "bestSellings") {
             
