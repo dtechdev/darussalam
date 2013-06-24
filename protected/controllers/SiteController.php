@@ -27,7 +27,7 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
 
-        if (Yii::app()->params['theme'] != "dtech_second") {
+        if (Yii::app()->getTheme() != "dtech_second") {
             Yii::app()->user->SiteSessions;
             $this->redirect($this->createUrl("/site/storeHome"));
         }
@@ -35,6 +35,7 @@ class SiteController extends Controller {
         Yii::app()->controller->layout = "";
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = 'landing_page_theme';
+
 
         $model = new LandingModel();
         $this->countryLanding($model);
@@ -61,12 +62,21 @@ class SiteController extends Controller {
      */
     public function actionStoreHome() {
 
+        $model = new LandingModel();
+        $this->countryLanding($model);
+
+        //CVarDumper::dump($model->attributes,10,true);
+        //die;
+
         Yii::app()->user->SiteSessions;
-        
+
         Yii::app()->controller->layout = '//layouts/column1';
-       
 
 
+
+
+
+        //die("HERE");
         //to laod the new layout bar uncomment this lin
         //Yii::app()->controller->layout = '//layouts/search_bar_slider';
 
@@ -288,10 +298,10 @@ class SiteController extends Controller {
                  * for pop up login
                  * when user want to login 
                  */
-                if (!empty($model->route) && $model->route!=Yii::app()->request->getUrl()) {
+                if (!empty($model->route) && $model->route != Yii::app()->request->getUrl()) {
                     $this->redirect($model->route);
                 } else {
-                     $this->redirect($this->createUrl('/user/index'));
+                    $this->redirect($this->createUrl('/user/index'));
                 }
             }
         }
