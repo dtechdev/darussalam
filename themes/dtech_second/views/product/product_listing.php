@@ -24,7 +24,7 @@ $this->webPcmWidget['best'] = array('name' => 'DtechBestSelling',
 
     <div id="right_main_content">
         <?php
-        $this->renderPartial($this->slash."/product/_product_list", array(
+        $this->renderPartial("//product/_product_list", array(
             'products' => $products,
             'dataProvider' => $dataProvider,
             'allCate' => $allCate));
