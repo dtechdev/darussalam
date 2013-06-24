@@ -51,7 +51,7 @@ class UserProfileController extends Controller {
      * @param integer $id the ID of the model to be updated
      */
     public function actionIndex() {
-
+        Yii::app()->user->SiteSessions;
         $model = UserProfile::model()->findByPk(Yii::app()->user->id);
         /**
          * to persist old pic for this
@@ -83,8 +83,8 @@ class UserProfileController extends Controller {
                 $this->redirect($this->createUrl("index"));
             }
         }
-      
-        $this->render($this->slash.'/userProfile/update', array(
+
+        $this->render($this->slash . '/userProfile/update', array(
             'model' => $model,
         ));
     }
