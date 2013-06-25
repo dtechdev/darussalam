@@ -70,7 +70,17 @@
             </div>
             <div id="cart_check">
             </div>
-            <input type="button" value="CHECKOUT" class="check_out" />
+            <?php
+            if (!empty($cart)) {
+                echo CHtml::button("CHECKOUT", array(
+                    "class" => "check_out",
+                    "onclick" => "window.location = '" . $this->createUrl('/web/payment/paymentmethod') . "'"));
+            } else {
+                echo CHtml::button("CHECKOUT", array(
+                    "class" => "check_out",
+                    "onclick" => "window.location = '" . $this->createUrl('/web/cart/viewcart') . "'"));
+            }
+            ?>
         </div>
         <div class="shipping_books_and_content">
             <div class="under_view_heading">

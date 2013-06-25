@@ -32,6 +32,8 @@ class CartController extends Controller {
      */
     public function actionEditcart() {
 
+        Yii::app()->user->SiteSessions;
+
         $view = "//cart/_view_cart";
         if ($_REQUEST['type'] == 'delete_cart') {
             $cart_model = new Cart();
