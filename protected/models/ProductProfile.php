@@ -51,7 +51,7 @@ class ProductProfile extends DTActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('price,size,language_id,item_code', 'required'),
+            array('price,size,language_id', 'required'),
             array('item_code', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('product_id', 'safe'),
@@ -199,6 +199,37 @@ class ProductProfile extends DTActiveRecord {
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+    
+    /*
+     * before save action
+     */
+    public function beforeSave() {
+        
+        $this->generateItemCode();
+        return parent::beforeSave();
+    }
+    /*
+     * method generate item codes base on city
+     * in specific formate
+     *
+     */
+
+    public function generateItemCode() {
+        if ($this->isNewRecord) {
+
+            $criteria = new CDbCriteria();
+            $criteria->select = 'MAX(id) AS id';
+            $obj = $this->find($criteria);
+
+            $last_product_id = $obj['id'] + 1;
+            $city_name = substr(Yii::app()->session['city_short_name'], 0, 2);
+          
+            $parent_category_name = substr(Categories::model()->findByPk($this->product->parent_cateogry_id)->category_name, 0, 1);
+            $gen_code= strtoupper($city_name) .$parent_category_name. '-' . $last_product_id;
+            $this->item_code = $gen_code;
+            
+        }
     }
 
     /**

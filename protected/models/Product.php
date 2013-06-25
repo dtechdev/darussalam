@@ -23,6 +23,7 @@
 class Product extends DTActiveRecord {
 
     public $no_image;
+    public $max_product_id;
 
     public function __construct($scenario = 'insert') {
         $this->no_image = Yii::app()->baseUrl . "/images/product_images/noimages.jpeg";
@@ -128,6 +129,10 @@ class Product extends DTActiveRecord {
         );
     }
 
+
+
+
+
     /**
      *  get relavent product info
      * @param type $limit
@@ -140,7 +145,7 @@ class Product extends DTActiveRecord {
 
         $city_id = Yii::app()->session['city_id'];
 
-        
+
 
         if (!empty($product_array)) {
             $criteria = new CDbCriteria(array(
@@ -208,7 +213,7 @@ class Product extends DTActiveRecord {
             'criteria' => $criteria,
         ));
 
-       
+
 
         return $dataProvider;
     }
@@ -264,7 +269,7 @@ class Product extends DTActiveRecord {
             );
         }
 
-        
+
         return $all_pro;
     }
 
