@@ -18,15 +18,7 @@ $relationName = "productProfile";
 
     echo CHtml::activeHiddenField($model, '[' . $index . ']upload_index', array("value" => $index));
     ?>
-    <div class="row">
-        <?php echo CHtml::activeLabelEx($model, 'item_code'); ?>
-        <?php
-        
-        echo CHtml::activeTextField($model, '[' . $index . ']item_code',array("readOnly"=>"readOnly"));
-
-        ?>
-        <?php echo CHtml::error($model, 'item_code'); ?>
-    </div>
+    
     <div class="row">
         <?php echo CHtml::activeLabelEx($model, 'language_id'); ?>
         <?php
