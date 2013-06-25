@@ -29,6 +29,8 @@
                         '</li>' .
                         '<li>' . CHtml::link('Payment Methods', array('/configurations/load', 
                             "m" => "PaymentMethods")) . '</li>' .
+                        '<li>' . CHtml::link('Currency Rates', array('/configurations/load', 
+                            "m" => "Currency")) . '</li>' .
                         '</ul>',
                         'Book' => '<ul class="accordion-ul">' .
                         '<li>' . CHtml::link('Dimensions', array('/configurations/load', 
