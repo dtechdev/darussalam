@@ -78,6 +78,7 @@ class ConfigurationsController extends Controller {
                     $criteria->addCondition("type = '" . $type . "'");
                 }
             }
+            
             $model = $model->findByPk($id, $criteria);
         }
 
