@@ -79,7 +79,7 @@ else if($this->action->id == 'view'){
                     ));
                 }
                 ?>
-                <div id="<?php echo $fields_div_id; ?>" class="form">
+                <div id="<?php echo $fields_div_id; ?>" class="form wide">
                     <?php
                     /* for loading with js */
                     $relationName_index_sc = -1;

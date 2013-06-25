@@ -67,9 +67,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
             )
         ),
         array(
-            'name' => 'product_description',
+            'name' => 'product_overview',
             'type' => 'Raw',
-            'value' => '$data->product_description',
+            'value' => '$data->product_overview',
             'headerHtmlOptions' => array(
                 'style' => "text-align:left"
             )

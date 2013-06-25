@@ -7,18 +7,17 @@
     <div class = "right_float">
         <span class="creatdate">
             <?php
-            echo CHtml::link("Update Book", $this->createUrl("update",array("id"=>$model->product->product_id)), array('class' => "print_link_btn"))
+            echo CHtml::link("Update Book", $this->createUrl("update", array("id" => $model->product->product_id)), array('class' => "print_link_btn"))
             ?>
         </span>
         <span class="creatdate">
             <?php
-            echo CHtml::link("View Book", $this->createUrl("view",array("id"=>$model->product->product_id)), array('class' => "print_link_btn"))
+            echo CHtml::link("View Book", $this->createUrl("view", array("id" => $model->product->product_id)), array('class' => "print_link_btn"))
             ?>
         </span>
     </div>
 </div>
 <?php
-
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/gridform.css');
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/functions.js');
 $this->widget('zii.widgets.CDetailView', array(
@@ -45,16 +44,39 @@ $this->widget('zii.widgets.CDetailView', array(
             'value' => $model->no_of_pages,
         ),
         array(
-            'name' => 'binding',
-            'value' => $model->binding,
+            'name' => 'translator_id',
+            'value' => !empty($model->translator_rel)?$model->translator_rel->name:"",
+            "type" => "raw",
         ),
         array(
-            'name' => 'printing',
-            'value' => $model->printing,
+            'name' => 'compiler_id',
+            'value' => !empty($model->compiler_rel)?$model->compiler_rel->name:"",
+            "type" => "raw",
+        ),
+        array(
+            'name' => 'binding',
+            'value' => !empty($model->binding_rel)?$model->binding_rel->title:"",
+            "type" => "raw",
+        ),
+        array(
+            'name' => 'dimension',
+            'value' => !empty($model->dimension_rel)?$model->dimension_rel->title:"",
+            "type" => "raw",
         ),
         array(
             'name' => 'paper',
-            'value' => $model->paper,
+            'value' => !empty($model->paper_rel)?$model->paper_rel->title:"",
+            "type" => "raw",
+        ),
+        array(
+            'name' => 'printing',
+            'value' => !empty($model->printing_rel)?$model->printing_rel->title:"",
+            "type" => "raw",
+        ),
+        array(
+            'name' => 'edition',
+            'value' => $model->edition,
+            "type" => "raw",
         ),
     ),
 ));

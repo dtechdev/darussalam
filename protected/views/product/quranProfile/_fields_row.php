@@ -3,8 +3,8 @@
 if (!isset($display)) {
     $display = 'none';
 }
-$mName = "Quran";
-$relationName = "quranProfile";
+$mName = "ProductProfile";
+$relationName = "productProfile";
 ?>
 
 
@@ -18,7 +18,7 @@ $relationName = "quranProfile";
 
     echo CHtml::activeHiddenField($model, '[' . $index . ']upload_index', array("value" => $index));
     ?>
-    
+
     <div class="row">
         <?php echo CHtml::activeLabelEx($model, 'language_id'); ?>
         <?php
@@ -30,16 +30,91 @@ $relationName = "quranProfile";
         <?php echo CHtml::error($model, 'language_id'); ?>
     </div>
 
+    <div class="row">
+        <?php echo CHtml::activeLabelEx($model, 'translator_id'); ?>
+        <?php
+        $criteria = new CDbCriteria();
+        $criteria->select = "id,type,name";
+        $criteria->condition = "type='translator'";
+        $prod_pro = TranslatorCompiler::model()->findAll($criteria);
+        //CVarDumper::dump(CHtml::listData($prod_pro, "id", "type"),20,TRUE);die;        
+        echo CHtml::activeDropDownList($model, '[' . $index . ']translator_id', CHtml::listData($prod_pro, "id", "name"));
+        ?>
+        <?php echo CHtml::error($model, 'translator_id'); ?>
+    </div>
 
 
     <div class="clear"></div>
+
     <div class="row">
-        <?php echo CHtml::activeLabelEx($model, 'size'); ?>
+        <?php echo CHtml::activeLabelEx($model, 'compiler_id'); ?>
         <?php
-        echo CHtml::activeTextField($model, '[' . $index . ']size')
+        $criteria = new CDbCriteria();
+        $criteria->select = "id,type,name";
+        $criteria->condition = "type='compiler'";
+        $prod_pro = TranslatorCompiler::model()->findAll($criteria);
+        //CVarDumper::dump(CHtml::listData($prod_pro, "id", "type"),20,TRUE);die;        
+        echo CHtml::activeDropDownList($model, '[' . $index . ']compiler_id', CHtml::listData($prod_pro, "id", "name"));
         ?>
-        <?php echo CHtml::error($model, 'size'); ?>
+        <?php echo CHtml::error($model, 'compiler_id'); ?>
     </div>
+    <div class="row">
+        <?php echo CHtml::activeLabelEx($model, 'dimension'); ?>
+        <?php
+        $criteria = new CDbCriteria();
+        $criteria->select = "id,type,title";
+        $criteria->condition = "type='Dimensions'";
+        $prod_pro = ConfProducts::model()->findAll($criteria);
+        echo CHtml::activeDropDownList($model, '[' . $index . ']dimension', CHtml::listData($prod_pro, "id", "title"));
+        ?>
+        <?php echo CHtml::error($model, 'dimension'); ?>
+    </div>
+
+    <div class="clear"></div>
+    <div class="row">
+        <?php echo CHtml::activeLabelEx($model, 'binding'); ?>
+        <?php
+        $criteria = new CDbCriteria();
+        $criteria->select = "id,type,title";
+        $criteria->condition = "type='binding'";
+        $prod_pro = ConfProducts::model()->findAll($criteria);
+        echo CHtml::activeDropDownList($model, '[' . $index . ']binding', CHtml::listData($prod_pro, "id", "title"));
+        ?>
+        <?php echo CHtml::error($model, 'binding'); ?>
+    </div>
+    <div class="row">
+        <?php echo CHtml::activeLabelEx($model, 'printing'); ?>
+        <?php
+        $criteria = new CDbCriteria();
+        $criteria->select = "id,type,title";
+        $criteria->condition = "type='printing'";
+        $prod_pro = ConfProducts::model()->findAll($criteria);
+        echo CHtml::activeDropDownList($model, '[' . $index . ']printing', CHtml::listData($prod_pro, "id", "title"));
+        ?>
+        <?php echo CHtml::error($model, 'printing'); ?>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="row">
+        <?php echo CHtml::activeLabelEx($model, 'paper'); ?>
+        <?php
+        $criteria = new CDbCriteria();
+        $criteria->select = "id,type,title";
+        $criteria->condition = "type='paper'";
+        $prod_pro = ConfProducts::model()->findAll($criteria);
+        echo CHtml::activeDropDownList($model, '[' . $index . ']paper', CHtml::listData($prod_pro, "id", "title"));
+        ?>
+        <?php echo CHtml::error($model, 'paper'); ?>
+    </div>
+
+    <!--    <div class="row">
+    <?php echo CHtml::activeLabelEx($model, 'size'); ?>
+    <?php
+    echo CHtml::activeTextField($model, '[' . $index . ']size')
+    ?>
+    <?php echo CHtml::error($model, 'size'); ?>
+        </div>-->
 
     <div class="row">
         <?php echo CHtml::activeLabelEx($model, 'no_of_pages'); ?>
@@ -49,22 +124,6 @@ $relationName = "quranProfile";
         <?php echo CHtml::error($model, 'no_of_pages'); ?>
     </div>
 
-    <div class="clear"></div>
-    <div class="row">
-        <?php echo CHtml::activeLabelEx($model, 'binding'); ?>
-        <?php
-        echo CHtml::activeTextField($model, '[' . $index . ']binding')
-        ?>
-        <?php echo CHtml::error($model, 'binding'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo CHtml::activeLabelEx($model, 'printing'); ?>
-        <?php
-        echo CHtml::activeTextField($model, '[' . $index . ']printing')
-        ?>
-        <?php echo CHtml::error($model, 'printing'); ?>
-    </div>
 
     <div class="clear"></div>
     <div class="row">

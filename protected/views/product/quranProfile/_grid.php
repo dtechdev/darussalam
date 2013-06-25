@@ -26,20 +26,34 @@ $mName = "Quran";
                 'value' => '!empty($data->productLanguage)?$data->productLanguage->language_name:""',
                 "type" => "raw",
             ),
-
             array(
-                'name' => 'size',
-                'value' => '$data->size',
+                'name' => 'translator_id',
+                'value' => '!empty($data->translator_rel)?$data->translator_rel->name:""',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'compiler_id',
+                'value' => '!empty($data->compiler_rel)?$data->compiler_rel->name:""',
                 "type" => "raw",
             ),
             array(
                 'name' => 'binding',
-                'value' => '$data->binding',
+                'value' => '!empty($data->binding_rel)?$data->binding_rel->title:""',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'dimension',
+                'value' => '!empty($data->dimension_rel)?$data->dimension_rel->title:""',
+                "type" => "raw",
+            ),
+            array(
+                'name' => 'paper',
+                'value' => '!empty($data->paper_rel)?$data->paper_rel->title:""',
                 "type" => "raw",
             ),
             array(
                 'name' => 'printing',
-                'value' => '$data->printing',
+                'value' => '!empty($data->printing_rel)?$data->printing_rel->title:""',
                 "type" => "raw",
             ),
             array(
@@ -99,7 +113,6 @@ $mName = "Quran";
                         'label' => 'View Image',
                         'url' => 'Yii::app()->controller->createUrl("viewImage",array("id" => $data->id))',
                         'imageUrl' => Yii::app()->theme->baseUrl . "/images/icons/viewimage.jpeg",
-        
                     ),
                 ),
             ),

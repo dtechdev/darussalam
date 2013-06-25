@@ -17,6 +17,11 @@ $mName = "EducationToys";
         'dataProvider' => $mName_provider,
         'columns' => array(
             array(
+                'name' => 'item_code',
+                'value' => '$data->item_code',
+                "type" => "raw",
+            ),
+            array(
                 'name' => 'price',
                 'value' => '$data->price',
                 "type" => "raw",
