@@ -51,16 +51,43 @@ class ProductProfile extends DTActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('price,size,language_id', 'required'),
+            array('price,dimension,language_id', 'required'),
             array('item_code', 'unique'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
             array('product_id', 'safe'),
             array('id,size,no_of_pages,binding,printing,paper,edition,upload_index', 'safe'),
+            array('dimension,translator_id,compiler_id', 'safe'),
             array('isbn', 'length', 'max' => 255),
             array('language_id', 'UniqueLanguage'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('profile_id, author_id, isbn', 'safe', 'on' => 'search'),
+        );
+    }
+
+    /**
+     * @return array relational rules.
+     */
+    public function relations() {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
+            'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'product_profile_id'),
+            'productLanguage' => array(self::BELONGS_TO, 'Language', 'language_id'),
+            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_profile_id', 'order' => 'is_default DESC'),
+            /**
+             * configuration relationship
+             */
+            'dimension_rel' => array(self::BELONGS_TO, 'ConfProducts', 'dimension', 'condition' => 'type="Dimensions"'),
+            'binding_rel' => array(self::BELONGS_TO, 'ConfProducts', 'binding', 'condition' => 'type="Binding"'),
+            'printing_rel' => array(self::BELONGS_TO, 'ConfProducts', 'printing', 'condition' => 'type="Printing"'),
+            'paper_rel' => array(self::BELONGS_TO, 'ConfProducts', 'paper', 'condition' => 'type="Paper"'),
+            /*
+             * relation for compiler and translator table
+             */
+            'translator_rel' => array(self::BELONGS_TO, 'TranslatorCompiler', 'translator_id', 'condition' => 'type="translator"'),
+            'compiler_rel' => array(self::BELONGS_TO, 'TranslatorCompiler', 'compiler_id', 'condition' => 'type="compiler"'),
         );
     }
 
@@ -147,20 +174,6 @@ class ProductProfile extends DTActiveRecord {
     }
 
     /**
-     * @return array relational rules.
-     */
-    public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
-            'orderDetails' => array(self::HAS_MANY, 'OrderDetail', 'product_profile_id'),
-            'productLanguage' => array(self::BELONGS_TO, 'Language', 'language_id'),
-            'productImages' => array(self::HAS_MANY, 'ProductImage', 'product_profile_id', 'order' => 'is_default DESC'),
-        );
-    }
-
-    /**
      * @return array customized attribute labels (name=>label)
      */
     public function attributeLabels() {
@@ -169,12 +182,15 @@ class ProductProfile extends DTActiveRecord {
             'product_id' => 'Product',
             'isbn' => 'Isbn',
             'price' => 'Price',
-            'no_of_pages' => '# Pages',
+            'no_of_pages' => 'No Of Pages',
             'binding' => 'Binding',
             'printing' => 'Printing',
-            'paper' => 'Paper',
+            'paper' => 'Paper ',
+            'dimension' => 'Dimension',
             'language_id' => 'Language',
             'edition' => 'Edition',
+            'compiler_id' => 'Compiler',
+            'translator_id' => 'Translator',
         );
     }
 
@@ -200,15 +216,17 @@ class ProductProfile extends DTActiveRecord {
             'criteria' => $criteria,
         ));
     }
-    
+
     /*
      * before save action
      */
+
     public function beforeSave() {
-        
+
         $this->generateItemCode();
         return parent::beforeSave();
     }
+
     /*
      * method generate item codes base on city
      * in specific formate
@@ -224,11 +242,10 @@ class ProductProfile extends DTActiveRecord {
 
             $last_product_id = $obj['id'] + 1;
             $city_name = substr(Yii::app()->session['city_short_name'], 0, 2);
-          
+
             $parent_category_name = substr(Categories::model()->findByPk($this->product->parent_cateogry_id)->category_name, 0, 1);
-            $gen_code= strtoupper($city_name) .$parent_category_name. '-' . $last_product_id;
+            $gen_code = strtoupper($city_name) . $parent_category_name . '-' . $last_product_id;
             $this->item_code = $gen_code;
-            
         }
     }
 

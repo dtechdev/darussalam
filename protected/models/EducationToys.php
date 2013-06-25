@@ -74,4 +74,32 @@ class EducationToys extends DTActiveRecord {
         return array_merge(parent::relations(), $relations);
     }
 
+    public function beforeSave() {
+
+        $this->generateItemCode();
+        return parent::beforeSave();
+    }
+
+    /*
+     * method generate item codes base on city
+     * in specific formate
+     *
+     */
+
+    public function generateItemCode() {
+        if ($this->isNewRecord) {
+
+            $criteria = new CDbCriteria();
+            $criteria->select = 'MAX(id) AS id';
+            $obj = $this->find($criteria);
+
+            $last_product_id = $obj['id'] + 1;
+            $city_name = substr(Yii::app()->session['city_short_name'], 0, 2);
+
+            $parent_category_name = substr(Categories::model()->findByPk($this->product->parent_cateogry_id)->category_name, 0, 1);
+            $gen_code = strtoupper($city_name) . $parent_category_name . '-' . $last_product_id;
+            $this->item_code = $gen_code;
+        }
+    }
+
 }
