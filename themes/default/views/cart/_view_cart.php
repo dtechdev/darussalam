@@ -121,6 +121,7 @@ if (empty($cart)) {
                                     $quantities = array('1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10');
                                     echo CHtml::dropDownList('quantity' . $pro->cart_id, '', $quantities, array(
                                         'options' => array($pro->quantity => array('selected' => true)),
+                                        'id'=>'quantity_'.uniqid(),
                                         'ajax' => array(
                                             'type' => 'POST',
                                             'url' => $this->createUrl('/web/cart/editcart'),

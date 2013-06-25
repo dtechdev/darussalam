@@ -1,13 +1,13 @@
 <div class="pagingdiv">
-<?php
-$this->widget('DTPager', array(
-    'pages' => $dataProvider->pagination,
-    'ajax' => true,
-    'append_param' => (!empty($_REQUEST['serach_field'])) ? "serach_field=" . $_REQUEST['serach_field'] : "",
-    'jsMethod' => 'dtech.updatePaginationFilter(this);return false;',
-        )
-);
-?>
+    <?php
+    $this->widget('DTPager', array(
+        'pages' => $dataProvider->pagination,
+        'ajax' => true,
+        'append_param' => (!empty($_REQUEST['serach_field'])) ? "serach_field=" . $_REQUEST['serach_field'] : "",
+        'jsMethod' => 'dtech.updatePaginationFilter(this);return false;',
+            )
+    );
+    ?>
 </div>
 <div class="clear"></div>
 <?php
@@ -19,8 +19,13 @@ foreach ($products as $product) {
         $image = $product['image'][0]['image_small'];
     }
     echo CHtml::openTag("div", array("class" => "featured_books", 'style' => 'padding:28px 50px'));
-
-    echo CHtml::link(CHtml::image($image, $name, array('style' => 'width:92px; height:138px;margin:0 0 17px 0px; box-shadow: 0 0 5px 5px #888; padding:2px 2px','title' => $product['product_name'])), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id']));
+    
+    if (Yii::app()->controller->action->id == "getSearch") {
+        echo CHtml::link(CHtml::image($image, 'image', array('title' => $product['product_name'],"class"=>"detail_image")), Yii::app()->createUrl('/web/search/searchDetail', array('country' => $product['country_short'], 'city' => $product['city_short'], 'city_id' => $product['city_id'], 'product_id' => $product['product_id'])));
+    } else {
+        echo CHtml::link(CHtml::image($image, 'image', array('title' => $product['product_name'],"class"=>"detail_image")), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id']));
+    }
+    //echo CHtml::link(CHtml::image($image, $name, array('style' => '', 'title' => $product['product_name'])), $this->createUrl('/web/product/productDetail', array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id'])), array('country' => Yii::app()->session['country_short_name'], 'city' => Yii::app()->session['city_short_name'], 'city_id' => Yii::app()->session['city_id'], 'product_id' => $product['product_id']));
 
     echo CHtml::openTag("h3");
     echo implode(' ', array_slice(explode(' ', $name), 0, 4));

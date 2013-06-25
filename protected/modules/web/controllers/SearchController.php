@@ -110,7 +110,7 @@ class SearchController extends Controller {
             if (isset($_POST['ajax'])) {
                 $this->productfilter($dataProvider, $all_products);
             } else {
-                 //Yii::app()->user->SiteSessions;
+                 
                 
                 $this->render('//product/all_products', array('products' => $all_products, 'allCate' => $allCategories, "dataProvider" => $dataProvider));
             }
