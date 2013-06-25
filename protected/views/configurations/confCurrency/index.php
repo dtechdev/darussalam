@@ -26,7 +26,7 @@ $config = array(
 $provider = new CActiveDataProvider("ConfCurrency", $config);
 
 $this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'conf-products-grid',
+    'id' => 'conf-currency-grid',
     'dataProvider' => $provider,
     'columns' => array(
         'name','sybmol',
@@ -38,12 +38,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
                'update' => array
                     (
                     'label' => 'update',
-                    'url' => 'Yii::app()->controller->createUrl("load", array("m" => "' . $m . '", "id"=> $data->id))',
+                    'url' => 'Yii::app()->controller->createUrl("load", array("m" => "' . $m . '", "id"=> $data->id,"type"=>""))',
                 ),
                'delete' => array
                     (
-                    'label' => 'update',
-                    'url' => 'Yii::app()->controller->createUrl("delete", array("m" => "' . $m . '", "id"=> $data->id))',
+                    'label' => 'delete',
+                    'url' => 'Yii::app()->controller->createUrl("delete", array("m" => "' . $m . '", "id"=> $data->id,"type"=>""))',
                 ),
     
             ),

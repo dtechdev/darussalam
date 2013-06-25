@@ -63,6 +63,7 @@ class ConfigurationsController extends Controller {
      */
     public function actionLoad($m, $id = 0, $module = '', $type = '') {
 
+      
         /* Complete Model name */
         $model_name = 'Conf' . $m;
 
@@ -98,7 +99,8 @@ class ConfigurationsController extends Controller {
                 }
             };
         }
-
+        
+        
         $this->render($model->confViewName, array('model' => $model, 'm' => $m, 'module' => $module));
     }
 

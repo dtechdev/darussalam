@@ -95,7 +95,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 'update' => array
                     (
                     'label' => 'update',
-                    'url' => 'Yii::app()->controller->createUrl("load", array("m" => "' . $m . '", "id"=> $data->id))',
+                    'url' => 'Yii::app()->controller->createUrl("load", array("m" => "' . $m . '", "id"=> $data->id,"type"=>""))',
                 ),
             ),
         ),
