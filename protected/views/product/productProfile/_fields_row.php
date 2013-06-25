@@ -21,7 +21,9 @@ $relationName = "productProfile";
     <div class="row">
         <?php echo CHtml::activeLabelEx($model, 'item_code'); ?>
         <?php
-        echo CHtml::activeTextField($model, '[' . $index . ']item_code')
+        
+        echo CHtml::activeTextField($model, '[' . $index . ']item_code',array("readOnly"=>"readOnly"));
+
         ?>
         <?php echo CHtml::error($model, 'item_code'); ?>
     </div>
