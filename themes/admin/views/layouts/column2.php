@@ -38,6 +38,9 @@
                             "m" => "Products","type"=>'Binding')) . 
                         '</li>' .
                         '<li>' . CHtml::link('Printing', array('/configurations/load', 
+                            "m" => "Products","type"=>"Printing")) . '</li>' .
+                      
+                        '<li>' . CHtml::link('Paper', array('/configurations/load', 
                             "m" => "Products","type"=>"Paper")) . '</li>' .
                         '</ul>',
                     ),
