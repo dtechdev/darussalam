@@ -38,6 +38,11 @@ $this->widget('zii.widgets.CDetailView', array(
             'value' => $model->product_name,
         ),
         array(
+            'name' => 'product_overview',
+            'value' => $model->product_overview,
+            
+        ),
+        array(
             'name' => 'product_description',
             'value' => $model->product_description,
             
