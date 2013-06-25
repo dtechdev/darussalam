@@ -21,7 +21,8 @@ class QuranController extends Controller {
     public function actionIndex() {
 
         $this->is_cat_filter = true;
-
+        Yii::app()->user->SiteSessions;
+        
 
         /**
          * ajax based
@@ -56,6 +57,7 @@ class QuranController extends Controller {
      *  for filter of category
      */
     public function productfilter() {
+        Yii::app()->user->SiteSessions;
         $dataProvider = Product::model()->allProducts(array(), 30, "Quran");
         $all_products = Product::model()->returnProducts($dataProvider);
         $this->renderPartial("//quran/_product_list", array('products' => $all_products,
@@ -63,7 +65,8 @@ class QuranController extends Controller {
     }
 
     public function actionProductDetail() {
-
+        Yii::app()->user->SiteSessions;
+       
         $product = Product::model()->findByPk($_REQUEST['product_id']);
 
         /**
@@ -78,7 +81,7 @@ class QuranController extends Controller {
      * product detail change
      */
     public function actionproductDetailLang($id) {
-
+        Yii::app()->user->SiteSessions;
         if (isset($_POST['lang_id'])) {
 
 
