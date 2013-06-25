@@ -1,8 +1,30 @@
 <div class="right_detail">
     <h1><?php echo $product->product_name; ?></h1>
-    <h2>Author: <span> <?php
+    <h2>
+        Author: 
+        <span>
+            <?php
             echo isset($product->author->author_name) ? $product->author->author_name : "";
-            ?></span></h2>
+            ?>
+        </span>
+    </h2>
+    <h2>
+        ISBN: 
+        <span>
+            <?php
+            echo isset($product->productProfile[0]->isbn) ? $product->productProfile[0]->isbn : "";
+            ?>
+        </span>
+    </h2>
+    <h2>
+        Price: 
+        <span>
+            <?php
+            echo isset($product->educationToys[0]->price) ? '$ ' . round($product->educationToys[0]->price, 2) : "";
+            ?>
+
+        </span>
+    </h2>
     <p>
         <?php
         /** rating value is comming from controller * */
@@ -109,9 +131,44 @@
         ?>
     </section>
 
-    <section>ISBN: 
+    <section>Translator: 
         <?php
-        echo isset($product->productProfile[0]->isbn) ? $product->productProfile[0]->isbn : "";
+        echo isset($product->productProfile[0]->translator_rel->name) ? $product->productProfile[0]->translator_rel->name : "";
+        ?>
+    </section>
+    <section>Compiler: 
+        <?php
+        echo isset($product->productProfile[0]->compiler_rel->name) ? $product->productProfile[0]->compiler_rel->name : "";
+        ?>
+    </section>
+    <section>Dimension: 
+        <?php
+        echo isset($product->productProfile[0]->dimension_rel->title) ? $product->productProfile[0]->dimension_rel->title : "";
+        ?>
+    </section>
+    <section>Binding: 
+        <?php
+        echo isset($product->productProfile[0]->binding_rel->title) ? $product->productProfile[0]->binding_rel->title : "";
+        ?>
+    </section>
+    <section>Printing: 
+        <?php
+        echo isset($product->productProfile[0]->printing_rel->title) ? $product->productProfile[0]->printing_rel->title : "";
+        ?>
+    </section>
+    <section>Paper Type: 
+        <?php
+        echo isset($product->productProfile[0]->paper_rel->title) ? $product->productProfile[0]->paper_rel->title : "";
+        ?>
+    </section>
+    <section>No Of Pages: 
+        <?php
+        echo isset($product->productProfile[0]->no_of_pages) ? $product->productProfile[0]->no_of_pages : "";
+        ?>
+    </section>
+    <section>Edition: 
+        <?php
+        echo isset($product->productProfile[0]->edition) ? $product->productProfile[0]->edition : "";
         ?>
     </section>
     <section>
