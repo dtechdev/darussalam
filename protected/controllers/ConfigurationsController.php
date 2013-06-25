@@ -61,20 +61,24 @@ class ConfigurationsController extends Controller {
      * @param <string> $m (Model name without Conf)
      * @param <int> $id
      */
-    public function actionLoad($m, $id = 0, $module = '',$type='') {
+    public function actionLoad($m, $id = 0, $module = '', $type = '') {
 
         /* Complete Model name */
         $model_name = 'Conf' . $m;
 
         $model = new $model_name;
-        
-        
+
+
         if ($id != 0) {
-            if($type!=""){
+            if ($type != "") {
                 $criteria = new CDbCriteria();
-                $criteria->addCondition("misc_type = '".$type."'");
+                if (array_key_exists('misc_type', $model->attributes)) {
+                    $criteria->addCondition("misc_type = '" . $type . "'");
+                } else if (array_key_exists('type', $model->attributes)) {
+                    $criteria->addCondition("type = '" . $type . "'");
+                }
             }
-            $model = $model->findByPk($id,$criteria);
+            $model = $model->findByPk($id, $criteria);
         }
 
 
@@ -83,8 +87,15 @@ class ConfigurationsController extends Controller {
             /* Assign attributes */
             $model->attributes = $_POST[$model_name];
             /* Save record */
-            if ($model->save())
-                $this->redirect(array('load', 'm' => $m, 'module' => $module,"type"=>$model->misc_type));
+            if ($model->save()) {
+                if (isset($model->misc_type)) {
+                    $this->redirect(array('load', 'm' => $m, 'module' => $module, "type" => $model->misc_type));
+                } else if (isset($model->type)) {
+                    $this->redirect(array('load', 'm' => $m, 'module' => $module, "type" => $model->type));
+                } else {
+                    $this->redirect(array('load', 'm' => $m, 'module' => $module));
+                }
+            };
         }
 
         $this->render($model->confViewName, array('model' => $model, 'm' => $m, 'module' => $module));
@@ -111,6 +122,17 @@ class ConfigurationsController extends Controller {
         $model = new ConfMisc();
 
         $this->render("appSettings/index", array('model' => $model));
+    }
+
+    public function actionDelete($m, $id = 0, $module = '', $type = '') {
+        $model_name = 'Conf' . $m;
+
+        $model = $model_name::model()->findByPk($id);
+        $model->delete();
+        
+               // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        if (!isset($_GET['ajax']))
+            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('load'));
     }
 
 }

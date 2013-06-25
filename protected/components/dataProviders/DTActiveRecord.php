@@ -73,14 +73,12 @@ class DTActiveRecord extends CActiveRecord {
     protected function beforeSave() {
 
         $update_time = date("Y-m-d") . " " . date("H:i:s");
-        
+
 
         parent::beforeSave();
 
         return true;
     }
-
-
 
     /**
      *
@@ -167,14 +165,20 @@ class DTActiveRecord extends CActiveRecord {
      *  for city admin we have to access only city base record
      */
     public function makeCityAdminCondition($condition) {
-       
-        $controller =  Yii::app()->controller->id;
-        $controllers = array("search","site","wS","error","commonSystem");
-        
-        $actions = array("login", "logout","storehome","activate");
 
-        if (!in_array($controller,$controllers) && !in_array($this->_action, $actions) 
-                && !empty(Yii::app()->session['city_id'])) {
+        $controller = Yii::app()->controller->id;
+        $controllers = array(
+            "search", "site",
+            "wS", "error",
+            "commonSystem",
+            "assignment",
+            "authItem",
+            "install"
+        );
+
+        $actions = array("login", "logout", "storehome", "activate");
+
+        if (!in_array($controller, $controllers) && !in_array($this->_action, $actions) && !empty(Yii::app()->session['city_id'])) {
             $isSuper = Yii::app()->session['isSuper'];
             //$isSuper = 0;
 
@@ -194,9 +198,14 @@ class DTActiveRecord extends CActiveRecord {
      */
     public function makeCriteriaCityAdmin($criteria) {
 
-        $controller =  Yii::app()->controller->id;
-        $controllers = array("search","site","wS","error","commonSystem");
-        $actions = array("login", "logout","storehome","activate"); // apply the criteria to all dtActiveRec execpt these methods..Ub
+        $controller = Yii::app()->controller->id;
+
+        $controllers = array("search", "site", "wS",
+            "error",
+            "commonSystem", "assignment",
+            "authItem",
+            "install");
+        $actions = array("login", "logout", "storehome", "activate"); // apply the criteria to all dtActiveRec execpt these methods..Ub
 
         if (!in_array($controller, $controllers) && !in_array($this->_action, $actions) && !empty(Yii::app()->session['city_id'])) {
             $isSuper = Yii::app()->session['isSuper'];

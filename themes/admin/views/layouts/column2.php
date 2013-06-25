@@ -15,7 +15,9 @@
              * If configuration controller is called
              * 
              */
-            if ($this->id == "configurations" || $this->id == "cmm") {
+           
+            if ($this->id == "configurations" || $this->id == "cmm" || $this->id == "confProducts") {
+                
                 $this->widget('zii.widgets.jui.CJuiAccordion', array(
                     'panels' => array(
                         'Settings' => '<ul class="accordion-ul">' .
@@ -27,6 +29,16 @@
                         '</li>' .
                         '<li>' . CHtml::link('Payment Methods', array('/configurations/load', 
                             "m" => "PaymentMethods")) . '</li>' .
+                        '</ul>',
+                        'Book' => '<ul class="accordion-ul">' .
+                        '<li>' . CHtml::link('Dimensions', array('/configurations/load', 
+                            "m" => "Products",'type'=>'Dimensions')) . 
+                        '</li>' .
+                        '<li>' . CHtml::link('Binding', array('/configurations/load', 
+                            "m" => "Products","type"=>'Binding')) . 
+                        '</li>' .
+                        '<li>' . CHtml::link('Printing', array('/configurations/load', 
+                            "m" => "Products","type"=>"Paper")) . '</li>' .
                         '</ul>',
                     ),
                     // additional javascript options for the accordion plugin
