@@ -44,6 +44,10 @@
                       
                         '<li>' . CHtml::link('Paper', array('/configurations/load', 
                             "m" => "Products","type"=>"Paper")) . '</li>' .
+                        '<li>' . CHtml::link('Author', array('/author/index', 
+                            )) . '</li>' .
+                        '<li>' . CHtml::link('Translator Compiler', array('/translatorCompiler/index', 
+                            )) . '</li>' .
                         '</ul>',
                     ),
                     // additional javascript options for the accordion plugin
