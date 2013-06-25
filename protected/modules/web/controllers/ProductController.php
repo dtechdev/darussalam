@@ -202,7 +202,7 @@ class ProductController extends Controller {
         if (isset($_POST['lang_id'])) {
 
 
-
+            Yii::app()->user->SiteSessions;
             $product = Product::model();
 
             $product = $product->findByPk($id);
