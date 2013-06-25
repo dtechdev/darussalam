@@ -945,3 +945,9 @@ div.img_hover:hover
 .wizard-select {
     background-color: #F1F1F1
 }
+.revoke-link {
+    color:red !important;
+}
+.assign-link {
+    color: green !important;
+}
