@@ -86,9 +86,9 @@ class DTWebUser extends CWebUser {
          */
         if (!empty($_REQUEST['city_id'])) {
             $cityModel = SelfSite::model()->findCityLocation($_REQUEST['city_id']);
-           
-      
-              $layout = SelfSite::model()->findLayout($cityModel->layout_id);
+
+
+            $layout = SelfSite::model()->findLayout($cityModel->layout_id);
 
             $this->saveDTSessions($cityModel, $layout);
         }
@@ -108,7 +108,7 @@ class DTWebUser extends CWebUser {
          */ else {
             $cityModel = SelfSite::model()->findCityLocation($site_info['site_headoffice']);
             $layout = SelfSite::model()->findLayout($cityModel->layout_id);
-            
+
             $this->saveDTSessions($cityModel, $layout);
         }
 
@@ -119,14 +119,15 @@ class DTWebUser extends CWebUser {
      * save darusslam sessions
      */
     public function saveDTSessions($cityModel, $layout) {
-        
-       
+
+
         Yii::app()->session['layout'] = (!empty($layout) ? $layout->layout_name : "default");
 
         Yii::app()->session['country_short_name'] = $cityModel->country->short_name;
         Yii::app()->session['city_short_name'] = $cityModel->short_name;
         Yii::app()->session['city_id'] = $cityModel->city_id;
         Yii::app()->session['country_id'] = $cityModel->country_id;
+        Yii::app()->session['currency'] = $cityModel->currency->symbol;
         Yii::app()->theme = (!empty($layout) ? $layout->layout_name : "default");
 
         /**
