@@ -6,8 +6,15 @@
 
 class ErrorController extends Controller {
 
+    public function beforeAction($action) {
+        Yii::app()->theme = 'landing_page_theme';
+        Yii::app()->controller->layout = '';
+
+        return parent::beforeAction($action);
+    }
+
     public function actionError() {
-        Yii::app()->controller->layout = '//layouts/main';
+
         $error = Yii::app()->errorHandler->error;
         if ($error)
             $this->render('error', array('error' => $error));
@@ -29,7 +36,7 @@ class ErrorController extends Controller {
      */
 
     public function actionNoFrenchise() {
-         Yii::app()->controller->layout = "";
+        Yii::app()->controller->layout = "";
         Yii::app()->user->SiteSessions;
         Yii::app()->theme = 'landing_page_theme';
         $error = Yii::app()->errorHandler->error;
