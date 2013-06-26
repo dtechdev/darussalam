@@ -123,7 +123,7 @@ class Cart extends DTActiveRecord {
         $cart = "";
         $ip = Yii::app()->request->getUserHostAddress();
         if (isset(Yii::app()->user->id)) {
-            $cart = $this->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND (user_id=' . Yii::app()->user->id . ' OR session_id="' . $ip . '")');
+            $cart = $this->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND (user_id=' . Yii::app()->user->user_id . ' OR session_id="' . $ip . '")');
         } else {
             $cart = $this->findAll('city_id=' . Yii::app()->session['city_id'] . ' AND session_id="' . $ip . '"');
         }
@@ -143,7 +143,7 @@ class Cart extends DTActiveRecord {
             $tot = Yii::app()->db->createCommand()
                     ->select('sum(quantity) as cart_total')
                     ->from('cart')
-                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
+                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->user_id)
                     ->queryRow();
         } else {
            

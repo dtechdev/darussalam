@@ -4,7 +4,7 @@
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class Controller extends CController {
+class Controller extends RController {
 
     /**
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',
@@ -50,7 +50,7 @@ class Controller extends CController {
      * inside
      * @var type 
      */
-    public $slash="/";
+    public $slash = "/";
 
     /**
      *
@@ -62,6 +62,9 @@ class Controller extends CController {
     public function beforeAction($action) {
 
         parent::beforeAction($action);
+        $this->setPermissions();
+        
+       
 
         $this->setPages();
         $this->registerWidget();
@@ -76,10 +79,128 @@ class Controller extends CController {
          */
         Yii::app()->clientScript->scriptMap = array(
             (YII_DEBUG ? 'jquery.js' : 'jquery.min.js') => false,
-            //'jquery-ui.min.js' => false,
-            //'jquery-ui.css' => false
+                //'jquery-ui.min.js' => false,
+                //'jquery-ui.css' => false
         );
         return true;
+    }
+
+    public $adminControllers = array(
+        "banner",
+        "category",
+        "issueCategory",
+        "menus",
+        "news",
+        "party",
+        "site",
+        "users",
+    );
+
+    /* PCM: For Mohsin: Remove this code from here and manage it in a seprate compononet. */
+
+    /**
+     * @property array, Holds all contorllers array
+     */
+    public $controllers;
+
+    /**
+     * @property array holds Operation's Permission
+     */
+    public $OpPermission = array();
+
+    /**
+     * Set controller array
+     * 
+     */
+    public function setControllers() {
+        $this->controllers = array(
+            "Author" => "View",
+            "Categories" => "View",
+            "City" => "View",
+            "Configurations" => "View",
+            "Country" => "View",
+            "Customer" => "View",
+            "Language" => "View",
+            "Menus" => "View",
+            "Order" => "View",
+            "Pages" => "View",
+            "Product" => "View",
+            "SelfSite" => "View",
+            "TranslatorCompiler" => "View",
+            "User" => "View",
+        );
+    }
+
+    /**
+     * Set Permissions 
+     * For menu and for individual child controller i.e. Project, Contact etc..
+     * 
+     * @param string $controller
+     * @param array $operations
+     * @return type 
+     */
+    public function setPermissions($controller = "", $operations = array()) {
+        /**
+         * In case of ajax call we don't need to send all queries to db and update
+         * OpPermission array.
+         */
+//        if (Yii::app()->request->isAjaxRequest)
+//            return false;
+
+        /* If call comes from this controller's before action */
+        if (empty($controller)) {
+            $this->setMinPermissions();
+        }
+        /* If call comes from child controller's before action */ else {
+            $this->setAllPermissions($controller, $operations);
+        }
+        return true;
+    }
+
+    /**
+     * Set minimum permissions
+     * And update OpPermissions Array
+     */
+    private function setMinPermissions() {
+        $this->setControllers();
+        $perm = array();
+        foreach ($this->controllers as $controller => $minPer) {
+            $operation = $controller . '.' . $minPer;
+  
+            $perm[$operation] = Yii::app()->user->checkAccess($operation);
+        }
+        
+        $this->OpPermission = $perm;
+
+        return true;
+    }
+
+    private function setAllPermissions($controller, $operations) {
+        $perm = array();
+        foreach ($operations as $operation) {
+            $op = ucfirst($controller) . "." . ucfirst($operation);
+            $perm[$op] = Yii::app()->user->checkAccess($op);
+        }
+
+        $this->OpPermission = $this->OpPermission + $perm;
+    }
+
+    /**
+     * Get Permission
+     * @param string $operation
+     * @return boolean 
+     */
+    public function getPermission($operation) {
+        return $this->OpPermission[ucfirst($operation)];
+    }
+
+    /**
+     * Check view access
+     * @param type $operation
+     * @return type 
+     */
+    public function checkViewAccess($operation) {
+        return Yii::app()->user->checkAccess($operation);
     }
 
     /**
@@ -237,7 +358,7 @@ class Controller extends CController {
                 $this->menuHtml .='<li ' . ($pid == 0 ? "class='top'" : "") . '>';
                 $url = "#";
                 if ($menu->controller != "") {
-                    $url = $this->createUrl($menu->controller . "/" . $menu->action);
+                    $url = $this->createUrl("/" . $menu->controller . "/" . $menu->action);
                 }
                 $this->menuHtml .='<a href="' . $url . '" class="' . ($pid == 0 ? "top_link " . ($menu->id == $root_parent ? "active " : "") . $menu->root_class : ($childCount > 0 ? "fly" : "")) . '">';
                 if ($pid == 0)

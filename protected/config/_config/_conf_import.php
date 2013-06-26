@@ -9,6 +9,8 @@
 $import = array(
     'application.models.*',
     'application.components.*',
+    'application.modules.rights.*',
+    'application.modules.rights.components.*',
     'application.components.classes.*',
     'application.components.classes.db.*',
     'application.components.widgets.*',
