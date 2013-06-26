@@ -83,14 +83,18 @@
     <body>
         <div class="landing_page_wrap">
             <div id="shopping_cart" style="height:308px;text-align:left; color:gray  ">
-                <div id="main_shopping_cart"><h1>Error <?php echo $error['code'] ?></h1>
+                <div id="main_shopping_cart">
                     <div class="left_right_cart">
                         <div id="landing_banner">
                             <div class="landing_logo_part">
                                 <div class="landing_logo">
-                                    <?php echo CHtml::image(Yii::app()->theme->baseUrl . "/images/landing_page_logo_img_03.png", '') ?>
+                                    <?php
+                                    echo Yii::app()->name;
+                                    echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . "/images/landing_page_logo_img_03.png", 'Logo'), $this->createUrl('/site/storeHome'));
+                                    ?>
                                 </div>
                                 <div class="landing_logo_right">
+                                    <h1>Error <?php echo $error['code'] ?></h1>
                                     <?php
                                     echo "<b>Ooops ! No Page Found .  Invalid Request </b><br><p> Please contact ";
                                     echo $this->pageTitle = Yii::app()->name;
@@ -109,6 +113,8 @@
                     </div>
                 </div>
             </div>
+            <?php echo $this->renderPartial('//site/_landing_content', array('model' => $model));
+            ?>
         </div>
     </body>
 </html>
