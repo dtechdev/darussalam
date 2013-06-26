@@ -50,7 +50,6 @@ class OrderDetail extends DTActiveRecord {
         return array(
             array('product_profile_id, product_price', 'required'),
             array('create_time,create_user_id,update_time,update_user_id', 'required'),
-            
             array('order_id, product_profile_id', 'numerical', 'integerOnly' => true),
             array('product_price', 'length', 'max' => 10),
             // The following rule is used by search().
@@ -140,11 +139,11 @@ class OrderDetail extends DTActiveRecord {
                 $criteria->addCondition("product_categories.category_id='" . $_POST['cat_id'] . "'");
             }
             $criteria->distinct = "t.product_id";
-              //$model = Product::model()->with('productProfile','productCategories');
+            //$model = Product::model()->with('productProfile','productCategories');
         }
 
-        $model = Product::model()->with('productProfile');
- 
+        $model = Product::model()->with(array('productProfile' => array('select' => '*')));
+
         $dataProvider = new CActiveDataProvider($model, array(
             'pagination' => array(
                 'pageSize' => $limit,
@@ -165,10 +164,11 @@ class OrderDetail extends DTActiveRecord {
         $product = array();
         $images = array();
         foreach ($data as $products) {
+
             $product_id = $products->product_id;
             $criteria2 = new CDbCriteria;
             $criteria2->select = '*';  // only select the 'title' column
-            $criteria2->condition = "product_profile_id='" . $product_id . "'";
+            $criteria2->condition = "product_profile_id='" . $products->productProfile[0]->id . "'";
             $imagedata = ProductImage::model()->findAll($criteria2);
             $images = array();
             foreach ($imagedata as $img) {
@@ -197,6 +197,7 @@ class OrderDetail extends DTActiveRecord {
                 'image' => $images
             );
         }
+
         return $featured_products;
     }
 
