@@ -20,7 +20,7 @@
         Price: 
         <span>
             <?php
-            echo isset($product->educationToys[0]->price) ? '$ ' . round($product->educationToys[0]->price, 2) : "";
+            echo isset($product->educationToys[0]->price) ? round($product->educationToys[0]->price, 2).' '.Yii::app()->session['currency']  : "";
             ?>
 
         </span>

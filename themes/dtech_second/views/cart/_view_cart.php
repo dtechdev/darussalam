@@ -42,7 +42,7 @@
                                 <span><?php echo substr($pro->productProfile->product->product_name, 0, 10) . ".."; ?></span>
                             </section>
                         </div>
-                        <div class="right_shopping"><?php echo round($pro->productProfile->price, 2); ?> PKR
+                        <div class="right_shopping"><?php echo round($pro->productProfile->price, 2) . ' <b>' . Yii::app()->session['currency']; ?>
                         </div>
                     </div>
                 <?php } ?>
@@ -62,10 +62,10 @@
                             $grand_total = $grand_total + ($pro->quantity * $pro->productProfile->price);
                             $total_quantity+=$pro->quantity;
                         }
-                        echo $grand_total;
+                        echo $grand_total . ' <b>' . Yii::app()->session['currency'] . '</b>';
                         ?>
                     </span>   
-                    PKR
+
                 </h4>
             </div>
             <div id="cart_check">
@@ -168,7 +168,7 @@
                             ?>
                             (7)
                         </article>
-                        <section>Price   :<?php echo round($pro->productProfile->price, 2); ?> 
+                        <section>Price   :<?php echo round($pro->productProfile->price, 2) . '  ' . Yii::app()->session['currency']; ?> 
                             <div class="clear"></div>
                             <div class="quantity_text">
                                 <?php

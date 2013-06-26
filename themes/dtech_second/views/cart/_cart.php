@@ -28,7 +28,7 @@
                         <?php echo round($pro->productProfile->price, 2); ?> =
                     </span>
 
-                    <span class="sub_total"><?php echo round($pro->quantity * $pro->productProfile->price, 2); ?> </span>
+                    <span class="sub_total"><?php echo round($pro->quantity * $pro->productProfile->price, 2) . ' <b>' . Yii::app()->session['currency'] . '</b>'; ?> </span>
                 </span>
 
             </div>
@@ -41,7 +41,7 @@
         echo CHtml::image(Yii::app()->theme->baseUrl . "/images/total_little_img_03.png");
         ?>
         <h3>TOTAL:</h3>
-        <h4><span class="grand_total"><?php echo $grand_total; ?></span> USD</h4>
+        <h4><span class="grand_total"><?php echo $grand_total . ' <b>' . Yii::app()->session['currency'] . '</b>'; ?></span></h4>
     </div>
     <div id="check_out_pointer">
     </div>
@@ -51,7 +51,7 @@
             "class" => "check_out",
             "onclick" => "window.location = '" . $this->createUrl('/web/payment/paymentmethod') . "'"));
     } else {
-         echo CHtml::button("CHECKOUT", array(
+        echo CHtml::button("CHECKOUT", array(
             "class" => "check_out",
             "onclick" => "window.location = '" . $this->createUrl('/web/cart/viewcart') . "'"));
     }

@@ -90,7 +90,7 @@
                             ?>
                             (7)
                         </article>
-                        <section>Price   :<?php echo round($pro->productProfile->price, 2); ?> PKR
+                        <section>Price   :<?php echo round($pro->productProfile->price, 2) . ' <b>' . Yii::app()->session['currency'] . '</b>'; ?>
                             <div class="clear"></div>
                             <div class="quantity_text">
 

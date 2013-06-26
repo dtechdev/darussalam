@@ -15,6 +15,15 @@
         echo "(" . round($rating_value) . ")";
         ?>
     </p>
+    <h2>
+        Price: 
+        <span>
+            <?php
+            echo isset($product->educationToys[0]->price) ? round($product->productProfile[0]->price, 2) . ' ' . Yii::app()->session['currency'] : "";
+            ?>
+
+        </span>
+    </h2>
 
     <article>
         <?php
@@ -90,7 +99,7 @@
         ?>
     </section>
     <section>Price: <?php
-        echo isset($product->educationToys[0]->price) ? '$ ' . round($product->educationToys[0]->price, 2) : "";
+        echo isset($product->educationToys[0]->price) ? round($product->educationToys[0]->price, 2) . ' ' . Yii::app()->session['currency'] : "";
         ?>
     </section>
 
