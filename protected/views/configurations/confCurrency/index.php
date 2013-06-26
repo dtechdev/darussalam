@@ -29,7 +29,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'id' => 'conf-currency-grid',
     'dataProvider' => $provider,
     'columns' => array(
-        'name','sybmol',
+        'name','symbol',
         array(
             'class' => 'CButtonColumn',
             'template' => '{update}{delete}',
