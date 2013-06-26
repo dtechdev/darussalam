@@ -177,21 +177,22 @@ class ProductController extends Controller {
      * product detail
      */
     public function actionproductDetail() {
-
         Yii::app()->user->SiteSessions;
 
-        $product = Product::model()->findByPk($_REQUEST['product_id']);
+        try {
+            $product = Product::model()->findByPk($_REQUEST['product_id']);
 
 
-        Yii::app()->user->SiteSessions;
+            /**
+             *  getting value of poduct rating
+             */
+            $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-
-        /**
-         *  getting value of poduct rating
-         */
-        $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
-
-        $this->render('//product/product_detail', array('product' => $product, "rating_value" => $rating_value));
+            $this->render('//product/product_detail', array('product' => $product, "rating_value" => $rating_value));
+        } catch (Exception $e) {
+            Yii::app()->theme = 'landing_page_theme';
+            throw new CHttpException(500, "   Sorry ! Record Not found");
+        }
     }
 
     /**

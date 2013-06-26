@@ -4,7 +4,6 @@
  * 
  */
 class OthersController extends Controller {
-
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -27,7 +26,7 @@ class OthersController extends Controller {
             $this->productfilter();
         } else {
             //queries 
-           
+
             Yii::app()->user->SiteSessions;
 
 
@@ -60,19 +59,22 @@ class OthersController extends Controller {
 
     public function actionProductDetail() {
         Yii::app()->user->SiteSessions;
-        
+
+        try {
+            $product = Product::model()->findByPk($_REQUEST['product_id']);
 
 
-        $product = Product::model()->findByPk($_REQUEST['product_id']);
 
-       
+            /**
+             *  getting value of poduct rating
+             */
+            $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-        /**
-         *  getting value of poduct rating
-         */
-        $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
-
-        $this->render('//others/product_detail', array('product' => $product, "rating_value" => $rating_value));
+            $this->render('//others/product_detail', array('product' => $product, "rating_value" => $rating_value));
+        } catch (Exception $e) {
+            Yii::app()->theme = 'landing_page_theme';
+            throw new CHttpException(500, "   Sorry ! Record Not found");
+        }
     }
 
 }

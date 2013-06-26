@@ -22,7 +22,7 @@ class QuranController extends Controller {
 
         $this->is_cat_filter = true;
         Yii::app()->user->SiteSessions;
-        
+
 
         /**
          * ajax based
@@ -66,15 +66,21 @@ class QuranController extends Controller {
 
     public function actionProductDetail() {
         Yii::app()->user->SiteSessions;
-       
-        $product = Product::model()->findByPk($_REQUEST['product_id']);
 
-        /**
-         *  getting value of poduct rating
-         */
-        $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
+        try {
 
-        $this->render('//quran/product_detail', array('product' => $product, "rating_value" => $rating_value));
+            $product = Product::model()->findByPk($_REQUEST['product_id']);
+
+            /**
+             *  getting value of poduct rating
+             */
+            $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
+
+            $this->render('//quran/product_detail', array('product' => $product, "rating_value" => $rating_value));
+        } catch (Exception $e) {
+            Yii::app()->theme = 'landing_page_theme';
+            throw new CHttpException(500, "   Sorry ! Record Not found");
+        }
     }
 
     /**

@@ -4,7 +4,6 @@
  * Education Toys controller
  */
 class EducationToysController extends Controller {
-
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
@@ -30,7 +29,7 @@ class EducationToysController extends Controller {
         } else {
             //queries 
             Yii::app()->user->SiteSessions;
-            
+
 
 
             $dataProvider = Product::model()->allProducts(array(), 30, "Educational Toys");
@@ -41,8 +40,8 @@ class EducationToysController extends Controller {
             $parent_cat = Categories::model()->getParentCategoryId("Educational Toys");
 
             $allCategories = Categories::model()->allCategories("", $parent_cat);
-            
-            
+
+
             $this->render('//educationToys/index', array(
                 'products' => $all_products,
                 'dataProvider' => $dataProvider,
@@ -63,19 +62,22 @@ class EducationToysController extends Controller {
 
     public function actionProductDetail() {
         Yii::app()->user->SiteSessions;
-        
-        
 
-        $product = Product::model()->findByPk($_REQUEST['product_id']);
+        try {
+            $product = Product::model()->findByPk($_REQUEST['product_id']);
 
-      
 
-        /**
-         *  getting value of poduct rating
-         */
-        $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
 
-        $this->render('//educationToys/product_detail', array('product' => $product, "rating_value" => $rating_value));
+            /**
+             *  getting value of poduct rating
+             */
+            $rating_value = ProductReviews::model()->calculateRatingValue($product->product_id);
+
+            $this->render('//educationToys/product_detail', array('product' => $product, "rating_value" => $rating_value));
+        } catch (Exception $e) {
+            Yii::app()->theme = 'landing_page_theme';
+            throw new CHttpException(500, "   Sorry ! Record Not found");
+        }
     }
 
 }
