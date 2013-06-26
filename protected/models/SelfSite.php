@@ -132,7 +132,7 @@ class SelfSite extends DTActiveRecord {
      */
     public function findCityLocation($city_id) {
         $criteria = new CDbCriteria(array(
-            'select' => "city_id,t.city_name,t.country_id,layout_id" .
+            'select' => "city_id,t.city_name,t.country_id,layout_id,currency_id" .
             "t.short_name,layout_id",
             'condition' => "t.city_id='" . $city_id . "'"
         ));
@@ -141,8 +141,9 @@ class SelfSite extends DTActiveRecord {
                     'country' => array(
                         'select' => 'c.country_name,c.short_name',
                         'joinType' => 'INNER JOIN', 'alias' => 'c'),
-                        //'layout' => array('select' => 'layout_name', 'joinType' => 'INNER JOIN'),
+                    'currency' => array('select' => 'name,symbol', 'joinType' => 'INNER JOIN'),
                 ))->find($criteria);
+      
         
         return $cityfind;
     }
