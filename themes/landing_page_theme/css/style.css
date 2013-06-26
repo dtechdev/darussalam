@@ -49,7 +49,7 @@ body { background: #d6d4d3; padding: 0; margin: 0; min-width: 320px; max-width: 
 .onoffswitch-inner { width: 200%; margin-left: -100%; -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s; -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s; }
 
 .onoffswitch-inner:before, .onoffswitch-inner:after { float: left; width: 50%; height: 30px; padding: 0; line-height: 30px; font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
-    
+
 .onoffswitch-inner:before { content: "ON"; padding-left: 10px; background-color: #092b71; color: #FFFFFF; }
 
 .onoffswitch-inner:after { content: "OFF"; padding-right: 10px; background-color: #EEEEEE; color: #999999; text-align: right; }

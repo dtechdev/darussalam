@@ -9,11 +9,11 @@ $(function() {
         box.toggle();
         button.toggleClass('active');
     });
-    form.mouseup(function() { 
+    form.mouseup(function() {
         return false;
     });
     $(this).mouseup(function(login) {
-        if(!($(login.target).parent('#loginButton').length > 0)) {
+        if (!($(login.target).parent('#loginButton').length > 0)) {
             button.removeClass('active');
             box.hide();
         }
