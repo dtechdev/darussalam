@@ -8,7 +8,7 @@ class m130626_122219_updateRights extends DTDbMigration {
         $this->truncateTable("authitemchild");
         $this->truncateTable("rights");
         
-        $sql = $this->readJsonData("darussalam_rights");
+        $sql = $this->readJsonData("darussalam_rights.sql");
         $this->execute($sql);
     }
 
