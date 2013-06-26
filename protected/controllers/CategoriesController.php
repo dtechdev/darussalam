@@ -7,22 +7,15 @@ class CategoriesController extends Controller {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/column2';
-    
     public $filters;
-
-    /**
-     * @return array action filters
-     */
-    public function filters() {
-        return array(
-            'accessControl', // perform access control for CRUD operations
-            'postOnly + delete', // we only allow deletion via POST request
-        );
-    }
 
     public function beforeAction($action) {
         Yii::app()->theme = "admin";
         parent::beforeAction($action);
+
+        $operations = array('create', 'update', 'index', 'delete');
+        parent::setPermissions($this->id, $operations);
+
         return true;
     }
 
@@ -39,34 +32,17 @@ class CategoriesController extends Controller {
     }
 
     /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
-     * @return array access control rules
+     * @return array action filters
      */
-    public function accessRules() {
+    public function filters() {
         return array(
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'index', 'view',),
-                'users' => array('@'),
-            ),
-            array('allow',
-                'actions' => array('create', 'update',),
-                'expression' => 'Yii::app()->user->isAdmin',
-            //the 'user' var in an accessRule expression is a reference to Yii::app()->user
-            ),
-            array('allow',
-                'actions' => array('admin', 'delete', 'update'),
-                'expression' => 'Yii::app()->user->isSuperAdmin',
-            //the 'user' var in an accessRule expression is a reference to Yii::app()->user
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
-                'users' => array('admin'),
-            ),
-            array('deny', // deny all users
-                'users' => array('*'),
-            ),
+            // 'accessControl', // perform access control for CRUD operations
+            'rights',
         );
+    }
+
+    public function allowedActions() {
+        return '@';
     }
 
     /**

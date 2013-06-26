@@ -6,8 +6,6 @@
  * data can identity the user.
  */
 class UserIdentity extends CUserIdentity {
-    
-    
 
     private $id;
 
@@ -22,10 +20,12 @@ class UserIdentity extends CUserIdentity {
         else if ($user->status_id == '2')
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else {
-            
+
             $this->id = $user->user_id;
             //$this->username=$user->user_name;
             $this->setState('user_email', $user->user_email);
+            $this->setState('name', $user->user_name);
+            $this->setState('user_id', $user->user_id);
             $this->setState('role_id', $user->role_id);
             $this->setState('status_id', $user->status_id);
             $this->setState('city_id', $user->city_id);
@@ -36,7 +36,6 @@ class UserIdentity extends CUserIdentity {
         }
         return $this->errorCode == self::ERROR_NONE;
     }
-    
 
     /**
      * authicate with social 
@@ -51,7 +50,10 @@ class UserIdentity extends CUserIdentity {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         else {
             $this->id = $user->user_id;
+            $this->setState('user_id', $user->user_id);
             $this->username = $user->user_email;
+            echo Yii::app()->user->isSuperuser;
+            
             $this->errorCode = self::ERROR_NONE;
         }
 

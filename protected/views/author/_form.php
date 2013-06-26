@@ -7,6 +7,7 @@
 <div class="form wide">
 
     <?php
+   
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'author-form',
         'enableAjaxValidation' => false,

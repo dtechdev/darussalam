@@ -26,6 +26,7 @@ return array(
     'components' => array(
         'user' => $conf_component_user,
         'urlManager' => $url_manager,
+        'authManager' => $conf_component_authManager,
         'db' => $conf_component_db,
         'errorHandler' => array(
             // use 'site/error' action to display errors

@@ -30,14 +30,9 @@
         <?php echo $form->error($model, 'category_name'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'city_id'); ?>
-        <?php echo $form->dropDownList($model, 'city_id', $cityList, array('prompt' => 'Select city', 'onchange' => '
-         dtech.changeAdminCity("' . $this->createUrl($this->route) . '",this)
-                        '));
-        ?>
-        <?php echo $form->error($model, 'city_id'); ?>
-    </div>
+    <?php
+    $this->renderPartial("/common/_city_field", array("form" => $form, "model" => $model, "cityList" => $cityList));
+    ?>
 
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array("class" => "btn")); ?>

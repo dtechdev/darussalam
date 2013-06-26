@@ -13,38 +13,21 @@ class ConfigurationsController extends Controller {
      */
     public function filters() {
         return array(
-            'accessControl', // perform access control for CRUD operations
+            // 'accessControl', // perform access control for CRUD operations
+            'rights',
         );
     }
 
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
-     * @return array access control rules
-     */
-    public function accessRules() {
-        return array(
-//            array('allow', // allow all users to perform 'index' and 'view' actions
-//                'actions' => array(),
-//                'users' => array('*'),
-//            ),
-//            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-//                'actions' => array(),
-//                'users' => array('@'),
-//            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('index', 'load', 'delete', 'appSettings'),
-                'users' => array('@'),
-            ),
-            array('deny', // deny all users
-                'users' => array('*'),
-            ),
-        );
+    public function allowedActions() {
+        return '@';
     }
 
     public function beforeAction($action) {
         Yii::app()->theme = "admin";
         parent::beforeAction($action);
+
+        $operations = array('create', 'update', 'index', 'delete');
+        parent::setPermissions($this->id, $operations);
         return true;
     }
 
@@ -63,7 +46,7 @@ class ConfigurationsController extends Controller {
      */
     public function actionLoad($m, $id = 0, $module = '', $type = '') {
 
-      
+
         /* Complete Model name */
         $model_name = 'Conf' . $m;
 
@@ -79,7 +62,7 @@ class ConfigurationsController extends Controller {
                     $criteria->addCondition("type = '" . $type . "'");
                 }
             }
-            
+
             $model = $model->findByPk($id, $criteria);
         }
 
@@ -99,8 +82,8 @@ class ConfigurationsController extends Controller {
                 }
             };
         }
-        
-        
+
+
         $this->render($model->confViewName, array('model' => $model, 'm' => $m, 'module' => $module));
     }
 
@@ -132,8 +115,8 @@ class ConfigurationsController extends Controller {
 
         $model = $model_name::model()->findByPk($id);
         $model->delete();
-        
-               // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('load'));
     }

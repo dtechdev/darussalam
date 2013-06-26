@@ -14,14 +14,22 @@ class ProductController extends Controller {
      */
     public function filters() {
         return array(
-            'accessControl', // perform access control for CRUD operations
-            'postOnly + delete', // we only allow deletion via POST request
+            // 'accessControl', // perform access control for CRUD operations
+            'rights',
         );
+    }
+
+    public function allowedActions() {
+        return '@';
     }
 
     public function beforeAction($action) {
         Yii::app()->theme = "admin";
         parent::beforeAction($action);
+
+        $operations = array('create', 'update', 'index', 'delete');
+        parent::setPermissions($this->id, $operations);
+
         return true;
     }
 
@@ -34,42 +42,6 @@ class ProductController extends Controller {
         /* Set filters and default active */
         $this->filters = array(
             'parent_cateogry_id' => Categories::model()->getParentCategories(),
-        );
-    }
-
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
-     * @return array access control rules
-     */
-    public function accessRules() {
-        return array(
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'index', 'view',
-                    'loadChildByAjax',
-                    'editChild',
-                    'deleteChildByAjax',
-                    'viewImage'
-                ),
-                'users' => array('@'),
-            ),
-            array('allow',
-                'actions' => array('create', 'update',),
-                'expression' => 'Yii::app()->user->isAdmin',
-            //the 'user' var in an accessRule expression is a reference to Yii::app()->user
-            ),
-            array('allow',
-                'actions' => array('admin', 'delete', 'update'),
-                'expression' => 'Yii::app()->user->isSuperAdmin',
-            //the 'user' var in an accessRule expression is a reference to Yii::app()->user
-            ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete'),
-                'users' => array('admin'),
-            ),
-            array('deny', // deny all users
-                'users' => array('*'),
-            ),
         );
     }
 
@@ -117,11 +89,12 @@ class ProductController extends Controller {
         ));
     }
 
-    /**product_id
+    /*     * product_id
      * Updates a particular model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
+
     public function actionUpdate($id) {
 
         $model = $this->loadModel($id);

@@ -63,16 +63,9 @@
     if (!Yii::app()->user->isGuest) {
         ?>
 
-        <div class="row">
-            <?php echo $form->labelEx($model, 'city_id'); ?>
-
-            <?php //$models = City::model()->findAll(); ?>
-            <?php $lsd = CHtml::listData(City::model()->findAll(), 'city_id', 'city_name'); ?>
-            <?php echo $form->dropDownList($model, 'city_id', $lsd, array('prompt' => 'Select city')); ?>
-            <?php //echo $form->textField($model,'city_id');    ?>
-            <?php echo $form->error($model, 'city_id'); ?>
-        </div>
-
+        <?php
+        $this->renderPartial("/common/_city_field", array("form" => $form, "model" => $model, "cityList" => $cityList));
+        ?>
 
 
         <div class="row">

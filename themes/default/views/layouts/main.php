@@ -101,7 +101,7 @@
                             $tot = Yii::app()->db->createCommand()
                                     ->select('count(*) as total_pro')
                                     ->from('wish_list')
-                                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
+                                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->user_id)
                                     ->queryRow();
                         } else {
                             $tot = Yii::app()->db->createCommand()
@@ -119,7 +119,7 @@
                             $tot = Yii::app()->db->createCommand()
                                     ->select('sum(quantity) as cart_total')
                                     ->from('cart')
-                                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->id)
+                                    ->where('city_id=' . Yii::app()->session['city_id'] . ' AND user_id=' . Yii::app()->user->user_id)
                                     ->queryRow();
                         } else {
                             $tot = Yii::app()->db->createCommand()
