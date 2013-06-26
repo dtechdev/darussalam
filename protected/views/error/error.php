@@ -82,7 +82,7 @@
 
     <body>
         <div class="landing_page_wrap">
-            <div id="shopping_cart" style="height:308px;text-align:left; color:gray  ">
+            <div id="shopping_cart" style="text-align:left; color:gray; ">
                 <div id="main_shopping_cart">
                     <div class="left_right_cart">
                         <div id="landing_banner">
@@ -99,7 +99,7 @@
                                     echo "<b>Ooops ! No Page Found .  Invalid Request </b><br><p> Please contact ";
                                     echo $this->pageTitle = Yii::app()->name;
                                     ?>
-                                    <div>
+                                    <div style="text-align:left; color:red  ">
                                         <?php echo "Error" . $error['message']; ?>
                                     </div>
                                 </div>
